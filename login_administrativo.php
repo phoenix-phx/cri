@@ -3,7 +3,7 @@
 <head>
 	<title>Login Investigador</title>
 </head>
-<body>
+<body> 
     <div align="center"><img src="LogoU_nombre.png" ></div>
     <h1 align="center">Ingreso al sistema para administrativos</h1>
     <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3>
