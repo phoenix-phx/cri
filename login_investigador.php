@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Administrativo</title>
+	<title>Login Investigador</title>
     <?php require_once "c_acceso.php"?>
 </head>
 <body>
     <div align="center"><img src="LogoU_nombre.png" ></div>
     <h1 align="center">Ingreso al sistema para investigadores</h1>
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+        unset($_SESSION['error']);
+    }
+    ?>
     <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3>
     <div align="center">
         <div align="left" style="border: 3px solid black; height: 150px; width: 300px; padding-left: 60px; padding-top: 30px;" >
@@ -18,7 +24,7 @@
                 <button>Ingresar</button>
             </form>
         </div>
-        <a href="login_administrativo.html">Ingreso administrativo</a>
+        <a href="login_administrativo.php">Ingreso administrativo</a>
     </div>
     
 

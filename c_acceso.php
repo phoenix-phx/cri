@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "pdo.php";
+require_once "c_pdo.php";
 /*
 Session:
 ['rol']
@@ -9,11 +9,6 @@ Post:
 ['user']
 ['pass']
 */
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
-
-
 $salt = '*cRriII20#_';
 if(isset($_POST['user']) && isset($_POST['pass'])){
 	unset($_SESSION['permisos']);
@@ -38,7 +33,7 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 							   AND rol = :perm');
 		$stmt->execute(array(
 			':us' => $_POST['user'],
-			':pw' => $try,
+			':pw' => $try['pass'],
 			':perm' => $_SESSION['rol']
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
