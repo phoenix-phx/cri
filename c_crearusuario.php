@@ -5,7 +5,8 @@ require_once "c_pdo.php";
 /*die*/
 
 if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono']) && isset($_POST['tUnidadI'])){
-	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1) {
+	echo "hasta aqui ha entrao cabro";
+    if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1) {
 		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
 		header("Location: nuevo_usuario.php");
 		return;
@@ -15,15 +16,13 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 		header("Location: nuevo_usuario.php");
 		return;
 	}
-	else if(strlen($_POST['correo']) > 0)){
-        if(! filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)){
-        	$_SESSION["error"] = "El correo electronico debe contener @";
-        	header('Location: nuevo_usuario.php');
-        	return;
-        }
+	else if(strlen($_POST['correo']) > 0 && ! filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)){
+		$_SESSION["error"] = "El correo electronico debe contener @";
+        header('Location: nuevo_usuario.php');
+        return;
     }
-    // validar datos numericos
     else{
+    	echo "no hay observacionesa";
     	$sql = "INSERT INTO usuario (nombre, filiacion, unidad_investigacion, rol)
                 VALUES (:na, :fi, :ui, :pm)";
         $stmt = $pdo->prepare($sql);
@@ -33,8 +32,9 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
             ':ui' => $_POST['tUnidadI'],
             ':pm' => $_POST['rbpermisos'],
         ));
+        
         $profile_id = $pdo->lastInsertId();
-     	if(strlen($_POST['correo']) > 0)){
+     	if(strlen($_POST['correo']) > 0){
 	        $sql = "UPDATE usuario
 	                SET  correo = :em
 	                WHERE idUsuario = :id";
@@ -44,7 +44,7 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	            ':id' => $profile_id
 	        ));
 	    }  
-	    if(strlen($_POST['celular']) > 0)){
+	    if(strlen($_POST['celular']) > 0){
 	        $sql = "UPDATE usuario
 	                SET  celular = :ce
 	                WHERE idUsuario = :id";
@@ -54,7 +54,7 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	            ':id' => $profile_id
 	        ));
 	    }
-	    if(strlen($_POST['telefono']) > 0)){
+	    if(strlen($_POST['telefono']) > 0){
 	        $sql = "UPDATE usuario
 	                SET  telefono = :tf
 	                WHERE idUsuario = :id";
@@ -69,7 +69,7 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	    $nombre = explode(' ', $_POST['nombre']);
 	    $user = '';
 	    for ($i=0; $i < count($nombre); $i++) { 
-	    	if (i%2!=0) {
+	    	if ($i%2!=0) {
 	    		$user = $user . strtoupper($nombre[$i]);
 	    	}
 	    	else{
@@ -86,9 +86,13 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
-	        ':tf' => $user,
-	        ':tf' => $cs,
+	        ':us' => $user,
+	        ':pw' => $cs,
 	        ':id' => $profile_id
 	    ));
+	    $_SESSION["success"] = 'usuario creado!';
+        header('Location: nuevo_usuario.php');
+        return;
     }
+}
 ?>
