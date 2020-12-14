@@ -10,7 +10,7 @@ Post:
 ['pass']
 */
 
-$_SESSION['rol'] = 'investigador';
+$_SESSION['rol'] = 'administrativo';
 $salt = '*cRriII20#_';
 if(isset($_POST['user']) && isset($_POST['pass'])){
 	unset($_SESSION['permisos']);
