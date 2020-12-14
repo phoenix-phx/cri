@@ -13,7 +13,7 @@
             unset($_SESSION['error']);
         }
         ?>
-        <form method="post" >
+        <form action="c_crearusuario.php" method="post" >
             <label for="nombre">Nombre: </label>
             <input name="nombre" id="nombre" type="text"><br>
 
@@ -22,11 +22,11 @@
 
             <label for="celular">Celular:</label>
             <input name="celular" id="celular" type="text"><br>
-            
+
             <label for="telefono">Telefono:</label>
             <input name="telefono" id="telefono" type="text"><br>
             
-            <!--<h4>Filiaci&oacute;n</h4>
+            <h4>Filiaci&oacute;n</h4>
             <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante">
             <label for="rbestudiante">Estudiante</label><br>
             <input type="radio" name="rbfiliacion" id="rbdocente" value="docente">
@@ -39,7 +39,7 @@
             <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador">
             <label for="rbinvestigador">Investigador</label><br>
             <input type="radio" name="rbpermisos" id="rbadminp" value="administrativo">
-            <label for="rbadminp">Administrativo</label><br>-->
+            <label for="rbadminp">Administrativo</label><br>
             <input type="submit" value="Crear Usuario">
         </form>
         <!--Agregar footer-->
