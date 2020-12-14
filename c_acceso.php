@@ -9,6 +9,8 @@ Post:
 ['user']
 ['pass']
 */
+
+$_SESSION['rol'] = 'investigador';
 $salt = '*cRriII20#_';
 if(isset($_POST['user']) && isset($_POST['pass'])){
 	unset($_SESSION['permisos']);
@@ -33,7 +35,7 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 							   AND rol = :perm');
 		$stmt->execute(array(
 			':us' => $_POST['user'],
-			':pw' => $try['pass'],
+			':pw' => $_POST['pass'],
 			':perm' => $_SESSION['rol']
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
