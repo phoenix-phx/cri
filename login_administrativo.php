@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Login Investigador</title>
+    <?php require_once "c_acceso.php"?>
 </head>
 <body>
     <div align="center"><img src="LogoU_nombre.png" ></div>
@@ -17,7 +18,7 @@
                 <button style="color: darkblue;">Ingresar</button>
             </form>
         </div>
-        <a  href="login_investigador.html">Ingreso investigadores</a>
+        <a  href="login_investigador.php">Ingreso investigadores</a>
     </div>
 </body>
 </html>

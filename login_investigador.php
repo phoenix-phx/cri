@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Login Administrativo</title>
+    <?php require_once "c_acceso.php"?>
 </head>
 <body>
     <div align="center"><img src="LogoU_nombre.png" ></div>

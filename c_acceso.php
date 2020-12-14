@@ -9,6 +9,10 @@ Post:
 ['user']
 ['pass']
 */
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+
 
 $salt = '*cRriII20#_';
 if(isset($_POST['user']) && isset($_POST['pass'])){
