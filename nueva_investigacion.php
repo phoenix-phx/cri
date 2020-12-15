@@ -6,6 +6,7 @@
        var i = 0;
         
         function addItemInv(){
+            event.preventDefault();
             var dlist = document.getElementById("InvS");
             var ndivi = document.createElement("div");
             ndivi.setAttribute('id',"dI" + i);
@@ -112,6 +113,7 @@
         }
         var actividad = 0;
         function addItemAct(){
+            event.preventDefault();
             let dlist = document.getElementById("Act");
             let ndivi = document.createElement("div");
             ndivi.setAttribute('id',"dA" + actividad);
@@ -176,7 +178,7 @@
 <body>
     <h1>Crear nueva investigacion</h1>
     <h3><i>Llena todos los campos para registrar la investigacion</i></h3>
-    <form>
+    <form action="c_crearinv.php" method="post">
         <label for="tituloCI">Titulo: </label>
         <input name="invTituloC" id="tituloCI" type="text"><br>
         <label for="nombreCortoCI">Nombre corto:</label>
@@ -190,7 +192,8 @@
 
         <h3><i>A continuacion, indica los detalles del investigador principal:</i></h3>
         <!--Agregar div-->
-        <h2>Investigador principal</h2>
+        <fieldset>
+        <h3>Investigador principal</h3>
         <input name="rPUniCI" id="rPUniCI" type="radio">
         <label for="rPUniCI">Pertenece a la Universidad Catolica Boliviana</label><br>
         <input name="rPUniCI" id="rOUniCI" type="radio">
@@ -206,15 +209,18 @@
         <label for="rEstudianteCI">Estudiante</label><br>
         <input name="rFiliacionCI" id="rAdminCI" type="radio">
         <label for="rAdminCI">Administrativo</label><br><br>
-    </form>
-        Investigadores de colaboracion <button onclick="addItemInv()">+</button>
-    <form>
-        <div id="InvS">
-        
-        </div>
+        </fieldset>
 
+        <h3><i>Ahora, indica los detalles de los investigadores de colaboracion (si existen):</i></h3>
+        <fieldset>   
+        <h3>Investigadores de colaboracion <button onclick="addItemInv()" >+</button> </h3>
+        <div id="InvS">
+        </div>
+        </fieldset>
+     
         <h3><i>A continuacion, ingresa los detalles del financiamiento:</i></h3>
-        <h2>Financiamiento</h2>
+        <fieldset>
+        <h3>Financiamiento</h3>
         <h4>Existe</h4>
         <input name="rExisteFCI" id="rSiExisteFCI" type="radio">
         <label for="rSiExisteFCI">Si</label><br>
@@ -234,16 +240,16 @@
         <label for="rTipoOCI">Otro</label><br>
         <label for="obsTipoFOCI">Observaciones</label>
         <textarea name="obsTipoFOCI" id="obsTipoFOCI" rows="4" cols="100"></textarea><br>
-        <!--Agregar actividades-->
+        </fieldset>
         
-    </form>
-    Actividades <button onclick="addItemAct()">+</button>
-    <form>
+        <!--Agregar actividades-->
+        <h3><i>Finalmente, indica las actividades planificadas para la investigacion:</i></h3>
+        <fieldset>
+        <h3>Actividades <button onclick="addItemAct()">+</button></h3>
         <div id="Act">
-
         </div>
+        </fieldset>
         <input type="submit" value="Crear"> 
-    </form>
 
 </body>
 </html>
