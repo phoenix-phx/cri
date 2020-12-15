@@ -3,10 +3,12 @@ session_start();
 require_once "c_pdo.php";
 
 /*die*/
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] !== 'administrativo'){
+    die('No ha iniciado sesion');
+}
 
 if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono']) && isset($_POST['tUnidadI'])){
-	echo "hasta aqui ha entrao cabro";
-    if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1) {
+	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1) {
 		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
 		header("Location: nuevo_usuario.php");
 		return;
@@ -22,7 +24,6 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
         return;
     }
     else{
-    	echo "no hay observacionesa";
     	$sql = "INSERT INTO usuario (nombre, filiacion, unidad_investigacion, rol)
                 VALUES (:na, :fi, :ui, :pm)";
         $stmt = $pdo->prepare($sql);
