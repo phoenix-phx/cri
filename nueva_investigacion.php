@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Nueva Investigacion</title>
+    <?php require_once "c_crearinv.php"?>
     <script>
        var i = 0;
         
@@ -13,14 +14,14 @@
             //Radio button pertenece
             var inp = ndivi.appendChild(document.createElement("input"));
             const lol = "" + i;
-            inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio";
+            inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio"; inp.value = "interno"
             inp.onclick = function() {noSelect(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
             ndivi.appendChild(document.createElement("br"));
             ///////////////////////
             //Radio button no pertenece
             inp = ndivi.appendChild(document.createElement("input"));
-            inp.name = "rPUniCI" + i; inp.id = "rOUniCI" + i; inp.type = "radio";
+            inp.name = "rPUniCI" + i; inp.id = "rOUniCI" + i; inp.type = "radio"; inp.value = "externo"
             inp.onclick = function() {Select(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a otra Universidad"));
             ndivi.appendChild(document.createElement("br"));
@@ -177,16 +178,30 @@
 </head>
 <body>
     <h1>Crear nueva investigacion</h1>
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+        unset($_SESSION['success']);
+    }
+    ?>
     <h3><i>Llena todos los campos para registrar la investigacion</i></h3>
     <form action="c_crearinv.php" method="post">
         <label for="tituloCI">Titulo: </label>
-        <input name="invTituloC" id="tituloCI" type="text"><br>
+        <input name="invTituloCI" id="tituloCI" type="text"><br>
+        
         <label for="nombreCortoCI">Nombre corto:</label>
         <input name="invNomCortoCI" id="nombreCortoCI" type="text"><br>
+        
         <label for="resumenCI">Resumen:</label><br>
         <textarea name="resumenCI" id="resumenCI" rows="4" cols="100"></textarea><br>
+        
         <label for="fechaFinCI">Fecha de finalizacion</label>
         <input name="fechaFinCI" id="fechaFinCI" type="date"><br>
+        
         <label for="uniInvCI">Unidad de investigacion</label>
         <input name="uniInvCI" id="uniInvCI" type="text"><br>
 
@@ -194,20 +209,27 @@
         <!--Agregar div-->
         <fieldset>
         <h3>Investigador principal</h3>
-        <input name="rPUniCI" id="rPUniCI" type="radio">
+        <input name="univIP" id="rPUniCI" type="radio" value="interno">
         <label for="rPUniCI">Pertenece a la Universidad Catolica Boliviana</label><br>
-        <input name="rPUniCI" id="rOUniCI" type="radio">
+        
+        <input name="univIP" id="rOUniCI" type="radio" value="externo">
         <label for="rOUniCI">Pertenece a otra Universidad</label><br>
+        
         <label for="nomInvPCI">Nombre</label>
         <input name="nomInvPCI" id="nomInvPCI" type="text"><br>
+        
         <label for="uniInvPCI">Unidad de investigacion</label>
         <input name="uniInvPCI" id="uniInvPCI" type="text"><br>
+        
+
         <h3>Filiacion</h3>
-        <input name="rFiliacionCI" id="rDocenteCI" type="radio">
+        <input name="rFiliacionIP" id="rDocenteCI" type="radio" value="docente">
         <label for="rDocenteCI">Docente</label><br>
-        <input name="rFiliacionCI" id="rEstudianteCI" type="radio">
+        
+        <input name="rFiliacionIP" id="rEstudianteCI" type="radio" value="estudiante">
         <label for="rEstudianteCI">Estudiante</label><br>
-        <input name="rFiliacionCI" id="rAdminCI" type="radio">
+        
+        <input name="rFiliacionIP" id="rAdminCI" type="radio" value="administrativo">
         <label for="rAdminCI">Administrativo</label><br><br>
         </fieldset>
 
@@ -222,22 +244,29 @@
         <fieldset>
         <h3>Financiamiento</h3>
         <h4>Existe</h4>
-        <input name="rExisteFCI" id="rSiExisteFCI" type="radio">
+        <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si">
         <label for="rSiExisteFCI">Si</label><br>
-        <input name="rExisteFCI" id="rNoExisteFCI" type="radio">
+        
+        <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no">
         <label for="rNoExisteFCI">No</label><br>
+        
         <h4>Tipo financiador</h4>
-        <input name="rTipoFrCI" id="rTipoFIntCI" type="radio">
+        <input name="rTipoFr" id="rTipoFIntCI" type="radio" value="interno">
         <label for="rTipoFIntCI">Interno</label><br>
-        <input name="rTipoFrCI" id="rTipoFExtCI" type="radio">
+        
+        <input name="rTipoFr" id="rTipoFExtCI" type="radio" value="externo">
         <label for="rTipoFExtCI">Externo</label><br>
+        
         <label for="nomFCI">Nombre financiador:</label>
         <input name="nomFCI" id="nomFCI" type="text"><br>
+        
         <h4>Tipo financiamiento</h4>
-        <input name="rTipoFmCI" id="rTipoMCI" type="radio">
+        <input name="rTipoFI" id="rTipoMCI" type="radio" value="monetario">
         <label for="rTipoMCI">Monetario</label><br>
-        <input name="rTipoFmCI" id="rTipoOCI" type="radio">
+        
+        <input name="rTipoFI" id="rTipoOCI" type="radio" value="otro">
         <label for="rTipoOCI">Otro</label><br>
+        
         <label for="obsTipoFOCI">Observaciones</label>
         <textarea name="obsTipoFOCI" id="obsTipoFOCI" rows="4" cols="100"></textarea><br>
         </fieldset>
@@ -250,6 +279,6 @@
         </div>
         </fieldset>
         <input type="submit" value="Crear"> 
-
+    </form>
 </body>
 </html>

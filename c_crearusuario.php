@@ -31,7 +31,7 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
             ':na' => $_POST['nombre'],
             ':fi' => $_POST['rbfiliacion'],
             ':ui' => $_POST['tUnidadI'],
-            ':pm' => $_POST['rbpermisos'],
+            ':pm' => $_POST['rbpermisos']
         ));
         
         $profile_id = $pdo->lastInsertId();
