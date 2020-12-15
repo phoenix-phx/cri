@@ -15,11 +15,11 @@ $stmt->execute(array(
    ':id' => $_SESSION['idUsuario'],
 ));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+if($row !== false){
     echo '<div role="table">' . "\n";
     echo '<div role="cabecera"> <span>Codigo</span> </div>';
     echo '<div role="cabecera"> <span>Titulo</span> </div>';
     echo '<div role="cabecera"> <span>Tipo</span> </div>';
-if($row !== false){
     do{
         echo '<div role="fila">';
         echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
