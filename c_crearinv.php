@@ -10,12 +10,9 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 
 	if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 || strlen($_POST['nomInvPCI']) < 1 || strlen($_POST['nomFCI']) < 1) {
 
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>";
-		/*$_SESSION['error'] = 'Debe llenar los campos obligatorios';
+		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
 		header("Location: nueva_investigacion.php");
-		return;*/
+		return;
 	}
 	else if( !isset($_POST['univIP']) || !isset($_POST['rFiliacionIP'])){
 		$_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
@@ -28,8 +25,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 		return;
 	}
 	else{
-		// aqui vamos a validar las posiciones.
-        function validateAutores(){
+		function validateAutores(){
             for ($i=0; $i <= 100 ; $i++) {
                 if( !isset($_POST['nomInvSCI'.$i]) ) continue;
                 $nombre = $_POST['nomInvSCI'.$i];
@@ -71,10 +67,11 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             return;
         }
 
-    	$sql = "INSERT INTO investigacion (nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
-                VALUES (:no, :nc, :res, :ff, :ui, :st)";
+    	$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
+                VALUES (:us, :no, :nc, :res, :ff, :ui, :st)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
+        	':us' => $_SESSION['idUsuario'],
             ':no' => $_POST['invTituloCI'],
             ':nc' => $_POST['invNomCortoCI'],
             ':res' => $_POST['resumenCI'],

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Nueva Publicacion</title>
+    <?= require_once "c_crearpub.php"?>
     <script>
         function SelectInvP(){
             var radio = document.getElementById("principal");
@@ -17,6 +19,7 @@
         }
         var i = 0;
         function addItemInvS(){
+            event.preventDefault();
             var dlist = document.getElementById("InvS");
             //dlist.appendChild(document.createTextNode("hola"));
             var ndivi = document.createElement("div");
@@ -24,14 +27,14 @@
             //Radio button pertenece
             var inp = ndivi.appendChild(document.createElement("input"));
             const lol = "" + i;
-            inp.name = "rPUniCP" + i; inp.id = "rPUniCP" + i; inp.type = "radio";
+            inp.name = "rPUniCP" + i; inp.id = "rPUniCP" + i; inp.type = "radio"; inp.value = "interno";
             inp.onclick = function() {noSelect(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
             ndivi.appendChild(document.createElement("br"));
             ///////////////////////
             //Radio button no pertenece
             inp = ndivi.appendChild(document.createElement("input"));
-            inp.name = "rPUniCP" + i; inp.id = "rOUniCP" + i; inp.type = "radio";
+            inp.name = "rPUniCP" + i; inp.id = "rOUniCP" + i; inp.type = "radio"; inp.value = "externo";
             inp.onclick = function() {Select(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a otra Universidad"));
             ndivi.appendChild(document.createElement("br"));
@@ -111,9 +114,19 @@
     </script>
 </head>
 <body>
-    <form>
+    <form action="c_crearpub.php" method="post">
         <h1>Crear Nueva publicacion</h1>   
-        <h4><i>Llena todos los campos para registrar la publicacion</i></h4>
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+            unset($_SESSION['error']);
+        }
+        if (isset($_SESSION['success'])) {
+            echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+            unset($_SESSION['success']);
+        }
+        ?>
+        <h3><i>Llena todos los campos para registrar la publicacion</i></h3>
         Titulo: <input name="tituloCP" id="tituloCP" type="text"><br>
         Resumen:<br><textarea name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
         Investigacion: <input name="invCP" id="invCP" type="text"><br>
@@ -128,10 +141,11 @@
             
             <!-- Aniadir tipos -->
         </select>
-        <h4>A continuacion, indica los detalles del autor principal</h4>
+        <h3><i>A continuacion, indica los detalles del autor principal</i></h3>
+        <fieldset>
         <div id="principal">
-            <input name="rPUniCP" id="rPUniCP" type="radio" onclick="noSelectInvP()"> Pertenece a la Universidad<br>
-            <input name="rPUniCP" id="rOUniCP" type="radio" onclick="SelectInvP()"> Pertenece a otra Universidad<br>
+            <input name="rPUniCP" id="rPUniCP" type="radio" onclick="noSelectInvP()" value="interno"> Pertenece a la Universidad<br>
+            <input name="rPUniCP" id="rOUniCP" type="radio" onclick="SelectInvP()" value="externo"> Pertenece a otra Universidad<br>
             Nombre: <input name="nomInvPCP" id="nomInvPCP" type="text"><br>
             Unidad de investigacion: <input name="uniInvPCP" id="uniInvPCP" type="text"><br>
             Filiacion: <br>
@@ -139,12 +153,17 @@
             <input name="rFiliCP" id="rEstudianteCP" type="radio"> Estudiante<br>
             <input name="rFiliCP" id="rAdminCP" type="radio"> Administrativo<br>
         </div>
-    </form>
-    Autores secundarios <button onclick="addItemInvS()">+</button>
-    <form>
+        </fieldset>
+
+        <h3><i>Ahora, indica los detalles de los autores de colaboracion</i></h3>
+
+        <fieldset>
+        <h3>Autores secundarios <button onclick="addItemInvS()">+</button></h3>
         <div id="InvS">
 
         </div>
+        </fieldset>
+
         <input type="submit" value="Crear"> 
     </form>
 
