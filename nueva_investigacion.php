@@ -132,7 +132,7 @@
             }
             else{
                 let txtInp = document.getElementById("uniIPCI");
-                txtInp.id = "uniInvCI";
+                txtInp.id = "uniInvPCI";
                 let uni = document.getElementById("unipCI");
                 uni.innerHTML = "Unidad de Investigacion ";    
                 uni.id = "uniInvpCI";

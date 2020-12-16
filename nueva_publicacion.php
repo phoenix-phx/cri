@@ -6,24 +6,61 @@
     <script>
         function SelectInvP(){
             var radio = document.getElementById("principal");
-            if(radio.getElementsByTagName("input").length !== 8){
-                var txtInp = document.createElement("input");
-                txtInp.id = "NPerteneceEsp"; txtInp.type = "text"; txtInp.name = "NPerteneceEsp";
-                radio.insertBefore(txtInp,document.getElementById("rOUniCP").nextSibling.nextSibling);
+            if(radio.getElementsByTagName("input").length !== 7){
+                let txtInp = document.createElement("input");
+                txtInp.id = "uniIPCP"; txtInp.name = "uniIPCP"; txtInp.type = "text"; 
+                radio.insertBefore(document.createElement("br"), document.getElementById("rOUniCP").nextSibling.nextSibling.nextSibling);
+                radio.insertBefore(txtInp, document.getElementById("rOUniCP").nextSibling.nextSibling.nextSibling);
+                let uni = document.createElement("p");
+                uni.innerHTML = "Universidad: ";
+                uni.id = "unipCP";
+                radio.insertBefore(uni, document.getElementById("uniIPCP"));
+            }
+            else{
+                let txtInp = document.getElementById("uniInvPCP");
+                txtInp.id = "uniIPCP";
+                let uni = document.getElementById("uniInvpCP");
+                uni.innerHTML = "Universidad ";    
+                uni.id = "unipCP";
             }
         }
         function noSelectInvP(){
             var radio = document.getElementById("principal");
-            radio.removeChild(document.getElementById("NPerteneceEsp"));
-            
+            if(radio.getElementsByTagName("input").length !== 7){
+                let txtInp = document.createElement("input");
+                txtInp.id = "uniInvPCP"; txtInp.name = "uniInvPCP"; txtInp.type = "text";
+                radio.insertBefore(document.createElement("br"), document.getElementById("rOUniCP").nextSibling.nextSibling.nextSibling); 
+                radio.insertBefore(txtInp, document.getElementById("rOUniCP").nextSibling.nextSibling.nextSibling);
+                let uni = document.createElement("p");
+                uni.innerHTML = "Unidad de Investigacion: ";
+                uni.id = "uniInvpCP";
+                radio.insertBefore(uni, document.getElementById("uniInvPCP"));
+            }
+            else{
+                let txtInp = document.getElementById("uniIPCP");
+                txtInp.id = "uniInvPCP";
+                let uni = document.getElementById("unipCP");
+                uni.innerHTML = "Unidad de Investigacion ";    
+                uni.id = "uniInvpCP";
+            }
         }
         var i = 0;
         function addItemInvS(){
             event.preventDefault();
             var dlist = document.getElementById("InvS");
-            //dlist.appendChild(document.createTextNode("hola"));
             var ndivi = document.createElement("div");
-            ndivi.setAttribute('id',"dI" + i);
+            ndivi.setAttribute('id',"dICP" + i);
+            //Nombre
+            ndivi.appendChild(document.createTextNode("Nombre"));
+            inp = ndivi.appendChild(document.createElement("input"));
+            inp.name = "nomInvSCP" + i; inp.id = "nomInvSCP" + i; inp.type = "text";
+            inp = ndivi.appendChild(document.createElement("button"));
+            ndivi.appendChild(document.createElement("br"));
+            inp.innerHTML = "-";
+            inp.id = 'bI' + i;
+            
+            inp.onclick = function() { removeItemInvS(lol) };
+            /////////////////////////
             //Radio button pertenece
             var inp = ndivi.appendChild(document.createElement("input"));
             const lol = "" + i;
@@ -39,23 +76,14 @@
             ndivi.appendChild(document.createTextNode("Pertenece a otra Universidad"));
             ndivi.appendChild(document.createElement("br"));
             //////////////////////////
-            //Nombre
-            ndivi.appendChild(document.createTextNode("Nombre"));
-            inp = ndivi.appendChild(document.createElement("input"));
-            inp.name = "nomInvSCP" + i; inp.id = "nomInvSCP" + i; inp.type = "text";
-            inp = ndivi.appendChild(document.createElement("button"));
-            inp.innerHTML = "-";
-            inp.id = 'bI' + i;
             
-            inp.onclick = function() { removeItemInvS(lol) };
-            /////////////////////////
             dlist.appendChild(ndivi);
             i++;
         }
         function removeItemInvS(index){
             // console.log("index "+index);
             var dlist = document.getElementById("InvS");
-            var item = document.getElementById("dI" + index);
+            var item = document.getElementById("dICP" + index);
             var divs = dlist.getElementsByTagName("div").length;
             let cont = 0;
             for(let j = 0; j < divs; j++){
@@ -72,11 +100,22 @@
                     inp.name = "rOUniCP" + cont;
                     inp.id = "rOUniCP" + cont;
                     inp.onclick = function() { Select(lul) };
-                    if(document.getElementById("NPerteneceEsp" + j) !== null){
+                    if(document.getElementById("unipCP" + j) !== null){
                         //console.log("NPerteneceEsp" + j);
-                        var txtOtro = document.getElementById("NPerteneceEsp" + j);
-                        txtOtro.id = "NPerteneceEsp" + cont;
-                        txtOtro.name = "NPerteneceEsp" + cont;
+                        let txtOtro = document.getElementById("unipCP" + j);
+                        txtOtro.id = "unipCP" + cont;
+                        txtOtro.name = "unipCP" + cont;
+                        txtOtro = document.getElementById("uniICP" + j);
+                        txtOtro.id = "uniICP" + cont;
+                        txtOtro.name = "uniICP" + cont;
+                    }
+                    if(document.getElementById("uniInvpCP" + j) != null){
+                        let txtOtro = document.getElementById("uniInvpCP" + j);
+                        txtOtro.id = "uniInvpCP" + cont;
+                        txtOtro.name = "uniInvpCP" + cont;
+                        txtOtro = document.getElementById("uniInvSCP" + j);
+                        txtOtro.id = "uniInvSCP" + cont;
+                        txtOtro.name = "uniInvSCP" + cont;
                     }
                     /////////////
                     inp = document.getElementById("nomInvSCP" + j);
@@ -88,8 +127,8 @@
                     inp.onclick = function() { removeItemInvS(lul) };
                     ///
                     ///Cambio de nombre al div
-                    inp = document.getElementById("dI" + j);
-                    inp.id = "dI" + cont;
+                    inp = document.getElementById("dICP" + j);
+                    inp.id = "dICP" + cont;
                     cont++;
                 }
             }
@@ -98,17 +137,44 @@
         }
         function Select(index){
             var dlist = document.getElementById("InvS");
-            var radio = document.getElementById("dI" + index);
+            var radio = document.getElementById("dICP" + index);
             if(radio.getElementsByTagName("input").length !== 4){
-                var txtInp = document.createElement("input");
-                txtInp.id = "NPerteneceEsp" + index; txtInp.name = "NPerteneceEsp" + index; txtInp.type = "text"; 
-                radio.insertBefore(txtInp,document.getElementById("rOUniCP" + index).nextSibling.nextSibling);
+                let txtInp = document.createElement("input");
+                txtInp.id = "uniICP" + index; txtInp.name = "uniICP" + index; txtInp.type = "text"; 
+                radio.insertBefore(document.createElement("br"), document.getElementById("rOUniCP" + index).nextSibling.nextSibling.nextSibling);
+                radio.insertBefore(txtInp, document.getElementById("rOUniCP" + index).nextSibling.nextSibling.nextSibling);
+                let uni = document.createElement("p");
+                uni.innerHTML = "Universidad: ";
+                uni.id = "unipCP" + index;
+                radio.insertBefore(uni, document.getElementById("uniICP" + index));
+            }
+            else{
+                let txtInp = document.getElementById("uniInvSCP" + index);
+                txtInp.id = "uniICP" + index;
+                let uni = document.getElementById("uniInvpCP" + index);
+                uni.innerHTML = "Universidad ";    
+                uni.id = "unipCP" + index;
             }
         }
         function noSelect(index){
-            var radio = document.getElementById("dI" + index);
-            if(radio.getElementsByTagName("input").length == 4){
-                radio.removeChild(document.getElementById("NPerteneceEsp" + index));
+            var dlist = document.getElementById("InvS");
+            var radio = document.getElementById("dICP" + index);
+            if(radio.getElementsByTagName("input").length !== 4){
+                let txtInp = document.createElement("input");
+                txtInp.id = "uniInvSCP" + index; txtInp.name = "uniInvSCP" + index; txtInp.type = "text";
+                radio.insertBefore(document.createElement("br"), document.getElementById("rOUniCP" + index).nextSibling.nextSibling.nextSibling); 
+                radio.insertBefore(txtInp, document.getElementById("rOUniCP" + index).nextSibling.nextSibling.nextSibling);
+                let uni = document.createElement("p");
+                uni.innerHTML = "Unidad de Investigacion: ";
+                uni.id = "uniInvpCP" + index;
+                radio.insertBefore(uni, document.getElementById("uniInvSCP" + index));
+            }
+            else{
+                let txtInp = document.getElementById("uniICP" + index);
+                txtInp.id = "uniInvSCP" + index;
+                let uni = document.getElementById("unipCP" + index);
+                uni.innerHTML = "Unidad de Investigacion ";    
+                uni.id = "uniInvpCP" + index;
             }
         }
     </script>
@@ -139,15 +205,14 @@
             <option value="Otro">Otro</option>
 
             
-            <!-- Aniadir tipos -->
         </select>
         <h3><i>A continuacion, indica los detalles del autor principal</i></h3>
         <fieldset>
         <div id="principal">
+            Nombre: <input name="nomInvPCP" id="nomInvPCP" type="text"><br>
             <input name="rPUniCP" id="rPUniCP" type="radio" onclick="noSelectInvP()" value="interno"> Pertenece a la Universidad<br>
             <input name="rPUniCP" id="rOUniCP" type="radio" onclick="SelectInvP()" value="externo"> Pertenece a otra Universidad<br>
-            Nombre: <input name="nomInvPCP" id="nomInvPCP" type="text"><br>
-            Unidad de investigacion: <input name="uniInvPCP" id="uniInvPCP" type="text"><br>
+            
             Filiacion: <br>
             <input name="rFiliCP" id="rDocenteCP" type="radio"> Docente<br>
             <input name="rFiliCP" id="rEstudianteCP" type="radio"> Estudiante<br>
