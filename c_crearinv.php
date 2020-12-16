@@ -105,9 +105,81 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 	       	':inv' => $inv_id 
 	    ));
 	    
-	    
-	    $_SESSION["success"] = 'usuario creado!';
-        header('Location: nuevo_usuario.php');
+	    // autor principal
+	    $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol)
+                VALUES (:no, :tf, :rol)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':no' => $_POST['nomInvPCI'],
+            ':tf' => $_POST['univIP'],
+            ':rol' => "principal"
+        ));
+		$autor_id = $pdo->lastInsertId();
+		$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                VALUES (:inv, :auth)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id,
+            ':auth' => $autor_id
+        ));
+		
+        // autores de colaboracion
+        for ($i=0; $i <= 100 ; $i++) {
+            if( !isset($_POST['nomInvSCI'.$i]) ) continue;
+            $nombre = $_POST['nomInvSCI'.$i];
+            $pertenencia = $_POST['rPUniCI'.$i];
+            $sql = 'INSERT INTO autor (nombre, tipo_filiacion, rol)
+                    VALUES (:no, :tf, :rol)';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':no' => $nombre,
+                ':tf' => $pertenencia,
+                ':rol' => "colaboracion",
+            ));
+            $autor_id = $pdo->lastInsertId();
+			$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+	                VALUES (:inv, :auth)";
+	        $stmt = $pdo->prepare($sql);
+	        $stmt->execute(array(
+	            ':inv' => $inv_id,
+	            ':auth' => $autor_id
+	        ));	
+        }
+        
+        // financiamiento
+        if($_POST['rExisteFI'] === 'si'){
+	        $sql = "INSERT INTO financiador (idInv, tipo_financiador, nombre_financiador, tipo_financiamiento)
+	                VALUES (:inv, :tfr, :nfr, :tfm)";
+	        $stmt = $pdo->prepare($sql);
+	        $stmt->execute(array(
+	            ':inv' => $inv_id,
+	            ':tfr' => $_POST['rTipoFr'],
+	            ':nfr' => $_POST['nomFCI'],
+	            ':tfm' => $_POST['rTipoFI']
+	        ));
+	    }
+
+        // actividades
+        for ($i=0; $i <= 100 ; $i++) {
+            if( !isset($_POST['nomActCI'.$i]) ) continue;
+            if( !isset($_POST['FIActCI'.$i]) ) continue;
+            if( !isset($_POST['FFActCI'.$i]) ) continue;
+            $nombre = $_POST['nomActCI'.$i];
+            $finicio = $_POST['FIActCI'.$i];
+			$ffinal = $_POST['FFActCI'.$i];
+            $sql = 'INSERT INTO actividad (idInv, nombre, fecha_inicio, fecha_final)
+                    VALUES (:inv, :no, :fi, :ff)';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':inv' => $inv_id,
+                ':no' => $nombre,
+               	':fi' => $finicio,
+                ':ff' => $ffinal,
+            ));
+        }
+        
+        $_SESSION["success"] = 'usuario creado!';
+        header('Location: nueva_investigacion.php');
         return;
     }
 }
