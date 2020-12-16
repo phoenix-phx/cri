@@ -97,7 +97,7 @@
                     //////////////
                     //Radio button no pertenece
                     inp = document.getElementById("rOUniCP" + j);
-                    inp.name = "rOUniCP" + cont;
+                    inp.name = "rPUniCP" + cont;
                     inp.id = "rOUniCP" + cont;
                     inp.onclick = function() { Select(lul) };
                     if(document.getElementById("unipCP" + j) !== null){
