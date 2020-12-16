@@ -159,7 +159,7 @@ if(count($actividades) !== 0){
                       <input type="button" value="-" onclick="$(\'#education' . ($i+1) . '\').remove(); return false;"> </p>
                       <input type="text" size="80" name="sch' . ($i+1) . '" class="school" value="' . $educations[$i]['name'] . '" />
                    </div> <br/>';
-        echo '<div id="actividad' . ($i+1) .'">'
+        echo '<div id="actividad' . ($i+1) .'">';
         echo '<p> <span> Nombre </span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
         echo '<span> Fecha inicio </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
         echo '<span> Fecha finalizacion </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
