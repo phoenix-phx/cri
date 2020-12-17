@@ -5,14 +5,14 @@
 <body>
     <img src="">
     <h1>Bienvenido al sistema academico para Investigaciones UCB</h1>
-    <h3>Selecciona una opcion para inicia sesion</h3>
-    <a href="login_investigador.php">
+    <h3>Selecciona una opcion para iniciar sesion</h3>
+    <a href="login_investigador.php?modo=investigador">
         <div align="left" style="border: 3px solid black; height: 150px; width: 300px; padding-left: 60px; padding-top: 30px; background-color: darkgrey;" >
             <img src="">
             <h3>Investigador</h3>
         </div>
     </a>
-    <a href="login_administrativo.php">
+    <a href="login_administrativo.php?modo=administrativo">
     <div align="left" style="border: 3px solid black; height: 150px; width: 300px; padding-left: 60px; padding-top: 30px; background-color: darkgrey;" >
             <img src="">
             <h3>Administrativo</h3>
