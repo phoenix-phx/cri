@@ -14,11 +14,31 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 		header("Location: nueva_investigacion.php");
 		return;
 	}
-	else if( !isset($_POST['univIP']) || !isset($_POST['rFiliacionIP'])){
+	else if( !isset($_POST['univIP'])){
 		$_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
 		header("Location: nueva_investigacion.php");
 		return;
 	}
+    else if( isset($_POST['univIP']) && $_POST['univIP'] === 'interno'){
+        if (strlen($_POST['uniInvPCI']) < 1){
+            $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
+            header("Location: nueva_investigacion.php");
+            return;
+        }        
+        else if (!isset($_POST['rFiliacionIP'])){
+            $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
+            header("Location: nueva_investigacion.php");
+            return;
+
+        }
+    }
+    else if( isset($_POST['univIP']) && $_POST['univIP'] === 'externo'){
+        if (strlen($_POST['uniIPCI']) < 1){
+            $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
+            header("Location: nueva_investigacion.php");
+            return;
+        }        
+    }
 	else if( !isset($_POST['rExisteFI']) || !isset($_POST['rTipoFr'])|| !isset($_POST['rTipoFI'])) {
 		$_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
 		header("Location: nueva_investigacion.php");
@@ -35,6 +55,19 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 $pertenencia = $_POST['rPUniCI'.$i];
                 if(strlen($nombre) < 1){
                     return "Debe completar los datos obligatorios de los investigadores de colaboracion";
+                }
+                if( isset($_POST['rPUniCI'.$i]) && $_POST['rPUniCI'.$i] === 'interno'){
+                    if (strlen($_POST['uniInvSCI'.$i]) < 1){
+                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                    }        
+                    else if (!isset($_POST['rFiliacionIS'.$i])){
+                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                    }
+                }
+                else if( isset($_POST['rPUniCI'.$i]) && $_POST['rPUniCI'.$i] === 'externo'){
+                    if (strlen($_POST['univISCI'.$i]) < 1){ // tal vez es uniISCI no univ
+                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                    }        
                 }
             }
             return true;
@@ -67,6 +100,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             return;
         }
 
+        // investigacion 
     	$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
                 VALUES (:us, :no, :nc, :res, :ff, :ui, :st)";
         $stmt = $pdo->prepare($sql);
@@ -103,44 +137,94 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 	    ));
 	    
 	    // autor principal
-	    $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol)
-                VALUES (:no, :tf, :rol)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':no' => $_POST['nomInvPCI'],
-            ':tf' => $_POST['univIP'],
-            ':rol' => "principal"
-        ));
-		$autor_id = $pdo->lastInsertId();
-		$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
-                VALUES (:inv, :auth)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id,
-            ':auth' => $autor_id
-        ));
-		
+        if($_POST['univIP'] === 'interno'){
+    	    $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
+                    VALUES (:no, :tf, :rol, :ui, :fl)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':no' => $_POST['nomInvPCI'],
+                ':tf' => $_POST['univIP'],
+                ':rol' => "principal",
+                ':ui' => $_POST['uniInvPCI'],
+                ':fl' => $_POST['rFiliacionIP']
+            ));
+    		$autor_id = $pdo->lastInsertId();
+    		$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                    VALUES (:inv, :auth)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':inv' => $inv_id,
+                ':auth' => $autor_id
+            ));
+        }
+        else if($_POST['univIP'] === 'externo'){
+            $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
+                    VALUES (:no, :tf, :rol, :uni)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':no' => $_POST['nomInvPCI'],
+                ':tf' => $_POST['univIP'],
+                ':rol' => "principal",
+                ':uni' => $_POST['uniIPCI']
+            ));
+            $autor_id = $pdo->lastInsertId();
+            $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                    VALUES (:inv, :auth)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':inv' => $inv_id,
+                ':auth' => $autor_id
+            ));
+        }		
         // autores de colaboracion
         for ($i=0; $i <= 100 ; $i++) {
             if( !isset($_POST['nomInvSCI'.$i]) ) continue;
             $nombre = $_POST['nomInvSCI'.$i];
             $pertenencia = $_POST['rPUniCI'.$i];
-            $sql = 'INSERT INTO autor (nombre, tipo_filiacion, rol)
-                    VALUES (:no, :tf, :rol)';
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':no' => $nombre,
-                ':tf' => $pertenencia,
-                ':rol' => "colaboracion",
-            ));
-            $autor_id = $pdo->lastInsertId();
-			$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
-	                VALUES (:inv, :auth)";
-	        $stmt = $pdo->prepare($sql);
-	        $stmt->execute(array(
-	            ':inv' => $inv_id,
-	            ':auth' => $autor_id
-	        ));	
+            if($pertenencia === 'interno'){
+                $unidad =  $_POST['uniInvSCI'.$i]; 
+                $filiacion =  $_POST['rFiliacionIS'.$i]; 
+
+                $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
+                        VALUES (:no, :tf, :rol, :ui, :fl)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':no' => $nombre,
+                    ':tf' => $pertenencia,
+                    ':rol' => "colaboracion",
+                    ':ui' => $unidad,
+                    ':fl' => $filiacion
+                ));
+                $autor_id = $pdo->lastInsertId();
+                $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                        VALUES (:inv, :auth)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':inv' => $inv_id,
+                    ':auth' => $autor_id
+                ));
+            }
+            else if($pertenencia === 'externo'){
+                $univ =  $_POST['univISCI'.$i]; 
+
+                $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
+                        VALUES (:no, :tf, :rol, :uni)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':no' => $nombre,
+                    ':tf' => $pertenencia,
+                    ':rol' => "colaboracion",
+                    ':uni' => $univ
+                ));
+                $autor_id = $pdo->lastInsertId();
+                $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                        VALUES (:inv, :auth)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':inv' => $inv_id,
+                    ':auth' => $autor_id
+                ));
+            }
         }
         
         // financiamiento
