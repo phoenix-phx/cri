@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Mis Investigaciones</title>
 </head>
 <body>
     <h1>Mis Investigaciones</h1> 
