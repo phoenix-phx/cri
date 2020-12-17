@@ -36,7 +36,8 @@ if($row !== false){
 else if($row === false){
     echo "<span> No tiene investigaciones registradas </span>";
 }
-echo "<br />";
+echo "<br /><img src=''>
+<h1>Publicaciones</h1> <a href='listaInv_investigador.php'>ver todo</a>";
 
 // publicaciones
 $sql = 'SELECT codigo, titulo, resumen, idPub 

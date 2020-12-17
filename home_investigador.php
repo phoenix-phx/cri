@@ -15,16 +15,9 @@
                 <!-- Agregar notifiaciones -->
             </nav>
         </div>
+        <img src="">
+        <h1>Investigaciones</h1> <a href="listaInv_investigador.php">ver todo</a>
         <?php include "c_homeinv.php" ?>
-        <div>
-            <img src="">
-            <h1>Investigaciones</h1> <a href="listaInv_investigador.php">ver todo</a>
-        </div>
-        <
-        <div>
-            <img src="">
-            <h1>Publicaciones</h1> <a href="listaInv_investigador.php">ver todo</a>
-        </div>
     </div>    
 </body>
 </html>
