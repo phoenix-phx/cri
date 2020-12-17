@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Mis Publicaciones</title>
 </head>
 <body>
     <h1>Mis Publicaciones</h1> 

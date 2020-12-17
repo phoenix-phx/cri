@@ -30,6 +30,7 @@ if($row !== false){
         echo "</div>\n";
      
         echo "</div>";
+        echo "<br /> <br />";
     }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
 }
 echo "<br />";
