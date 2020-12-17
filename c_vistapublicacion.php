@@ -7,9 +7,9 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
 */
-if( !isset($_REQUEST['inv_id'])) {
+if( !isset($_REQUEST['pub_id'])) {
     $_SESSION['error'] = "Codigo de publicacion faltante";
-    header('Location: lista_publicacion.php');
+    header('Location: listaPub_investigador.php');
     return;
 }
 
@@ -20,12 +20,12 @@ $sql = 'SELECT *
 $stmt = $pdo->prepare($sql);
 $stmt->execute(array(
    ':id' => $_SESSION['idUsuario'],
-   ':pub' => $_REQUEST['pub_id'],
+   ':pub' => $_REQUEST['pub_id']
 ));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if($row === false){
     $_SESSION['error'] = 'No se pudo cargar la publicacion';
-    header('Location: lista_publicacion.php');
+    header('Location: listaPub_investigador.php');
     return;
 }
 

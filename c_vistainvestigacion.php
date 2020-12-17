@@ -9,7 +9,7 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 */
 if( !isset($_REQUEST['inv_id'])) {
     $_SESSION['error'] = "Codigo de investigacion faltante";
-    header('Location: lista_investigacion.php');
+    header('Location: listaInv_investigador.php');
     return;
 }
 
@@ -20,12 +20,12 @@ $sql = 'SELECT *
 $stmt = $pdo->prepare($sql);
 $stmt->execute(array(
    ':id' => $_SESSION['idUsuario'],
-   ':inv' => $_REQUEST['inv_id'],
+   ':inv' => $_REQUEST['inv_id']
 ));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if($row === false){
     $_SESSION['error'] = 'No se pudo cargar la investigacion';
-    header('Location: lista_investigacion.php');
+    header('Location: listaInv_investigador.php');
     return;
 }
 

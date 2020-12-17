@@ -26,7 +26,7 @@ if($row !== false){
         echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
         echo '<div role="celda"> <span>' . htmlentities($row['nombre_corto']) . '</span> </div>';
         echo '<div role="celda"> <span>' . htmlentities($row['fecha_fin']) . '</span> </div>';
-        echo '<a href="ver_investigacion.php?inv_id='.$row['idInv'].'">&gt&gt</a>'; echo "</td>";
+        echo '<a href="detalles_investigacion_inv.php?inv_id='.$row['idInv'].'">&gt&gt</a>'; echo "</td>";
         echo "</div>\n";
 
         echo "</div>";
