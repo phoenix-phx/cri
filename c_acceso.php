@@ -10,18 +10,18 @@ Post:
 ['pass']
 */
 
-$_SESSION['rol'] = 'administrativo';
 $salt = '*cRriII20#_';
+$modo = $_REQUEST['modo'];
 if(isset($_POST['user']) && isset($_POST['pass'])){
 	unset($_SESSION['permisos']);
 	if(strlen($_POST['user']) < 1 || strlen($_POST['pass']) < 1){
 		$_SESSION['error'] = 'Se requiere usuario y contraseña';
-		if($_SESSION['rol'] === 'investigador'){
-			header("Location: login_investigador.php");
+		if($modo === 'investigador'){
+			header("Location: login_investigador.php?modo=".$modo);
 			return;
 		}
-		else if($_SESSION['rol'] === 'administrativo'){
-			header("Location: login_administrativo.php");
+		else if($modo === 'administrativo'){
+			header("Location: login_administrativo.php?modo=".$modo);
 			return;
 		}
 		return;
@@ -36,12 +36,11 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 		$stmt->execute(array(
 			':us' => $_POST['user'],
 			':pw' => $_POST['pass'],
-			':perm' => $_SESSION['rol']
+			':perm' => $modo
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row !== false){
 			$_SESSION['permisos'] = $row['rol'];
-			unset($_SESSION['rol']);
 			$_SESSION['idUsuario'] = $row['idUsuario'];
 			if($row['rol'] === 'investigador'){
 				header("Location: home_investigador.php");
@@ -54,24 +53,15 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 		}
 		else{
 			$_SESSION['error'] = 'Usuario o contraseña incorrectos';
-			if($_SESSION['rol'] === 'investigador'){
-				header("Location: login_investigador.php");
+			if($modo === 'investigador'){
+				header("Location: login_investigador.php?modo=".$modo);
 				return;
 			}
-			else if($_SESSION['rol'] === 'administrativo'){
-				header("Location: login_administrativo.php");
+			else if($modo === 'administrativo'){
+				header("Location: login_administrativo.php?modo=".$modo);
 				return;
 			}
 		}
 	}
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Control Acceso</title>
-</head>
-<body>
-	<h1>Compilado Exitosamente</h1>
-</body>
-</html>
