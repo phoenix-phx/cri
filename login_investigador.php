@@ -24,7 +24,7 @@
                 <button>Ingresar</button>
             </form>
         </div>
-        <a href="login_administrativo.php">Ingreso administrativo</a>
+        <a href="login_administrativo.php?modo=administrativo">Ingreso administrativo</a>
     </div>
     
 
