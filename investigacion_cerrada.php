@@ -2,6 +2,7 @@
 <html>
 <head></head>
 <body>
+	<?= require_once "c_confirmacion_cierre.php" ?>
     <h1>Investigacion cerrada</h1>
     <p>Se ha registrado la finalizacion de esta investigacion. Por favor comuniquese con la 
     Direccion Administrativa Financiera (DAF) o la coordinacion regional de investigaciones
