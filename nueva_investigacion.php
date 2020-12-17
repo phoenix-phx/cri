@@ -4,7 +4,59 @@
     <title>Nueva Investigacion</title>
     <?php require_once "c_crearinv.php"?>
     <script>
-       var i = 0;
+        ///////Investigador principal
+        function perteneceInvP(){
+            let radio = document.getElementById("InvP");
+            let divi;
+            if(radio.getElementsByTagName("div").length !== 0){
+                divi = document.getElementById("divi");
+                divi.parentNode.removeChild(divi);   
+            }
+            divi = radio.appendChild(document.createElement("div"));
+            divi.id = "divi";
+            divi.appendChild(document.createTextNode("Unidad de Investigacion"));
+            divi.appendChild(document.createElement("br"));
+            let txtInp = document.createElement("input");
+            txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI"; txtInp.type = "text"; 
+            divi.appendChild(txtInp);
+            divi.appendChild(document.createElement("br"));
+            divi.appendChild(document.createTextNode("Filiacion"));
+            divi.appendChild(document.createElement("br"));
+            let rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIP"; rbutton.id="rDocenteCI"; rbutton.type="radio"; rbutton.value="docente";
+            divi.appendChild(document.createTextNode("Docente"));
+            divi.appendChild(document.createElement("br"));
+            rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIP"; rbutton.id="rEstudianteCI"; rbutton.type="radio"; rbutton.value="estudiante";
+            divi.appendChild(document.createTextNode("Estudiante"));
+            divi.appendChild(document.createElement("br"));
+            rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIP"; rbutton.id="rAdminCI"; rbutton.type="radio"; rbutton.value="administrativo";
+            divi.appendChild(document.createTextNode("Administrativo"));
+            divi.appendChild(document.createElement("br"));
+        }
+        function noPerteneceInvP(){
+            let radio = document.getElementById("InvP");
+            let divi;
+            if(radio.getElementsByTagName("div").length !== 0){
+                divi = document.getElementById("divi");
+                divi.parentNode.removeChild(divi);
+            }
+            divi = radio.appendChild(document.createElement("div"));
+            divi.id = "divi";
+            divi.appendChild(document.createTextNode("Universidad"));
+            divi.appendChild(document.createElement("br"));
+            let txtInp = document.createElement("input");
+            txtInp.id = "uniIPCI"; txtInp.name = "uniIPCI"; txtInp.type = "text"; 
+            divi.appendChild(txtInp);
+        }
+        //////
+
+
+        var i = 0;
         
         function addItemInv(){
             event.preventDefault();
@@ -18,22 +70,21 @@
             inp = ndivi.appendChild(document.createElement("button"));
             inp.innerHTML = "-";
             inp.id = 'bICI' + i;
-            
+            const lol = "" + i;
             inp.onclick = function() { removeItemInv(lol) };
             ndivi.appendChild(document.createElement("br"));
             //////////////////////
             //Radio button pertenece
             var inp = ndivi.appendChild(document.createElement("input"));
-            const lol = "" + i;
             inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio"; inp.value = "interno";
-            inp.onclick = function() {noSelect(lol)};
+            inp.onclick = function() {Select(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
             ndivi.appendChild(document.createElement("br"));
             ///////////////////////
             //Radio button no pertenece
             inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "rPUniCI" + i; inp.id = "rOUniCI" + i; inp.type = "radio"; inp.value = "externo"
-            inp.onclick = function() {Select(lol)};
+            inp.onclick = function() {noSelect(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a otra Universidad"));
             ndivi.appendChild(document.createElement("br"));
             /////////////////////////
@@ -44,12 +95,21 @@
             // console.log("now add" + i);
         }
         function removeItemInv(index){
-            // console.log("index "+index);
+            console.log("index "+index);
             var dlist = document.getElementById("InvS");
             var item = document.getElementById("dICI" + index);
-            var divs = dlist.getElementsByTagName("div").length;
-            let cont = 0;
-            for(let j = 0; j < divs; j++){
+            var divs = dlist.getElementsByTagName("div");
+            let cont = 0, jj = 0;
+            
+            for(let j = 0; j < divs.length; j++){
+                //console.log(divs[j].id);
+                if(divs[j].id == "dICI" + jj){
+                    
+                    jj++;
+                } 
+            }
+            //console.log("jj" + jj);
+            for(let j = 0; j < jj; j++){
                 if(index != j){
                     const lul = "" + cont;
                     let inp = document.getElementById("nomInvSCI" + j);
@@ -65,120 +125,96 @@
                     inp = document.getElementById("rPUniCI" + j);
                     inp.name = "rPUniCI" + cont;
                     inp.id = "rPUniCI" + cont;
-                    inp.onclick = function() {noSelect(lul)};
+                    inp.onclick = function() {Select(lul)};
                     //////////////
                     //Radio button no pertenece
                     inp = document.getElementById("rOUniCI" + j);
                     inp.name = "rOUniCI" + cont;
                     inp.id = "rOUniCI" + cont;
-                    inp.onclick = function() { Select(lul) };
+                    inp.onclick = function() { noSelect(lul) };
                     
                     /////////////
                     ///Cambio de nombre UniInv / Uni
-                    if(document.getElementById("uniCI" + j) !== null){
-                        var txtOtro = document.getElementById("uniCI" + j);
-                        txtOtro.id = "uniCI" + cont;
-                        txtOtro.name = "uniCI" + cont;
-                        txtOtro = document.getElementById("unipCI" + j);
-                        txtOtro.id = "unipCI" + cont;
+                    if(document.getElementById("uniISCI" + j) !== null){
+                        var txtOtro = document.getElementById("uniISCI" + j);
+                        txtOtro.id = "uniISCI" + cont;
+                        txtOtro.name = "uniISCI" + cont;
                     }
-                    else if(document.getElementById("uniInvCI" + j) !== null){
-                        var txtOtro = document.getElementById("uniInvCI" + j);
-                        txtOtro.id = "uniInvCI" + cont;
-                        txtOtro.name = "uniInvCI" + cont;
-                        txtOtro = document.getElementById("uniInvpCI" + j);
-                        txtOtro.id = "uniInvpCI" + cont;
+                    else if(document.getElementById("uniInvSCI" + j) !== null){
+                        var txtOtro = document.getElementById("uniInvSCI" + j);
+                        txtOtro.id = "uniInvSCI" + cont;
+                        txtOtro.name = "uniInvSCI" + cont;
+                        let rbutton = document.getElementById("rDocenteCI" + j);
+                        rbutton.name="rFiliacionIS" + cont; rbutton.id="rDocenteCI" + cont;
+                        rbutton = document.getElementById("rEstudianteCI" + j);
+                        rbutton.name="rFiliacionIS" + cont; rbutton.id="rEstudianteCI" + cont;
+                        rbutton = document.getElementById("rAdminCI" + j);
+                        rbutton.name="rFiliacionIS" + cont; rbutton.id="rAdminCI" + cont;
                     }
                     ////////////
                     ///Cambio de nombre al div
+                    inp = document.getElementById("divi" + j);
+                    if(inp !== null) inp.id = "divi" + cont;
                     inp = document.getElementById("dICI" + j);
                     inp.id = "dICI" + cont;
                     cont++;
-                }
+                    
+                }   
             }
             dlist.removeChild(item);
             i--;
-
-        }
-        function SelectInv(){
-            var radio = document.getElementById("InvP");
-            if(radio.getElementsByTagName("input").length !== 4){
-                let txtInp = document.createElement("input");
-                txtInp.id = "uniIPCI"; txtInp.name = "uniIPCI"; txtInp.type = "text"; 
-                radio.appendChild(txtInp);
-                let uni = document.createElement("p");
-                uni.innerHTML = "Universidad: ";
-                uni.id = "unipCI";
-                radio.insertBefore(uni, document.getElementById("uniIPCI"));
-            }
-            else{
-                let txtInp = document.getElementById("uniInvPCI");
-                txtInp.id = "uniIPCI";
-                let uni = document.getElementById("uniInvpCI");
-                uni.innerHTML = "Universidad ";    
-                uni.id = "unipCI";
-            }
-        }
-        function noSelectInv(){
-            var radio = document.getElementById("InvP");
-            if(radio.getElementsByTagName("input").length !== 4){
-                let txtInp = document.createElement("input");
-                txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI"; txtInp.type = "text"; 
-                radio.appendChild(txtInp);
-                let uni = document.createElement("p");
-                uni.innerHTML = "Unidad de Investigacion: ";
-                uni.id = "uniInvpCI";
-                radio.insertBefore(uni, document.getElementById("uniInvPCI"));
-            }
-            else{
-                let txtInp = document.getElementById("uniIPCI");
-                txtInp.id = "uniInvPCI";
-                let uni = document.getElementById("unipCI");
-                uni.innerHTML = "Unidad de Investigacion ";    
-                uni.id = "uniInvpCI";
-            }
         }
         function Select(index){
             var dlist = document.getElementById("InvS");
             var radio = document.getElementById("dICI" + index);
-            if(radio.getElementsByTagName("input").length !== 4){
-                let txtInp = document.createElement("input");
-                txtInp.id = "uniCI" + index; txtInp.name = "uniCI" + index; txtInp.type = "text"; 
-                radio.insertBefore(txtInp,document.getElementById("rOUniCI" + index).nextSibling.nextSibling);
-                radio.insertBefore(document.createElement("br"),document.getElementById("uniCI" + index));
-                let uni = document.createElement("p");
-                uni.innerHTML = "Universidad: ";
-                uni.id = "unipCI" + index;
-                radio.insertBefore(uni, document.getElementById("uniCI" + index));
+            let divi;
+            if(radio.getElementsByTagName("div").length !== 0){
+                divi = document.getElementById("divi" + index);
+                divi.parentNode.removeChild(divi);   
             }
-            else{
-                let txtInp = document.getElementById("uniInvCI" + index);
-                txtInp.id = "uniCI" + index;
-                let uni = document.getElementById("uniInvpCI" + index);
-                uni.innerHTML = "Universidad ";    
-                uni.id = "unipCI" + index;
-            }
+            divi = radio.appendChild(document.createElement("div"));
+            divi.id = "divi" + index;
+            divi.appendChild(document.createTextNode("Unidad de Investigacion"));
+            divi.appendChild(document.createElement("br"));
+            let txtInp = document.createElement("input");
+            txtInp.id = "uniInvSCI" + index; txtInp.name = "uniInvSCI" + index; txtInp.type = "text" + index; 
+            divi.appendChild(txtInp);
+            divi.appendChild(document.createElement("br"));
+            divi.appendChild(document.createTextNode("Filiacion"));
+            divi.appendChild(document.createElement("br"));
+            let rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIS" + index; rbutton.id="rDocenteCI" + index; rbutton.type="radio"; rbutton.value="docente";
+            divi.appendChild(document.createTextNode("Docente"));
+            divi.appendChild(document.createElement("br"));
+            rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIS" + index; rbutton.id="rEstudianteCI" + index; rbutton.type="radio"; rbutton.value="estudiante";
+            divi.appendChild(document.createTextNode("Estudiante"));
+            divi.appendChild(document.createElement("br"));
+            rbutton = document.createElement("input");
+            divi.appendChild(rbutton);
+            rbutton.name="rFiliacionIS" + index; rbutton.id="rAdminCI" + index; rbutton.type="radio"; rbutton.value="administrativo";
+            divi.appendChild(document.createTextNode("Administrativo"));
+            divi.appendChild(document.createElement("br"));
         }
         function noSelect(index){
             var radio = document.getElementById("dICI" + index);
-            if(radio.getElementsByTagName("input").length !== 4){
-                let txtInp = document.createElement("input");
-                txtInp.id = "uniInvCI" + index; txtInp.name = "uniInvCI" + index; txtInp.type = "text"; 
-                radio.insertBefore(txtInp,document.getElementById("rOUniCI" + index).nextSibling.nextSibling);
-                radio.insertBefore(document.createElement("br"),document.getElementById("uniInvCI" + index));
-                let uni = document.createElement("p");
-                uni.innerHTML = "Unidad de Investigacion: ";
-                uni.id = "uniInvpCI" + index;
-                radio.insertBefore(uni, document.getElementById("uniInvCI" + index));
+            let divi;
+            if(radio.getElementsByTagName("div").length !== 0){
+                divi = document.getElementById("divi" + index);
+                divi.parentNode.removeChild(divi);
             }
-            else{
-                let txtInp = document.getElementById("uniCI" + index);
-                txtInp.id = "uniInvCI" + index;
-                let uni = document.getElementById("unipCI" + index);
-                uni.innerHTML = "Unidad de Investigacion ";    
-                uni.id = "uniInvpCI" + index;
-            }
+            divi = radio.appendChild(document.createElement("div"));
+            divi.id = "divi" + index;
+            divi.appendChild(document.createTextNode("Universidad"));
+            divi.appendChild(document.createElement("br"));
+            let txtInp = document.createElement("input");
+            txtInp.id = "uniISCI" + index; txtInp.name = "uniISCI" + index; txtInp.type = "text"; 
+            divi.appendChild(txtInp);
         }
+
+
         var actividad = 0;
         function addItemAct(){
             event.preventDefault();
@@ -280,24 +316,13 @@
             <label for="nomInvPCI">Nombre</label>
             <input name="nomInvPCI" id="nomInvPCI" type="text"><br>
             
-            <input name="univIP" id="rPUniCI" type="radio" onclick="noSelectInv()" value="interno">
+            <input name="univIP" id="rPUniCI" type="radio" onclick="perteneceInvP()" value="interno">
             <label for="rPUniCI">Pertenece a la Universidad Catolica Boliviana</label><br>
             
-            <input name="univIP" id="rOUniCI" type="radio" onclick="SelectInv()" value="externo">
+            <input name="univIP" id="rOUniCI" type="radio" onclick="noPerteneceInvP()" value="externo">
             <label for="rOUniCI">Pertenece a otra Universidad</label><br>
             
-            
         </div>
-
-        <h3>Filiacion</h3>
-        <input name="rFiliacionIP" id="rDocenteCI" type="radio" value="docente">
-        <label for="rDocenteCI">Docente</label><br>
-        
-        <input name="rFiliacionIP" id="rEstudianteCI" type="radio" value="estudiante">
-        <label for="rEstudianteCI">Estudiante</label><br>
-        
-        <input name="rFiliacionIP" id="rAdminCI" type="radio" value="administrativo">
-        <label for="rAdminCI">Administrativo</label><br><br>
         </fieldset>
 
         <h3><i>Ahora, indica los detalles de los investigadores de colaboracion (si existen):</i></h3>
