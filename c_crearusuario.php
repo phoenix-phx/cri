@@ -70,16 +70,14 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	    $nombre = explode(' ', $_POST['nombre']);
 	    $user = '';
 	    for ($i=0; $i < count($nombre); $i++) { 
-	    	if ($i%2!=0) {
-	    		$user = $user . strtoupper($nombre[$i]);
+	    	if ($i == count($nombre) - 1) {
+	    		$user .= strtolower($nombre[$i]);
 	    	}
 	    	else{
-	    		$user = $user . strtolower($nombre[$i]);
+	    		$user .= strtolower($nombre[$i]) . '_';
 	    	}
 	    }
-	    $dia = getdate();
-   		$user = $user . $dia['mday'] . $dia['month'] . $dia['year'] . '-' . $dia['hours'] . ':' . $dia['minutes'];
-   		$salt = '*cRriII20#_';
+	    $salt = '*cRriII20#_';
    		$cs = hash('sha256', $salt.$user);
 		$sql = "UPDATE usuario
 	            SET  user = :us, pass = :pw
@@ -91,8 +89,8 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	        ':pw' => $cs,
 	        ':id' => $profile_id
 	    ));
-	    $_SESSION["success"] = 'usuario creado!';
-        header('Location: nuevo_usuario.php');
+	    $_SESSION["success"] = 'usuario creado correctamente';
+        header('Location: home_administrativo.php');
         return;
     }
 }

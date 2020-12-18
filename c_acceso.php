@@ -35,7 +35,7 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 							   AND rol = :perm');
 		$stmt->execute(array(
 			':us' => $_POST['user'],
-			':pw' => $_POST['pass'],
+			':pw' => $try,
 			':perm' => $modo
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);

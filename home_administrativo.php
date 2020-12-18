@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <title>Home Administrativo</title>
+    <?php session_start() ?>
 </head>
 <body>
     <div>
@@ -12,9 +13,20 @@
                 <a href="listaPub_admin.php">Publicaciones</a>
                 <a href="nuevo_usuario.php">Usuarios</a>
                 <a href="">Notificaciones</a>
+                <a href="c_logout.php">Logout</a>
                 <!-- Agregar notifiaciones -->
             </nav>
         </div>
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+            unset($_SESSION['error']);
+        }
+        if (isset($_SESSION['success'])) {
+            echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+            unset($_SESSION['success']);
+        }
+        ?>
         <div>
             <img src="">
             <h1><a href="listaInv_admin.php">Investigaciones</a></h1>
