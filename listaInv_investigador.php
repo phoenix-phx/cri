@@ -6,6 +6,7 @@
 <body>
     <h1>Mis Investigaciones</h1> 
     <button onclick="document.location='nueva_investigacion.php'">+ Investigacion nueva</button>
+    <br>
     <?php include "c_listainv.php"?>
 </body>
 </html>

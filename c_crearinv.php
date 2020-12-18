@@ -1,50 +1,58 @@
 <?php
 session_start();
 require_once "c_pdo.php";
-/*
+
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) && isset($_POST['nomFCI'])){
 
-	if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 || strlen($_POST['nomInvPCI']) < 1 || strlen($_POST['nomFCI']) < 1) {
+	if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
 
-		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
+		$_SESSION['error'] = 'Debe llenar todos los campos obligatorios';
 		header("Location: nueva_investigacion.php");
 		return;
 	}
-	else if( !isset($_POST['univIP'])){
+	if( strlen($_POST['nomInvPCI']) < 1 || !isset($_POST['univIP'])){
 		$_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
 		header("Location: nueva_investigacion.php");
 		return;
 	}
-    else if( isset($_POST['univIP']) && $_POST['univIP'] === 'interno'){
+    if( isset($_POST['univIP']) && $_POST['univIP'] === 'interno'){
         if (strlen($_POST['uniInvPCI']) < 1){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
             header("Location: nueva_investigacion.php");
             return;
         }        
-        else if (!isset($_POST['rFiliacionIP'])){
+        if (!isset($_POST['rFiliacionIP'])){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
             header("Location: nueva_investigacion.php");
             return;
 
         }
     }
-    else if( isset($_POST['univIP']) && $_POST['univIP'] === 'externo'){
+    if( isset($_POST['univIP']) && $_POST['univIP'] === 'externo'){
         if (strlen($_POST['uniIPCI']) < 1){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
             header("Location: nueva_investigacion.php");
             return;
         }        
     }
-	else if( !isset($_POST['rExisteFI']) || !isset($_POST['rTipoFr'])|| !isset($_POST['rTipoFI'])) {
-		$_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
+	if( !isset($_POST['rExisteFI']) ) {
+        $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
 		header("Location: nueva_investigacion.php");
 		return;
 	}
-	else{
+    if(isset($_POST['rExisteFI']) && $_POST['rExisteFI'] === 'si'){
+        // TODO: aqui falta la validacion de las observaciones o monto del tipo financiamiento (monetario / otro)
+        if(!isset($_POST['rTipoFr'])|| !isset($_POST['rTipoFI']) || strlen($_POST['nomFCI']) < 1){
+            $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
+            header("Location: nueva_investigacion.php");
+            return;
+        }
+    }
+	
 		function validateAutores(){
             for ($i=0; $i <= 100 ; $i++) {
                 if( !isset($_POST['nomInvSCI'.$i]) ) continue;
@@ -65,7 +73,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                     }
                 }
                 else if( isset($_POST['rPUniCI'.$i]) && $_POST['rPUniCI'.$i] === 'externo'){
-                    if (strlen($_POST['univISCI'.$i]) < 1){ // tal vez es uniISCI no univ
+                    if (strlen($_POST['uniISCI'.$i]) < 1){
                         return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
                     }        
                 }
@@ -119,7 +127,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
      	$dia = getdate();
    		$finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
    		$nombre = explode(' ', $_POST['invNomCortoCI']);
-	    $codigo = $finicio;
+	    $codigo = $finicio . '_';
 	    for ($i=0; $i < count($nombre); $i++) { 
 	   		$codigo = $codigo . strtolower($nombre[$i]);
 	    }
@@ -259,9 +267,9 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             ));
         }
         
-        $_SESSION["success"] = 'usuario creado!';
+        $_SESSION["success"] = 'investigacion creada exitosamente';
         header('Location: nueva_investigacion.php');
         return;
-    }
+    
 }
 ?>

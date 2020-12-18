@@ -2,11 +2,11 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
-if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
+
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
     die('No ha iniciado sesion');
 }
-*/
+
 // investigaciones
 $sql = 'SELECT codigo, nombre_corto, resumen, idInv 
     	FROM investigacion
@@ -36,8 +36,10 @@ if($row !== false){
 else if($row === false){
     echo "<span> No tiene investigaciones registradas </span>";
 }
+
+
 echo "<br /><img src=''>
-<h1>Publicaciones</h1> <a href='listaInv_investigador.php'>ver todo</a>";
+<h1>Publicaciones</h1> <a href='listaInv_investigador.php'>ver todo</a> <br/>";
 
 // publicaciones
 $sql = 'SELECT codigo, titulo, resumen, idPub 

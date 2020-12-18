@@ -2,11 +2,11 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
+
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if($_SESSION['permisos'] === 'investigador'){
     $sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
         	FROM investigacion
@@ -34,6 +34,9 @@ if($_SESSION['permisos'] === 'investigador'){
             echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
     }
+    else if($row === false){
+        echo "<span> No tiene investigaciones registradas </span>";
+    }
     echo "<br />";
 }
 else if($_SESSION['permisos'] === 'administrativo'){
@@ -59,6 +62,9 @@ else if($_SESSION['permisos'] === 'administrativo'){
             echo "</div>";
             echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
+    }
+    else if($row === false){
+        echo "<span> No tiene investigaciones registradas </span>";
     }
     echo "<br />";   
 }

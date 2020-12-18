@@ -278,6 +278,11 @@
 
         }
     </script>
+    <style type="text/css">
+        .must{
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>Crear nueva investigacion</h1>
@@ -293,19 +298,19 @@
     ?>
     <h3><i>Llena todos los campos para registrar la investigacion</i></h3>
     <form action="c_crearinv.php" method="post">
-        <label for="tituloCI">Titulo: </label>
+        <label for="tituloCI">Titulo<span class="must">*</span>: </label>
         <input name="invTituloCI" id="tituloCI" type="text"><br>
         
-        <label for="nombreCortoCI">Nombre corto:</label>
+        <label for="nombreCortoCI">Nombre corto<span class="must">*</span>:</label>
         <input name="invNomCortoCI" id="nombreCortoCI" type="text"><br>
         
-        <label for="resumenCI">Resumen:</label><br>
+        <label for="resumenCI">Resumen<span class="must">*</span>:</label><br>
         <textarea name="resumenCI" id="resumenCI" rows="4" cols="100"></textarea><br>
         
-        <label for="fechaFinCI">Fecha de finalizacion</label>
+        <label for="fechaFinCI">Fecha de finalizacion<span class="must">*</span>:</label>
         <input name="fechaFinCI" id="fechaFinCI" type="date"><br>
         
-        <label for="uniInvCI">Unidad de investigacion</label>
+        <label for="uniInvCI">Unidad de Investigacion<span class="must">*</span>:</label>
         <input name="uniInvCI" id="uniInvCI" type="text"><br>
 
         <h3><i>A continuacion, indica los detalles del investigador principal:</i></h3>
@@ -313,7 +318,7 @@
         <fieldset>
         <h3>Investigador principal</h3>
         <div id="InvP">
-            <label for="nomInvPCI">Nombre</label>
+            <label for="nomInvPCI">Nombre<span class="must">*</span>:</label>
             <input name="nomInvPCI" id="nomInvPCI" type="text"><br>
             
             <input name="univIP" id="rPUniCI" type="radio" onclick="perteneceInvP()" value="interno">
