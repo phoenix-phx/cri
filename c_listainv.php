@@ -10,10 +10,12 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 if($_SESSION['permisos'] === 'investigador'){
     $sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
         	FROM investigacion
-    		WHERE idUsuario = :id'; 
+    		WHERE idUsuario = :id
+            AND estado = :st';  // que pasara con las investigaciones terminadas??
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
-       ':id' => $_SESSION['idUsuario']
+       ':id' => $_SESSION['idUsuario'],
+       ':st' => 'en curso'
     ));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     if($row !== false){

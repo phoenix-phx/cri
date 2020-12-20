@@ -23,5 +23,6 @@ $stmt->execute(array(
     ':id' => $_SESSION['idUsuario'],
     ':inv' => $_REQUEST['inv_id']
 ));
-
+header('Location: investigacion_cerrada.php');
+return;
 ?>

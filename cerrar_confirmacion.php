@@ -6,7 +6,7 @@
 <body>
     <h1>Cerrar investigacion</h1>
     Esta accion no puede deshacerse, Esta seguro que desea cerra la investigacion?<br>
-    <button onclick="document.location='investigacion_cerrada.php'<?=$_REQUEST['inv_id']?>">Confirmar</button>
-    <button onclick="document.location='detalles_investigacion_inv.php'<?=$_REQUEST['inv_id']?>">Cancelar</button>
+    <button onclick="document.location='c_confirmacion_cierre.php?inv_id=<?php echo $_REQUEST['inv_id'] ?>'">Confirmar</button>
+    <button onclick="document.location='detalles_investigacion_inv.php?inv_id=<?php echo $_REQUEST['inv_id'] ?>'">Cancelar</button>
 </body>
 </html>

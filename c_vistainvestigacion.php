@@ -33,9 +33,9 @@ $codigo = htmlentities($row['codigo']);
 $titulo = htmlentities($row['nombre']);
 $nc = htmlentities($row['nombre_corto']);
 $ui = htmlentities($row['unidad_investigacion']);
-$resumem = htmlentities($row['resumen']);
+$resumen = htmlentities($row['resumen']);
 $finicio = htmlentities($row['fecha_inicio']);
-$ffinal = htmlentities($row['fecha_final']);
+$ffinal = htmlentities($row['fecha_fin']);
 
 function loadAutorPrincipal($pdo, $inv_id){
     $sql = "SELECT autor.nombre 
@@ -59,8 +59,8 @@ function loadAutorInterno($pdo, $inv_id){
             WHERE i.idInv = :inv
             AND i.idInv = ci.idInv
             AND autor.idAutor = ci.idAutor
-            AND autor.rol = 'secundario'
-            AND autor.tipo = 'interno'";
+            AND autor.rol = 'colaboracion'
+            AND autor.tipo_filiacion = 'interno'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':inv' => $inv_id
@@ -76,8 +76,8 @@ function loadAutorExterno($pdo, $inv_id){
             WHERE i.idInv = :inv
             AND i.idInv = ci.idInv
             AND autor.idAutor = ci.idAutor
-            AND autor.rol = 'secundario'
-            AND autor.tipo = 'externo'";
+            AND autor.rol = 'colaboracion'
+            AND autor.tipo_filiacion = 'externo'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':inv' => $inv_id
@@ -126,12 +126,11 @@ echo '<div role="fila"> <span>Fecha Inicio </span> <span>' . $finicio . ' </span
 echo '<div role="fila"> <span>Fecha Final </span> <span>' . $ffinal . ' </span></div>';
 
 //autores
-echo '<div role="fila" id="autores"';
+echo "<p>INVESTIGADORES</p>";
+echo '<div role="fila" id="autores">';
 echo '<ul>';
 if(count($principal) !== 0){
-    for ($i=0; $i < count($principal); $i++) {
-        echo '<li>' . htmlentities($principal[$i]['nombre']) . '</li>'; 
-    }
+    echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
 }
 if(count($internos) !== 0){
     for ($i=0; $i < count($internos); $i++) {
@@ -147,24 +146,32 @@ echo '</ul>';
 echo '</div>';
 
 //financiamiento
-echo '<div role="fila"> <span>Financiamiento </span> <span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span></div>';
+echo "<p>FINANCIAMIENTO</p>";
+echo '<div role="fila">';
+if($financiador !== false){
+    echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
+}
+else{
+    echo '<span>No existe financiamiento</span>';   
+}
+echo "</div>";
 
 //actividades
 echo "<p>ACTIVIDADES</p>";
 echo '<div role="fila" id="actividades"';
 if(count($actividades) !== 0){
     for ($i=0; $i < count($actividades); $i++) {
-        echo '<div id="education' . ($i+1) . '">
-                      <p>Year: <input type="text" name="edu_year' . ($i+1) . '" value="' . $educations[$i]['year'] . '" />
-                      <input type="button" value="-" onclick="$(\'#education' . ($i+1) . '\').remove(); return false;"> </p>
-                      <input type="text" size="80" name="sch' . ($i+1) . '" class="school" value="' . $educations[$i]['name'] . '" />
-                   </div> <br/>';
         echo '<div id="actividad' . ($i+1) .'">';
         echo '<p> <span> Nombre </span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
+        echo "<br>";
         echo '<span> Fecha inicio </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
+        echo "<br>";
         echo '<span> Fecha finalizacion </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
         echo "</div>";
     }
+}
+else{
+    echo "<span>No se han registrado actividades</span>";
 }
 echo '</div>';
 
@@ -176,7 +183,7 @@ $sql = 'SELECT codigo, titulo, tipo, idPub
 $stmt = $pdo->prepare($sql);
 $stmt->execute(array(
    ':id' => $_SESSION['idUsuario'],
-   ':id' => $_REQUEST['inv_id'],
+   ':inv' => $_REQUEST['inv_id'],
 ));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if($row !== false){
