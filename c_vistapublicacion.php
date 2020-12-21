@@ -2,11 +2,11 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
+
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if( !isset($_REQUEST['pub_id'])) {
     $_SESSION['error'] = "Codigo de publicacion faltante";
     header('Location: listaPub_investigador.php');
@@ -30,7 +30,7 @@ if($row === false){
 }
 
 $codigo = htmlentities($row['codigo']);
-$titulo = htmlentities($row['nombre']);
+$titulo = htmlentities($row['titulo']);
 $resumen = htmlentities($row['resumen']);
 $tipo = htmlentities($row['tipo']);
 
@@ -56,8 +56,8 @@ function loadAutorInterno($pdo, $pub_id){
             WHERE p.idPub = :pub
             AND p.idPub = cp.idPub
             AND autor.idAutor = cp.idAutor
-            AND autor.rol = 'secundario'
-            AND autor.tipo = 'interno'";
+            AND autor.rol = 'colaboracion'
+            AND autor.tipo_filiacion = 'interno'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':pub' => $pub_id
@@ -73,8 +73,8 @@ function loadAutorExterno($pdo, $pub_id){
             WHERE p.idPub = :pub
             AND p.idPub = cp.idPub
             AND autor.idAutor = cp.idAutor
-            AND autor.rol = 'secundario'
-            AND autor.tipo = 'interno'";
+            AND autor.rol = 'colaboracion'
+            AND autor.tipo_filiacion = 'externo'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':pub' => $pub_id
@@ -92,10 +92,13 @@ echo '<div role="fila"> <span>Resumen </span> <span>' . $resumen . ' </span></di
 echo '<div role="fila"> <span>Tipo de publicacion </span> <span>' . $tipo . ' </span></div>';
 
 //autores
-echo '<div role="fila"> <span>Autor principal</span> <span>' . htmlentities($principal[$i]['nombre']) . ' </span></div>';
-
-echo '<div role="fila" id="autores"';
+echo "<p>AUTORES</p>";
+echo '<div role="fila" id="autores">';
 echo '<ul>';
+if($principal !== false){
+    echo '<li>' . htmlentities($principal['nombre']) . ' </li>';
+
+}
 if(count($internos) !== 0){
     for ($i=0; $i < count($internos); $i++) {
         echo '<li>' . htmlentities($internos[$i]['nombre']) . '</li>'; 
@@ -108,4 +111,14 @@ if(count($externos) !== 0){
 }
 echo '</ul>';
 echo '</div>';
+
+// archivo final
+// TODO: arreglar la carga y visualizacion del BLOB
+echo "<p>ENTREGA FINAL</p>";
+echo '<div role="fila" id="archivo">';
+if($row['documento_final'] !== false){
+    echo htmlentities($row['documento_final']);
+}
+echo "</div>";
+
 ?>
