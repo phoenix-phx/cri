@@ -34,6 +34,9 @@ if($_SESSION['permisos'] === 'investigador'){
             echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
     }
+    else if($row === false){
+        echo "<span> No tiene publicaciones registradas </span>";
+    }
     echo "<br />";
 }
 else if($_SESSION['permisos'] === 'administrativo'){

@@ -39,7 +39,7 @@ else if($row === false){
 
 
 echo "<br /><img src=''>
-<h1>Publicaciones</h1> <a href='listaInv_investigador.php'>ver todo</a> <br/>";
+<h1>Publicaciones</h1> <a href='listaPub_investigador.php'>ver todo</a> <br/>";
 
 // publicaciones
 $sql = 'SELECT codigo, titulo, resumen, idPub 

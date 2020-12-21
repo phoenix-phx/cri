@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Nueva Publicacion</title>
-    <?= require_once "c_crearpub.php"?>
+    <?php require_once "c_crearpub.php"?>
     <script>
         function perteneceInvP(){
             let radio = document.getElementById("InvP");
@@ -228,15 +228,15 @@
         Titulo: <input name="tituloCP" id="tituloCP" type="text"><br>
         Resumen:<br><textarea name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
         Investigacion: <input name="invCP" id="invCP" type="text"><br>
-        Tipo publicacion: <select name="tipoCP" id="tipoCP">
+        Tipo publicacion: 
+        <select name="tipoCP" id="tipoCP">
+            <option value="Ninguno">Ninguno</option>
             <option value="Articulo">Articulo</option>
             <option value="Acta">Acta</option>
             <option value="Libro">Libro</option>
             <option value="Capitulo de libro">Capitulo de libro</option>
             <option value="Patente">Patente</option>
             <option value="Otro">Otro</option>
-
-            
         </select>
         <h3><i>A continuacion, indica los detalles del autor principal</i></h3>
         <fieldset>
