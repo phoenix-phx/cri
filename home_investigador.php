@@ -12,7 +12,7 @@
                 <a href="listaPub_investigador.php">Publicaciones</a>
                 <a href="cronograma.php">Cronograma</a>
                 <a href="">Notificaciones</a>
-                <a href="logout.php">Logout</a>
+                <a href="c_logout.php">Logout</a>
                 <!-- Agregar notifiaciones -->
             </nav>
         </div>
