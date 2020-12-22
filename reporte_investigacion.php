@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <title>Reporte de Investigaciones</title>
+</head>
 <body>
     <h1>Reportes de Investigacion</h1>
-    <h3><i>Ajuste los filtros para obtener resultados</i></h3>
+    <h3><i>Ajuste los filtros y presione buscar para obtener resultados</i></h3>
     <form action="c_reporteinv.php" method="post"> 
         Unidad de Investigacion: <input name="uniInvRI" type="text" value="Todos">
         Investigador: <input name="nomInvRI" type="text" value="Todos"><br>
