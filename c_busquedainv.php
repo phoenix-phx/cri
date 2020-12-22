@@ -2,18 +2,17 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
+
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if(isset($_POST['txtFiltroBI']) && isset($_POST['filtroBI']) ){
     if($_POST['filtroBI'] === 'Ninguno'){
         $sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
                 FROM investigacion';    
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-    
     }
     else if ($_POST['filtroBI'] === 'Unidad de Investigacion') {
         if(strlen($_POST['txtFiltroBI']) < 1 ){
@@ -72,23 +71,15 @@ if(isset($_POST['txtFiltroBI']) && isset($_POST['filtroBI']) ){
             return;
         }
         else{
-                $sql = 'SELECT idAutor
-                        FROM autor
-                        WHERE nombre = :no';    
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':no' => strtolower($_POST['txtFiltroBI'])
-                ));
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $sql = 'SELECT i.codigo, i.nombre_corto, i.unidad_investigacion, i.idInv
-                        FROM colaborador_inv ci, investigacion i
-                        WHERE ci.idAutor = :auth'
-                        AND i.idInv = ci.idInv;    
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':auth' => $row['idAutor']
-                ));
-                
+            $sql = 'SELECT i.codigo, i.nombre_corto, i.unidad_investigacion, i.idInv
+                    FROM investigacion i, colaborador_inv ci, autor a
+                    WHERE a.idAutor = ci.idAutor
+                    AND ci.idInv = i.idInv
+                    AND a.nombre = :no';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':no' => $_POST['txtFiltroBI']
+            ));
         }
     }
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -110,5 +101,9 @@ if(isset($_POST['txtFiltroBI']) && isset($_POST['filtroBI']) ){
             echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
     }
+    else if ($row === false) {
+        echo "No se encontraron resultados a su busqueda";
+    }
     echo "<br />";   
+}
 ?>

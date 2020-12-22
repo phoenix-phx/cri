@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+	<title>Detalles Investigacion</title>
 </head>
 <body>
     <h1>Detalles</h1>

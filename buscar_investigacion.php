@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title>Buscar Investigacion</title>
 </head>
 <body>
     <h1>Buscar Investigaciones</h1>
@@ -15,7 +15,7 @@
             <option value="Codigo Investigacion">Codigo Investigacion</option>
             <option value="Nombre Investigador">Nombre Investigador</option>
         </select>
-        <input name="txtFiltroBI" id="txtFiltroBI" type="text" placeholder="buscar"><br>
+        <input name="txtFiltroBI" id="txtFiltroBI" type="text" placeholder="Ingrese la busqueda aqui" size="40"><br>
         <input type="submit" value="buscar">
     </form>
     <i>Resultados:</i>
