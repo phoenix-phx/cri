@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
-<<<<<<< HEAD
     <h1>Mis Investigaciones</h1> 
     <button onclick="document.location='nueva_investigacion.php'">+ Investigacion nueva</button>
     <br>
@@ -19,7 +18,6 @@
         unset($_SESSION['success']);
     }
     ?>
-=======
     <!-- Header -->
     <div class="bar" style="height: 50px; background-color: #0b1f3f;">
         <a href="home_investigador.php" class="aLeft textIblue">
@@ -44,7 +42,6 @@
         </div>
     </div>
 
->>>>>>> 6997f37a27bdcff1a59abc1ff3afb3ef981c4aed
     <?php include "c_listainv.php"?>
 </body>
 </html>
