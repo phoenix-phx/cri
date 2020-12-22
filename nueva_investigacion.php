@@ -129,7 +129,7 @@
                     //////////////
                     //Radio button no pertenece
                     inp = document.getElementById("rOUniCI" + j);
-                    inp.name = "rOUniCI" + cont;
+                    inp.name = "rPUniCI" + cont;
                     inp.id = "rOUniCI" + cont;
                     inp.onclick = function() { noSelect(lul) };
                     

@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="style/styles.css">
+
 </head>
 <body>
-    <img src="">
-    <h1>Bienvenido al sistema academico para Investigaciones UCB</h1>
-    <h3>Selecciona una opcion para iniciar sesion</h3>
-    <a href="login_investigador.php?modo=investigador">
-        <div align="left" style="border: 3px solid black; height: 150px; width: 300px; padding-left: 60px; padding-top: 30px; background-color: darkgrey;" >
-            <img src="">
-            <h3>Investigador</h3>
-        </div>
-    </a>
-    <a href="login_administrativo.php?modo=administrativo">
-    <div align="left" style="border: 3px solid black; height: 150px; width: 300px; padding-left: 60px; padding-top: 30px; background-color: darkgrey;" >
-            <img src="">
-            <h3>Administrativo</h3>
-        </div>
-    </a>
+    <div align="center" class="center">
+        <img src="imagenes/LogoU_nombre.png">    
+        <h1>Bienvenido al sistema academico para Investigaciones UCB</h1>
+        <h2>Selecciona una opcion para iniciar sesion</h2>
+    </div>
+    <div style="padding-left: 330px; padding-right: 330px;">
+        <a class="link" href="login_investigador.php?modo=investigador">
+            <div class="container aLeft" style="width: 200px; padding: 3px;">
+                <div align="center"><img src="imagenes/Investigador/investigador_login.png"></div>
+                <div align="center"><h2>Investigador</h2></div>
+            </div>
+        </a>
+        <a class="link" href="login_administrativo.php?modo=administrativo">
+            <div class="container aRight" style="width: 200px; padding: 3px;">
+                <div align="center"><img src="imagenes/Administrativo/administrativo_login.png"></div>
+                <div align="center"><h2>Administrativo</h2></div>
+            </div>
+        </a>
+    </div>
 </body>
 </html>
