@@ -2,18 +2,16 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if(isset($_POST['txtFiltroBP']) && isset($_POST['filtroBP']) ){
     if($_POST['filtroBP'] === 'Ninguno'){
         $sql = 'SELECT codigo, titulo, tipo, idPub 
                 FROM publicacion';    
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-    
     }
     else if ($_POST['filtroBP'] === 'Unidad de Investigacion') {
         if(strlen($_POST['txtFiltroBP']) < 1 ){
@@ -98,5 +96,6 @@ if(isset($_POST['txtFiltroBP']) && isset($_POST['filtroBP']) ){
             echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
     }
-    echo "<br />";   
+    echo "<br />";  
+} 
 ?>

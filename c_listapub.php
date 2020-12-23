@@ -2,11 +2,10 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
 if($_SESSION['permisos'] === 'investigador'){
     $sql = 'SELECT codigo, titulo, tipo, idPub 
         	FROM publicacion
