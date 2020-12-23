@@ -55,7 +55,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
             echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
             echo '<div role="celda"> <span>' . htmlentities($row['titulo']) . '</span> </div>';
             echo '<div role="celda"> <span>' . htmlentities($row['tipo']) . '</span> </div>';
-            echo '<a href="detalles_publicacion_inv.php?pub_id='.$row['idPub'].'">&gt&gt</a>'; echo "</td>";
+            echo '<a href="detalles_publicacion_admin.php?pub_id='.$row['idPub'].'">&gt&gt</a>'; echo "</td>";
             echo "</div>\n";
          
             echo "</div>";

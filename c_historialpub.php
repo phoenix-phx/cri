@@ -2,14 +2,14 @@
 session_start();
 require_once "c_pdo.php";
 
-/*
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
-*/
+
     $sql = 'SELECT fecha_cambio, detalle 
             FROM historial_pub
-            WHERE idPub = :pub';
+            WHERE idPub = :pub
+            ORDER BY fecha_cambio ASC';
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':pub' => $_REQUEST['pub_id']
