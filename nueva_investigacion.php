@@ -75,7 +75,7 @@
             ndivi.appendChild(document.createElement("br"));
             //////////////////////
             //Radio button pertenece
-            var inp = ndivi.appendChild(document.createElement("input"));
+            let inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio"; inp.value = "interno";
             inp.onclick = function() {Select(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
@@ -277,6 +277,80 @@
             // console.log("now del" + i);
 
         }
+        function existFinan(){
+            let fin = document.getElementById("financiamiento");
+            let d = fin.appendChild(document.createElement("div")); d.id = "existe";
+            d.appendChild(document.createTextNode("Tipo financiador"));
+            d.appendChild(document.createElement("br"));
+            let inp = d.appendChild(document.createElement("input"));
+            inp.name = "rTipoFr"; inp.id = "rTipoFIntCI"; inp.value = "interno"; inp.type="radio";
+            inp.onclick = function() {tipoInter()};
+            d.appendChild(document.createTextNode("Interno"));
+            d.appendChild(document.createElement("br"));
+            inp = d.appendChild(document.createElement("input"));
+            inp.name = "rTipoFr"; inp.id = "rTipoFEntCI"; inp.type="radio"; inp.value = "externo";
+            inp.onclick = function() {tipoExtern()};
+            d.appendChild(document.createTextNode("Externo"));
+            d.appendChild(document.createElement("br"));
+            d.appendChild(document.createTextNode("Tipo Financiamiento"));
+            d.appendChild(document.createElement("br"));
+            inp = d.appendChild(document.createElement("input"));
+            inp.name = "rTipoFI"; inp.id = "rTipoMCI"; inp.type="radio"; inp.value = "monetario";
+            inp.onclick = function() {tipoMont()};
+            d.appendChild(document.createTextNode("Monetario"));
+            d.appendChild(document.createElement("br"));
+            inp = d.appendChild(document.createElement("input"));
+            inp.name = "rTipoFI"; inp.id = "rTipoOCI"; inp.type="radio"; inp.value = "otro";
+            inp.onclick = function() {tipoOtro()};
+            d.appendChild(document.createTextNode("Otro"));
+            d.appendChild(document.createElement("br"));
+            d.appendChild(document.createTextNode("Observaciones"));
+            d.appendChild(document.createElement("br"));
+            inp = d.appendChild(document.createElement("textarea"));
+            inp.name = "obsTipoFOCI"; inp.id = "obsTipoFOCI"; inp.rows = "4"; inp.cols = "100";
+            d.appendChild(document.createElement("br"));
+        }
+        function noexistFinan(){
+            let fin = document.getElementById("financiamiento");
+            let d = document.getElementById("existe");
+            if(d === null) return;
+            else fin.removeChild(d);
+        }    
+        function tipoExtern(){
+            let fin = document.getElementById("rTipoFEntCI");
+            let d = document.createElement("div");
+            d.id = "nomFin";
+            fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling);
+            d.appendChild(document.createElement("br"));
+            d.appendChild(document.createTextNode("Nombre Financiador"));
+            let inp = document.createElement("input");
+            inp.name = "nombreFinanciador"; inp.id = "nombreFinanciador"; inp.type = "text";
+            d.appendChild(inp);
+        }
+        function tipoInter(){
+            let fin = document.getElementById("financiamiento");
+            let d = document.getElementById("existe");
+            let inp = document.getElementById("nomFin");
+            if(inp !== null) d.removeChild(inp);
+        } 
+
+        function tipoMont(){
+            let fin = document.getElementById("rTipoMCI");
+            let d = document.createElement("div");
+            d.id = "montFin";
+            fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling);
+            d.appendChild(document.createElement("br"));
+            d.appendChild(document.createTextNode("Monto"));
+            let inp = document.createElement("input");
+            inp.name = "monto"; inp.id = "monto"; inp.type = "text";
+            d.appendChild(inp);
+        }
+        function tipoOtro(){
+            let fin = document.getElementById("financiamiento");
+            let d = document.getElementById("existe");
+            let inp = document.getElementById("montFin");
+            if(inp !== null) d.removeChild(inp);
+        }
     </script>
     <style type="text/css">
         .must{
@@ -338,34 +412,14 @@
         </fieldset>
      
         <h3><i>A continuacion, ingresa los detalles del financiamiento:</i></h3>
-        <fieldset>
-        <h3>Financiamiento</h3>
-        <h4>Existe</h4>
-        <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si">
-        <label for="rSiExisteFCI">Si</label><br>
-        
-        <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no">
-        <label for="rNoExisteFCI">No</label><br>
-        
-        <h4>Tipo financiador</h4>
-        <input name="rTipoFr" id="rTipoFIntCI" type="radio" value="interno">
-        <label for="rTipoFIntCI">Interno</label><br>
-        
-        <input name="rTipoFr" id="rTipoFExtCI" type="radio" value="externo">
-        <label for="rTipoFExtCI">Externo</label><br>
-        
-        <label for="nomFCI">Nombre financiador:</label>
-        <input name="nomFCI" id="nomFCI" type="text"><br>
-        
-        <h4>Tipo financiamiento</h4>
-        <input name="rTipoFI" id="rTipoMCI" type="radio" value="monetario">
-        <label for="rTipoMCI">Monetario</label><br>
-        
-        <input name="rTipoFI" id="rTipoOCI" type="radio" value="otro">
-        <label for="rTipoOCI">Otro</label><br>
-        
-        <label for="obsTipoFOCI">Observaciones</label>
-        <textarea name="obsTipoFOCI" id="obsTipoFOCI" rows="4" cols="100"></textarea><br>
+        <fieldset id="financiamiento">
+            <h3>Financiamiento</h3>
+            <h4>Existe</h4>
+            <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()">
+            <label for="rSiExisteFCI">Si</label><br>
+            
+            <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no" onclick="noexistFinan()">
+            <label for="rNoExisteFCI">No</label><br>
         </fieldset>
         
         <!--Agregar actividades-->

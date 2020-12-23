@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
-    <h1>Mis Investigaciones</h1> 
-    <button onclick="document.location='nueva_investigacion.php'">+ Investigacion nueva</button>
-    <br>
+    
     <?php
     if (isset($_SESSION['error'])) {
         echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -41,7 +39,7 @@
             <button class="button aRight" style="font-size:18px;" onclick="document.location='nueva_investigacion.php'">+ Investigacion nueva</button>
         </div>
     </div>
-
+    
     <?php include "c_listainv.php"?>
 </body>
 </html>
