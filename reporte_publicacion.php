@@ -4,9 +4,10 @@
 <body>
     <h1>Reportes de Publicacion</h1>
     <h3><i>Ajuste los filtros para obtener resultados</i></h3>
+    <form action="c_reportepub.php" method="post">
         Unidad de Investigacion: <input name="uniInvRP" type="text" value="Todos">
-        Investigador: <input name="nomInvRI" type="text" value="Todos"><br>
-        Estado: <select name="estadoRI">
+        Investigador: <input name="nomInvRP" type="text" value="Todos"><br>
+        Estado: <select name="estadoRP">
             <option value="Todos">Todos</option>
             <option value="Abierto">Abierto</option>
             <option value="Cerrado">Cerrado</option>           
@@ -21,5 +22,6 @@
             <option value="Otro">Otro</option>
         </select><br>
         <input type="submit" value="Buscar">
+    </form>
 </body>
 </html>
