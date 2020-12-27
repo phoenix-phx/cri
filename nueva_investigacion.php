@@ -60,12 +60,12 @@
         
         function addItemInv(){
             event.preventDefault();
-            var dlist = document.getElementById("InvS");
-            var ndivi = document.createElement("div");
+            let dlist = document.getElementById("InvS");
+            let ndivi = document.createElement("div");
             ndivi.setAttribute('id',"dICI" + i);
             //Nombre
             ndivi.appendChild(document.createTextNode("Nombre"));
-            inp = ndivi.appendChild(document.createElement("input"));
+            let inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "nomInvSCI" + i; inp.id = "nomInvSCI" + i; inp.type = "text";  
             inp = ndivi.appendChild(document.createElement("button"));
             inp.innerHTML = "-";
@@ -75,7 +75,7 @@
             ndivi.appendChild(document.createElement("br"));
             //////////////////////
             //Radio button pertenece
-            let inp = ndivi.appendChild(document.createElement("input"));
+            inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio"; inp.value = "interno";
             inp.onclick = function() {Select(lol)};
             ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
@@ -96,9 +96,9 @@
         }
         function removeItemInv(index){
             console.log("index "+index);
-            var dlist = document.getElementById("InvS");
-            var item = document.getElementById("dICI" + index);
-            var divs = dlist.getElementsByTagName("div");
+            let dlist = document.getElementById("InvS");
+            let item = document.getElementById("dICI" + index);
+            let divs = dlist.getElementsByTagName("div");
             let cont = 0, jj = 0;
             
             for(let j = 0; j < divs.length; j++){
@@ -136,12 +136,12 @@
                     /////////////
                     ///Cambio de nombre UniInv / Uni
                     if(document.getElementById("uniISCI" + j) !== null){
-                        var txtOtro = document.getElementById("uniISCI" + j);
+                        let txtOtro = document.getElementById("uniISCI" + j);
                         txtOtro.id = "uniISCI" + cont;
                         txtOtro.name = "uniISCI" + cont;
                     }
                     else if(document.getElementById("uniInvSCI" + j) !== null){
-                        var txtOtro = document.getElementById("uniInvSCI" + j);
+                        let txtOtro = document.getElementById("uniInvSCI" + j);
                         txtOtro.id = "uniInvSCI" + cont;
                         txtOtro.name = "uniInvSCI" + cont;
                         let rbutton = document.getElementById("rDocenteCI" + j);
@@ -165,8 +165,8 @@
             i--;
         }
         function Select(index){
-            var dlist = document.getElementById("InvS");
-            var radio = document.getElementById("dICI" + index);
+            let dlist = document.getElementById("InvS");
+            let radio = document.getElementById("dICI" + index);
             let divi;
             if(radio.getElementsByTagName("div").length !== 0){
                 divi = document.getElementById("divi" + index);
@@ -199,7 +199,7 @@
             divi.appendChild(document.createElement("br"));
         }
         function noSelect(index){
-            var radio = document.getElementById("dICI" + index);
+            let radio = document.getElementById("dICI" + index);
             let divi;
             if(radio.getElementsByTagName("div").length !== 0){
                 divi = document.getElementById("divi" + index);
@@ -222,7 +222,7 @@
             let ndivi = document.createElement("div");
             ndivi.setAttribute('id',"dA" + actividad);
             ndivi.appendChild(document.createTextNode("Nombre"));
-            inp = ndivi.appendChild(document.createElement("input"));
+            let inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "nomActCI" + actividad; inp.id = "nomActCI" + actividad; inp.type = "text";
             inp = ndivi.appendChild(document.createElement("button"));
             inp.innerHTML = "-";
