@@ -6,11 +6,11 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
 }
 
-if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) && isset($_POST['nomFCI'])){
+if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) ){
 
 	if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
 
-		$_SESSION['error'] = 'Debe llenar todos los campos obligatorios';
+		$_SESSION['error'] = 'Debe llenar todos los campos obligatorios de la investigacion';
 		header("Location: nueva_investigacion.php");
 		return;
 	}
@@ -46,10 +46,24 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 	}
     if(isset($_POST['rExisteFI']) && $_POST['rExisteFI'] === 'si'){
         // TODO: aqui falta la validacion de las observaciones o monto del tipo financiamiento (monetario / otro)
-        if(!isset($_POST['rTipoFr'])|| !isset($_POST['rTipoFI']) || strlen($_POST['nomFCI']) < 1){
+        if(!isset($_POST['rTipoFr']) || !isset($_POST['rTipoFI']) ){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
             header("Location: nueva_investigacion.php");
             return;
+        }
+        if(isset($_POST['rTipoFr']) && $_POST['rTipoFr'] === 'externo'){
+            if(strlen($_POST['nombreFinanciador']) < 1){
+                $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
+                header("Location: nueva_investigacion.php");
+                return;                
+            }
+        }
+        if(isset($_POST['rTipoFI']) && $_POST['rTipoFI'] === 'monetario'){
+            if(strlen($_POST['monto']) < 1){
+                $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
+                header("Location: nueva_investigacion.php");
+                return;
+            }
         }
     }
 	
@@ -213,7 +227,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 ));
             }
             else if($pertenencia === 'externo'){
-                $univ =  $_POST['univISCI'.$i]; 
+                $univ =  $_POST['uniISCI'.$i]; 
 
                 $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
                         VALUES (:no, :tf, :rol, :uni)";
@@ -237,15 +251,67 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         
         // financiamiento
         if($_POST['rExisteFI'] === 'si'){
-	        $sql = "INSERT INTO financiador (idInv, tipo_financiador, nombre_financiador, tipo_financiamiento)
-	                VALUES (:inv, :tfr, :nfr, :tfm)";
+	        $sql = "INSERT INTO financiador (idInv, tipo_financiamiento)
+	                VALUES (:inv, :tfm)";
 	        $stmt = $pdo->prepare($sql);
 	        $stmt->execute(array(
 	            ':inv' => $inv_id,
-	            ':tfr' => $_POST['rTipoFr'],
-	            ':nfr' => $_POST['nomFCI'],
 	            ':tfm' => $_POST['rTipoFI']
 	        ));
+            $financiador = $pdo->lastInsertId();
+
+            if($_POST['rTipoFr'] === 'interno'){
+                $sql = "UPDATE financiador
+                        SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                        WHERE idFinanciador = :id
+                        AND idInv = :inv";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':tfr' => $_POST['rTipoFr'],
+                    ':nfr' => 'Universidad Catolica Boliviana',
+                    ':id' => $financiador,
+                    ':inv' => $inv_id 
+                ));            
+            }
+            else if($_POST['rTipoFr'] === 'externo'){
+                $sql = "UPDATE financiador
+                        SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                        WHERE idFinanciador = :id
+                        AND idInv = :inv";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':tfr' => $_POST['rTipoFr'],
+                    ':nfr' => $_POST['nombreFinanciador'],
+                    ':id' => $financiador,
+                    ':inv' => $inv_id 
+                ));            
+            }
+
+            if($_POST['rTipoFI'] === 'monetario'){
+                $sql = "UPDATE financiador
+                        SET  monto = :mn
+                        WHERE idFinanciador = :id
+                        AND idInv = :inv";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':mn' => $_POST['monto'],
+                    ':id' => $financiador,
+                    ':inv' => $inv_id 
+                ));            
+            }
+
+            if(strlen($_POST['obsTipoFOCI']) > 1){
+                $sql = 'UPDATE financiador
+                        SET  observaciones = :obs
+                        WHERE idFinanciador = :id
+                        AND idInv = :inv';
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':obs' => $_POST['obsTipoFOCI'],
+                    ':id' => $financiador,
+                    ':inv' => $inv_id 
+                ));            
+            }            
 	    }
 
         // actividades
