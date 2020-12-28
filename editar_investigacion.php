@@ -56,7 +56,7 @@
         //////
 
 
-        var i = 0;
+        //var i = 0;
         
         function addItemInv(){
             event.preventDefault();
@@ -215,7 +215,7 @@
         }
 
 
-        var actividad = 0;
+        //var actividad = 0;
         function addItemAct(){
             event.preventDefault();
             let dlist = document.getElementById("Act");
@@ -478,6 +478,7 @@
         <h3><i>Ahora, indica los detalles de los investigadores de colaboracion (si existen):</i></h3>
         <?php
             echo '<fieldset>
+                    <script> var i = ' . count($investigadores) . ';</script>
                     <h3>
                     Investigadores de colaboracion 
                     <button onclick="addItemInv()">+</button>
@@ -555,8 +556,9 @@
         <h3><i>Finalmente, indica las actividades planificadas para la investigacion:</i></h3>
         <?php
         echo '<fieldset>
+        <script> var  actividad = ' . count($actividades) . ';</script>
         <h3>
-        "Actividades "
+        Actividades 
         <button onclick="addItemAct()">+</button>
         </h3>';
         if(count($actividades) !== 0){
