@@ -478,14 +478,16 @@
 
         <h3><i>Ahora, indica los detalles de los investigadores de colaboracion (si existen):</i></h3>
         <?php
+        
             echo '<fieldset>
-                    <script> var i = ' . count($investigadores) . ';</script>
+                    <script> var i = ' . count($investigadores) . ';</script>            
                     <h3>
                     Investigadores de colaboracion 
                     <button onclick="addItemInv()">+</button>
                     </h3>';
+            echo '<div id="InvS">';
             if(count($investigadores) !== 0){
-                echo '<div id="InvS">';
+                
                 for ($i=0; $i < count($investigadores); $i++) {
                     echo '<div id="dICI' . ($i) . '">
                             Nombre <input name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
@@ -538,8 +540,9 @@
                     }
                     echo '</div> <br/>';                    
                 }
-                echo '</div>';
+                
             }
+            echo '</div>';
         echo '</fieldset>';
     ?>
         <h3><i>A continuacion, ingresa los detalles del financiamiento:</i></h3>
@@ -636,15 +639,12 @@
         echo '<fieldset>
         <script> var  actividad = ' . count($actividades) . ';</script>
         <h3>
-<<<<<<< HEAD
         Actividades
-=======
-        Actividades 
->>>>>>> 19a5af566cc8c362fe9cad8b460fb8d40f3b2290
         <button onclick="addItemAct()">+</button>
         </h3>';
+        echo '<div id="Act">';
         if(count($actividades) !== 0){
-            echo '<div id="Act">';
+            
             for ($i=0; $i < count($actividades); $i++) {
                 echo '<div id="dA' . ($i) . '">
                     Nombre
@@ -656,8 +656,9 @@
                     <input name="FFActCI' . ($i) . '" id="FFActCI' . ($i) . '" type="date" value="' . $actividades[$i]['fecha_final'] . '"><br>
                     </div>';
             }
-            echo '</div>';
+            
         }
+        echo '</div>';
         echo '</fieldset>';
     ?>
         <input type="submit" value="Guardar"> 

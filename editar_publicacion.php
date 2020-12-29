@@ -319,7 +319,63 @@
         <fieldset>
         <h3>Autores secundarios <button onclick="addItemInv()">+</button></h3>
         <div id="InvS">
-
+            <?php
+                echo '<script> var i = ' . count($investigadores) . ';</script>';
+                if(count($investigadores) !== 0){
+                    for ($i=0; $i < count($investigadores); $i++) {
+                        echo '<div id="dICI' . ($i) . '">
+                                Nombre <input name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
+                                <button id="bICI' .  ($i) . '" onclick="removeItemInv(' . ($i) . ')">-</button><br>';
+                        if($investigadores[$i]['tipo_filiacion'] == 'interno'){
+                            echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
+                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                  <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
+                                  Pertenece a otra Universidad<br>
+                                  <div id="divi' . ($i) . '">
+                                  Unidad de Investigacion<br>
+                                  <input name="uniInvSCI' . ($i) . '" id="uniInvSCI' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>';
+                            if($investigadores[$i]['filiacion'] == 'docente'){   
+                                echo '<input name="rFiliacionIS' . ($i) . '" id="rDocenteCI' . ($i) . '" type="radio" value="docente" checked>
+                                Docente<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rEstudianteCI' . ($i) . '" type="radio" value="estudiante" >
+                                Estudiante<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rAdminCI' . ($i) . '" type="radio" value="administrativo" > 
+                                Administrativo<br>'; 
+                                
+                            }
+                            else if($investigadores[$i]['filiacion'] == 'estudiante'){
+                                echo '<input name="rFiliacionIS' . ($i) . '" id="rDocenteCI' . ($i) . '" type="radio" value="docente" >
+                                Docente<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rEstudianteCI' . ($i) . '" type="radio" value="estudiante" checked>
+                                Estudiante<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rAdminCI' . ($i) . '" type="radio" value="administrativo" > 
+                                Administrativo<br>';
+                                
+                            }
+                            else{
+                                echo '<input name="rFiliacionIS' . ($i) . '" id="rDocenteCI' . ($i) . '" type="radio" value="docente" >
+                                Docente<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rEstudianteCI' . ($i) . '" type="radio" value="estudiante" >
+                                Estudiante<br>
+                                <input name="rFiliacionIS' . ($i) . '" id="rAdminCI' . ($i) . '" type="radio" value="administrativo" checked>
+                                Administrativo<br>';
+                            }
+                            echo '</div>';
+                        }
+                        else{
+                            echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" >
+                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                  <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" checked>
+                                  Pertenece a otra Universidad<br>
+                                  <div id="divi' . ($i) . '">
+                                  Universidad<br>
+                                  <input name="uniISCI' . ($i) . '" id="uniISCI' . ($i) . '" value="' . ($investigadores[$i]['universidad']) . '" type="text" >';
+                            echo '</div>';
+                        }
+                        echo '</div> <br/>';                    
+                    }
+                }
+            ?>
         </div>
         </fieldset>
 
