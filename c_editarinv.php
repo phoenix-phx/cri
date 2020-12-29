@@ -8,7 +8,7 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 
 if( !isset($_REQUEST['inv_id']) ){
     $_SESSION['error'] = 'No se encontro la investigacion';
-    header('Location: listaInv_investigador');
+    header('Location: listaInv_investigador.php');
     return;
 }
 
@@ -22,7 +22,7 @@ $stmt->execute(array(
 $inv = $stmt->fetch(PDO::FETCH_ASSOC);
 if($inv === false){
     $_SESSION['error'] = 'No se pudo cargar la investigacion';
-    header('Location: listaInv_investigador');
+    header('Location: listaInv_investigador.php');
     return;    
 }
 
@@ -171,7 +171,6 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 ':fl' => $_POST['rFiliacionIP'],
                 ':id' => $_POST['pautor_id']
             ));
-    		$autor_id = $pdo->lastInsertId();
         }
         else if($_POST['univIP'] === 'externo'){
             $sql = 'UPDATE autor
@@ -184,7 +183,6 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 ':uni' => $_POST['uniIPCI'],
                 ':id' => $_POST['pautor_id']
             ));
-            $autor_id = $pdo->lastInsertId();
         }		
 
         // autores de colaboracion
@@ -448,7 +446,7 @@ $stmt->execute(array(
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if($row === false){
     $_SESSION['error'] = 'Valores erroneos para inv_id';
-    header('Location: listaInv_investigador');
+    header('Location: listaInv_investigador.php');
     return;
 }
 
