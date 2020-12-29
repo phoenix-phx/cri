@@ -18,23 +18,28 @@ if($_SESSION['permisos'] === 'investigador'){
        ':st' => 'en curso'
     ));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row !== false){
-        do{
-            echo '<div role="table">' . "\n";
-            echo '<div role="cabecera"> <span>Codigo</span> </div>';
-            echo '<div role="cabecera"> <span>Nombre Corto</span> </div>';
-            echo '<div role="cabecera"> <span>Fecha Finalizacion</span> </div>';
+    echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
+            echo '<div role="cabecera" align="center"> 
+                <div class="aLeft" style="width:320px;">CODIGO</div> 
+                <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+                <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+                </div><br><br>
+            </div>';
             
-            echo '<div role="fila">';
-            echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['nombre_corto']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['fecha_fin']) . '</span> </div>';
-            echo '<a href="detalles_investigacion_inv.php?inv_id='.$row['idInv'].'">&gt&gt</a>'; echo "</td>";
-            echo "</div>\n";
 
-            echo "</div>";
-            echo "<br /> <br />";
+    if($row !== false){
+        echo '<div style="padding-left:4%;padding-right:4%;">';
+        do{ 
+            echo '<div role="fila" class="container" 
+            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+                <div class="aLeft" style="width:320px;">' . htmlentities($row['codigo']) . '</div> 
+                <div class="aLeft" style="width:500px;">' . htmlentities($row['nombre_corto']) . '</div> 
+                <div class="aLeft" style="width:250px;">' . htmlentities($row['fecha_fin']) . '</div>
+                <a class="link" href="detalles_investigacion_inv.php?inv_id='.$row['idInv'].'">&gt&gt</a>
+                </div>';
+            echo "<br> <br>";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
+        echo '</div>';
     }
     else if($row === false){
         echo "<span> No tiene investigaciones registradas </span>";
@@ -47,22 +52,25 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
+    echo '<div role="cabecera" align="center"> 
+        <div class="aLeft" style="width:320px;">CODIGO</div> 
+        <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+        <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
+        </div><br><br>
+    </div>';
+    
     if($row !== false){
+        echo '<div style="padding-left:4%;padding-right:4%;">';
         do{
-            echo '<div role="table">' . "\n";
-            echo '<div role="cabecera"> <span>Codigo</span> </div>';
-            echo '<div role="cabecera"> <span>Nombre Corto</span> </div>';
-            echo '<div role="cabecera"> <span>Unidad de Investigacion</span> </div>';
-            
-            echo '<div role="fila">';
-            echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['nombre_corto']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['unidad_investigacion']) . '</span> </div>';
-            echo '<a href="detalles_investigacion_admin.php?inv_id='.$row['idInv'].'">&gt&gt</a>'; echo "</td>";
-            echo "</div>\n";
-
-            echo "</div>";
-            echo "<br /> <br />";
+            echo '<div role="fila" class="container" 
+            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+                <div class="aLeft" style="width:320px;">' . htmlentities($row['codigo']) . '</div> 
+                <div class="aLeft" style="width:500px;">' . htmlentities($row['nombre_corto']) . '</div> 
+                <div class="aLeft" style="width:250px;">' . htmlentities($row['unidad_investigacion']) . '</div>
+                <a class="link" href="detalles_investigacion_admin.php?inv_id='.$row['idInv'].'">&gt&gt</a>
+                </div>';
+                echo "<br> <br>";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
     }
     else if($row === false){
