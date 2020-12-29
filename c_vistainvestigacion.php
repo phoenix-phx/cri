@@ -125,22 +125,25 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //datos generales
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>Codigo</span> <span>' . $codigo . ' </span></div>';
-    echo '<div role="fila"> <span>Titulo</span> <span>' . $titulo . ' </span></div>';
-    echo '<div role="fila"> <span>Nombre Corto </span> <span>' . $nc . ' </span></div>';
-    echo '<div role="fila"> <span>Unidad de Investigacion</span> <span>' . $ui . ' </span></div>';
-    echo '<div role="fila"> <span>Resumen </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>Fecha Inicio </span> <span>' . $finicio . ' </span></div>';
-    echo '<div role="fila"> <span>Fecha Final </span> <span>' . $ffinal . ' </span></div>';
+    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
+    echo '<div role="fila"> <span>NOMBRE CORTO: </span> <span>' . $nc . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
+    echo '<div role="fila"> <span>FECHA INICIO: </span> <span>' . $finicio . ' </span></div>';
+    echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';
 
     //autores
-    echo "<p>INVESTIGADORES</p>";
     echo '<div role="fila" id="autores">';
-    echo '<ul>';
+    //echo '<ul>';
     if(count($principal) !== 0){
-        echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
+        echo '<span>INVESTIGADOR PRINCIPAL: ' . htmlentities($principal['nombre']) . '</span><br>';
+        //echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
     }
+        echo 'INVESTIGADOR / ES DE COLABORACION';
+    //echo '<ul>'; //Por algun motivo muestra bien sin ul y muestra mal en caso contrario
     if(count($internos) !== 0){
+        
         for ($i=0; $i < count($internos); $i++) {
             echo '<li>' . htmlentities($internos[$i]['nombre']) . '</li>'; 
         }
@@ -150,7 +153,7 @@ if($_SESSION['permisos'] === 'investigador'){
             echo '<li>' . htmlentities($externos[$i]['nombre']) . '</li>'; 
         }
     }
-    echo '</ul>';
+    //echo '</ul>';
     echo '</div>';
 
     //financiamiento
