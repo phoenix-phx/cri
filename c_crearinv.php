@@ -329,7 +329,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 ':inv' => $inv_id,
                 ':no' => $nombre,
                	':fi' => $finicio,
-                ':ff' => $ffinal,
+                ':ff' => $ffinal
             ));
         }
         

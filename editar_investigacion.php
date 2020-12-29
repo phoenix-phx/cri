@@ -371,7 +371,7 @@
     }
     ?>
     <h3><i>Llena todos los campos para registrar la investigacion</i></h3>
-    <form action="c_crearinv.php" method="post">
+    <form action="c_editarinv.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>" method="post">
         
         <label>Codigo</label><span> <?php echo $codigo; ?></span> <br>
 
@@ -620,7 +620,7 @@
                 echo 'Observaciones';
                 echo '<br>';
                 echo '<textarea id="obsTipoFOCI" name="obsTipoFOCI" rows="4" cols="100">';
-                if($observaciones !== ''){
+                if(isset($observaciones)){
                     echo $observaciones;
                 }
                 echo '</textarea>';
@@ -660,7 +660,7 @@
         }
         echo '</fieldset>';
     ?>
-        <input type="submit" value="Crear"> 
+        <input type="submit" value="Guardar"> 
     </form>
 </body>
 </html>

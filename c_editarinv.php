@@ -158,8 +158,6 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             ':us' => $_SESSION['idUsuario']
         ));
         
-        $inv_id = $pdo->lastInsertId();
-
 	    // autor principal
         if($_POST['univIP'] === 'interno'){
     	    $sql = 'UPDATE autor
@@ -190,8 +188,20 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         }		
 
         // autores de colaboracion
-        $sql = 'DELETE FROM autor
-                WHERE '
+        $sql = "DELETE a, ci
+                FROM autor a, colaborador_inv ci
+                WHERE a.idAutor IN (
+                    select a.idAutor
+                    from investigacion i
+                    where i.idInv = ci.idInv
+                    and ci.idAutor = a.idAutor
+                    and a.rol = 'colaboracion'
+                    and i.idInv = :inv
+                )";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $_REQUEST['inv_id']
+        ));
 
         for ($i=0; $i <= 100 ; $i++) {
             if( !isset($_POST['nomInvSCI'.$i]) ) continue;
@@ -216,7 +226,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                         VALUES (:inv, :auth)";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':inv' => $inv_id,
+                    ':inv' => $_REQUEST['inv_id'],
                     ':auth' => $autor_id
                 ));
             }
@@ -237,78 +247,174 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                         VALUES (:inv, :auth)";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':inv' => $inv_id,
+                    ':inv' => $_REQUEST['inv_id'],
                     ':auth' => $autor_id
                 ));
             }
         }
         
         // financiamiento
+        $sql = 'SELECT * 
+                FROM financiador
+                WHERE idInv = :inv';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $_REQUEST['inv_id']
+        ));
+        $exists = $stmt->fetch(PDO::FETCH_ASSOC); 
+
         if($_POST['rExisteFI'] === 'si'){
-	        $sql = "INSERT INTO financiador (idInv, tipo_financiamiento)
-	                VALUES (:inv, :tfm)";
-	        $stmt = $pdo->prepare($sql);
-	        $stmt->execute(array(
-	            ':inv' => $inv_id,
-	            ':tfm' => $_POST['rTipoFI']
-	        ));
-            $financiador = $pdo->lastInsertId();
+            if($exists === false){
+    	        $sql = "INSERT INTO financiador (idInv, tipo_financiamiento)
+    	                VALUES (:inv, :tfm)";
+    	        $stmt = $pdo->prepare($sql);
+    	        $stmt->execute(array(
+    	            ':inv' => $_REQUEST['inv_id'],
+    	            ':tfm' => $_POST['rTipoFI']
+    	        ));
+                $financiador = $pdo->lastInsertId();
 
-            if($_POST['rTipoFr'] === 'interno'){
-                $sql = "UPDATE financiador
-                        SET  tipo_financiador = :tfr, nombre_financiador = :nfr
-                        WHERE idFinanciador = :id
-                        AND idInv = :inv";
+                if($_POST['rTipoFr'] === 'interno'){
+                    $sql = "UPDATE financiador
+                            SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':tfr' => $_POST['rTipoFr'],
+                        ':nfr' => 'Universidad Catolica Boliviana',
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+                else if($_POST['rTipoFr'] === 'externo'){
+                    $sql = "UPDATE financiador
+                            SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':tfr' => $_POST['rTipoFr'],
+                        ':nfr' => $_POST['nombreFinanciador'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+
+                if($_POST['rTipoFI'] === 'monetario'){
+                    $sql = "UPDATE financiador
+                            SET  monto = :mn
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':mn' => $_POST['monto'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+
+                if(strlen($_POST['obsTipoFOCI']) > 1){
+                    $sql = 'UPDATE financiador
+                            SET  observaciones = :obs
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv';
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':obs' => $_POST['obsTipoFOCI'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+            }
+            else if($exists !== false){
+                $sql = "UPDATE financiador 
+                        SET tipo_financiamiento = :tfm
+                        WHERE idInv = :inv
+                        AND idFinanciador = :id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':tfr' => $_POST['rTipoFr'],
-                    ':nfr' => 'Universidad Catolica Boliviana',
-                    ':id' => $financiador,
-                    ':inv' => $inv_id 
-                ));            
-            }
-            else if($_POST['rTipoFr'] === 'externo'){
-                $sql = "UPDATE financiador
-                        SET  tipo_financiador = :tfr, nombre_financiador = :nfr
-                        WHERE idFinanciador = :id
-                        AND idInv = :inv";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':tfr' => $_POST['rTipoFr'],
-                    ':nfr' => $_POST['nombreFinanciador'],
-                    ':id' => $financiador,
-                    ':inv' => $inv_id 
-                ));            
-            }
+                    ':tfm' => $_POST['rTipoFI'],
+                    ':inv' => $_REQUEST['inv_id'],
+                    ':id' => $_POST['financiador_id']
+                ));
+                $financiador = $_POST['financiador_id'];
 
-            if($_POST['rTipoFI'] === 'monetario'){
-                $sql = "UPDATE financiador
-                        SET  monto = :mn
-                        WHERE idFinanciador = :id
-                        AND idInv = :inv";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':mn' => $_POST['monto'],
-                    ':id' => $financiador,
-                    ':inv' => $inv_id 
-                ));            
-            }
+                if($_POST['rTipoFr'] === 'interno'){
+                    $sql = "UPDATE financiador
+                            SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':tfr' => $_POST['rTipoFr'],
+                        ':nfr' => 'Universidad Catolica Boliviana',
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+                else if($_POST['rTipoFr'] === 'externo'){
+                    $sql = "UPDATE financiador
+                            SET  tipo_financiador = :tfr, nombre_financiador = :nfr
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':tfr' => $_POST['rTipoFr'],
+                        ':nfr' => $_POST['nombreFinanciador'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
 
-            if(strlen($_POST['obsTipoFOCI']) > 1){
-                $sql = 'UPDATE financiador
-                        SET  observaciones = :obs
+                if($_POST['rTipoFI'] === 'monetario'){
+                    $sql = "UPDATE financiador
+                            SET  monto = :mn
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':mn' => $_POST['monto'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }
+
+                if(strlen($_POST['obsTipoFOCI']) > 1){
+                    $sql = 'UPDATE financiador
+                            SET  observaciones = :obs
+                            WHERE idFinanciador = :id
+                            AND idInv = :inv';
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':obs' => $_POST['obsTipoFOCI'],
+                        ':id' => $financiador,
+                        ':inv' => $_REQUEST['inv_id'] 
+                    ));            
+                }   
+            }
+	    }
+        else if($_POST['rExisteFI'] === 'no'){
+            if($exists !== false){
+                $sql = 'DELETE FROM financiador
                         WHERE idFinanciador = :id
                         AND idInv = :inv';
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':obs' => $_POST['obsTipoFOCI'],
-                    ':id' => $financiador,
-                    ':inv' => $inv_id 
-                ));            
-            }            
-	    }
-
+                    ':id' => $exists['idFinanciador'],
+                    ':inv' => $_REQUEST['inv_id'] 
+                ));
+            }
+        }
+        
         // actividades
+        $sql = 'DELETE FROM actividad
+                WHERE idInv = :inv';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $_REQUEST['inv_id'] 
+        ));
+
         for ($i=0; $i <= 100 ; $i++) {
             if( !isset($_POST['nomActCI'.$i]) ) continue;
             if( !isset($_POST['FIActCI'.$i]) ) continue;
@@ -320,15 +426,15 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                     VALUES (:inv, :no, :fi, :ff)';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
-                ':inv' => $inv_id,
+                ':inv' => $_REQUEST['inv_id'],
                 ':no' => $nombre,
                	':fi' => $finicio,
-                ':ff' => $ffinal,
+                ':ff' => $ffinal
             ));
         }
         
-        $_SESSION["success"] = 'investigacion creada exitosamente';
-        header('Location: nueva_investigacion.php');
+        $_SESSION["success"] = 'cambios guardados correctamente';
+        header('Location: detalles_investigacion_inv.php?inv_id='.$_REQUEST['inv_id']);
         return;
     
 }
