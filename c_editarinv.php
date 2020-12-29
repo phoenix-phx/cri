@@ -32,23 +32,23 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 	if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
 
 		$_SESSION['error'] = 'Debe llenar todos los campos obligatorios de la investigacion';
-		header("Location: nueva_investigacion.php");
+		header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
 		return;
 	}
 	if( strlen($_POST['nomInvPCI']) < 1 || !isset($_POST['univIP'])){
 		$_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
-		header("Location: nueva_investigacion.php");
+		header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
 		return;
 	}
     if( isset($_POST['univIP']) && $_POST['univIP'] === 'interno'){
         if (strlen($_POST['uniInvPCI']) < 1){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
         }        
         if (!isset($_POST['rFiliacionIP'])){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
 
         }
@@ -56,33 +56,32 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     if( isset($_POST['univIP']) && $_POST['univIP'] === 'externo'){
         if (strlen($_POST['uniIPCI']) < 1){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
         }        
     }
 	if( !isset($_POST['rExisteFI']) ) {
         $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
-		header("Location: nueva_investigacion.php");
+		header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
 		return;
 	}
     if(isset($_POST['rExisteFI']) && $_POST['rExisteFI'] === 'si'){
-        // TODO: aqui falta la validacion de las observaciones o monto del tipo financiamiento (monetario / otro)
         if(!isset($_POST['rTipoFr']) || !isset($_POST['rTipoFI']) ){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
         }
         if(isset($_POST['rTipoFr']) && $_POST['rTipoFr'] === 'externo'){
             if(strlen($_POST['nombreFinanciador']) < 1){
                 $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
-                header("Location: nueva_investigacion.php");
+                header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
                 return;                
             }
         }
         if(isset($_POST['rTipoFI']) && $_POST['rTipoFI'] === 'monetario'){
             if(strlen($_POST['monto']) < 1){
                 $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
-                header("Location: nueva_investigacion.php");
+                header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
                 return;
             }
         }
@@ -118,7 +117,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $failure = validateAutores();
         if ( is_string($failure)) {
             $_SESSION['error'] = $failure;
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
         }
 
@@ -139,87 +138,61 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $failure = validateActividades();
         if ( is_string($failure)) {
             $_SESSION['error'] = $failure;
-            header("Location: nueva_investigacion.php");
+            header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
             return;
         }
 
         // investigacion 
-    	$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
-                VALUES (:us, :no, :nc, :res, :ff, :ui, :st)";
+    	$sql = 'UPDATE investigacion
+                SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_fin = :ff, unidad_investigacion = :ui
+                WHERE idInv = :inv
+                AND idUsuario = :us';                
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
-        	':us' => $_SESSION['idUsuario'],
-            ':no' => $_POST['invTituloCI'],
+        	':no' => $_POST['invTituloCI'],
             ':nc' => $_POST['invNomCortoCI'],
             ':res' => $_POST['resumenCI'],
             ':ff' => $_POST['fechaFinCI'],
             ':ui' => $_POST['uniInvCI'],
-            ':st' => "en curso"
+            ':inv' => $_REQUEST['inv_id'],
+            ':us' => $_SESSION['idUsuario']
         ));
         
         $inv_id = $pdo->lastInsertId();
 
-     	$dia = getdate();
-   		$finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
-   		$nombre = explode(' ', $_POST['invNomCortoCI']);
-	    $codigo = $finicio . '_';
-	    for ($i=0; $i < count($nombre); $i++) { 
-	   		$codigo = $codigo . strtolower($nombre[$i]);
-	    }
-   		
-     	$sql = "UPDATE investigacion
-	            SET  codigo = :cd, fecha_inicio = :fi
-	            WHERE idUsuario = :id
-	            AND idInv = :inv";
-	    $stmt = $pdo->prepare($sql);
-	    $stmt->execute(array(
-	        ':cd' => $codigo,
-	        ':fi' => $finicio,
-	        ':id' => $_SESSION['idUsuario'],
-	       	':inv' => $inv_id 
-	    ));
-	    
 	    // autor principal
         if($_POST['univIP'] === 'interno'){
-    	    $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
-                    VALUES (:no, :tf, :rol, :ui, :fl)";
+    	    $sql = 'UPDATE autor
+                    SET nombre = :no, tipo_filiacion = :tf, unidad_investigacion = :ui, filiacion = :fl
+                    WHERE idAutor = :id';
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
                 ':no' => $_POST['nomInvPCI'],
                 ':tf' => $_POST['univIP'],
-                ':rol' => "principal",
                 ':ui' => $_POST['uniInvPCI'],
-                ':fl' => $_POST['rFiliacionIP']
+                ':fl' => $_POST['rFiliacionIP'],
+                ':id' => $_POST['pautor_id']
             ));
     		$autor_id = $pdo->lastInsertId();
-    		$sql = "INSERT INTO colaborador_inv (idInv, idAutor)
-                    VALUES (:inv, :auth)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':inv' => $inv_id,
-                ':auth' => $autor_id
-            ));
         }
         else if($_POST['univIP'] === 'externo'){
-            $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
-                    VALUES (:no, :tf, :rol, :uni)";
+            $sql = 'UPDATE autor
+                    SET nombre = :no, tipo_filiacion = :tf, universidad = :uni
+                    WHERE idAutor = :id';                    
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
                 ':no' => $_POST['nomInvPCI'],
                 ':tf' => $_POST['univIP'],
-                ':rol' => "principal",
-                ':uni' => $_POST['uniIPCI']
+                ':uni' => $_POST['uniIPCI'],
+                ':id' => $_POST['pautor_id']
             ));
             $autor_id = $pdo->lastInsertId();
-            $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
-                    VALUES (:inv, :auth)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':inv' => $inv_id,
-                ':auth' => $autor_id
-            ));
         }		
+
         // autores de colaboracion
+        $sql = 'DELETE FROM autor
+                WHERE '
+
         for ($i=0; $i <= 100 ; $i++) {
             if( !isset($_POST['nomInvSCI'.$i]) ) continue;
             $nombre = $_POST['nomInvSCI'.$i];

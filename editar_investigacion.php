@@ -400,6 +400,7 @@
         <h3>Investigador principal</h3>
         <div id="InvP">
             <label for="nomInvPCI">Nombre<span class="must">*</span>:</label>
+            <input type="hidden" name="pautor_id" value="<?php echo($pautor_id) ?>">
             <input name="nomInvPCI" id="nomInvPCI" type="text" value="<?php echo($pnombre) ?>"><br>
             
             <input name="univIP" id="rPUniCI" type="radio" onclick="perteneceInvP()" value="interno" <?php if($tipo_filiacion === 'interno'){
@@ -544,11 +545,88 @@
         <fieldset id="financiamiento">
             <h3>Financiamiento</h3>
             <h4>Existe</h4>
-            <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()">
+            <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()" <?php if($nombre_financiador !== 'No Existe'){
+                echo 'checked="checked"';
+            } ?>>
             <label for="rSiExisteFCI">Si</label><br>
             
-            <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no" onclick="noexistFinan()">
+            <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no" onclick="noexistFinan()" <?php if($nombre_financiador === 'No Existe'){
+                echo 'checked="checked"';
+            } ?>>
             <label for="rNoExisteFCI">No</label><br>
+            <?php 
+            if($nombre_financiador !== 'No Existe'){
+                echo '<div id="existe">';
+                echo '<input type="hidden" name="financiador_id" value="' . $financiador_id . '">';
+                echo "Tipo Financiador";
+                echo "<br>";
+                echo '<input id="rTipoFIntCI" name="rTipoFr" type="radio" value="interno" ';
+                if($tipo_financiador == 'interno'){
+                    echo 'checked="checked">';
+                }
+                else{
+                    echo '>';
+                }
+                echo "Interno";
+                echo "<br>";
+
+                echo '<input id="rTipoFEntCI" name="rTipoFr" type="radio" value="externo" ';
+                if($tipo_financiador == 'externo'){
+                    echo 'checked="checked">';
+                }
+                else{
+                    echo '>';
+                }
+                echo "Externo";
+                echo "<br>";
+                if($tipo_financiador == 'externo'){
+                    echo '<div id="nomFin">';
+                    echo 'Nombre Financiador';
+                    echo '<input id="nombreFinanciador" name="nombreFinanciador" type="text" value="' . $nombre_financiador . '">';
+                    echo "</div>";
+                    echo '<br>';
+                }
+                
+                echo "Tipo Financiamiento";
+                echo "<br>";
+                echo '<input id="rTipoMCI" name="rTipoFI" type="radio" value="monetario" ';
+                if($tipo_financiamiento === 'monetario'){
+                    echo 'checked="checked">';
+                }
+                else{
+                    echo ">";
+                }
+                echo "Monetario";
+                echo "<br>";
+
+                echo '<input id="rTipoOCI" name="rTipoFI" type="radio" value="otro" ';
+                if($tipo_financiamiento !== 'monetario'){
+                    echo 'checked="checked">';
+                }
+                else{
+                    echo ">";
+                }
+                echo "Otro";
+                echo "<br>";
+                if($tipo_financiamiento == 'monetario'){
+                    echo '<div id="montFin">';
+                    echo 'Monto';
+                    echo '<input id="monto" name="monto" type="text" value="' . $monto . '">';
+                    echo "</div>";
+                    echo '<br>';
+                }
+
+                echo 'Observaciones';
+                echo '<br>';
+                echo '<textarea id="obsTipoFOCI" name="obsTipoFOCI" rows="4" cols="100">';
+                if($observaciones !== ''){
+                    echo $observaciones;
+                }
+                echo '</textarea>';
+                echo "<br>";
+                echo "</div>";
+            }
+            ?>
         </fieldset>
         
         <!--Agregar actividades-->
@@ -556,7 +634,7 @@
         <?php
         echo '<fieldset>
         <h3>
-        "Actividades "
+        Actividades
         <button onclick="addItemAct()">+</button>
         </h3>';
         if(count($actividades) !== 0){
