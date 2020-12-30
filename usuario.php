@@ -6,12 +6,12 @@ class Usuario{
 	protected $celular;
 	protected $telefono;
 	
-	protected $user;
-	protected $pass;
+	private $user;
+	private $pass;
 
 	protected $rol;
 	protected $id;
-	private global $salt = '*cRriII20#_';
+	private $salt = '*cRriII20#_';
 
 	public function setRol($rol){
 		$this->rol = $rol;
@@ -21,8 +21,16 @@ class Usuario{
 		$this->id = $id;
 	}
 
-	public function login($user, $pass, $mode){
-		$try = hash('sha256', $salt . $pass);
+	public function getRol(){
+		return $this->rol;
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function login($user, $pass, $mode, $pdo){
+		$try = hash('sha256', $this->salt . $pass);
 		$stmt = $pdo->prepare('SELECT idUsuario, rol
 							   FROM usuario
 							   WHERE user = :us
@@ -38,8 +46,8 @@ class Usuario{
 			return false;
 		}
 		else{
-			setRol($row['rol']);
-			setId($row['idUsuario']);
+			$this->setRol($row['rol']);
+			$this->setId($row['idUsuario']);
 			return true;
 		}	
 	}
