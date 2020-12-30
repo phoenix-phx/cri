@@ -94,10 +94,10 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //datos generales
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>Codigo</span> <span>' . $codigo . ' </span></div>';
-    echo '<div role="fila"> <span>Titulo</span> <span>' . $titulo . ' </span></div>';
-    echo '<div role="fila"> <span>Resumen </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>Tipo de publicacion </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
+    echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
+    echo '<div role="fila"> <span>TIPO PUBLICACION: : </span> <span>' . $tipo . ' </span></div>';
 
     //autores
     echo "<p>AUTORES</p>";

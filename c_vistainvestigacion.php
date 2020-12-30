@@ -135,13 +135,12 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //autores
     echo '<div role="fila" id="autores">';
-    //echo '<ul>';
     if(count($principal) !== 0){
         echo '<span>INVESTIGADOR PRINCIPAL: ' . htmlentities($principal['nombre']) . '</span><br>';
         //echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
     }
         echo 'INVESTIGADOR / ES DE COLABORACION';
-    //echo '<ul>'; //Por algun motivo muestra bien sin ul y muestra mal en caso contrario
+    echo '<ul>';
     if(count($internos) !== 0){
         
         for ($i=0; $i < count($internos); $i++) {
@@ -153,7 +152,7 @@ if($_SESSION['permisos'] === 'investigador'){
             echo '<li>' . htmlentities($externos[$i]['nombre']) . '</li>'; 
         }
     }
-    //echo '</ul>';
+    echo '</ul>';
     echo '</div>';
 
     //financiamiento
@@ -173,18 +172,19 @@ if($_SESSION['permisos'] === 'investigador'){
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
             echo '<div id="actividad' . ($i+1) .'">';
-            echo '<p> <span> Nombre </span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
+            echo '<p> <span> NOMBRE:  </span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
             echo "<br>";
-            echo '<span> Fecha inicio </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
+            echo '<span> FECHA INICIO: </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
             echo "<br>";
-            echo '<span> Fecha finalizacion </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
+            echo '<span> FECHA FINALIZACION: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
             echo "</div>";
         }
     }
     else{
         echo "<span>No se han registrado actividades</span>";
     }
-    echo '</div>';
+    echo '<h3> Publicaciones </h3>';
+    echo '</div></div>';
 
     //publicaciones
     $sql = 'SELECT codigo, titulo, tipo, idPub 
@@ -197,18 +197,24 @@ if($_SESSION['permisos'] === 'investigador'){
        ':inv' => $_REQUEST['inv_id'],
     ));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
+            echo '<div role="cabecera" align="center"> 
+                <div class="aLeft" style="width:320px;">CODIGO</div> 
+                <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+                <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+                </div><br><br>
+            </div>';
     if($row !== false){
-        echo '<div role="table">' . "\n";
-        echo '<div role="cabecera"> <span>Codigo</span> </div>';
-        echo '<div role="cabecera"> <span>Titulo</span> </div>';
-        echo '<div role="cabecera"> <span>Tipo</span> </div>';
+        echo '<div style="padding-left:4%;padding-right:4%;">';
         do{
-            echo '<div role="fila">';
-            echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['titulo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['tipo']) . '</span> </div>';
-            echo '<a href="ver_publicacion.php?pub_id='.$row['idPub'].'">&gt&gt</a>'; echo "</td>";
-            echo "</div>\n";
+            echo '<div role="fila" class="container" 
+            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+            <div class="aLeft" style="width:320px;">' . htmlentities($row['codigo']) . '</div> 
+            <div class="aLeft" style="width:500px;">' . htmlentities($row['titulo']) . '</div> 
+            <div class="aLeft" style="width:250px;">' . htmlentities($row['tipo']) . '</div>
+            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$row['idPub'].'">&gt&gt</a>';
+            echo "</div>";
+            echo "<br /> <br />";
         }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
         echo "</div>";
     }
@@ -329,7 +335,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo "<p>INVESTIGADORES</p>";
     echo '<div role="fila" id="autores">';
     echo '<ul>';
-    if(count($principal) !== 0){
+    if($principal !== false){
         echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
     }
     if(count($internos) !== 0){

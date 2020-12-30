@@ -32,7 +32,7 @@
     font-size: 20px;
     color: #f1f1f1;
     text-decoration: none;
-    font-style: normal;
+    font-style: normal; 
 }
 
 .container{
@@ -60,22 +60,6 @@
     align-items: center;
     justify-content: center;
 }
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 60px;
-  } 
-  li{
-     padding: 10px; 
-  }
-  li a {
-    display: block;
-    color: black;
-    text-decoration: none;
-    font-size: 20px;
-  }
 
   .clearfix::after {
     content: "";

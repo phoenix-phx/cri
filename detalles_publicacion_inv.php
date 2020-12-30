@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ver Publicacion</title>
+    <title>Ver Publicacion</title>
+    <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
-    <h1>Detalles</h1> 
-    <button onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
-    <button onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Entrega Final</button>
+    <!-- header -->
+    <div class="bar" style="height: 50px; background-color: #0b1f3f;">
+        <a href="home_investigador.php" class="aLeft textIblue">
+            <img src="imagenes/LogoU.png" style="height: 50px;">
+        </a>
+        <div style="padding-top: 15px; padding-bottom: 15px;">
+            <a href="home_investigador.php" class="aLeft textIblue">
+                Unidad de Investigacion UCB
+            </a>
+            <a href="" class="aRight textIblue">
+                <!-- Agregar usuario -->
+            </a>
+        </div>
+    </div>
+    
+    <div style="padding-left:5%;padding-right:5%;">
+        <h1 class="aLeft" style="font-size:50px;">Detalles</h1>
+        <div style="padding-top:40px;padding-bottom:30px">
+            <button class="button aRight" style="font-size:18px;" onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
+            <button class="button aRight" style="font-size:18px;"  onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Entrega Final</button>
+        </div>
+    </div>
+    <br><br><br><br>
+    <div style="padding-left:5%;padding-right:5%;font-size:20px;" align="left">
     <?php include "c_vistapublicacion.php" ?>
     <?php
         if (isset($_SESSION['error'])) {
@@ -18,5 +40,6 @@
             unset($_SESSION['success']);
         }
         ?>
+    </div>
 </body>
 </html>

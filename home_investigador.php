@@ -3,6 +3,23 @@
 <head>
     <title>Home Investigador</title>
     <link rel="stylesheet" href="style/styles.css">
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 60px;
+        } 
+        li{
+            padding: 10px; 
+        }
+        li a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body> 
     <!-- header -->
