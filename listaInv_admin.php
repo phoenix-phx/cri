@@ -38,6 +38,5 @@
     <br><br><br>
     
     <?php include "c_listainv.php"?>
-    <!-- Cambiar listado, tambien de publicaciones -->
 </body>
 </html>
