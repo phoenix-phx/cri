@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
-
+require_once "Investigacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -21,108 +21,39 @@ if( !isset($_REQUEST['inv_id'])) {
 }
 
 if($_SESSION['permisos'] === 'investigador'){
-    $sql = 'SELECT * 
-        	FROM investigacion
-    		WHERE idUsuario = :id
-            AND idInv = :inv'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':id' => $_SESSION['idUsuario'],
-       ':inv' => $_REQUEST['inv_id']
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row === false){
+    $inv = new Investigacion();
+
+    // cargar detalles generales
+    $estado = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
         $_SESSION['error'] = 'No se pudo cargar la investigacion';
         header('Location: listaInv_investigador.php');
         return;
     }
+    $codigo = htmlentities($inv->getCodigo());
+    $titulo = htmlentities($inv->getTitulo());
+    $nc = htmlentities($inv->getNombreCorto());
+    $ui = htmlentities($inv->getUnidadInvestigacion());
+    $resumen = htmlentities($inv->getResumen());
+    $finicio = htmlentities($inv->getFechaInicio());
+    $ffinal = htmlentities($inv->getFechaFinal());
 
-    $codigo = htmlentities($row['codigo']);
-    $titulo = htmlentities($row['nombre']);
-    $nc = htmlentities($row['nombre_corto']);
-    $ui = htmlentities($row['unidad_investigacion']);
-    $resumen = htmlentities($row['resumen']);
-    $finicio = htmlentities($row['fecha_inicio']);
-    $ffinal = htmlentities($row['fecha_fin']);
+    // cargar autor principal
+    $principal = $inv->loadAutorPrincipal($pdo, $_REQUEST['inv_id']);
 
-    function loadAutorPrincipal($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'principal'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $principal;
-    }
-    $principal = loadAutorPrincipal($pdo, $_REQUEST['inv_id']);
+    // cargar autores internos
+    $internos = $inv->loadAutorInterno($pdo, $_REQUEST['inv_id']);
 
-    function loadAutorInterno($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'interno'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $internos;
-    }
-    $internos = loadAutorInterno($pdo, $_REQUEST['inv_id']);
+    // cargar autores externos
+    $externos = $inv->loadAutorExterno($pdo, $_REQUEST['inv_id']);
 
-    function loadAutorExterno($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'externo'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $externos;
-    }
-    $externos = loadAutorExterno($pdo, $_REQUEST['inv_id']);
+    // cargar financiamiento
+    $financiador = $inv->loadFinanciamiento($pdo, $_REQUEST['inv_id']);
 
-    function loadFinanciamiento($pdo, $inv_id){
-        $sql = "SELECT f.nombre_financiador, f.idFinanciador
-                FROM financiador f, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = f.idInv";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $financiador = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $financiador;
-    }
-    $financiador = loadFinanciamiento($pdo, $_REQUEST['inv_id']);
+    // cargar actividades
+    $actividades = $inv->loadActividad($pdo, $_REQUEST['inv_id']);
 
-    function loadActividad($pdo, $inv_id){
-        $sql = "SELECT a.nombre, a.fecha_inicio, a.fecha_final 
-                FROM actividad a, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = a.idInv";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $actividades= $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $actividades;
-    }
-    $actividades = loadActividad($pdo, $_REQUEST['inv_id']);
-
+    //MOSTRAR
     //datos generales
     echo '<div role="container">' . "\n";
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
@@ -135,14 +66,12 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //autores
     echo '<div role="fila" id="autores">';
-    if(count($principal) !== 0){
+    if($principal !== false){
         echo '<span>INVESTIGADOR PRINCIPAL: ' . htmlentities($principal['nombre']) . '</span><br>';
-        //echo '<li>' . htmlentities($principal['nombre']) . '</li>'; 
     }
         echo 'INVESTIGADOR / ES DE COLABORACION';
     echo '<ul>';
     if(count($internos) !== 0){
-        
         for ($i=0; $i < count($internos); $i++) {
             echo '<li>' . htmlentities($internos[$i]['nombre']) . '</li>'; 
         }
@@ -183,143 +112,46 @@ if($_SESSION['permisos'] === 'investigador'){
     else{
         echo "<span>No se han registrado actividades</span>";
     }
+    //publicaciones
     echo '<h3> Publicaciones </h3>';
     echo '</div></div>';
-
-    //publicaciones
-    $sql = 'SELECT codigo, titulo, tipo, idPub 
-            FROM publicacion
-            WHERE idUsuario = :id
-            AND idInv = :inv'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':id' => $_SESSION['idUsuario'],
-       ':inv' => $_REQUEST['inv_id'],
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
-            echo '<div role="cabecera" align="center"> 
-                <div class="aLeft" style="width:320px;">CODIGO</div> 
-                <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-                <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
-                </div><br><br>
-            </div>';
-    if($row !== false){
-        echo '<div style="padding-left:4%;padding-right:4%;">';
-        do{
-            echo '<div role="fila" class="container" 
-            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
-            <div class="aLeft" style="width:320px;">' . htmlentities($row['codigo']) . '</div> 
-            <div class="aLeft" style="width:500px;">' . htmlentities($row['titulo']) . '</div> 
-            <div class="aLeft" style="width:250px;">' . htmlentities($row['tipo']) . '</div>
-            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$row['idPub'].'">&gt&gt</a>';
-            echo "</div>";
-            echo "<br /> <br />";
-        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
-        echo "</div>";
+    $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
+        echo '<span>No existen publicaciones asociadas registradas </span>';
     }
     echo "<br />";
 }
 else if($_SESSION['permisos'] === 'administrativo'){
-    $sql = 'SELECT * 
-            FROM investigacion
-            WHERE idInv = :inv'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':inv' => $_REQUEST['inv_id']
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row === false){
+    $inv = new Investigacion();
+    $estado = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
         $_SESSION['error'] = 'No se pudo cargar la investigacion';
         header('Location: listaInv_admin.php');
         return;
     }
 
-    $codigo = htmlentities($row['codigo']);
-    $titulo = htmlentities($row['nombre']);
-    $nc = htmlentities($row['nombre_corto']);
-    $ui = htmlentities($row['unidad_investigacion']);
-    $resumen = htmlentities($row['resumen']);
-    $finicio = htmlentities($row['fecha_inicio']);
-    $ffinal = htmlentities($row['fecha_fin']);
+    $codigo = htmlentities($inv->getCodigo());
+    $titulo = htmlentities($inv->getTitulo());
+    $nc = htmlentities($inv->getNombreCorto());
+    $ui = htmlentities($inv->getUnidadInvestigacion());
+    $resumen = htmlentities($inv->getResumen());
+    $finicio = htmlentities($inv->getFechaInicio());
+    $ffinal = htmlentities($inv->getFechaFinal());
 
-    function loadAutorPrincipal($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'principal'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $principal;
-    }
-    $principal = loadAutorPrincipal($pdo, $_REQUEST['inv_id']);
+    // cargar autor principal
+    $principal = $inv->loadAutorPrincipal($pdo, $_REQUEST['inv_id']);
 
-    function loadAutorInterno($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'interno'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $internos;
-    }
-    $internos = loadAutorInterno($pdo, $_REQUEST['inv_id']);
+    // cargar autores internos
+    $internos = $inv->loadAutorInterno($pdo, $_REQUEST['inv_id']);
 
-    function loadAutorExterno($pdo, $inv_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_inv ci, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = ci.idInv
-                AND autor.idAutor = ci.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'externo'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $externos;
-    }
-    $externos = loadAutorExterno($pdo, $_REQUEST['inv_id']);
+    // cargar autores externos
+    $externos = $inv->loadAutorExterno($pdo, $_REQUEST['inv_id']);
 
-    function loadFinanciamiento($pdo, $inv_id){
-        $sql = "SELECT f.nombre_financiador, f.idFinanciador
-                FROM financiador f, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = f.idInv";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $financiador = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $financiador;
-    }
-    $financiador = loadFinanciamiento($pdo, $_REQUEST['inv_id']);
+    // cargar financiamiento
+    $financiador = $inv->loadFinanciamiento($pdo, $_REQUEST['inv_id']);
 
-    function loadActividad($pdo, $inv_id){
-        $sql = "SELECT a.nombre, a.fecha_inicio, a.fecha_final 
-                FROM actividad a, investigacion i
-                WHERE i.idInv = :inv
-                AND i.idInv = a.idInv";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':inv' => $inv_id
-        ));
-        $actividades= $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $actividades;
-    }
-    $actividades = loadActividad($pdo, $_REQUEST['inv_id']);
+    // cargar actividades
+    $actividades = $inv->loadActividad($pdo, $_REQUEST['inv_id']);
 
     //datos generales
     echo '<div role="container">' . "\n";
@@ -382,30 +214,11 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '</div>';
 
     //publicaciones
-    $sql = 'SELECT codigo, titulo, tipo, idPub 
-            FROM publicacion
-            WHERE idUsuario = :id
-            AND idInv = :inv'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':id' => $_SESSION['idUsuario'],
-       ':inv' => $_REQUEST['inv_id'],
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row !== false){
-        echo '<div role="table">' . "\n";
-        echo '<div role="cabecera"> <span>Codigo</span> </div>';
-        echo '<div role="cabecera"> <span>Titulo</span> </div>';
-        echo '<div role="cabecera"> <span>Tipo</span> </div>';
-        do{
-            echo '<div role="fila">';
-            echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['titulo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['tipo']) . '</span> </div>';
-            echo '<a href="ver_publicacion.php?pub_id='.$row['idPub'].'">&gt&gt</a>'; echo "</td>";
-            echo "</div>\n";
-        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
-        echo "</div>";
+    echo '<h3> Publicaciones </h3>';
+    echo '</div></div>';
+    $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
+        echo '<span>No existen publicaciones asociadas registradas </span>';
     }
     echo "<br />";   
 }

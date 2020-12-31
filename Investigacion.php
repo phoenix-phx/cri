@@ -1,5 +1,7 @@
 <?php 
 require_once "c_pdo.php";
+require_once "Publicacion.php";
+
 class Investigacion{
 	protected $codigo;
 	protected $titulo;
@@ -27,6 +29,14 @@ class Investigacion{
 		return $this->codigo;
 	}
 	
+	public function setTitulo($titulo){
+		$this->titulo = $titulo;
+	}
+
+	public function getTitulo(){
+		return $this->titulo;
+	}
+
 	public function setNombreCorto($nc){
 		$this->nombre_corto = $nc;
 	}
@@ -41,6 +51,14 @@ class Investigacion{
 
 	public function getResumen(){
 		return $this->resumen;
+	}
+
+	public function setFechaInicio($fi){
+		$this->fecha_inicio = $fi;
+	}
+
+	public function getFechaInicio(){
+		return $this->fecha_inicio;
 	}
 
 	public function setFechaFinal($ff){
@@ -174,5 +192,127 @@ class Investigacion{
 			return true;
 		}
 	}
+
+	public function loadDetalles($user_id, $inv_id, $role, $pdo){
+		if($role === 'investigador'){
+			$sql = 'SELECT * 
+		        	FROM investigacion
+		    		WHERE idUsuario = :id
+		            AND idInv = :inv'; 
+			$stmt = $pdo->prepare($sql);
+		    $stmt->execute(array(
+		       ':id' => $user_id,
+		       ':inv' => $inv_id
+		    ));
+		}
+		else if($role === 'administrativo'){
+			$sql = 'SELECT * 
+		            FROM investigacion
+		            WHERE idInv = :inv'; 
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute(array(
+		       ':inv' => $inv_id
+		    ));   
+		}
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	    if($row === false){
+			return false;
+		}
+		else{
+			$this->setCodigo($row['codigo']);
+			$this->setTitulo($row['nombre']);
+			$this->setNombreCorto($row['nombre_corto']);
+			$this->setUnidadInvestigacion($row['unidad_investigacion']);
+			$this->setResumen($row['resumen']);
+			$this->setFechaInicio($row['fecha_inicio']);
+			$this->setFechaFinal($row['fecha_fin']);
+			$this->setId($row['idInv']);
+			return true;
+		}
+	}
+
+	public function loadAutorPrincipal($pdo, $inv_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_inv ci, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = ci.idInv
+                AND autor.idAutor = ci.idAutor
+                AND autor.rol = 'principal'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $principal;
+    }
+
+    public function loadAutorInterno($pdo, $inv_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_inv ci, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = ci.idInv
+                AND autor.idAutor = ci.idAutor
+                AND autor.rol = 'colaboracion'
+                AND autor.tipo_filiacion = 'interno'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $internos;
+    }
+
+    public function loadAutorExterno($pdo, $inv_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_inv ci, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = ci.idInv
+                AND autor.idAutor = ci.idAutor
+                AND autor.rol = 'colaboracion'
+                AND autor.tipo_filiacion = 'externo'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $externos;
+    }
+
+    public function loadFinanciamiento($pdo, $inv_id){
+        $sql = "SELECT f.nombre_financiador, f.idFinanciador
+                FROM financiador f, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = f.idInv";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $financiador = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $financiador;
+    }
+
+    public function loadActividad($pdo, $inv_id){
+        $sql = "SELECT a.nombre, a.fecha_inicio, a.fecha_final 
+                FROM actividad a, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = a.idInv";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $actividades= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $actividades;
+    }
+
+	public function loadPubAsociadas($user_id, $role, $pdo){
+        $pub = new Publicacion();
+        $estado = $pub->listaPubAsociadas($user_id, $this->getId(), $role, $pdo);
+        if($estado === false){
+        	return false;
+        }
+        else{
+        	return true;
+        }
+    }    
 }
 ?>
