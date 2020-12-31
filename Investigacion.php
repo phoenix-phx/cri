@@ -80,6 +80,14 @@ class Investigacion{
 		return $this->unidad_investigacion;
 	}
 
+	public function setEstado($estado){
+		$this->estado = $estado;
+	}
+
+	public function getEstado(){
+		return $this->estado;
+	}
+
 	public function initInv($user_id, $pdo){
 		$sql = 'SELECT codigo, nombre_corto, resumen, idInv 
 		    	FROM investigacion
@@ -274,5 +282,36 @@ class Investigacion{
         	return true;
         }
     }    
+
+  	public function crear($user_id, $pdo){
+		$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
+            	VALUES (:us, :no, :nc, :res, :ff, :ui, :st)";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':us' => $user_id,
+	        ':no' => $this->getTitulo(),
+	        ':nc' => $this->getNombreCorto(),
+	        ':res' => $this->getResumen(),
+	        ':ff' => $this->getFechaFinal(),
+	        ':ui' => $this->getUnidadInvestigacion(),
+	        ':st' => $this->getEstado()
+	    ));
+	    $inv_id = $pdo->lastInsertId();
+	    $this->setId($inv_id);
+	}  
+
+	public function completarDetalles($user_id, $pdo){
+		$sql = "UPDATE investigacion
+	            SET  codigo = :cd, fecha_inicio = :fi
+	            WHERE idUsuario = :id
+	            AND idInv = :inv";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':cd' => $this->getCodigo(),
+	        ':fi' => $this->getFechaInicio(),
+	        ':id' => $user_id,
+	        ':inv' => $this->getId() 
+	    ));	    
+	}  
 }
 ?>

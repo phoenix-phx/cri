@@ -51,5 +51,17 @@ class Actividad{
         $actividades= $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $actividades;
     }   
+
+    public function registrar($pdo, $inv_id){
+        $sql = 'INSERT INTO actividad (idInv, nombre, fecha_inicio, fecha_final)
+                VALUES (:inv, :no, :fi, :ff)';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id,
+            ':no' => $this->getNombre(),
+            ':fi' => $this->getFechaInicio(),
+            ':ff' => $this->getFechaFinal()
+        ));
+    }   
 }
 ?>

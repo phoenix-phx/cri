@@ -69,5 +69,45 @@ class Financiador{
         $financiador = $stmt->fetch(PDO::FETCH_ASSOC);
         return $financiador;
     }    
+
+    public function registrar($pdo, $inv_id){
+        $sql = "INSERT INTO financiador (idInv, tipo_financiamiento, tipo_financiador, nombre_financiador)
+                VALUES (:inv, :tfm, :tfr, :nfr)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id,
+            ':tfm' => $this->getTipoFinanciamiento(),
+           	':tfr' => $this->getTipoFinanciador(),
+            ':nfr' => $this->getNombreFinanciador()
+        ));
+        $financiador = $pdo->lastInsertId();
+        $this->setId($financiador);
+    }
+
+    public function registrarMonto($pdo, $inv_id){
+        $sql = "UPDATE financiador
+                SET  monto = :mn
+                WHERE idFinanciador = :id
+                AND idInv = :inv";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':mn' => $this->getMonto(),
+            ':id' => $this->getId(),
+            ':inv' => $inv_id 
+        ));     
+    }
+
+    public function registrarObservaciones($pdo, $inv_id){
+        $sql = 'UPDATE financiador
+                SET  observaciones = :obs
+                WHERE idFinanciador = :id
+                AND idInv = :inv';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':obs' => $this->getObservaciones(),
+            ':id' => $this->getId(),
+            ':inv' => $inv_id 
+        ));
+    }
 }
 ?>
