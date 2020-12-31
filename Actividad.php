@@ -1,0 +1,55 @@
+<?php 
+require_once "c_pdo.php";
+
+class Actividad{
+	protected $nombre;
+	protected $fecha_inicio;
+	protected $fecha_final;
+	protected $id;
+
+	public function setNombre($nombre){
+		$this->nombre = $nombre;
+	}
+
+	public function getNombre(){
+		return $this->nombre;
+	}
+
+	public function setFechaInicio($fi){
+		$this->fecha_inicio = $fi;
+	}
+
+	public function getFechaInicio(){
+		return $this->fecha_inicio;
+	}
+	
+	public function setFechaFinal($ff){
+		$this->fecha_final = $ff;
+	}
+
+	public function getFechaFinal(){
+		return $this->fecha_final;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function loadActividad($pdo, $inv_id){
+        $sql = "SELECT a.nombre, a.fecha_inicio, a.fecha_final 
+                FROM actividad a, investigacion i
+                WHERE i.idInv = :inv
+                AND i.idInv = a.idInv";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $actividades= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $actividades;
+    }   
+}
+?>

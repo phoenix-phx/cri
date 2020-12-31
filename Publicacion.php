@@ -1,5 +1,7 @@
 <?php 
 require_once "c_pdo.php";
+require_once "Autor.php";
+
 class Publicacion{
 	protected $codigo;
 	protected $titulo;
@@ -262,49 +264,20 @@ class Publicacion{
 	}
 
 	public function loadAutorPrincipal($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'principal'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
+        $auth = new Autor();
+		$principal = $auth->loadNombreAutorPrincipal($pub_id, $pdo, 'publicacion');
         return $principal;
     }
 
     public function loadAutorInterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'interno'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $auth = new Autor();
+		$internos = $auth->loadNombreAutorInterno($pdo, $pub_id, 'publicacion');
         return $internos;
     }
 
     public function loadAutorExterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'externo'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $auth = new Autor();
+		$externos = $auth->loadNombreAutorExterno($pdo, $pub_id, 'publicacion');
         return $externos;
     }
 }

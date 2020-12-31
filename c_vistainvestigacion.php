@@ -88,7 +88,8 @@ if($_SESSION['permisos'] === 'investigador'){
     echo "<p>FINANCIAMIENTO</p>";
     echo '<div role="fila">';
     if($financiador !== false){
-        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
+        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
+        echo '<span> <a href="financiamiento.php?fin_id='. $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }
     else{
         echo '<span>No existe financiamiento</span>';   
@@ -97,7 +98,7 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //actividades
     echo "<p>ACTIVIDADES</p>";
-    echo '<div role="fila" id="actividades"';
+    echo '<div role="fila" id="actividades">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
             echo '<div id="actividad' . ($i+1) .'">';
