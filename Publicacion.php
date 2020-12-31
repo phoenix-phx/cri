@@ -48,6 +48,14 @@ class Publicacion{
 		return $this->tipo;
 	}
 
+	public function setDocumento($doc){
+		$this->documento = $doc;
+	}
+
+	public function getDocumento(){
+		return $this->documento;
+	}
+
 	public function initPub($user_id, $pdo){
 		$sql = 'SELECT codigo, titulo, resumen, idPub 
 		        FROM publicacion
@@ -153,7 +161,7 @@ class Publicacion{
 	            <div class="aLeft" style="width:320px;">' . htmlentities($row['codigo']) . '</div> 
 	            <div class="aLeft" style="width:500px;">' . htmlentities($row['titulo']) . '</div> 
 	            <div class="aLeft" style="width:250px;">' . htmlentities($row['tipo']) . '</div>
-	            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$row['idPub'].'">&gt&gt</a>';
+	            <a class="link" href="detalles_publicacion_admin.php?pub_id='.$row['idPub'].'">&gt&gt</a>';
 	            echo "</div>";
 	            echo "<br /> <br />";
 	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
@@ -216,5 +224,88 @@ class Publicacion{
 			return true;
 		}
 	}
+
+	public function loadDetalles($user_id, $inv_id, $role, $pdo){
+		if($role === 'investigador'){
+			$sql = 'SELECT * 
+		        	FROM publicacion
+		    		WHERE idUsuario = :id
+		            AND idPub = :pub'; 
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute(array(
+		       ':id' => $_SESSION['idUsuario'],
+		       ':pub' => $_REQUEST['pub_id']
+		    ));
+		}
+		else if($role === 'administrativo'){
+			$sql = 'SELECT * 
+		            FROM publicacion
+		            WHERE idPub = :pub'; 
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute(array(
+		       ':pub' => $_REQUEST['pub_id']
+		    ));      
+		}
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	    if($row === false){
+			return false;
+		}
+		else{
+			$this->setCodigo($row['codigo']);
+			$this->setTitulo($row['titulo']);
+			$this->setResumen($row['resumen']);
+			$this->setTipo($row['tipo']);
+			$this->setId($row['idInv']);
+			$this->setDocumento($row['documento_final']);
+			return true;
+		}
+	}
+
+	public function loadAutorPrincipal($pdo, $pub_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_pub cp, publicacion p
+                WHERE p.idPub = :pub
+                AND p.idPub = cp.idPub
+                AND autor.idAutor = cp.idAutor
+                AND autor.rol = 'principal'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':pub' => $pub_id
+        ));
+        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $principal;
+    }
+
+    public function loadAutorInterno($pdo, $pub_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_pub cp, publicacion p
+                WHERE p.idPub = :pub
+                AND p.idPub = cp.idPub
+                AND autor.idAutor = cp.idAutor
+                AND autor.rol = 'colaboracion'
+                AND autor.tipo_filiacion = 'interno'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':pub' => $pub_id
+        ));
+        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $internos;
+    }
+
+    public function loadAutorExterno($pdo, $pub_id){
+        $sql = "SELECT autor.nombre 
+                FROM autor, colaborador_pub cp, publicacion p
+                WHERE p.idPub = :pub
+                AND p.idPub = cp.idPub
+                AND autor.idAutor = cp.idAutor
+                AND autor.rol = 'colaboracion'
+                AND autor.tipo_filiacion = 'externo'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':pub' => $pub_id
+        ));
+        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $externos;
+    }
 }
 ?>

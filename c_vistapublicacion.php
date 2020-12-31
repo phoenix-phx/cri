@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
-
+require_once "Publicacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -21,76 +21,28 @@ if( !isset($_REQUEST['pub_id'])) {
 }
 
 if($_SESSION['permisos'] === 'investigador'){
-    $sql = 'SELECT * 
-        	FROM publicacion
-    		WHERE idUsuario = :id
-            AND idPub = :pub'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':id' => $_SESSION['idUsuario'],
-       ':pub' => $_REQUEST['pub_id']
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row === false){
+    $pub = new Publicacion();
+    $estado = $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
         $_SESSION['error'] = 'No se pudo cargar la publicacion';
         header('Location: listaPub_investigador.php');
         return;
     }
 
-    $codigo = htmlentities($row['codigo']);
-    $titulo = htmlentities($row['titulo']);
-    $resumen = htmlentities($row['resumen']);
-    $tipo = htmlentities($row['tipo']);
+    // cargar detalles generales
+    $codigo = htmlentities($pub->getCodigo());
+    $titulo = htmlentities($pub->getTitulo());
+    $resumen = htmlentities($pub->getResumen());
+    $tipo = htmlentities($pub->getTipo());
 
-    function loadAutorPrincipal($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'principal'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $principal;
-    }
-    $principal = loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
+    // cargar autor principal
+    $principal = $pub->loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
 
-    function loadAutorInterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'interno'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $internos;
-    }
-    $internos = loadAutorInterno($pdo, $_REQUEST['pub_id']);
+    // cargar autores internos
+    $internos = $pub->loadAutorInterno($pdo, $_REQUEST['pub_id']);
 
-    function loadAutorExterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'externo'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $externos;
-    }
-    $externos = loadAutorExterno($pdo, $_REQUEST['pub_id']);
+    // cargar autores externos
+    $externos = $pub->loadAutorExterno($pdo, $_REQUEST['pub_id']);
 
     //datos generales
     echo '<div role="container">' . "\n";
@@ -124,80 +76,37 @@ if($_SESSION['permisos'] === 'investigador'){
     // TODO: arreglar la carga y visualizacion del BLOB
     echo "<p>ENTREGA FINAL</p>";
     echo '<div role="fila" id="archivo">';
-    if($row['documento_final'] !== false){
-        echo htmlentities($row['documento_final']);
+    if($pub->getDocumento() !== null){
+        echo htmlentities($pub->getDocumento());
+    }
+    else{
+        echo '<span>No se ha registrado la entrega del documento final </span>';
     }
     echo "</div>";
 }
 else if($_SESSION['permisos'] === 'administrativo'){
-    $sql = 'SELECT * 
-            FROM publicacion
-            WHERE idPub = :pub'; 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-       ':pub' => $_REQUEST['pub_id']
-    ));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row === false){
+    $pub = new Publicacion();
+    $estado = $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_SESSION['permisos'], $pdo);
+    if($estado === false){
         $_SESSION['error'] = 'No se pudo cargar la publicacion';
         header('Location: listaPub_admin.php');
         return;
     }
 
-    $codigo = htmlentities($row['codigo']);
-    $titulo = htmlentities($row['titulo']);
-    $resumen = htmlentities($row['resumen']);
-    $tipo = htmlentities($row['tipo']);
+    // cargar detalles generales
+    $codigo = htmlentities($pub->getCodigo());
+    $titulo = htmlentities($pub->getTitulo());
+    $resumen = htmlentities($pub->getResumen());
+    $tipo = htmlentities($pub->getTipo());
 
-    function loadAutorPrincipal($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'principal'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $principal = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $principal;
-    }
-    $principal = loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
+    // cargar autor principal
+    $principal = $pub->loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
 
-    function loadAutorInterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'interno'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $internos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $internos;
-    }
-    $internos = loadAutorInterno($pdo, $_REQUEST['pub_id']);
+    // cargar autores internos
+    $internos = $pub->loadAutorInterno($pdo, $_REQUEST['pub_id']);
 
-    function loadAutorExterno($pdo, $pub_id){
-        $sql = "SELECT autor.nombre 
-                FROM autor, colaborador_pub cp, publicacion p
-                WHERE p.idPub = :pub
-                AND p.idPub = cp.idPub
-                AND autor.idAutor = cp.idAutor
-                AND autor.rol = 'colaboracion'
-                AND autor.tipo_filiacion = 'externo'";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':pub' => $pub_id
-        ));
-        $externos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $externos;
-    }
-    $externos = loadAutorExterno($pdo, $_REQUEST['pub_id']);
+    // cargar autores externos
+    $externos = $pub->loadAutorExterno($pdo, $_REQUEST['pub_id']);
 
     //datos generales
     echo '<div role="container">' . "\n";
@@ -231,12 +140,13 @@ else if($_SESSION['permisos'] === 'administrativo'){
     // TODO: arreglar la carga y visualizacion del BLOB
     echo "<p>ENTREGA FINAL</p>";
     echo '<div role="fila" id="archivo">';
-    if($row['documento_final'] !== null){
-        echo htmlentities($row['documento_final']);
+    if($pub->getDocumento() !== null){
+        echo htmlentities($pub->getDocumento());
     }
     else{
-        echo "Aun no se ha registrado la entrega de un documento final";
+        echo "No se ha registrado la entrega de un documento final";
     }
+
     echo "</div>";
 }
 ?>
