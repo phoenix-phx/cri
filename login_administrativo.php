@@ -16,13 +16,13 @@
     ?>
     <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3><br>
     <div align="center">
-        <div align="center" class="container" style="width:380px;height:200px;" >
+        <div align="center" class="container" style="width:380px;height:230px;" >
             <form action="c_acceso.php?modo=administrativo" method="POST">
                 <br>
                 <div align="left" style="padding-left:47px;"><label for="user">Usuario:<br></label></div>
-                <input id="user" name="user" type="text" class="textInput"><br><br>
+                <input id="user" name="user" type="text" class="textInput" style="width:75%;"><br><br>
                 <div align="left" style="padding-left:47px;"><label for="pass">Contrase&ntilde;a:<br></label></div>
-                <input id="pass" name="pass" type="password" class="textInput"><br><br><br>
+                <input id="pass" name="pass" type="password" class="textInput"  style="width:75%;"><br><br><br>
                 <button class="button" style="width:75%;">Ingresar</button>
             </form>
         </div>

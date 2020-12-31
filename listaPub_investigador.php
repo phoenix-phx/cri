@@ -22,7 +22,7 @@
     <!-- /// -->
 
     <div style="padding-left:5%;padding-right:5%;">
-        <h1 class="aLeft" style="font-size:40px;">Mis Publicaciones</h1> 
+        <h1 class="aLeft title" >Mis Publicaciones</h1> 
         <div style="padding-top:35px;padding-bottom:25px">
             <button class="button aRight" style="font-size:18px;" onclick="document.location='nueva_publicacion.php'">+ Publicacion nueva</button>
         </div>
