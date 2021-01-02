@@ -312,6 +312,6 @@ class Investigacion{
 	        ':id' => $user_id,
 	        ':inv' => $this->getId() 
 	    ));	    
-	}  
+	}
 }
 ?>

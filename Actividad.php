@@ -40,7 +40,7 @@ class Actividad{
 	}
 
 	public function loadActividad($pdo, $inv_id){
-        $sql = "SELECT a.nombre, a.fecha_inicio, a.fecha_final 
+        $sql = "SELECT a.idActividad, a.nombre, a.fecha_inicio, a.fecha_final 
                 FROM actividad a, investigacion i
                 WHERE i.idInv = :inv
                 AND i.idInv = a.idInv";

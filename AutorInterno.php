@@ -50,5 +50,39 @@ class AutorInterno extends Autor{
             ':auth' => $this->getId()
         ));
     }
+
+    public function loadData($id, $pdo, $doc){
+        if($doc === 'investigacion'){
+            $stmt = $pdo->prepare("SELECT a.idAutor, a.nombre, a.tipo_filiacion, a.rol, a.unidad_investigacion, a.filiacion, a.universidad
+                                   FROM autor a, colaborador_inv ci, investigacion i
+                                   WHERE i.idInv = ci.idInv
+                                   AND ci.idAutor = a.idAutor
+                                   AND a.rol = 'principal'
+                                   AND i.idInv = :inv");
+            $stmt->execute(array(
+                ':inv' => $id
+            ));
+        }
+        else if($doc === 'publicacion'){
+            // cambiar para este caso
+            $sql = "SELECT autor.universidad 
+                    FROM autor, colaborador_pub cp, publicacion p
+                    WHERE p.idPub = :pub
+                    AND p.idPub = cp.idPub
+                    AND autor.idAutor = cp.idAutor
+                    AND autor.rol = 'principal'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':pub' => $id
+            ));
+        }
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->setId($row['idAutor']);
+        $this->setNombre($row['nombre']);
+        $this->setTipoFiliacion($row['tipo_filiacion']);
+        $this->setRol($row['rol']);
+        $this->setUnidadInvestigacion($row['unidad_investigacion']);           
+        $this->setFiliacion($row['filiacion']);
+    }
 }
 ?>

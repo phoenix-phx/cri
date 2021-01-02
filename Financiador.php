@@ -109,5 +109,28 @@ class Financiador{
             ':inv' => $inv_id 
         ));
     }
+
+    public function loadData($pdo, $inv_id){
+        $stmt = $pdo->prepare("SELECT a.idFinanciador, a.tipo_financiador, a.nombre_financiador, a.tipo_financiamiento, a.monto, a.observaciones
+                               FROM financiador a, investigacion i
+                               WHERE i.idInv = a.idInv
+                               AND i.idInv = :inv");
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row === false){
+            return false;
+        }
+        else {
+            $this->setId($row['idFinanciador']);
+            $this->setTipoFinanciador($row['tipo_financiador']);
+            $this->setNombreFinanciador($row['nombre_financiador']);
+            $this->setTipoFinanciamiento($row['tipo_financiamiento']);
+            $this->setMonto($row['monto']);
+            $this->setObservaciones($row['observaciones']);
+            return true;
+        }
+    }
 }
 ?>
