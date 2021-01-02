@@ -84,5 +84,20 @@ class AutorInterno extends Autor{
         $this->setUnidadInvestigacion($row['unidad_investigacion']);           
         $this->setFiliacion($row['filiacion']);
     }
+
+    public function actualizarAutor($autor_id, $pdo){
+        $sql = 'UPDATE autor
+                SET nombre = :no, tipo_filiacion = :tf, unidad_investigacion = :ui, filiacion = :fl, universidad = :uni
+                WHERE idAutor = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':no' => $this->getNombre(),
+            ':tf' => $this->getTipoFiliacion(),
+            ':ui' => $this->getUnidadInvestigacion(),
+            ':fl' => $this->getFiliacion(),
+            ':uni' => null,
+            ':id' => $autor_id
+        ));
+    }
 }
 ?>

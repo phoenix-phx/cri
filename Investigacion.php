@@ -313,5 +313,22 @@ class Investigacion{
 	        ':inv' => $this->getId() 
 	    ));	    
 	}
+
+	public function actualizarDatos($user_id, $inv_id, $pdo){
+		$sql = 'UPDATE investigacion
+	            SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_fin = :ff, unidad_investigacion = :ui
+	            WHERE idInv = :inv
+	            AND idUsuario = :us';                
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':no' => $this->getTitulo(),
+	        ':nc' => $this->getNombreCorto(),
+	        ':res' => $this->getResumen(),
+	        ':ff' => $this->getFechaFinal(),
+	        ':ui' => $this->getUnidadInvestigacion(),
+	        ':inv' => $inv_id,
+	        ':us' => $user_id
+	    ));
+	}  
 }
 ?>

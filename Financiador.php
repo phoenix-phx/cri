@@ -132,5 +132,65 @@ class Financiador{
             return true;
         }
     }
+
+    public function exists($pdo, $inv_id){
+        $sql = 'SELECT * 
+                FROM financiador
+                WHERE idInv = :inv';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':inv' => $inv_id
+        ));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row === false){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public function actualizar($pdo, $fin_id){
+        $sql = "UPDATE financiador 
+                SET tipo_financiamiento = :tfm, tipo_financiador = :tfr, nombre_financiador = :nfr
+                WHERE idFinanciador = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':tfm' => $this->getTipoFinanciamiento(),
+            ':tfr' => $this->getTipoFinanciador(),
+            ':nfr' => $this->getNombreFinanciador(),
+            ':id' => $fin_id
+        ));
+        $this->setId($fin_id);
+
+        $sql = "UPDATE financiador
+                SET  monto = :mn
+                WHERE idFinanciador = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':mn' => null,
+            ':id' => $this->getId()
+        ));     
+
+        $sql = 'UPDATE financiador
+                SET  observaciones = :obs
+                WHERE idFinanciador = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':obs' => null,
+            ':id' => $this->getId()
+        ));
+    }
+
+    public function eliminar($pdo, $fin_id, $inv_id){
+        $sql = 'DELETE FROM financiador
+                WHERE idFinanciador = :id
+                AND idInv = :inv';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':id' => $fin_id,
+            ':inv' => $inv_id 
+        ));
+    }
 }
 ?>

@@ -73,5 +73,20 @@ class AutorExterno extends Autor{
         $this->setRol($row['rol']);
         $this->setUniversidad($row['universidad']);           
     }
+
+    public function actualizarAutor($autor_id, $pdo){
+        $sql = 'UPDATE autor
+                SET nombre = :no, tipo_filiacion = :tf, unidad_investigacion = :ui, filiacion = :fl, universidad = :uni
+                WHERE idAutor = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':no' => $this->getNombre(),
+            ':tf' => $this->getTipoFiliacion(),
+            ':ui' => null,
+            ':fl' => null,
+            ':uni' => $this->getUniversidad(),
+            ':id' => $autor_id
+        ));
+    }
 }
 ?>

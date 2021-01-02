@@ -178,5 +178,27 @@ class Autor{
         $investigadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $investigadores;
     }
+
+    public function eliminarAutor($id, $type, $pdo){
+        if($type === 'investigacion'){
+            $sql = "DELETE a, ci
+                    FROM autor a, colaborador_inv ci
+                    WHERE a.idAutor IN (
+                        select a.idAutor
+                        from investigacion i
+                        where i.idInv = ci.idInv
+                        and ci.idAutor = a.idAutor
+                        and a.rol = 'colaboracion'
+                        and i.idInv = :inv
+                    )";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':inv' => $id
+            ));
+        }
+        else if($type === 'publicacion'){
+            //TODO
+        }
+    }
 }
 ?>

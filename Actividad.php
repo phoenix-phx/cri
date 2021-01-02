@@ -63,5 +63,14 @@ class Actividad{
             ':ff' => $this->getFechaFinal()
         ));
     }   
+
+    public function eliminar($pdo, $inv_id){
+        $sql = 'DELETE FROM actividad
+		        WHERE idInv = :inv';
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+		    ':inv' => $inv_id 
+		));
+    }  
 }
 ?>
