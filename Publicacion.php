@@ -280,5 +280,32 @@ class Publicacion{
 		$externos = $auth->loadNombreAutorExterno($pdo, $pub_id, 'publicacion');
         return $externos;
     }
+
+    public function crear($user_id, $pdo){
+		$sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo)
+	            VALUES (:us, :no, :res, :ti)";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':us' => $user_id,
+	        ':no' => $this->getTitulo(),
+	        ':res' => $this->getResumen(),
+	        ':ti' => $this->getTipo()
+	    ));
+	    $pub_id = $pdo->lastInsertId();
+	    $this->setId($pub_id);
+	}  
+
+	public function completarDetalles($user_id, $pdo){
+		$sql = "UPDATE publicacion
+	            SET  codigo = :cd
+	            WHERE idUsuario = :id
+	            AND idPub = :pub";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':cd' => $this->getCodigo(),
+	        ':id' => $user_id,
+	        ':pub' => $this->getId() 
+	    ));
+	}
 }
 ?>

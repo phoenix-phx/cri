@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once "c_pdo.php";
+require_once "Publicacion.php";
+require_once "AutorExterno.php";
+require_once "AutorInterno.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -8,11 +11,11 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 
 if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP'])){
 
-	if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 ) {
+    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 ) {
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
-		header("Location: nueva_publicacion.php");
-		return;
-	}
+        header("Location: nueva_publicacion.php");
+        return;
+    }
     // TODO: trabajar la busqueda de investigacion asociada
     if($_POST['tipoCP'] === 'Ninguno'){
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
@@ -20,10 +23,10 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         return;        
     }
     if( !isset($_POST['rPUniCP']) || strlen($_POST['nomInvPCP']) < 1 ){
-		$_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
-		header("Location: nueva_publicacion.php");
-		return;
-	}    
+        $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
+        header("Location: nueva_publicacion.php");
+        return;
+    }    
     if( isset($_POST['rPUniCP']) && $_POST['rPUniCP'] === 'interno'){
         if (strlen($_POST['uniInvPCP']) < 1){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del investigador principal';
@@ -43,168 +46,121 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
             return;
         }        
     }
-	
-		function validateAutores(){
-            for ($i=0; $i <= 100 ; $i++) {
-                if( !isset($_POST['nomInvSCP'.$i]) ) continue;
-                $nombre = $_POST['nomInvSCP'.$i];
-                if( !isset($_POST['rPUniCP'.$i]) ){
-                	return "Debe completar los datos obligatorios de los investigadores de colaboracion";
-                }
-                $pertenencia = $_POST['rPUniCP'.$i];
-                if(strlen($nombre) < 1){
-                    return "Debe completar los datos obligatorios de los investigadores de colaboracion";
-                }
-                if( isset($_POST['rPUniCP'.$i]) && $_POST['rPUniCP'.$i] === 'interno'){
-                    if (strlen($_POST['uniInvSCP'.$i]) < 1){
-                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
-                    }        
-                    else if (!isset($_POST['rFiliacionISCP'.$i])){
-                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
-                    }
-                }
-                else if( isset($_POST['rPUniCP'.$i]) && $_POST['rPUniCP'.$i] === 'externo'){
-                    if (strlen($_POST['uniISCP'.$i]) < 1){
-                        return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
-                    }        
-                }
-            }
-            return true;
-        }
-        $failure = validateAutores();
-        if ( is_string($failure)) {
-            $_SESSION['error'] = $failure;
-            header("Location: nueva_publicacion.php");
-            return;
-        }
-
-        // publicacion
-        $sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo)
-                VALUES (:us, :no, :res, :ti)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':us' => $_SESSION['idUsuario'],
-            ':no' => $_POST['tituloCP'],
-            ':res' => $_POST['resumenCP'],
-            ':ti' => $_POST['tipoCP']
-        ));
-        
-        $pub_id = $pdo->lastInsertId();
-
-     	$dia = getdate();
-   		$finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
-   		$nombre = explode(' ', $_POST['tituloCP']);
-	    $codigo = $finicio . '_';
-	    for ($i=0; $i < count($nombre); $i++) { 
-	   		$codigo = $codigo . strtolower($nombre[$i]);
-	    }
-   		
-     	$sql = "UPDATE publicacion
-	            SET  codigo = :cd
-	            WHERE idUsuario = :id
-	            AND idPub = :pub";
-	    $stmt = $pdo->prepare($sql);
-	    $stmt->execute(array(
-	        ':cd' => $codigo,
-	        ':id' => $_SESSION['idUsuario'],
-	       	':pub' => $pub_id 
-	    ));
-	    
-	    // autor principal
-        if($_POST['rPUniCP'] === 'interno'){
-            $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
-                    VALUES (:no, :tf, :rol, :ui, :fl)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':no' => $_POST['nomInvPCP'],
-                ':tf' => $_POST['rPUniCP'],
-                ':rol' => "principal",
-                ':ui' => $_POST['uniInvPCP'],
-                ':fl' => $_POST['rFiliacionIPCP']
-            ));
-    		$autor_id = $pdo->lastInsertId();
-    		$sql = "INSERT INTO colaborador_pub (idPub, idAutor)
-                    VALUES (:pub, :auth)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':pub' => $pub_id,
-                ':auth' => $autor_id
-            ));
-		}
-        else if($_POST['rPUniCP'] === 'externo'){
-            $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
-                    VALUES (:no, :tf, :rol, :uni)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':no' => $_POST['nomInvPCP'],
-                ':tf' => $_POST['rPUniCP'],
-                ':rol' => "principal",
-                ':uni' => $_POST['uniIPCP']
-            ));
-            $autor_id = $pdo->lastInsertId();
-            $sql = "INSERT INTO colaborador_pub (idPub, idAutor)
-                    VALUES (:pub, :auth)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':pub' => $pub_id,
-                ':auth' => $autor_id
-            ));
-        }
-
-        // autores de colaboracion
+    
+    function validateAutores(){
         for ($i=0; $i <= 100 ; $i++) {
             if( !isset($_POST['nomInvSCP'.$i]) ) continue;
             $nombre = $_POST['nomInvSCP'.$i];
-            $pertenencia = $_POST['rPUniCP'.$i];
-            if($pertenencia === 'interno'){
-                $unidad = $_POST['uniInvSCP'.$i];
-                $filiacion = $_POST['rFiliacionISCP'.$i];
-
-                $sql = 'INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
-                        VALUES (:no, :tf, :rol, :ui, :fl)';
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':no' => $nombre,
-                    ':tf' => $pertenencia,
-                    ':rol' => "colaboracion",
-                    ':ui' => $unidad,
-                    ':fl' => $filiacion
-                ));
-                $autor_id = $pdo->lastInsertId();
-    			$sql = "INSERT INTO colaborador_pub (idPub, idAutor)
-    	                VALUES (:pub, :auth)";
-    	        $stmt = $pdo->prepare($sql);
-    	        $stmt->execute(array(
-    	            ':pub' => $pub_id,
-    	            ':auth' => $autor_id
-    	        ));	
+            if( !isset($_POST['rPUniCP'.$i]) ){
+                return "Debe completar los datos obligatorios de los investigadores de colaboracion";
             }
-            else if($pertenencia === 'externo'){
-                $univ = $_POST['uniISCP'.$i];
-                
-                $sql = 'INSERT INTO autor (nombre, tipo_filiacion, rol, universidad)
-                        VALUES (:no, :tf, :rol, :uni)';
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':no' => $nombre,
-                    ':tf' => $pertenencia,
-                    ':rol' => "colaboracion",
-                    ':uni' => $univ
-                ));
-                $autor_id = $pdo->lastInsertId();
-                $sql = "INSERT INTO colaborador_pub (idPub, idAutor)
-                        VALUES (:pub, :auth)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(array(
-                    ':pub' => $pub_id,
-                    ':auth' => $autor_id
-                )); 
+            $pertenencia = $_POST['rPUniCP'.$i];
+            if(strlen($nombre) < 1){
+                return "Debe completar los datos obligatorios de los investigadores de colaboracion";
+            }
+            if( isset($_POST['rPUniCP'.$i]) && $_POST['rPUniCP'.$i] === 'interno'){
+                if (strlen($_POST['uniInvSCP'.$i]) < 1){
+                    return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                }        
+                else if (!isset($_POST['rFiliacionISCP'.$i])){
+                    return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                }
+            }
+            else if( isset($_POST['rPUniCP'.$i]) && $_POST['rPUniCP'.$i] === 'externo'){
+                if (strlen($_POST['uniISCP'.$i]) < 1){
+                    return 'Debe completar los datos obligatorios de los investigadores  de colaboracion';
+                }        
             }
         }
-        
-        $_SESSION["success"] = 'publicacion creada exitosamente';
-        header('Location: nueva_publicacion.php');
+        return true;
+    }
+    $failure = validateAutores();
+    if ( is_string($failure)) {
+        $_SESSION['error'] = $failure;
+        header("Location: nueva_publicacion.php");
         return;
+    }
+
+    // publicacion
+    $pub = new Publicacion();
+
+    $pub->setTitulo($_POST['tituloCP']);
+    $pub->setResumen($_POST['resumenCP']);
+    $pub->setTipo($_POST['tipoCP']);
+
+    $pub->crear($_SESSION['idUsuario'], $pdo);
+    $pub_id = $pub->getId();
+
+    $dia = getdate();
+    $finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
+    $nombre = explode(' ', $_POST['tituloCP']);
+    $codigo = $finicio . '_';
+    for ($i=0; $i < count($nombre); $i++) { 
+        $codigo = $codigo . strtolower($nombre[$i]);
+    }
     
+    $pub->setCodigo($codigo);
+    
+    $pub->completarDetalles($_SESSION['idUsuario'], $pdo);
+
+    // autor principal
+    if($_POST['rPUniCP'] === 'interno'){
+        $auth = new AutorInterno();
+
+        $auth->setNombre($_POST['nomInvPCP']);
+        $auth->setTipoFiliacion($_POST['rPUniCP']);
+        $auth->setRol('principal');
+        $auth->setUnidadInvestigacion($_POST['uniInvPCP']);
+        $auth->setFiliacion($_POST['rFiliacionIPCP']);
+        
+        $auth->crearAutor($pub_id, 'publicacion', $pdo);
+    }
+    else if($_POST['rPUniCP'] === 'externo'){
+        $auth = new AutorExterno();
+
+        $auth->setNombre($_POST['nomInvPCP']);
+        $auth->setTipoFiliacion($_POST['rPUniCP']);
+        $auth->setRol('principal');
+        $auth->setUniversidad($_POST['uniIPCP']);
+
+        $auth->crearAutor($pub_id, 'publicacion', $pdo);
+    }
+
+    // autores de colaboracion
+    for ($i=0; $i <= 100 ; $i++) {
+        if( !isset($_POST['nomInvSCP'.$i]) ) continue;
+        $nombre = $_POST['nomInvSCP'.$i];
+        $pertenencia = $_POST['rPUniCP'.$i];
+        if($pertenencia === 'interno'){
+            $unidad = $_POST['uniInvSCP'.$i];
+            $filiacion = $_POST['rFiliacionISCP'.$i];
+
+            $auth = new AutorInterno();
+
+            $auth->setNombre($nombre);
+            $auth->setTipoFiliacion($pertenencia);
+            $auth->setRol('colaboracion');
+            $auth->setUnidadInvestigacion($unidad);
+            $auth->setFiliacion($filiacion);
+            
+            $auth->crearAutor($pub_id, 'publicacion', $pdo);
+        }
+        else if($pertenencia === 'externo'){
+            $univ = $_POST['uniISCP'.$i];
+            
+            $auth = new AutorExterno();
+
+            $auth->setNombre($nombre);
+            $auth->setTipoFiliacion($pertenencia);
+            $auth->setRol('colaboracion');
+            $auth->setUniversidad($univ);
+            
+            $auth->crearAutor($pub_id, 'publicacion', $pdo);
+        }
+    }
+    
+    $_SESSION["success"] = 'publicacion creada exitosamente';
+    header('Location: nueva_publicacion.php');
+    return;
 }
 ?>

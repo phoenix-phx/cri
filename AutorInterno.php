@@ -22,7 +22,7 @@ class AutorInterno extends Autor{
 		return $this->filiacion;
 	}
 
-	public function crearAutor($inv_id, $pdo){
+	public function crearAutor($id, $type, $pdo){
         $sql = "INSERT INTO autor (nombre, tipo_filiacion, rol, unidad_investigacion, filiacion)
                 VALUES (:no, :tf, :rol, :ui, :fl)";
         $stmt = $pdo->prepare($sql);
@@ -36,11 +36,17 @@ class AutorInterno extends Autor{
         $autor_id = $pdo->lastInsertId();
         $this->setId($autor_id);
 
-        $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
-                VALUES (:inv, :auth)";
+        if($type === 'investigacion'){
+            $sql = "INSERT INTO colaborador_inv (idInv, idAutor)
+                    VALUES (:id, :auth)";
+        }
+        else if($type === 'publicacion'){
+            $sql = "INSERT INTO colaborador_pub (idPub, idAutor)
+                    VALUES (:id, :auth)";
+        }
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
-            ':inv' => $inv_id,
+            ':id' => $id,
             ':auth' => $this->getId()
         ));
     }

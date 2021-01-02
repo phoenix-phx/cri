@@ -50,7 +50,6 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         return;
     }
     if(isset($_POST['rExisteFI']) && $_POST['rExisteFI'] === 'si'){
-        // TODO: aqui falta la validacion de las observaciones o monto del tipo financiamiento (monetario / otro)
         if(!isset($_POST['rTipoFr']) || !isset($_POST['rTipoFI']) ){
             $_SESSION['error'] = 'Debe completar los datos obligatorios del financiamiento';
             header("Location: nueva_investigacion.php");
@@ -163,7 +162,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $auth->setUnidadInvestigacion($_POST['uniInvPCI']);
         $auth->setFiliacion($_POST['rFiliacionIP']);
         
-        $auth->crearAutor($inv_id, $pdo);
+        $auth->crearAutor($inv_id, 'investigacion', $pdo);
     }
     else if($_POST['univIP'] === 'externo'){
         $auth = new AutorExterno();
@@ -173,7 +172,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $auth->setRol('principal');
         $auth->setUniversidad($_POST['uniIPCI']);
 
-        $auth->crearAutor($inv_id, $pdo);
+        $auth->crearAutor($inv_id, 'investigacion', $pdo);
     }      
 
     // autores de colaboracion
@@ -193,7 +192,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setUnidadInvestigacion($unidad);
             $auth->setFiliacion($filiacion);
             
-            $auth->crearAutor($inv_id, $pdo);            
+            $auth->crearAutor($inv_id, 'investigacion', $pdo);
         }
         else if($pertenencia === 'externo'){
             $univ =  $_POST['uniISCI'.$i]; 
@@ -205,7 +204,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setRol('colaboracion');
             $auth->setUniversidad($univ);
             
-            $auth->crearAutor($inv_id, $pdo);            
+            $auth->crearAutor($inv_id, 'investigacion', $pdo);
         }
     }
     
