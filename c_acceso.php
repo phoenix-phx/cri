@@ -24,6 +24,7 @@ if(isset($_POST['user']) && isset($_POST['pass'])){
 		if($state === true){
 			$_SESSION['permisos'] = $us->getRol();
 			$_SESSION['idUsuario'] = $us->getId();
+			$_SESSION['nombre'] = $us->getNombre();
 			if($us->getRol() === 'investigador'){
 				header("Location: home_investigador.php");
 				return;

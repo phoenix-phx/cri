@@ -49,7 +49,9 @@
             </ul>
         </nav>
     </div>
-    <?php include "c_homeinv.php" ?>      
+    <?php include "c_homeinv.php";
+    echo $_SESSION['nombre'];
+    ?>      
     <!-- hacer que los divs sean links -->
     <!-- arreglar cuando no hay publicaciones pero si investigaciones -->
          

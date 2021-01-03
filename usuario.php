@@ -16,22 +16,30 @@ class Usuario{
 	public function setRol($rol){
 		$this->rol = $rol;
 	}
+	
+	public function getRol(){
+		return $this->rol;
+	}
 
 	public function setId($id){
 		$this->id = $id;
-	}
-
-	public function getRol(){
-		return $this->rol;
 	}
 
 	public function getId(){
 		return $this->id;
 	}
 
+	public function setNombre($nombre){
+		$this->nombre = $nombre;
+	}
+
+	public function getNombre(){
+		return $this->nombre;
+	}
+
 	public function login($user, $pass, $mode, $pdo){
 		$try = hash('sha256', $this->salt . $pass);
-		$stmt = $pdo->prepare('SELECT idUsuario, rol
+		$stmt = $pdo->prepare('SELECT idUsuario, rol, nombre
 							   FROM usuario
 							   WHERE user = :us
 							   AND pass = :pw
@@ -48,6 +56,7 @@ class Usuario{
 		else{
 			$this->setRol($row['rol']);
 			$this->setId($row['idUsuario']);
+			$this->setNombre($row['nombre']);
 			return true;
 		}	
 	}
