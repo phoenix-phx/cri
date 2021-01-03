@@ -86,7 +86,7 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //financiamiento
     echo "<p>FINANCIAMIENTO</p>";
-    echo '<div role="fila">';
+    echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
         echo '<span> <a href="financiamiento.php?fin_id='. $financiador['idFinanciador'] . '">Ver detalles</a></span>';
@@ -98,7 +98,7 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //actividades
     echo "<p>ACTIVIDADES</p>";
-    echo '<div role="fila" id="actividades">';
+    echo '<div role="fila" id="actividades" style="padding-left:10px;">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
             echo '<div id="actividad' . ($i+1) .'">';
@@ -115,12 +115,11 @@ if($_SESSION['permisos'] === 'investigador'){
     }
     //publicaciones
     echo '<h3> Publicaciones </h3>';
-    echo '</div></div>';
     $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
     if($estado === false){
         echo '<span>No existen publicaciones asociadas registradas </span>';
     }
-    echo "<br />";
+    echo '</div>';
 }
 else if($_SESSION['permisos'] === 'administrativo'){
     $inv = new Investigacion();
@@ -156,13 +155,13 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     //datos generales
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>Codigo</span> <span>' . $codigo . ' </span></div>';
-    echo '<div role="fila"> <span>Titulo</span> <span>' . $titulo . ' </span></div>';
-    echo '<div role="fila"> <span>Nombre Corto </span> <span>' . $nc . ' </span></div>';
-    echo '<div role="fila"> <span>Unidad de Investigacion</span> <span>' . $ui . ' </span></div>';
-    echo '<div role="fila"> <span>Resumen </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>Fecha Inicio </span> <span>' . $finicio . ' </span></div>';
-    echo '<div role="fila"> <span>Fecha Final </span> <span>' . $ffinal . ' </span></div>';
+    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
+    echo '<div role="fila"> <span>NOMBRE CORTO: </span> <span>' . $nc . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
+    echo '<div role="fila"> <span>FECHA INICIO: </span> <span>' . $finicio . ' </span></div>';
+    echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';    
 
     //autores
     echo "<p>INVESTIGADORES</p>";
@@ -186,7 +185,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     //financiamiento
     echo "<p>FINANCIAMIENTO</p>";
-    echo '<div role="fila">';
+    echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }
@@ -197,15 +196,15 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     //actividades
     echo "<p>ACTIVIDADES</p>";
-    echo '<div role="fila" id="actividades"';
+    echo '<div role="fila" id="actividades" style="padding-left:10px;">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
             echo '<div id="actividad' . ($i+1) .'">';
-            echo '<p> <span> Nombre </span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
+            echo '<p> <span>NOMBRE:</span> <span>' . htmlentities($actividades[$i]['nombre']) . '</span>';
             echo "<br>";
-            echo '<span> Fecha inicio </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
+            echo '<span>FECHA INICIO: </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
             echo "<br>";
-            echo '<span> Fecha finalizacion </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
+            echo '<span>FECHA FINALIZACION: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
             echo "</div>";
         }
     }
@@ -216,11 +215,10 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     //publicaciones
     echo '<h3> Publicaciones </h3>';
-    echo '</div></div>';
     $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
     if($estado === false){
-        echo '<span>No existen publicaciones asociadas registradas </span>';
+        echo 'No existen publicaciones asociadas registradas ';
     }
-    echo "<br />";   
+    echo '</div>';
 }
 ?>

@@ -3,8 +3,24 @@
 <head>
 	<title>Subir Entrega</title>
 	<?php include "c_subirentrega.php" ?>
+    <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
+    <!-- header -->
+    <div class="bar" style="height: 50px; background-color: #0b1f3f;">
+        <a href="home_investigador.php" class="aLeft textIblue">
+            <img src="imagenes/LogoU.png" style="height: 50px;">
+        </a>
+        <div style="padding-top: 15px; padding-bottom: 15px;">
+            <a href="home_investigador.php" class="aLeft textIblue">
+                Unidad de Investigacion UCB
+            </a>
+            <a href="" class="aRight textIblue">
+                <!-- Agregar usuario -->
+            </a>
+        </div>
+    </div>
+    <div style="padding-left:5%; padding-right:5%;">
     <h1>Entrega final</h1>
     <?php
     if (isset($_SESSION['error'])) {
@@ -14,10 +30,14 @@
     ?>
     <h3><i>Selecciona el documento final de la publicacion para enviarla</i></h3>
     <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post">
-        <input name="archivoEntregaF" type="file"><br>
+        <div align="center">
+            <input name="archivoEntregaF" type="file">
+            <!-- <span><img src="imagenes/icons/submit_file.png" style="height:40px;"></span> -->
+        </div><br>
         Descripcion del envio:<br><br>
-        <textarea name="descripcionEnvio" rows="4" cols="100" placeholder="Escribe una pequeña descripcion"></textarea><br>
-        <input type="submit" value="Enviar">
+        <textarea class="textInput" name="descripcionEnvio" rows="5" cols="100" placeholder="Escribe una pequeña descripcion"></textarea><br>
+        <div align="center"> <input class="button" type="submit" value="Enviar"></div>
     </form>
+    </div>
 </body>
 </html>

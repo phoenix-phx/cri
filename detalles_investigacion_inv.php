@@ -21,17 +21,17 @@
     </div>
     <!-- Titulo y botones -->
     <div style="padding-left:5%;padding-right:5%;">
-        <h1 class="aLeft" style="font-size:50px;">Detalles</h1>
-        <div style="padding-top:40px;padding-bottom:30px">
+        <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
+        <div style="padding-top:30px;padding-bottom:30px">
             <?php $cad = $_REQUEST['inv_id'] ?>
-            <button class="button aRight" style="font-size:18px;" onclick="document.location='editar_investigacion.php?inv_id=<?php echo $cad ?>'">Editar</button>
+            <button class="button aRight" onclick="document.location='editar_investigacion.php?inv_id=<?php echo $cad ?>'">Editar</button>
             <?php  $cad = 'cerrar_confirmacion.php?inv_id='.$_REQUEST['inv_id']?>
-            <button class="button aRight" style="font-size:18px;"  onclick="document.location='<?php echo $cad; ?>'">Cerrar</button>
+            <button class="button aRight"  onclick="document.location='<?php echo $cad; ?>'">Cerrar</button>
         </div>
     </div>
-    <br><br><br><br>
+    <br><br><br>
     <!-- Detalles -->
-    <div style="padding-left:5%;padding-right:5%;font-size:20px;" align="left">
+    <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
         <?php include "c_vistainvestigacion.php"?>
         <?php
         if (isset($_SESSION['error'])) {
