@@ -39,7 +39,6 @@
             </a>
             <a class="aRight textIblue">
                 <?php 
-                    session_start();
                     echo $_SESSION['nombre'];
                 ?>
             </a>
