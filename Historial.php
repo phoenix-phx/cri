@@ -69,15 +69,14 @@ class Historial{
 		    ));   
 		}
 		else if($doc === 'publicacion'){
-			//todo
-			$sql = 'INSERT INTO historial_pub (idPub, fecha_cambio, detalle)
-					VALUES (:id, :fc, :det)';
-			$stmt = $pdo->prepare($sql);
-			$stmt->execute(array(
-				':id' => $id,
-				':fc' => $this->getFechaCambio(),
-				':det' => $this->getDetalle()
-			));
+			$sql = 'SELECT fecha_cambio, detalle 
+		            FROM historial_pub
+		            WHERE idPub = :pub
+		            ORDER BY fecha_cambio ASC';
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute(array(
+		        ':pub' => $id
+		    ));
 		}
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row !== false){
@@ -85,8 +84,8 @@ class Historial{
 	        echo "<tr> <th> Fecha de Suceso </th> <th>Suceso </th>";
 	        do{
 	            echo "<tr>";
-	            echo "<td>"; echo (htmlentities($row['fecha_cambio'])); echo "</td>";
-	            echo "<td>"; echo (htmlentities($row['detalle'])); echo "</td>";
+	            echo "<td>";  echo (htmlentities($row['fecha_cambio'])); echo "</td>";
+	            echo "<td>"; echo '<pre>'; echo (htmlentities($row['detalle'])); echo '</pre>'; echo "</td>";
 	            echo "</tr>\n";
 	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
 	        echo "</table>";
