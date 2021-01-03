@@ -20,12 +20,15 @@
         <a href="home_administrativo.php" class="aLeft textIblue">
             <img src="imagenes/LogoU.png" style="height: 50px;">
         </a>
-        <div style="padding-top: 15px; padding-bottom: 15px;">
+        <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
                 Unidad de Investigacion UCB
             </a>
-            <a href="" class="aRight textIblue">
-                <!-- Agregar Usuario -->
+            <a class="aRight textIblue">
+                <?php 
+                    session_start();
+                    echo $_SESSION['nombre'];
+                ?>
             </a>
         </div>
     </div>

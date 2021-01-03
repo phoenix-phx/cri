@@ -20,7 +20,7 @@
             font-size: 20px;
         }
     </style>
-    <?php session_start() ?>
+    
 
 </head>
 <body>
@@ -29,12 +29,15 @@
         <a href="home_administrativo.php" class="aLeft textIblue">
             <img src="imagenes/LogoU.png" style="height: 50px;">
         </a>
-        <div style="padding-top: 15px; padding-bottom: 15px;">
+        <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
                 Unidad de Investigacion UCB
             </a>
-            <a href="" class="aRight textIblue">
-                <!-- Agregar Usuario -->
+            <a class="aRight textIblue">
+                <?php 
+                    session_start();
+                    echo $_SESSION['nombre'];
+                ?>
             </a>
         </div>
     </div>
@@ -64,7 +67,7 @@
         }
         ?>    
         <div class="container" style="margin:30px;padding:5px;height:110px;">
-            <img src="imagenes/Administrativo/home/investigaciones_home.png" class="aLeft" style="height:105px;">
+            <img src="imagenes/Administrativo/home/investigaciones_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaInv_admin.php">Investigaciones</a></h3>
                 <a class="link" href="buscar_investigacion.php">Buscar investigacion</a><br>
@@ -72,7 +75,7 @@
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
-            <img src="imagenes/Administrativo/home/publicaciones_home.png" class="aLeft" style="height:105px;">
+            <img src="imagenes/Administrativo/home/publicaciones_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaPub_admin.php">Publicaciones</a></h3>
                 <a class="link" href="buscar_publicacion.php">Buscar publicacion</a><br>
@@ -80,7 +83,7 @@
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
-            <img src="imagenes/Administrativo/home/reportes_home.png" class="aLeft" style="height:105px;">
+            <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Reportes</h3>
                 <a class="link" href="reporte_investigacion.php">Reporte investigacion</a><br>
@@ -88,12 +91,12 @@
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
-            <img src="imagenes/Administrativo/home/usuarios_home.png" class="aLeft" style="height:105px;">
+            <img src="imagenes/Administrativo/home/usuarios_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Usuarios</h3>
                 <a class="link" href="nuevo_usuario.php">Crear usuario</a>
             </div>  
         </div>
     </div>
-</body>
+</body> 
 </html>

@@ -19,6 +19,7 @@
             text-decoration: none;
             font-size: 20px;
         }
+
     </style>
 </head>
 <body> 
@@ -27,15 +28,20 @@
         <a href="home_investigador.php" class="aLeft textIblue">
             <img src="imagenes/LogoU.png" style="height: 50px;">
         </a>
-        <div style="padding-top: 15px; padding-bottom: 15px;">
+        <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
                 Unidad de Investigacion UCB
             </a>
-            <a href="" class="aRight textIblue">
-                <!-- Agregar usuario -->
+            <a class="aRight textIblue">
+                <?php 
+                    session_start();
+                    echo $_SESSION['nombre'];
+                ?>
             </a>
         </div>
     </div>
+
+
     <!-- Left Nav bar -->
     <div class="aLeft" style="background-color:#fff9e6;width:200px;position:fixed;height:100%;position:fixed;">
         <nav class="fHeight">
@@ -45,13 +51,13 @@
                 <li><a href="cronograma.php">Cronograma</a></li>
                 <li><a href="">Notificaciones</a></li>
                 <li><a href="c_logout.php">Logout</a></li>
-                <!-- Agregar notifiaciones -->
+                <!-- Agregar notificaiones -->
             </ul>
         </nav>
     </div>
     <?php include "c_homeinv.php";
-    echo $_SESSION['nombre'];
-    ?>      
+    ?>  
+    
     <!-- hacer que los divs sean links -->
     <!-- arreglar cuando no hay publicaciones pero si investigaciones -->
          
