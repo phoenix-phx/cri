@@ -20,7 +20,11 @@
             font-size: 20px;
         }
     </style>
+<<<<<<< HEAD
     
+=======
+    <?php session_start(); ?>
+>>>>>>> dd5cfd03d966807481637f3850dcbcc2fd959709
 
 </head>
 <body>
@@ -98,5 +102,14 @@
             </div>  
         </div>
     </div>
+<<<<<<< HEAD
 </body> 
+=======
+    <?php 
+    if(isset($_SESSION['resultados'])){
+        unset($_SESSION['resultados']);
+    }
+     ?>
+</body>
+>>>>>>> dd5cfd03d966807481637f3850dcbcc2fd959709
 </html>

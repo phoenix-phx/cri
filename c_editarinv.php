@@ -33,8 +33,6 @@ if($test === false){
     return;    
 }
 
-
-
 // cargar datos
 $inv = new Investigacion();
 $state = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
@@ -68,7 +66,7 @@ if($autory['universidad'] === null){
     $unidad_investigacion = htmlentities($auth->getUnidadInvestigacion());
     $filiacion = htmlentities($auth->getFiliacion());
 }
-else if($autory !== null){
+else if($autory['universidad'] !== null){
     $auth = new AutorExterno();
     $auth->loadData($_REQUEST['inv_id'], $pdo, 'investigacion');
     
@@ -103,10 +101,9 @@ else{
     }
 }
 
-// autores de colaboracion
+// actividades
 $act = new Actividad();
 $actividades = $act->loadActividad($pdo, $_REQUEST['inv_id']);
-
 
 // validacion de edicion
 if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) ){
@@ -320,7 +317,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setUnidadInvestigacion($unidad);
             $auth->setFiliacion($filiacion);
             
-            $auth->crearAutor($inv_id, 'investigacion', $pdo);
+            $auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
         }
         else if($pertenencia === 'externo'){
             $univ =  $_POST['uniISCI'.$i]; 
@@ -332,7 +329,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setRol('colaboracion');
             $auth->setUniversidad($univ);
             
-            $auth->crearAutor($inv_id, 'investigacion', $pdo);
+            $auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
         }
     }
     

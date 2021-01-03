@@ -173,7 +173,16 @@ class Autor{
             ));
         }
         else if($doc === 'publicacion'){
-            // TODO
+            $sql = "SELECT a.idAutor, a.nombre, a.tipo_filiacion, a.rol, a.unidad_investigacion, a.filiacion, a.universidad
+                    FROM autor a, colaborador_pub ci, publicacion i
+                    WHERE i.idPub = ci.idPub
+                    AND ci.idAutor = a.idAutor
+                    AND a.rol = 'colaboracion'
+                    AND i.idPub = :pub";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':pub' => $id
+            ));
         }
         $investigadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $investigadores;
@@ -197,7 +206,20 @@ class Autor{
             ));
         }
         else if($type === 'publicacion'){
-            //TODO
+            $sql = "DELETE a, ci
+                    FROM autor a, colaborador_pub ci
+                    WHERE a.idAutor IN (
+                        select a.idAutor
+                        from publicacion i
+                        where i.idPub = ci.idPub
+                        and ci.idAutor = a.idAutor
+                        and a.rol = 'colaboracion'
+                        and i.idPub = :pub
+                    )";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':pub' => $id
+            ));
         }
     }
 }
