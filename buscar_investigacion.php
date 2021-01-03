@@ -2,7 +2,10 @@
 <html>
 <head>
     <title>Buscar Investigacion</title>
-    <?php require_once "c_busquedainv.php"; ?>
+    <?php 
+    require_once "c_busquedainv.php";
+    require_once "Investigacion.php";
+    ?>
 </head>
 <body>
     <h1>Buscar Investigaciones</h1>
@@ -32,6 +35,11 @@
     <i>Resultados:</i>
     <br> <br>
     <?php 
+    if (!isset($_SESSION['resultados'])) {
+        $inv = new Investigacion();
+        $_SESSION['resultados'] = $inv->busqueda('Ninguno', '', $pdo);
+    }
+
     if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
         for ($i=0; $i < count($_SESSION['resultados']); $i++) { 
             echo '<div role="table">' . "\n";
@@ -49,11 +57,9 @@
             echo "</div>";
             echo "<br /> <br />";
         }
-        unset($_SESSION['resultados']);
     }
     else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
         echo "No se encontraron resultados a su busqueda";
-        unset($_SESSION['resultados']);
     }
     echo "<br />";  
     ?>

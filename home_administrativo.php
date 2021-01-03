@@ -20,7 +20,7 @@
             font-size: 20px;
         }
     </style>
-    <?php session_start() ?>
+    <?php session_start(); ?>
 
 </head>
 <body>
@@ -95,5 +95,10 @@
             </div>  
         </div>
     </div>
+    <?php 
+    if(isset($_SESSION['resultados'])){
+        unset($_SESSION['resultados']);
+    }
+     ?>
 </body>
 </html>

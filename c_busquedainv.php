@@ -57,7 +57,6 @@ if(isset($_POST['txtFiltroBI']) && isset($_POST['filtroBI']) ){
         }
     } 
 
-    $_SESSION["success"] = 'busqueda exitosa';
     $_SESSION['resultados'] = $row;
     header('Location: buscar_investigacion.php');
     return;
