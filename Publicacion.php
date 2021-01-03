@@ -323,5 +323,44 @@ class Publicacion{
 	        ':us' => $user_id
 	    ));
 	}  
+
+	public function busqueda($type, $data, $pdo){
+		if($type === 'Ninguno'){
+	        $sql = 'SELECT codigo, titulo, tipo, idPub 
+		            FROM publicacion';    
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute();
+	    }
+		else if ($type === 'Unidad de Investigacion') {
+            $sql = 'SELECT codigo, titulo, tipo, idPub 
+                    FROM publicacion
+                    WHERE unidad_investigacion LIKE :ui';    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    else if ($type === 'Nombre') {
+            $sql = 'SELECT codigo, titulo, tipo, idPub 
+                    FROM publicacion
+                    WHERE titulo LIKE :no';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    else if ($type === 'Codigo') {
+            $sql = 'SELECT codigo, titulo, tipo, idPub 
+                    FROM publicacion
+                    WHERE codigo LIKE :cd';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+        }
+	    else if ($type === 'Tipo') {
+            $sql = 'SELECT codigo, titulo, tipo, idPub 
+                    FROM publicacion
+                    WHERE tipo LIKE :ti';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    return $resultados;
+	}  
 }
 ?>

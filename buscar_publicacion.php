@@ -2,7 +2,10 @@
 <html>
 <head>
     <title>Buscar Publicacion</title>
-    <?php session_start(); ?>
+    <?php 
+    require_once "c_busquedapub.php";
+    require_once "Publicacion.php";
+    ?>
 </head>
 <body>
     <h1>Buscar Publicaciones</h1>
@@ -29,5 +32,35 @@
         <input type="submit" value="buscar">
     </form>
     <i>Resultados:</i>
+    <br> <br>
+    <?php 
+    if (!isset($_SESSION['resultados'])) {
+        $pub = new Publicacion();
+        $_SESSION['resultados'] = $pub->busqueda('Ninguno', '', $pdo);
+    }
+
+    if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
+        for ($i=0; $i < count($_SESSION['resultados']); $i++) { 
+            echo '<div role="table">' . "\n";
+            echo '<div role="cabecera"> <span>Codigo</span> </div>';
+            echo '<div role="cabecera"> <span>Titulo</span> </div>';
+            echo '<div role="cabecera"> <span>Tipo</span> </div>';
+            
+            echo '<div role="fila">';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</span> </div>';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['titulo']) . '</span> </div>';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['tipo']) . '</span> </div>';
+            echo '<a href="detalles_publicacion_inv.php?pub_id='.$_SESSION['resultados'][$i]['idPub'].'">&gt&gt</a>'; echo "</td>";
+            echo "</div>\n";
+         
+            echo "</div>";
+            echo "<br /> <br />";
+        }
+    }
+    else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
+        echo "No se encontraron resultados a su busqueda";
+    }
+    echo "<br />";  
+    ?>
 </body>
 </html>
