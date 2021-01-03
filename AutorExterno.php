@@ -54,16 +54,14 @@ class AutorExterno extends Autor{
             ));
         }
         else if($doc === 'publicacion'){
-            // cambiar para este caso
-            $sql = "SELECT autor.universidad 
-                    FROM autor, colaborador_pub cp, publicacion p
-                    WHERE p.idPub = :pub
-                    AND p.idPub = cp.idPub
-                    AND autor.idAutor = cp.idAutor
-                    AND autor.rol = 'principal'";
-            $stmt = $pdo->prepare($sql);
+            $stmt = $pdo->prepare("SELECT a.idAutor, a.nombre, a.tipo_filiacion, a.rol, a.unidad_investigacion, a.filiacion, a.universidad
+                               FROM autor a, colaborador_pub ci, publicacion i
+                               WHERE i.idPub = ci.idPub
+                               AND ci.idAutor = a.idAutor
+                               AND a.rol = 'principal'
+                               AND i.idPub = :pub");
             $stmt->execute(array(
-                ':pub' => $id
+            ':pub' => $id
             ));
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

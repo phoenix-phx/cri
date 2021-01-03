@@ -227,7 +227,7 @@ class Publicacion{
 		}
 	}
 
-	public function loadDetalles($user_id, $inv_id, $role, $pdo){
+	public function loadDetalles($user_id, $pub_id, $role, $pdo){
 		if($role === 'investigador'){
 			$sql = 'SELECT * 
 		        	FROM publicacion
@@ -235,8 +235,8 @@ class Publicacion{
 		            AND idPub = :pub'; 
 		    $stmt = $pdo->prepare($sql);
 		    $stmt->execute(array(
-		       ':id' => $_SESSION['idUsuario'],
-		       ':pub' => $_REQUEST['pub_id']
+		       ':id' => $user_id,
+		       ':pub' => $pub_id
 		    ));
 		}
 		else if($role === 'administrativo'){
@@ -245,7 +245,7 @@ class Publicacion{
 		            WHERE idPub = :pub'; 
 		    $stmt = $pdo->prepare($sql);
 		    $stmt->execute(array(
-		       ':pub' => $_REQUEST['pub_id']
+		       ':pub' => $pub_id
 		    ));      
 		}
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -258,7 +258,8 @@ class Publicacion{
 			$this->setResumen($row['resumen']);
 			$this->setTipo($row['tipo']);
 			$this->setId($row['idInv']);
-			$this->setDocumento($row['documento_final']);
+			$this->setDocumento($row['documento_final']);// TODO: arreglar
+			// TODO: select investigador si existe
 			return true;
 		}
 	}
@@ -307,5 +308,20 @@ class Publicacion{
 	        ':pub' => $this->getId() 
 	    ));
 	}
+
+	public function actualizarDatos($user_id, $pub_id, $pdo){
+		$sql = 'UPDATE publicacion
+	            SET titulo = :no, resumen = :res, tipo = :ti
+	            WHERE idPub = :pub
+	            AND idUsuario = :us';
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':no' => $this->getTitulo(),
+	        ':res' => $this->getResumen(),
+	        ':ti' => $this->getTipo(),
+	        ':pub' => $pub_id,
+	        ':us' => $user_id
+	    ));
+	}  
 }
 ?>
