@@ -330,5 +330,18 @@ class Investigacion{
 	        ':us' => $user_id
 	    ));
 	}  
+
+	public function cerrarInv($user_id, $inv_id, $pdo){
+		$sql = "UPDATE investigacion
+		        SET  estado = :st
+		        WHERE idUsuario = :id
+		        AND idInv = :inv";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+		    ':st' => "cerrado",
+		    ':id' => $user_id,
+		    ':inv' => $inv_id
+		));
+	}  
 }
 ?>
