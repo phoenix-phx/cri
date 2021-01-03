@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Buscar Investigacion</title>
-    <?php session_start(); ?>
+    <?php require_once "c_busquedainv.php"; ?>
 </head>
 <body>
     <h1>Buscar Investigaciones</h1>
@@ -30,5 +30,32 @@
         <input type="submit" value="buscar">
     </form>
     <i>Resultados:</i>
+    <br> <br>
+    <?php 
+    if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
+        for ($i=0; $i < count($_SESSION['resultados']); $i++) { 
+            echo '<div role="table">' . "\n";
+            echo '<div role="cabecera"> <span>Codigo</span> </div>';
+            echo '<div role="cabecera"> <span>Nombre Corto</span> </div>';
+            echo '<div role="cabecera"> <span>Unidad de Investigacion</span> </div>';
+                
+            echo '<div role="fila">';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</span> </div>';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['nombre_corto']) . '</span> </div>';
+            echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['unidad_investigacion']) . '</span> </div>';
+            echo '<a href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>'; echo "</td>";
+            echo "</div>\n";
+
+            echo "</div>";
+            echo "<br /> <br />";
+        }
+        unset($_SESSION['resultados']);
+    }
+    else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
+        echo "No se encontraron resultados a su busqueda";
+        unset($_SESSION['resultados']);
+    }
+    echo "<br />";  
+    ?>
 </body>
 </html>

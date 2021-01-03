@@ -343,5 +343,47 @@ class Investigacion{
 		    ':inv' => $inv_id
 		));
 	}  
+
+	public function busqueda($type, $data, $pdo){
+		if($type === 'Ninguno'){
+	        $sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
+	                FROM investigacion';    
+	        $stmt = $pdo->prepare($sql);
+	        $stmt->execute();
+	    }
+		else if ($type === 'Unidad de Investigacion') {
+            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+                    FROM investigacion
+                    WHERE unidad_investigacion LIKE :ui';    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    else if ($type === 'Nombre Investigacion') {
+            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+                    FROM investigacion
+                    WHERE nombre LIKE :no
+                    OR nombre_corto LIKE :nc';    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    else if ($type === 'Codigo Investigacion') {
+            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+                    FROM investigacion
+                    WHERE codigo LIKE :cd';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+        }
+	    else if ($type === 'Nombre Investigador') {
+            $sql = 'SELECT i.codigo, i.nombre_corto, i.unidad_investigacion, i.idInv
+                    FROM investigacion i, colaborador_inv ci, autor a
+                    WHERE a.idAutor = ci.idAutor
+                    AND ci.idInv = i.idInv
+                    AND a.nombre LIKE :no';
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    return $resultados;
+	}  
 }
 ?>
