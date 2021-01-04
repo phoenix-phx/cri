@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Detalles Publicacion</title>
-   <link rel="stylesheet" href="style/styles.css">
+    <title>Historial Publicacion</title>
+    <link rel="stylesheet" href="style/styles.css">
+    <?php session_start(); ?>
 </head>
 <body>
     <!-- header -->
@@ -16,22 +17,15 @@
             </a>
             <a class="aRight textIblue">
                 <?php 
-                    session_start();
+                    //session_start();
                     echo $_SESSION['nombre'];
                 ?>
             </a>
         </div>
     </div>
-        
-    <div style="padding-left:5%;padding-right:5%;" >
-        <h1 class="aLeft" style="font-size:50px;">Detalles</h1>
-        <div style="padding-top:40px;padding-bottom:30px">
-            <button class="button aRight" onclick="document.location='historial_publicacion.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>'">Ver Historial de Publicacion</button>
-        </div>    
-    </div>
-        <br><br><br><br>
-        <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
-    <?php include "c_vistapublicacion.php"?>
+    <div align="center">
+        <h2>Historial de Publicacion</h2>
+        <?php include "c_historialpub.php"; ?> 
     </div>
 </body>
 </html>

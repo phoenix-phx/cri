@@ -102,21 +102,23 @@ class Investigacion{
 			return false;
 		}
 		else{
-			echo '<div class="aLeft" style="width:82%;padding-left:40px">';
+			echo '<div style="height:280px;width:100%;">';
+			echo '<div class="aLeft" style="width:82%;height:280px;padding-left:40px;padding-right:40px;">';
 	        do{
 	        	$this->setCodigo($row['codigo']);
 				$this->setNombreCorto($row['nombre_corto']);
 				$this->setResumen($row['resumen']);
 				$this->setId($row['idInv']);
-				// TODO: deberia haber un link que contenga idInv para un acceso directo a sus detalles por algun lado
-
+				echo '<a class="link" href="detalles_investigacion_inv.php?inv_id='.$this->getId().'">';
 	            echo '<div class="aLeft container" style="width:26%;height:200px; padding:10px;margin:18px;">' . "\n";
 	                echo 'TITULO: ' . htmlentities($this->getNombreCorto()) . "<br><br>"."\n";
 	                echo 'CODIGO: ' . htmlentities($this->getCodigo()) . "<br><br>"."\n";
 	                echo htmlentities($this->getResumen()) . "<br><br>"."\n";
-	            echo '</div>' . "\n";
+				echo '</div>' . "\n";
+				echo '</a>';
 	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
-	        echo '</div>';
+			echo '</div>';
+			echo '</div>';
 			return true;
 		}
 	}

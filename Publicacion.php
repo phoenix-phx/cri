@@ -79,12 +79,13 @@ class Publicacion{
 				$this->setResumen($row['resumen']);
 				$this->setId($row['idPub']);
 				// TODO: deberia haber un link que contenga idInv para un acceso directo a sus detalles por algun lado
-
+				echo '<a class="link" href="detalles_publicacion_inv.php?pub_id='.$this->getId().'">';
 		        echo '<div class="aLeft container" style="width:26%;height:200px; padding:10px;margin:18px;">' . "\n";
 		            echo 'TITULO: ' . htmlentities($row['titulo']) . '<br>' . "\n";
 		            echo 'CODIGO: ' . htmlentities($row['codigo']) . "<br><br>"."\n";
 		            echo htmlentities($row['resumen']) . "<br><br>"."\n";
-		        echo '</div>' . "\n";
+				echo '</div>' . "\n";
+				echo '</a>';
 	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
 	        echo '</div>';
 			return true;

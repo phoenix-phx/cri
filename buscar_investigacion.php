@@ -65,7 +65,7 @@
         echo '<div role="cabecera" align="center"> 
             <div class="aLeft" style="width:320px;">CODIGO</div> 
             <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+            <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
             </div><br><br>
         </div>';
         echo '<div style="padding-left:4%;padding-right:4%;">';
@@ -76,10 +76,11 @@
 	                <div class="aLeft" style="width:320px;">' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</div> 
 	                <div class="aLeft" style="width:500px;">' . htmlentities($_SESSION['resultados'][$i]['nombre_corto']) . '</div> 
 	                <div class="aLeft" style="width:250px;">' . htmlentities($_SESSION['resultados'][$i]['unidad_investigacion']) . '</div>
-	                <a href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>
+	                <a class="link" href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>
 	                </div>';
-	            echo "<br> <br>";    
+	        echo "<br> <br>";    
         }
+        echo '</div>';
     }
     else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
         echo "No se encontraron resultados a su busqueda";

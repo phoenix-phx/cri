@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
+    <div style="height:50px;"></div>
     <div align="center"><img src="imagenes/LogoU_nombre.png" ></div>
     <h1 align="center">Ingreso al sistema para investigadores</h1>
     <?php

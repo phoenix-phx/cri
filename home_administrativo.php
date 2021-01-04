@@ -42,7 +42,7 @@
         </div>
     </div>
     <!-- left nav bar -->
-    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:fixed;height:100%;position:fixed;">
+    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:relative;height:650px;">
         <nav class="fHeight">
             <ul>
             <li><a href="listaInv_admin.php">Investigaciones</a></li>

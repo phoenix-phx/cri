@@ -61,7 +61,8 @@
             <div align="center"><input class="button" type="submit" value="Buscar"></div>
         </form>
         <h3><i>Resultados:</i></h3>
-        <br> <br>
+        </div>
+        <br>
         <?php 
 
         if (!isset($_SESSION['resultados'])) {
@@ -75,29 +76,33 @@
             $_SESSION['resultados'] = $inv->reporte($sql, '', 'Ninguno', $pdo); 
         }
 
-        echo "<span> Total de investigaciones registradas: </span>";
-        echo $_SESSION['numeros']['conteo'];
+        echo '<div style="padding-left:11%;"> Total de investigaciones registradas: ';
+        echo $_SESSION['numeros']['conteo'] . '</div>';
         echo "<br/> <br/> <br/>";
 
         if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
-            echo '<div role="table">' . "\n";
-            echo '<div role="cabecera"> <span>Codigo</span> </div>';
-            echo '<div role="cabecera"> <span>Nombre Corto</span> </div>';
-            echo '<div role="cabecera"> <span>Unidad de Investigacion</span> </div>';
+            echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
+            echo '<div role="cabecera" align="center"> 
+                <div class="aLeft" style="width:310px;">CODIGO</div> 
+                <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+                <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
+                </div><br><br>
+            </div>';
+            echo '<div style="padding-left:4%;padding-right:4%;">';
+            
             for ($i=0; $i < count($_SESSION['resultados']); $i++) { 
-                echo '<div role="fila">';
-                echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</span> </div>';
-                echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['nombre_corto']) . '</span> </div>';
-                echo '<div role="celda"> <span>' . htmlentities($_SESSION['resultados'][$i]['unidad_investigacion']) . '</span> </div>';
-                echo '<a href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>'; echo "</td>";
-                echo "</div>\n";
-
-                echo "</div>";
-                echo "<br /> <br />";
+                echo '<div role="fila" class="container" 
+	            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+	                <div class="aLeft" style="width:320px;">' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</div> 
+	                <div class="aLeft" style="width:500px;">' . htmlentities($_SESSION['resultados'][$i]['nombre_corto']) . '</div> 
+	                <div class="aLeft" style="width:250px;">' . htmlentities($_SESSION['resultados'][$i]['unidad_investigacion']) . '</div>
+	                <a class="link" href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>
+	                </div>';
+	            echo "<br> <br>";    
             }
+            echo '</div>';
         }
         echo "<br />";  
         ?>
-    </div>
 </body>
 </html>

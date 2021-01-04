@@ -22,7 +22,7 @@ echo '<div style="padding-left:240px;">' . "\n";
 $inv = new Investigacion();
 $state = $inv->initInv($_SESSION['idUsuario'], $pdo);
 if($state === false){
-    echo "<div>No tiene investigaciones registradas</div>";
+    echo "<div align='center'>No tiene investigaciones registradas</div>";
 }
 
 // publicaciones
@@ -40,7 +40,7 @@ echo '<div style="padding-left:240px;">' . "\n";
 $pub = new Publicacion();
 $state = $pub->initPub($_SESSION['idUsuario'], $pdo);
 if($state === false){
-    echo "<div>No tiene publicaciones registradas</div>";
+    echo "<div align='center'>No tiene publicaciones registradas</div>";
 }
 echo "<br />";
 echo "</div>";

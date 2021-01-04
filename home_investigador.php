@@ -43,7 +43,7 @@
 
 
     <!-- Left Nav bar -->
-    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:fixed;height:100%;position:fixed;">
+    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:relative;height:720px;">
         <nav class="fHeight">
             <ul>
                 <li><a href="listaInv_investigador.php">Investigaciones</a></li>
