@@ -26,6 +26,7 @@
     <div align="center">
         <h2>Historial de Investigacion</h2>
         <?php include "c_historialinv.php"; ?> 
+        <button class="button" onclick="document.location='detalles_investigacion_admin.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>'">Volver</button>
     </div>
 </body>
 </html>

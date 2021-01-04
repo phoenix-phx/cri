@@ -26,6 +26,7 @@
     <div align="center">
         <h2>Historial de Publicacion</h2>
         <?php include "c_historialpub.php"; ?> 
+        <button class="button" onclick="document.location='detalles_publicacion_admin.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>'">Volver</button>
     </div>
 </body>
 </html>

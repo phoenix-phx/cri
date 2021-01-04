@@ -80,11 +80,11 @@ class Historial{
 		}
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row !== false){
-	        echo '<table border="1" >' . "\n";
+	        echo '<table class="container" border="3" style="border-radius:0px;border-collapse:collapse;" >' . "\n";
 	        echo "<tr> <th> Fecha de Suceso </th> <th>Suceso </th>";
 	        do{
 	            echo "<tr>";
-	            echo "<td>";  echo (htmlentities($row['fecha_cambio'])); echo "</td>";
+	            echo "<td align='center'>";  echo (htmlentities($row['fecha_cambio'])); echo "</td>";
 	            echo "<td>"; echo '<pre>'; echo (htmlentities($row['detalle'])); echo '</pre>'; echo "</td>";
 	            echo "</tr>\n";
 	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
