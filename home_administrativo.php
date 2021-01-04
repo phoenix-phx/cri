@@ -108,6 +108,9 @@
     if(isset($_SESSION['resultados'])){
         unset($_SESSION['resultados']);
     }
+    if(isset($_SESSION['numeros'])){
+        unset($_SESSION['numeros']);
+    }
      ?>
 </body>
 >>>>>>> dd5cfd03d966807481637f3850dcbcc2fd959709

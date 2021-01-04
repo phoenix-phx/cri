@@ -385,5 +385,31 @@ class Investigacion{
 	    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	    return $resultados;
 	}  
+
+	public function reporte($sentence, $data, $type, $pdo){
+		if($type !== 'Ninguno'){
+			$stmt = $pdo->prepare($sentence);
+	        $stmt->execute($data);
+	    }
+	    else{
+	    	$stmt = $pdo->prepare($sentence);
+	        $stmt->execute();
+	    }
+	    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    return $resultados;
+	}  
+
+	public function counting($sentence, $data, $type, $pdo){
+		if($type !== 'Ninguno'){
+			$stmt = $pdo->prepare($sentence);
+		    $stmt->execute($data);
+		}
+		else{
+			$stmt = $pdo->prepare($sentence);
+	        $stmt->execute();
+		}
+	    $numero = $stmt->fetch(PDO::FETCH_ASSOC);
+	    return $numero;
+	}  
 }
 ?>
