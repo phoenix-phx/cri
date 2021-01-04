@@ -20,11 +20,7 @@
             font-size: 20px;
         }
     </style>
-<<<<<<< HEAD
-    
-=======
     <?php session_start(); ?>
->>>>>>> dd5cfd03d966807481637f3850dcbcc2fd959709
 
 </head>
 <body>
@@ -39,7 +35,7 @@
             </a>
             <a class="aRight textIblue">
                 <?php 
-                    session_start();
+                    //session_start();
                     echo $_SESSION['nombre'];
                 ?>
             </a>
@@ -102,14 +98,13 @@
             </div>  
         </div>
     </div>
-<<<<<<< HEAD
-</body> 
-=======
     <?php 
     if(isset($_SESSION['resultados'])){
         unset($_SESSION['resultados']);
     }
+    if(isset($_SESSION['numeros'])){
+        unset($_SESSION['numeros']);
+    }
      ?>
 </body>
->>>>>>> dd5cfd03d966807481637f3850dcbcc2fd959709
 </html>
