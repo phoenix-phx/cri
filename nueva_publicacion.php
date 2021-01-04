@@ -41,7 +41,7 @@
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
             <label for="resumenCP">Resumen:</label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
-            <label for="invCP">Investigacion:</label>
+            <label for="invCP">Investigacion asociada (Codigo):</label>
             <input class="textInput" name="invCP" id="invCP" type="text"><br>
             <label for="tipoCP">Tipo publicacion:</label>
             <select name="tipoCP" id="tipoCP">

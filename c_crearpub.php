@@ -2,6 +2,7 @@
 session_start();
 require_once "c_pdo.php";
 require_once "Publicacion.php";
+require_once "Investigacion.php";
 require_once "AutorExterno.php";
 require_once "AutorInterno.php";
 
@@ -16,7 +17,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         header("Location: nueva_publicacion.php");
         return;
     }
-    // TODO: trabajar la busqueda de investigacion asociada
+
     if($_POST['tipoCP'] === 'Ninguno'){
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: nueva_publicacion.php");
@@ -81,6 +82,17 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         return;
     }
 
+    $idInv = '';
+    if(strlen($_POST['invCP']) > 1){
+        $inv = new Investigacion();
+        $idInv = $inv->searchID($_POST['invCP'], $pdo);
+        if($idInv === false){
+            $_SESSION['error'] = 'Codigo de investigacion asociada invalido';
+            header("Location: nueva_publicacion.php");
+            return;            
+        }
+    }
+
     // publicacion
     $pub = new Publicacion();
 
@@ -102,6 +114,10 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $pub->setCodigo($codigo);
     
     $pub->completarDetalles($_SESSION['idUsuario'], $pdo);
+
+    if(strlen($_POST['invCP']) > 1){
+        $pub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
+    }
 
     // autor principal
     if($_POST['rPUniCP'] === 'interno'){

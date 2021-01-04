@@ -2,6 +2,7 @@
 session_start();
 require_once "c_pdo.php";
 require_once "Publicacion.php";
+require_once "Investigacion.php";
 require_once "Autor.php";
 require_once "AutorExterno.php";
 require_once "AutorInterno.php";
@@ -43,7 +44,10 @@ if($state === false){
 $codigo = htmlentities($pub->getCodigo());
 $titulo = htmlentities($pub->getTitulo());
 $resumen = htmlentities($pub->getResumen());
-//$investigacion = htmlentities($row['idInv']);// TODO: select investigador si existe
+$investigacion = htmlentities($pub->getIdInv());
+if($investigacion !== null){
+    $nombreInv = $pub->getNombreInv();
+}
 $tipo = htmlentities($pub->getTipo());
 $doc = htmlentities($pub->getDocumento()); // TODO: arreglar
 $pub_id = htmlentities($pub->getId());
@@ -150,6 +154,17 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         return;
     }
 
+    $idInv = '';
+    if(strlen($_POST['invCP']) > 1){
+        $inv = new Investigacion();
+        $idInv = $inv->searchID($_POST['invCP'], $pdo);
+        if($idInv === false){
+            $_SESSION['error'] = 'Codigo de investigacion asociada invalido';
+            header("Location: editar_publicacion.php?pub_id=".$_REQUEST['pub_id']);
+            return;            
+        }
+    }
+
     // registrar cambios
     $dia = getdate();
     $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
@@ -186,6 +201,10 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $newPub->setTipo($_POST['tipoCP']); 
     
     $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
+
+    if(strlen($_POST['invCP']) > 1){
+        $newPub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
+    }
 
     // autor principal
     if($_POST['rPUniCP'] === 'interno'){

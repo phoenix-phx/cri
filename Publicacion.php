@@ -1,6 +1,7 @@
 <?php 
 require_once "c_pdo.php";
 require_once "Autor.php";
+require_once "Investigacion.php";
 
 class Publicacion{
 	protected $codigo;
@@ -9,6 +10,8 @@ class Publicacion{
 	protected $tipo;
 	protected $documento;
 	protected $id;
+	protected $idInv;
+	protected $NombreInv;
 
 	public function setId($id){
 		$this->id = $id;
@@ -16,6 +19,22 @@ class Publicacion{
 
 	public function getId(){
 		return $this->id;
+	}
+
+	public function setIdInv($id){
+		$this->idInv = $id;
+	}
+
+	public function getIdInv(){
+		return $this->idInv;
+	}
+
+	public function setNombreInv($id){
+		$this->NombreInv = $id;
+	}
+
+	public function getNombreInv(){
+		return $this->NombreInv;
 	}
 
 	public function setCodigo($codigo){
@@ -259,8 +278,14 @@ class Publicacion{
 			$this->setResumen($row['resumen']);
 			$this->setTipo($row['tipo']);
 			$this->setId($row['idInv']);
-			$this->setDocumento($row['documento_final']);// TODO: arreglar
-			// TODO: select investigador si existe
+			$this->setDocumento($row['documento_final']);// TODO: arreglar doc final
+			$this->setIdInv($row['idInv']);
+			
+			if($row['idInv'] !== null){
+				$inv = new Investigacion();
+				$nombre = $inv->searchCODIGO($row['idInv'], $pdo);
+				$this->setNombreInv($nombre);
+			}
 			return true;
 		}
 	}
@@ -310,6 +335,19 @@ class Publicacion{
 	    ));
 	}
 
+	public function asociarInvestigacion($user_id, $inv_id, $pdo){
+		$sql = "UPDATE publicacion
+	            SET  idInv = :inv
+	            WHERE idUsuario = :id
+	            AND idPub = :pub";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':inv' => $inv_id,
+	        ':id' => $user_id,
+	        ':pub' => $this->getId() 
+	    ));
+	}
+
 	public function actualizarDatos($user_id, $pub_id, $pdo){
 		$sql = 'UPDATE publicacion
 	            SET titulo = :no, resumen = :res, tipo = :ti
@@ -323,6 +361,7 @@ class Publicacion{
 	        ':pub' => $pub_id,
 	        ':us' => $user_id
 	    ));
+	    $this->setId($pub_id);
 	}  
 
 	public function busqueda($type, $data, $pdo){

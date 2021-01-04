@@ -413,5 +413,56 @@ class Investigacion{
 	    $numero = $stmt->fetch(PDO::FETCH_ASSOC);
 	    return $numero;
 	}  
+
+	public function searchID($code, $pdo){
+		$sql = 'SELECT * 
+				FROM investigacion
+				WHERE codigo = :cod';
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+			':cod' => $code
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($row === false){
+			return false;
+		}
+		else{
+			return $row['idInv'];
+		}
+	}  
+
+	public function searchNOMBRE($inv_id, $pdo){
+		$sql = 'SELECT * 
+				FROM investigacion
+				WHERE idInv = :inv';
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+			':inv' => $inv_id
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($row === false){
+			return false;
+		}
+		else{
+			return $row['nombre'];
+		}
+	}
+
+	public function searchCODIGO($inv_id, $pdo){
+		$sql = 'SELECT * 
+				FROM investigacion
+				WHERE idInv = :inv';
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+			':inv' => $inv_id
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($row === false){
+			return false;
+		}
+		else{
+			return $row['codigo'];
+		}
+	}
 }
 ?>
