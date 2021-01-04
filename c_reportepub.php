@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
+require_once "Publicacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -16,6 +17,8 @@ if(isset($_POST['uniInvRP']) && isset($_POST['nomInvRP']) ){
     $tipo = ($_POST['tipoCP'] === 'Todos') ? false : true;
     
     if($unidad_investigacion || $investigador || $estado || $tipo){
+        $pub = new Publicacion();
+
         $kvp = array();
         $select = 'SELECT i.codigo, i.titulo, i.tipo, i.idPub'."\n";
         $from = 'FROM publicacion i'."\n";
@@ -23,90 +26,64 @@ if(isset($_POST['uniInvRP']) && isset($_POST['nomInvRP']) ){
         $isWhere = false;
         if($unidad_investigacion){
             if($isWhere){
-                $where = $where . 'AND i.unidad_investigacion = :ui'."\n";
+                $where = $where . 'AND i.unidad_investigacion LIKE :ui'."\n";
             }
             else if(!$isWhere){
-                $where = $where . 'i.unidad_investigacion = :ui'."\n";
+                $where = $where . 'i.unidad_investigacion LIKE :ui'."\n";
                 $isWhere = true;
             }
-            $kvp[':ui'] = $_POST['uniInvRP'];
+            $kvp[':ui'] = '%'.$_POST['uniInvRP'].'%';
         }
         if($estado){
             if($isWhere){
-                $where = $where . 'AND i.estado = :st'."\n";
+                $where = $where . 'AND i.estado LIKE :st'."\n";
             }
             else if(!$isWhere){
-                $where = $where . 'i.estado = :st'."\n";
+                $where = $where . 'i.estado LIKE :st'."\n";
                 $isWhere = true;
             }
-            $kvp[':st'] = $_POST['estadoRP'];
+            $kvp[':st'] = '%'.$_POST['estadoRP'].'%';
         }
         if($tipo){
             if($isWhere){
-                $where = $where . 'AND i.tipo = :tp'."\n";
+                $where = $where . 'AND i.tipo LIKE :tp'."\n";
             }
             else if(!$isWhere){
-                $where = $where . 'i.tipo = :tp'."\n";
+                $where = $where . 'i.tipo LIKE :tp'."\n";
                 $isWhere = true;
             }
-            $kvp[':tp'] = $_POST['tipoCP'];
+            $kvp[':tp'] = '%'.$_POST['tipoCP'].'%';
         }
         if($investigador){
             $from = $from . ', autor a, colaborador_pub ci'."\n";
             if($isWhere){
-                $where = $where . 'AND i.idPub = ci.idPub AND ci.idAutor = a.idAutor AND a.nombre = :nm'."\n";
+                $where = $where . 'AND i.idPub = ci.idPub AND ci.idAutor = a.idAutor AND a.nombre LIKE :nm'."\n";
             }
             else if(!$isWhere){
-                $where = $where . 'i.idPub = ci.idPub AND ci.idAutor = a.idAutor AND a.nombre = :nm'."\n";
+                $where = $where . 'i.idPub = ci.idPub AND ci.idAutor = a.idAutor AND a.nombre LIKE :nm'."\n";
                 $isWhere = true;
             }
-            $kvp[':nm'] = $_POST['nomInvRP'];
+            $kvp[':nm'] = '%'.$_POST['nomInvRP'].'%';
         }
-        $sql = $select . $from . $where;
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($kvp);
-
-        $counting = 'SELECT count(*) AS conteo'. "\n";
-        $counting = $counting . $from . $where;
-        $number = $pdo->prepare($counting);
-        $number->execute($kvp);
+        $row = $pub->reporte($select.$from.$where, $kvp, '',$pdo);
+        
+        $c = 'SELECT count(*) AS conteo'. "\n";
+        $n = $pub->counting($c.$from.$where, $kvp, '',$pdo);
     }
     else{
-        $counting = 'SELECT count(*) AS conteo
-                     FROM publicacion';
-        $number = $pdo->prepare($counting);
-        $number->execute();
+        $pub = new Publicacion();
+        $c = 'SELECT count(*) AS conteo
+              FROM publicacion';
+        $n = $pub->counting($c, '', 'Ninguno', $pdo);
 
         $sql = 'SELECT codigo, titulo, tipo, idPub 
                 FROM publicacion';    
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();    
+        $row = $pub->reporte($sql, '', 'Ninguno', $pdo);
     }
-    $n = $number->fetch(PDO::FETCH_ASSOC);
-    echo "<h2> Resultados </h2>";
-    echo "<span> Total de publicaciones registradas: </span>";
-    echo $n['conteo'];
-    echo "<br> <br> <br>";
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row !== false){
-        echo '<div role="table">' . "\n";
-        echo '<div role="cabecera"> <span>Codigo</span> </div>';
-        echo '<div role="cabecera"> <span>Nombre Corto</span> </div>';
-        echo '<div role="cabecera"> <span>Unidad de Investigacion</span> </div>';
-            
-        do{
-               
-            echo '<div role="fila">';
-            echo '<div role="celda"> <span>' . htmlentities($row['codigo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['titulo']) . '</span> </div>';
-            echo '<div role="celda"> <span>' . htmlentities($row['tipo']) . '</span> </div>';
-            echo '<a href="detalles_publicacion_admin.php?pub_id='.$row['idPub'].'">&gt&gt</a>'; echo "</td>";
-            echo "</div>\n";
 
-            echo "</div>";
-            echo "<br /> <br />";
-        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
-    }
-    echo "<br />";  
+    $_SESSION['resultados'] = $row;
+    $_SESSION['numeros'] = $n;
+    header('Location: reporte_publicacion.php');
+    return;
 } 
 ?>

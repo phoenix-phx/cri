@@ -1,14 +1,14 @@
 <?php
 session_start();
 require_once "c_pdo.php";
+require_once "Usuario.php";
 
-/*die*/
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] !== 'administrativo'){
     die('No ha iniciado sesion');
 }
 
 if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono']) && isset($_POST['tUnidadI'])){
-	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1) {
+	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1 || strlen($_POST['correo']) < 1) {
 		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
 		header("Location: nuevo_usuario.php");
 		return;
@@ -24,71 +24,28 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
         return;
     }
     else{
-    	$sql = "INSERT INTO usuario (nombre, filiacion, unidad_investigacion, rol)
-                VALUES (:na, :fi, :ui, :pm)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':na' => $_POST['nombre'],
-            ':fi' => $_POST['rbfiliacion'],
-            ':ui' => $_POST['tUnidadI'],
-            ':pm' => $_POST['rbpermisos']
-        ));
-        
+    	$us = new Usuario();
+    	$us->setNombre($_POST['nombre']);
+    	$us->setFiliacion($_POST['rbfiliacion']);
+    	$us->setUnidadInvestigacion($_POST['tUnidadI']);
+    	$us->setRol($_POST['rbpermisos']);
+    	$us->setCorreo($_POST['correo']);
+
+    	$us->crear($pdo);
         $profile_id = $pdo->lastInsertId();
-     	if(strlen($_POST['correo']) > 0){
-	        $sql = "UPDATE usuario
-	                SET  correo = :em
-	                WHERE idUsuario = :id";
-	        $stmt = $pdo->prepare($sql);
-	        $stmt->execute(array(
-	            ':em' => $_POST['correo'],
-	            ':id' => $profile_id
-	        ));
-	    }  
-	    if(strlen($_POST['celular']) > 0){
-	        $sql = "UPDATE usuario
-	                SET  celular = :ce
-	                WHERE idUsuario = :id";
-	        $stmt = $pdo->prepare($sql);
-	        $stmt->execute(array(
-	            ':ce' => $_POST['celular'],
-	            ':id' => $profile_id
-	        ));
+
+     	if(strlen($_POST['celular']) > 0){
+     		$us->setCelular($_POST['celular']);
+     		$us->agregarCelular($pdo);
 	    }
 	    if(strlen($_POST['telefono']) > 0){
-	        $sql = "UPDATE usuario
-	                SET  telefono = :tf
-	                WHERE idUsuario = :id";
-	        $stmt = $pdo->prepare($sql);
-	        $stmt->execute(array(
-	            ':tf' => $_POST['telefono'],
-	            ':id' => $profile_id
-	        ));
+	    	$us->setTelefono($_POST['telefono']);
+     		$us->agregarTelefono($pdo);
 	    }
 
 	    // user y pass
-	    $nombre = explode(' ', $_POST['nombre']);
-	    $user = '';
-	    for ($i=0; $i < count($nombre); $i++) { 
-	    	if ($i == count($nombre) - 1) {
-	    		$user .= strtolower($nombre[$i]);
-	    	}
-	    	else{
-	    		$user .= strtolower($nombre[$i]) . '_';
-	    	}
-	    }
-	    $salt = '*cRriII20#_';
-   		$cs = hash('sha256', $salt.$user);
-		$sql = "UPDATE usuario
-	            SET  user = :us, pass = :pw
-	            WHERE idUsuario = :id";
-
-	    $stmt = $pdo->prepare($sql);
-	    $stmt->execute(array(
-	        ':us' => $user,
-	        ':pw' => $cs,
-	        ':id' => $profile_id
-	    ));
+	    $us->asignarDatosLogin($pdo);
+	    
 	    $_SESSION["success"] = 'usuario creado correctamente';
         header('Location: home_administrativo.php');
         return;

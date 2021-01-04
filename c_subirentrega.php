@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
-
+require_once "Publicacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -20,16 +20,8 @@ if(isset($_POST['archivoEntregaF']) && isset($_POST['descripcionEnvio'])){
         return;
     }
     else {
-        $sql = "UPDATE publicacion
-                SET  documento_final = :df
-                WHERE idUsuario = :id
-                AND idPub = :pub";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':df' => $_POST['archivoEntregaF'],
-            ':id' => $_SESSION['idUsuario'],
-            ':pub' => $_REQUEST['pub_id']
-        ));
+        $pub = new Publicacion();
+        $pub->subirEntrega($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_POST['archivoEntregaF']);
         $_SESSION["success"] = 'documento subido correctamente!';
         header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
         return;
