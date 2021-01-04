@@ -388,5 +388,18 @@ class Publicacion{
 	    $numero = $stmt->fetch(PDO::FETCH_ASSOC);
 	    return $numero;
 	}  
+
+	public function subirEntrega($user_id, $pub_id, $doc, $pdo){
+		$sql = "UPDATE publicacion
+                SET  documento_final = :df
+                WHERE idUsuario = :id
+                AND idPub = :pub";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':df' => $doc,
+            ':id' => $user_id,
+            ':pub' => $pub_id
+        ));
+	}  
 }
 ?>
