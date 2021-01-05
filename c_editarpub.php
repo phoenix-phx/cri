@@ -51,7 +51,7 @@ $titulo = htmlentities($pub->getTitulo());
 $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
 if($investigacion !== null){
-    $nombreInv = $pub->getNombreInv();
+    $nombreInv = $pub->getCodigoInv();
 }
 $tipo = htmlentities($pub->getTipo());
 $doc = htmlentities($pub->getDocumento()); // TODO: arreglar

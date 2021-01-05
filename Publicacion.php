@@ -12,6 +12,7 @@ class Publicacion{
 	protected $id;
 	protected $idInv;
 	protected $NombreInv;
+	protected $CodigoInv;
 
 	public function setId($id){
 		$this->id = $id;
@@ -35,6 +36,14 @@ class Publicacion{
 
 	public function getNombreInv(){
 		return $this->NombreInv;
+	}
+
+	public function setCodigoInv($id){
+		$this->CodigoInv = $id;
+	}
+
+	public function getCodigoInv(){
+		return $this->CodigoInv;
 	}
 
 	public function setCodigo($codigo){
@@ -283,7 +292,9 @@ class Publicacion{
 			
 			if($row['idInv'] !== null){
 				$inv = new Investigacion();
-				$nombre = $inv->searchCODIGO($row['idInv'], $pdo);
+				$codigo = $inv->searchCODIGO($row['idInv'], $pdo);
+				$this->setCodigoInv($codigo);
+				$nombre = $inv->searchNOMBRE($row['idInv'], $pdo);
 				$this->setNombreInv($nombre);
 			}
 			return true;

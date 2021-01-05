@@ -75,12 +75,14 @@ class AutorInterno extends Autor{
             ));
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $this->setId($row['idAutor']);
-        $this->setNombre($row['nombre']);
-        $this->setTipoFiliacion($row['tipo_filiacion']);
-        $this->setRol($row['rol']);
-        $this->setUnidadInvestigacion($row['unidad_investigacion']);           
-        $this->setFiliacion($row['filiacion']);
+        if($row !== false){
+            $this->setId($row['idAutor']);
+            $this->setNombre($row['nombre']);
+            $this->setTipoFiliacion($row['tipo_filiacion']);
+            $this->setRol($row['rol']);
+            $this->setUnidadInvestigacion($row['unidad_investigacion']);           
+            $this->setFiliacion($row['filiacion']);
+        }
     }
 
     public function actualizarAutor($autor_id, $pdo){

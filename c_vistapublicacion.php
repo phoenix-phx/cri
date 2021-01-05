@@ -34,6 +34,12 @@ if($_SESSION['permisos'] === 'investigador'){
     $titulo = htmlentities($pub->getTitulo());
     $resumen = htmlentities($pub->getResumen());
     $tipo = htmlentities($pub->getTipo());
+    $investigacion = htmlentities($pub->getIdInv());
+    $flag = false;
+    if(strlen($investigacion) !== 0){
+        $nombreInv = $pub->getNombreInv();
+        $flag = true;
+    }
 
     // cargar autor principal
     $principal = $pub->loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
@@ -50,7 +56,13 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>TIPO PUBLICACION: : </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
+    if($flag === true){
+        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
+    }
+    else{
+        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span><i>' . 'no existe investigacion asociada' . '</i></span></div>';
+    }
 
     //autores
     echo "<br>";
@@ -101,6 +113,12 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $titulo = htmlentities($pub->getTitulo());
     $resumen = htmlentities($pub->getResumen());
     $tipo = htmlentities($pub->getTipo());
+    $investigacion = htmlentities($pub->getIdInv());
+    $flag = false;
+    if(strlen($investigacion) !== 0){
+        $nombreInv = $pub->getNombreInv();
+        $flag = true;
+    }
 
     // cargar autor principal
     $principal = $pub->loadAutorPrincipal($pdo, $_REQUEST['pub_id']);
@@ -117,8 +135,13 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>TIPO PUBLICACION: : </span> <span>' . $tipo . ' </span></div>';
-
+    echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
+    if($flag){
+        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
+    }
+    else{
+        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span><i>' . 'no existe investigacion asociada' . '</i></span></div>';
+    }
     //autores
     echo "<br>";
     echo "<span><b>AUTORES</b></span>";
