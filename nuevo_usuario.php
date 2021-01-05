@@ -63,7 +63,10 @@
             <input type="radio" name="rbpermisos" id="rbadminp" value="administrativo">
             <label for="rbadminp">Administrativo</label><br>
             <br><br>
-            <div align="center"><input class="button" type="submit" value="Crear Usuario"></div>
+            <div align="center">
+                <input class="button" style="margin-right:20px;" type="submit" value="Crear Usuario">
+                <input class="button" type="submit" name="cancel" value="Cancelar" />
+            </div>
             
         </form>
     </div>

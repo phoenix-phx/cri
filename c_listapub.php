@@ -11,7 +11,7 @@ if($_SESSION['permisos'] === 'investigador'){
     $pub = new Publicacion();
     $estado = $pub->listaInv($_SESSION['idUsuario'], $pdo);
     if($estado === false){
-        echo "<span> No tiene publicaciones registradas </span>";
+        echo "<div style='padding-left:5%;'>No existen publicaciones registradas </div>";
     }
     echo "<br />";
 }
@@ -19,7 +19,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $pub = new Publicacion();
     $estado = $pub->listaAdmin($pdo);
     if($estado === false){
-        echo "<span> No existen publicaciones registradas </span>";
+        echo "<div style='padding-left:5%;'>No existen publicaciones registradas </div>";
     }
     echo "<br />";   
 }

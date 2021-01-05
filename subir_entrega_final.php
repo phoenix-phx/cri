@@ -39,7 +39,10 @@
         </div><br>
         Descripcion del envio:<br><br>
         <textarea class="textInput" name="descripcionEnvio" rows="5" cols="100" placeholder="Escribe una pequeña descripcion"></textarea><br>
-        <div align="center"> <input class="button" type="submit" value="Enviar"></div>
+        <div align="center">
+            <input class="button" style="margin-right:20px;" type="submit" value="Enviar">
+            <input class="button" type="submit" name="cancel" value="Cancelar" />
+        </div>
     </form>
     </div>
 </body>

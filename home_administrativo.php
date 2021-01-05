@@ -19,6 +19,9 @@
             text-decoration: none;
             font-size: 20px;
         }
+        body{
+            line-height:150%; 
+        }
     </style>
     <?php session_start(); ?>
 
@@ -98,5 +101,13 @@
             </div>  
         </div>
     </div>
+    <?php 
+    if(isset($_SESSION['resultados'])){
+        unset($_SESSION['resultados']);
+    }
+    if(isset($_SESSION['numeros'])){
+        unset($_SESSION['numeros']);
+    }
+     ?>
 </body>
 </html>

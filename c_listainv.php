@@ -11,7 +11,7 @@ if($_SESSION['permisos'] === 'investigador'){
     $inv = new Investigacion();
     $estado = $inv->listaInv($_SESSION['idUsuario'], 'en curso', $pdo);
     if($estado === false){
-        echo "<div style='padding-left:200px;'>No tiene investigaciones registradas </div>";
+        echo "<div style='padding-left:5%;'>No tiene investigaciones registradas </div>";
     }
     echo "<br />";
 }
@@ -19,7 +19,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $inv = new Investigacion();
     $estado = $inv->listaAdmin($pdo);
     if($estado === false){
-        echo "<div style='padding-left:200px;'>No tiene investigaciones registradas </div>";
+        echo "<div style='padding-left:5%;'>No tiene investigaciones registradas </div>";
     }
     echo "<br />";   
 }

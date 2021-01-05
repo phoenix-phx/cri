@@ -199,7 +199,10 @@
         </div>
         </fieldset>
 
-        <div align="center"><input class="button"type="submit" value="Guardar"></div> 
+        <div align="center">
+            <input class="button" syte="margin-right:20px;" type="submit" value="Guardar">
+            <input class="button" type="submit" name="cancel" value="Cancelar" />
+        </div> 
     </form>
     </div>
 </body>

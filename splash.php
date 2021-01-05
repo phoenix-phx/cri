@@ -5,13 +5,14 @@
 
 </head>
 <body>
+    <div style="height:50px;"></div>
     <div align="center" class="center">
         <img src="imagenes/LogoU_nombre.png">    
         <h1>Bienvenido al sistema academico para Investigaciones UCB</h1>
         <h2>Selecciona una opcion para iniciar sesion</h2>
     </div>
     <br><br>
-    <div style="padding-left: 330px; padding-right: 330px;">
+    <div style="padding-left: 30%; padding-right: 30%;">
         <a class="link" href="login_investigador.php?modo=investigador">
             <div class="container aLeft" style="width: 200px; padding: 3px;">
                 <div align="center"><img src="imagenes/Investigador/investigador_login.jpg" style="height:160px;width:200px;"></div>

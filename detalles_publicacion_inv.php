@@ -3,6 +3,11 @@
 <head>
     <title>Ver Publicacion</title>
     <link rel="stylesheet" href="style/styles.css">
+    <style>
+        body{
+            line-height:150%; 
+        }
+    </style>
 </head>
 <body>
     <!-- header -->
@@ -26,8 +31,8 @@
     <div style="padding-left:5%;padding-right:5%;">
         <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
         <div style="padding-top:30px;padding-bottom:30px">
-            <button class="button aRight" style="font-size:18px;" onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
-            <button class="button aRight" style="font-size:18px;"  onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Entrega Final</button>
+            <button class="button aRight" onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
+            <button class="button aRight" style="margin-right:20px;"  onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Entrega Final</button>
         </div>
     </div>
     <br><br><br>

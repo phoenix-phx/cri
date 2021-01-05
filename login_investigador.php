@@ -23,8 +23,8 @@
                 <div align="left" style="padding-left:47px;"><label for="user">Usuario:<br></label></div>
                 <input id="user" name="user" type="text" class="textInput" style="width:75%;"><br><br>
                 <div align="left" style="padding-left:47px;"><label for="pass">Contrase&ntilde;a:<br></label></div>
-                <input id="pass" name="pass" type="password" class="textInput"  style="width:75%;"><br><br><br>
-                <button class="button" style="width:75%;">Ingresar</button>
+                <input id="pass" name="pass" type="password" class="textInput"  style="width:75%;"><br><br>
+                <button class="button" style="width:78%;height:padding:5px;">Ingresar</button>
             </form>
         </div>
         <br>

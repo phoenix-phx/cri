@@ -38,7 +38,8 @@
             unset($_SESSION['success']);
         }
         ?>
-        <form action="c_busquedapub.php" method="post" align="center">
+        <form action="c_busquedapub.php" method="post">
+            <div align="center">
             Filtrar por: <select name="filtroBP" id="filtroBP">
                 <option value="Ninguno">Ninguno</option>
                 <option value="Unidad de Investigacion">Unidad de Investigacion</option>
@@ -46,8 +47,10 @@
                 <option value="Codigo">Codigo</option>
                 <option value="Tipo">Tipo</option>
             </select>
-            <input class="stextInput" style="margin:20px;" name="txtFiltroBP" id="txtFiltroBP" type="text" placeholder="Ingrese la busqueda aqui" size="40"><br>
-            <input class="button" type="submit" value="buscar">
+            <input class="stextInput" style="margin:20px;" name="txtFiltroBP" id="txtFiltroBP" type="text" placeholder="Ingrese la busqueda aqui" size="40">
+            </div>
+            <br>
+            <div align="center"><input class="button" type="submit" value="Buscar"></div>
         </form>
         <h3><i>Resultados:</i></h3>
         <br><br>

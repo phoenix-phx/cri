@@ -154,7 +154,7 @@
                     for ($i=0; $i < count($investigadores); $i++) {
                         echo '<div id="dICI' . ($i) . '">
                                 Nombre <input class="stextInput" name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
-                                <button id="bICI' .  ($i) . '" onclick="removeItemInv(' . ($i) . ')">-</button><br>';
+                                <button id="bICI' .  ($i) . '" class="button" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
                                     Pertenece a la Universidad Catolica Boliviana<br>
@@ -324,7 +324,10 @@
             echo '</div>';
             echo '</fieldset>';
         ?>
-            <div align="center"><input class="button" type="submit" value="Guardar"></div> 
+            <div align="center">
+                <input class="button" style="margin-right:20px;" type="submit" value="Guardar">
+                <input class="button" type="submit" name="cancel" value="Cancelar" />
+            </div> 
         </form>
     </div>
 </body>

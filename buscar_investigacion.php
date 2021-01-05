@@ -39,7 +39,8 @@
             unset($_SESSION['success']);
         }
         ?>
-        <form action="c_busquedainv.php" method="post" align="center">
+        <form action="c_busquedainv.php" method="post">
+            <div align="center">
             Filtrar por: 
             <select name="filtroBI" id="filtroBI">
                 <option value="Ninguno">Ninguno</option>
@@ -49,8 +50,9 @@
                 <option value="Nombre Investigador">Nombre Investigador</option>
             </select>
             <input class="stextInput" style="margin:20px;"name="txtFiltroBI" id="txtFiltroBI" type="text" placeholder="Ingrese la busqueda aqui" size="40">
-            <br><br>
-            <input class="button" type="submit" value="buscar">
+            </div>
+            <br>
+            <div align="center"><input class="button" type="submit" value="Buscar"></div>
         </form>
         <h3><i>Resultados:</i></h3>
     </div>

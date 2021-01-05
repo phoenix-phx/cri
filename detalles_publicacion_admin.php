@@ -3,6 +3,11 @@
 <head>
    <title>Detalles Publicacion</title>
    <link rel="stylesheet" href="style/styles.css">
+   <style>
+        body{
+            line-height:150%; 
+        }
+    </style>
 </head>
 <body>
     <!-- header -->

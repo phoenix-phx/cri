@@ -94,7 +94,10 @@
             <div id="Act">
             </div>
             </fieldset>
-            <div align="center"><input class="button" type="submit" value="Crear"><div> 
+            <div align="center">
+                <input class="button" style="margin-right:20px;" type="submit" value="Crear">
+                <input class="button" type="submit" name="cancel" value="Cancelar" />
+            <div> 
         </form>
     <div>
 </body>
