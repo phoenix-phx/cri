@@ -19,6 +19,11 @@ if( !isset($_REQUEST['inv_id']) ){
     return;
 }
 
+if ( isset($_POST['cancel'] ) ) {
+    header('Location: detalles_investigacion_inv.php?inv_id='.$_REQUEST['inv_id']);
+    return;
+}
+
 $stmt = $pdo->prepare('SELECT * FROM investigacion
                        WHERE idInv = :inv
                        AND idUsuario = :id');

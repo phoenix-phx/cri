@@ -13,6 +13,11 @@ if( !isset($_REQUEST['pub_id'])) {
     return;
 }
 
+if ( isset($_POST['cancel'] ) ) {
+    header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
+    return;
+}
+
 if(isset($_POST['descripcionEnvio'])){
     if(strlen($_POST['descripcionEnvio']) < 1 || strlen($_POST['archivoEntregaF']) < 1 ){
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';

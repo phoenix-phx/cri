@@ -18,6 +18,11 @@ if( !isset($_REQUEST['pub_id']) ){
     return;
 }
 
+if ( isset($_POST['cancel'] ) ) {
+    header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
+    return;
+}
+
 $stmt = $pdo->prepare('SELECT * FROM publicacion
                        WHERE idPub = :pub
                        AND idUsuario = :id');

@@ -7,6 +7,11 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION
     die('No ha iniciado sesion');
 }
 
+if ( isset($_POST['cancel'] ) ) {
+    header("Location: home_administrativo.php");
+    return;
+}
+
 if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono']) && isset($_POST['tUnidadI'])){
 	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1 || strlen($_POST['correo']) < 1) {
 		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
