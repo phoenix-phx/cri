@@ -248,7 +248,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     }
     
     $_SESSION["success"] = 'investigacion creada exitosamente';
-    header('Location: nueva_investigacion.php');
+    header('Location: detalles_investigacion_inv.php?inv_id='.$inv_id);
     return;
     
 }

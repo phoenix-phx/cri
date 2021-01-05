@@ -176,7 +176,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     }
     
     $_SESSION["success"] = 'publicacion creada exitosamente';
-    header('Location: nueva_publicacion.php');
+    header('Location: detalles_publicacion_inv.php?pub_id='.$pub_id);
     return;
 }
 ?>

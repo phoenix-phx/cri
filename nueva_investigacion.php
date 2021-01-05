@@ -46,7 +46,7 @@
             <label for="resumenCI">Resumen <span class="must">*</span>:</label><br>
             <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"></textarea><br>
             
-            <label for="fechaFinCI">Fecha de finalizacion<span class="must">*</span>:</label><br>
+            <label for="fechaFinCI">Fecha de finalizacion (aaaa-mm-dd)<span class="must">*</span>:</label><br>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date"><br>
             
             <label for="uniInvCI">Unidad de Investigacion<span class="must">*</span>:</label><br>
