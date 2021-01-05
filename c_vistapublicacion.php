@@ -45,6 +45,7 @@ if($_SESSION['permisos'] === 'investigador'){
     $externos = $pub->loadAutorExterno($pdo, $_REQUEST['pub_id']);
 
     //datos generales
+    echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
@@ -52,7 +53,9 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila"> <span>TIPO PUBLICACION: : </span> <span>' . $tipo . ' </span></div>';
 
     //autores
-    echo "<p>AUTORES</p>";
+    echo "<br>";
+    echo "<span><b>AUTORES</b></span>";
+    echo '<span> <a href="autores.php?pub_id='. $_REQUEST['pub_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
@@ -74,7 +77,7 @@ if($_SESSION['permisos'] === 'investigador'){
 
     // archivo final
     // TODO: arreglar la carga y visualizacion del BLOB
-    echo "<p>ENTREGA FINAL</p>";
+    echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo">';
     if($pub->getDocumento() !== null){
         echo htmlentities($pub->getDocumento());
@@ -109,6 +112,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $externos = $pub->loadAutorExterno($pdo, $_REQUEST['pub_id']);
 
     //datos generales
+    echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
@@ -116,12 +120,13 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '<div role="fila"> <span>TIPO PUBLICACION: : </span> <span>' . $tipo . ' </span></div>';
 
     //autores
-    echo "<p>AUTORES</p>";
+    echo "<br>";
+    echo "<span><b>AUTORES</b></span>";
+    echo '<span> <a href="autores.php?pub_id='. $_REQUEST['pub_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
         echo '<li>' . htmlentities($principal['nombre']) . ' </li>';
-
     }
     if(count($internos) !== 0){
         for ($i=0; $i < count($internos); $i++) {
@@ -138,7 +143,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     // archivo final
     // TODO: arreglar la carga y visualizacion del BLOB
-    echo "<p>ENTREGA FINAL</p>";
+    echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo" style="padding-left:10px;">';
     if($pub->getDocumento() !== null){
         echo htmlentities($pub->getDocumento());

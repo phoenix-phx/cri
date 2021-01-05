@@ -32,17 +32,17 @@
     </div>
     <br><br><br>
     <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
-    <?php include "c_vistapublicacion.php" ?>
     <?php
-        if (isset($_SESSION['error'])) {
-            echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
-            unset($_SESSION['error']);
-        }
-        if (isset($_SESSION['success'])) {
-            echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
-            unset($_SESSION['success']);
-        }
-        ?>
+    if (isset($_SESSION['error'])) {
+        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+        unset($_SESSION['success']);
+    }
+    ?>
+    <?php include "c_vistapublicacion.php" ?>
     </div>
 </body>
 </html>
