@@ -35,7 +35,6 @@
     <br><br><br>
     <!-- Detalles -->
     <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
-        <?php include "c_vistainvestigacion.php"?>
         <?php
         if (isset($_SESSION['error'])) {
             echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -46,6 +45,7 @@
             unset($_SESSION['success']);
         }
         ?>
+        <?php include "c_vistainvestigacion.php"?>
     </div>
 </body>
 </html>

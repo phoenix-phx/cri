@@ -55,6 +55,7 @@ if($_SESSION['permisos'] === 'investigador'){
 
     //MOSTRAR
     //datos generales
+    echo "<p><b>DATOS GENERALES:</b><p>";
     echo '<div role="container">' . "\n";
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
@@ -65,12 +66,18 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';
 
     //autores
+    echo "<br>";
     echo '<div role="fila" id="autores">';
-    if($principal !== false){
+    /*if($principal !== false){
         echo '<span>INVESTIGADOR PRINCIPAL: ' . htmlentities($principal['nombre']) . '</span><br>';
     }
-        echo 'INVESTIGADOR / ES DE COLABORACION';
+    echo 'INVESTIGADOR / ES DE COLABORACION';*/
+    echo "<span><b>INVESTIGADORES:</b><span>";
+    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<ul>';
+    if($principal !== false){
+        echo '<li>' . htmlentities($principal['nombre']) . '</li>';
+    }
     if(count($internos) !== 0){
         for ($i=0; $i < count($internos); $i++) {
             echo '<li>' . htmlentities($internos[$i]['nombre']) . '</li>'; 
@@ -85,7 +92,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '</div>';
 
     //financiamiento
-    echo "<p>FINANCIAMIENTO</p>";
+    echo "<p><b>FINANCIAMIENTO</b></p>";
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
@@ -97,7 +104,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo "</div>";
 
     //actividades
-    echo "<p>ACTIVIDADES</p>";
+    echo "<p><b>ACTIVIDADES</b></p>";
     echo '<div role="fila" id="actividades" style="padding-left:10px;">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
@@ -113,13 +120,15 @@ if($_SESSION['permisos'] === 'investigador'){
     else{
         echo "<span>No se han registrado actividades</span>";
     }
+    echo '</div>';
+
     //publicaciones
-    echo '<h3> Publicaciones </h3>';
+    echo '<br><p><b> PUBLICACIONES </b></p>';
     $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
     if($estado === false){
         echo '<span>No existen publicaciones asociadas registradas </span>';
     }
-    echo '</div>';
+    
 }
 else if($_SESSION['permisos'] === 'administrativo'){
     $inv = new Investigacion();
@@ -154,6 +163,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $actividades = $inv->loadActividad($pdo, $_REQUEST['inv_id']);
 
     //datos generales
+    echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
@@ -164,7 +174,9 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';    
 
     //autores
-    echo "<p>INVESTIGADORES</p>";
+    echo "<br>";
+    echo "<span><b>INVESTIGADORES</b></span>";
+    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
@@ -184,7 +196,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '</div>';
 
     //financiamiento
-    echo "<p>FINANCIAMIENTO</p>";
+    echo "<p><b>FINANCIAMIENTO</b></p>";
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
@@ -195,7 +207,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo "</div>";
 
     //actividades
-    echo "<p>ACTIVIDADES</p>";
+    echo "<p><b>ACTIVIDADES</b></p>";
     echo '<div role="fila" id="actividades" style="padding-left:10px;">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
@@ -214,7 +226,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '</div>';
 
     //publicaciones
-    echo '<h3> Publicaciones </h3>';
+    echo '<br><p><b> PUBLICACIONES </b></p>';
     $estado = $inv->loadPubAsociadas($_SESSION['idUsuario'], $_SESSION['permisos'], $pdo);
     if($estado === false){
         echo 'No existen publicaciones asociadas registradas ';
