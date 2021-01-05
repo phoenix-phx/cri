@@ -13,7 +13,7 @@ if( !isset($_REQUEST['pub_id'])) {
     return;
 }
 
-if(isset($_POST['archivoEntregaF']) && isset($_POST['descripcionEnvio'])){
+if(isset($_POST['descripcionEnvio'])){
     if(strlen($_POST['descripcionEnvio']) < 1 || strlen($_POST['archivoEntregaF']) < 1 ){
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: subir_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
@@ -21,7 +21,7 @@ if(isset($_POST['archivoEntregaF']) && isset($_POST['descripcionEnvio'])){
     }
     else {
         $pub = new Publicacion();
-        $pub->subirEntrega($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_POST['archivoEntregaF']);
+        $pub->subirEntrega($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_POST['archivoEntregaF'], $pdo);
         $_SESSION["success"] = 'documento subido correctamente!';
         header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
         return;
