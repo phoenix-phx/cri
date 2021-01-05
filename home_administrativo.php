@@ -98,13 +98,5 @@
             </div>  
         </div>
     </div>
-    <?php 
-    if(isset($_SESSION['resultados'])){
-        unset($_SESSION['resultados']);
-    }
-    if(isset($_SESSION['numeros'])){
-        unset($_SESSION['numeros']);
-    }
-     ?>
 </body>
 </html>

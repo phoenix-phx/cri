@@ -74,14 +74,28 @@
 	            <div class="aLeft" style="width:320px;">' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</div> 
 	            <div class="aLeft" style="width:500px;">' . htmlentities($_SESSION['resultados'][$i]['titulo']) . '</div> 
 	            <div class="aLeft" style="width:250px;">' . htmlentities($_SESSION['resultados'][$i]['tipo']) . '</div>
-	            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$_SESSION['resultados'][$i]['idPub'].'">&gt&gt</a>';
+	            <a class="link" target="blank" href="detalles_publicacion_inv.php?pub_id='.$_SESSION['resultados'][$i]['idPub'].'">&gt&gt</a>';
 	            echo "</div>";
 	            echo '<br><br>';
             }
             echo '</div>';
+            if(isset($_SESSION['resultados'])){
+                unset($_SESSION['resultados']);
+            }
+
+            if(isset($_SESSION['numeros'])){
+                unset($_SESSION['numeros']);
+            }
         }
         else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
             echo "No se encontraron resultados a su busqueda";
+            if(isset($_SESSION['resultados'])){
+                unset($_SESSION['resultados']);
+            }
+
+            if(isset($_SESSION['numeros'])){
+                unset($_SESSION['numeros']);
+            }
         }
         echo "<br />";  
         ?>
