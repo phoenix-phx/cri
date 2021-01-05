@@ -474,15 +474,14 @@ class Publicacion{
 
 	public function subirEntrega($user_id, $pub_id, $doc, $pdo){
 		$sql = "UPDATE publicacion
-                SET  documento_final = :df
-                WHERE idUsuario = :id
-                AND idPub = :pub";
+                SET  documento_final = ?
+                WHERE idUsuario = ?
+                AND idPub = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':df' => $doc,
-            ':id' => $user_id,
-            ':pub' => $pub_id
-        ));
+        $stmt->bindParam(1, $doc);
+        $stmt->bindParam(2, $user_id);
+        $stmt->bindParam(3, $pub_id);
+        $stmt->execute();
 	}  
 }
 ?>

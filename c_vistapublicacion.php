@@ -165,7 +165,6 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '</div>';
 
     // archivo final
-    // TODO: arreglar la carga y visualizacion del BLOB
     echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo" style="padding-left:10px;">';
     if($pub->getDocumento() !== null){

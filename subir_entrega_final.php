@@ -31,9 +31,10 @@
     }
     ?>
     <h3><i>Selecciona el documento final de la publicacion para enviarla</i></h3>
-    <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post">
-        <div align="center">
-            <input name="archivoEntregaF" type="file">
+    <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post" enctype="multipart/form-data">
+        Archivo:<br><br>
+        <div>
+            <input type="file" name="archivoEntregaF" />
             <!-- <span><img src="imagenes/icons/submit_file.png" style="height:40px;"></span> -->
         </div><br>
         Descripcion del envio:<br><br>
