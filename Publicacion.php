@@ -212,6 +212,38 @@ class Publicacion{
 		       ':id' => $user_id,
 		       ':inv' => $inv_id
 		    ));
+		    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+		    if($row === false){
+				return false;
+			}
+			else{
+				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
+			        echo '<div role="cabecera" align="center"> 
+			            <div class="aLeft" style="width:320px;">CODIGO</div> 
+			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+			            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+			            </div><br><br>
+			        </div>';
+
+				echo '<div style="padding-left:4%;padding-right:4%;">';
+	        	do{
+		        	$this->setCodigo($row['codigo']);
+					$this->setTitulo($row['titulo']);
+					$this->setTipo($row['tipo']);
+					$this->setId($row['idPub']);
+
+		            echo '<div role="fila" class="container" 
+		            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+		            <div class="aLeft" style="width:320px;">' . htmlentities($this->getCodigo()) . '</div> 
+		            <div class="aLeft" style="width:500px;">' . htmlentities($this->getTitulo()) . '</div> 
+		            <div class="aLeft" style="width:250px;">' . htmlentities($this->getTipo()) . '</div>
+		            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$this->getId().'">&gt&gt</a>';
+		            echo "</div>";
+		            echo "<br /> <br />";
+		        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
+		        echo '</div>';
+				return true;
+			}
 		}
 		else if($role === 'administrativo'){
 			$sql = 'SELECT codigo, titulo, tipo, idPub 
@@ -221,38 +253,38 @@ class Publicacion{
 		    $stmt->execute(array(
 		       ':inv' => $inv_id
 		    ));			
-		}
-	    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-	    if($row === false){
-			return false;
-		}
-		else{
-			echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
-		        echo '<div role="cabecera" align="center"> 
-		            <div class="aLeft" style="width:320px;">CODIGO</div> 
-		            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-		            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
-		            </div><br><br>
-		        </div>';
+		    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+		    if($row === false){
+				return false;
+			}
+			else{
+				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
+			        echo '<div role="cabecera" align="center"> 
+			            <div class="aLeft" style="width:320px;">CODIGO</div> 
+			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+			            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+			            </div><br><br>
+			        </div>';
 
-			echo '<div style="padding-left:4%;padding-right:4%;">';
-        	do{
-	        	$this->setCodigo($row['codigo']);
-				$this->setTitulo($row['titulo']);
-				$this->setTipo($row['tipo']);
-				$this->setId($row['idPub']);
+				echo '<div style="padding-left:4%;padding-right:4%;">';
+	        	do{
+		        	$this->setCodigo($row['codigo']);
+					$this->setTitulo($row['titulo']);
+					$this->setTipo($row['tipo']);
+					$this->setId($row['idPub']);
 
-	            echo '<div role="fila" class="container" 
-	            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
-	            <div class="aLeft" style="width:320px;">' . htmlentities($this->getCodigo()) . '</div> 
-	            <div class="aLeft" style="width:500px;">' . htmlentities($this->getTitulo()) . '</div> 
-	            <div class="aLeft" style="width:250px;">' . htmlentities($this->getTipo()) . '</div>
-	            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$this->getId().'">&gt&gt</a>';
-	            echo "</div>";
-	            echo "<br /> <br />";
-	        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
-	        echo '</div>';
-			return true;
+		            echo '<div role="fila" class="container" 
+		            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
+		            <div class="aLeft" style="width:320px;">' . htmlentities($this->getCodigo()) . '</div> 
+		            <div class="aLeft" style="width:500px;">' . htmlentities($this->getTitulo()) . '</div> 
+		            <div class="aLeft" style="width:250px;">' . htmlentities($this->getTipo()) . '</div>
+		            <a class="link" href="detalles_publicacion_admin.php?pub_id='.$this->getId().'">&gt&gt</a>';
+		            echo "</div>";
+		            echo "<br /> <br />";
+		        }while($row = $stmt->fetch(PDO::FETCH_ASSOC));
+		        echo '</div>';
+				return true;
+			}
 		}
 	}
 
