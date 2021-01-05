@@ -58,6 +58,7 @@ if(isset($_POST['txtFiltroBP']) && isset($_POST['filtroBP']) ){
     }
     
     $_SESSION['resultados'] = $row;
+    $_SESSION['success'] = 'busqueda exitosa!';
     header('Location: buscar_publicacion.php');
     return;
 } 

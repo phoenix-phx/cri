@@ -96,12 +96,19 @@
 	                <div class="aLeft" style="width:320px;">' . htmlentities($_SESSION['resultados'][$i]['codigo']) . '</div> 
 	                <div class="aLeft" style="width:500px;">' . htmlentities($_SESSION['resultados'][$i]['nombre_corto']) . '</div> 
 	                <div class="aLeft" style="width:250px;">' . htmlentities($_SESSION['resultados'][$i]['unidad_investigacion']) . '</div>
-	                <a class="link" href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>
+	                <a class="link" target="_blank" href="detalles_investigacion_admin.php?inv_id='.$_SESSION['resultados'][$i]['idInv'].'">&gt&gt</a>
 	                </div>';
 	            echo "<br> <br>";    
             }
             echo '</div>';
         }
+        if(isset($_SESSION['resultados'])){
+                unset($_SESSION['resultados']);
+            }
+
+            if(isset($_SESSION['numeros'])){
+                unset($_SESSION['numeros']);
+            }
         echo "<br />";  
         ?>
 </body>
