@@ -1,7 +1,7 @@
 <?php 
-//session_start();
 require_once "c_pdo.php";
 require_once "Investigacion.php";
+require_once "Publicacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -73,7 +73,7 @@ if($_SESSION['permisos'] === 'investigador'){
     }
     echo 'INVESTIGADOR / ES DE COLABORACION';*/
     echo "<span><b>INVESTIGADORES:</b><span>";
-    echo '<span> <a href="autores_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<ul>';
     if($principal !== false){
         echo '<li>' . htmlentities($principal['nombre']) . '</li>';
@@ -176,7 +176,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     //autores
     echo "<br>";
     echo "<span><b>INVESTIGADORES</b></span>";
-    echo '<span> <a href="autores_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
