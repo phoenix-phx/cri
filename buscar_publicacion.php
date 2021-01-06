@@ -43,8 +43,8 @@
             Filtrar por: <select name="filtroBP" id="filtroBP">
                 <option value="Ninguno">Ninguno</option>
                 <option value="Unidad de Investigacion">Unidad de Investigacion</option>
-                <option value="Nombre">Nombre</option>
-                <option value="Codigo">Codigo</option>
+                <option value="Nombre">Titulo de Publicacion</option>
+                <option value="Codigo">Codigo de Publicacion</option>
                 <option value="Tipo">Tipo</option>
             </select>
             <input class="stextInput" style="margin:20px;" name="txtFiltroBP" id="txtFiltroBP" type="text" placeholder="Ingrese la busqueda aqui" size="40">

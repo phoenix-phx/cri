@@ -47,8 +47,8 @@
             <label for="estadoRP" style="padding-right:130px;">Estado:</label>    
             <select name="estadoRP" id="estadoRP">
                 <option value="Todos">Todos</option>
-                <option value="Abierto">Entregado</option>
-                <option value="Cerrado">No Entregado</option>           
+                <option value="En Curso">En Curso</option>
+                <option value="Cerrado">Terminado</option>           
             </select>
             <label for="tipoCP" style="padding-right:2px;padding-left:235px;">Tipo publicacion:</label>
             <select name="tipoCP" id="tipoCP">
