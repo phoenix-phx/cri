@@ -34,6 +34,8 @@ if($_SESSION['permisos'] === 'investigador'){
     $titulo = htmlentities($pub->getTitulo());
     $resumen = htmlentities($pub->getResumen());
     $tipo = htmlentities($pub->getTipo());
+    $ui = htmlentities($pub->getUnidadInvestigacion());
+    $est = htmlentities($pub->getEstado());
     $investigacion = htmlentities($pub->getIdInv());
     $flag = false;
     if(strlen($investigacion) !== 0){
@@ -56,6 +58,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
     if($flag === true){
         echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
@@ -91,11 +94,13 @@ if($_SESSION['permisos'] === 'investigador'){
     // TODO: arreglar la carga y visualizacion del BLOB
     echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo">';
-    if($pub->getDocumento() !== null){
-        echo htmlentities($pub->getDocumento());
+    $estado = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
+    if($estado === false){
+        //echo htmlentities($pub->getDocumento());
+        echo '<span>NO se ha registrado la entrega del documento final </span>';
     }
     else{
-        echo '<span>No se ha registrado la entrega del documento final </span>';
+        echo '<span>SI se ha registrado la entrega del documento final </span>';
     }
     echo "</div>";
 }
@@ -112,6 +117,8 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $codigo = htmlentities($pub->getCodigo());
     $titulo = htmlentities($pub->getTitulo());
     $resumen = htmlentities($pub->getResumen());
+    $ui = htmlentities($pub->getUnidadInvestigacion());
+    $est = htmlentities($pub->getEstado());
     $tipo = htmlentities($pub->getTipo());
     $investigacion = htmlentities($pub->getIdInv());
     $flag = false;
@@ -135,6 +142,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
     if($flag){
         echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
@@ -167,11 +175,13 @@ else if($_SESSION['permisos'] === 'administrativo'){
     // archivo final
     echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo" style="padding-left:10px;">';
-    if($pub->getDocumento() !== null){
-        echo htmlentities($pub->getDocumento());
+    $estado = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
+    if($estado === false){
+        //echo htmlentities($pub->getDocumento());
+        echo '<span>NO se ha registrado la entrega del documento final </span>';
     }
     else{
-        echo "No se ha registrado la entrega de un documento final";
+        echo '<span>SI se ha registrado la entrega del documento final </span>';
     }
 
     echo "</div>";

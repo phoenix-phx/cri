@@ -8,8 +8,10 @@ class Publicacion{
 	protected $titulo;
 	protected $resumen;
 	protected $tipo;
-	protected $documento;
+	protected $unidad_investigacion;
+	protected $estado;
 	protected $id;
+
 	protected $idInv;
 	protected $NombreInv;
 	protected $CodigoInv;
@@ -78,12 +80,20 @@ class Publicacion{
 		return $this->tipo;
 	}
 
-	public function setDocumento($doc){
-		$this->documento = $doc;
+	public function setUnidadInvestigacion($ui){
+		$this->unidad_investigacion = $ui;
 	}
 
-	public function getDocumento(){
-		return $this->documento;
+	public function getUnidadInvestigacion(){
+		return $this->unidad_investigacion;
+	}
+
+	public function setEstado($estado){
+		$this->estado = $estado;
+	}
+
+	public function getEstado(){
+		return $this->estado;
 	}
 
 	public function initPub($user_id, $pdo){
@@ -318,10 +328,10 @@ class Publicacion{
 			$this->setTitulo($row['titulo']);
 			$this->setResumen($row['resumen']);
 			$this->setTipo($row['tipo']);
+			$this->setUnidadInvestigacion($row['unidad_investigacion']);
+			$this->setEstado($row['estado']);
 			$this->setId($row['idInv']);
-			$this->setDocumento($row['documento_final']);// TODO: arreglar doc final
 			$this->setIdInv($row['idInv']);
-			
 			if($row['idInv'] !== null){
 				$inv = new Investigacion();
 				$codigo = $inv->searchCODIGO($row['idInv'], $pdo);
@@ -352,18 +362,20 @@ class Publicacion{
     }
 
     public function crear($user_id, $pdo){
-		$sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo)
-	            VALUES (:us, :no, :res, :ti)";
+		$sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo, unidad_investigacion, estado)
+	            VALUES (:us, :no, :res, :ti, :ui, :st)";
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':us' => $user_id,
 	        ':no' => $this->getTitulo(),
 	        ':res' => $this->getResumen(),
-	        ':ti' => $this->getTipo()
+	        ':ti' => $this->getTipo(),
+	        ':ui' => $this->getUnidadInvestigacion(),
+	        ':st' => $this->getEstado()
 	    ));
 	    $pub_id = $pdo->lastInsertId();
 	    $this->setId($pub_id);
-	}  
+	}
 
 	public function completarDetalles($user_id, $pdo){
 		$sql = "UPDATE publicacion
@@ -482,6 +494,23 @@ class Publicacion{
         $stmt->bindParam(2, $user_id);
         $stmt->bindParam(3, $pub_id);
         $stmt->execute();
+	}  
+
+	public function existsDoc($pub_id, $pdo){
+		$sql = "SELECT *
+				FROM documento JOIN publicacion
+                ON documento.idPub = publicacion.idPub
+                AND publicacion.idPub = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $pub_id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row === false){
+        	return false;
+        }
+        else{
+        	return true;
+        }
 	}  
 }
 ?>

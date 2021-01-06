@@ -41,6 +41,10 @@
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
             <label for="resumenCP">Resumen:</label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
+
+            <label for="uInvestigacion">Unidad de Investigacion:</label>
+            <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text"><br>
+            
             <label for="invCP">Investigacion asociada (Codigo):</label>
             <input class="textInput" name="invCP" id="invCP" type="text"><br>
             <label for="tipoCP">Tipo publicacion:</label>

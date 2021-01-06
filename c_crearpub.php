@@ -15,9 +15,9 @@ if ( isset($_POST['cancel'] ) ) {
     return;
 }
 
-if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP'])){
+if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP']) && isset($_POST['uInvestigacion'])){
 
-    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 ) {
+    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 || strlen($_POST['uInvestigacion']) < 1) {
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: nueva_publicacion.php");
         return;
@@ -104,6 +104,8 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $pub->setTitulo($_POST['tituloCP']);
     $pub->setResumen($_POST['resumenCP']);
     $pub->setTipo($_POST['tipoCP']);
+    $pub->setUnidadInvestigacion($_POST['uInvestigacion']);
+    $pub->setEstado('en curso');
 
     $pub->crear($_SESSION['idUsuario'], $pdo);
     $pub_id = $pub->getId();
