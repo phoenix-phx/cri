@@ -50,11 +50,12 @@ $codigo = htmlentities($pub->getCodigo());
 $titulo = htmlentities($pub->getTitulo());
 $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
+$ui = htmlentities($pub->getUnidadInvestigacion());
+$est = htmlentities($pub->getEstado());
 if($investigacion !== null){
     $nombreInv = $pub->getCodigoInv();
 }
 $tipo = htmlentities($pub->getTipo());
-$doc = htmlentities($pub->getDocumento()); // TODO: arreglar
 $pub_id = htmlentities($pub->getId());
 
 // autor principal
@@ -87,14 +88,13 @@ $auths = new Autor();
 $investigadores = $auths->loadAutores($pdo, $_REQUEST['pub_id'], 'publicacion');
 
 // validacion de edicion
-if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP'])){
+if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP']) && isset($_POST['uInvestigacion'])){
 
-    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 ) {
+    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 || strlen($_POST['uInvestigacion']) < 1) {
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: editar_publicacion.php?pub_id=".$_REQUEST['pub_id']);
         return;
     }
-    // TODO: trabajar la busqueda de investigacion asociada
     if($_POST['tipoCP'] === 'Ninguno'){
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: editar_publicacion.php?pub_id=".$_REQUEST['pub_id']);
@@ -198,12 +198,21 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
     }
 
+    if($pub->getUnidadInvestigacion() !== $_POST['uInvestigacion']){
+        $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getUnidadInvestigacion() . "\n\nAhora:\n" . $_POST['uInvestigacion'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+    }
+
     // publicacion
     $newPub = new Publicacion();
 
     $newPub->setTitulo($_POST['tituloCP']); 
     $newPub->setResumen($_POST['resumenCP']); 
     $newPub->setTipo($_POST['tipoCP']); 
+    $newPub->setUnidadInvestigacion($_POST['uInvestigacion']); 
     
     $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
 

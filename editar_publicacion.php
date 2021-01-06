@@ -46,6 +46,9 @@
         <label for="resumenCP">Resumen:</label><br>
         <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
 
+        <label for="uInvestigacion">Unidad de Investigacion:</label>
+        <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text" value="<?php echo($ui) ?>"><br>
+
         <label for="invCP">Investigacion asociada:</label><br> 
         <input class="textInput" name="invCP" id="invCP" type="text" <?php if($investigacion !== null) {echo 'value="'.$nombreInv.'"';}?>><br>
         <?php // TODO: procesar select si existe ?>

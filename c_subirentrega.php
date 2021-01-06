@@ -37,7 +37,7 @@ if(isset($_POST['descripcionEnvio'])){
         $data = file_get_contents($_FILES['archivoEntregaF']['tmp_name']);
         $size = $_FILES['archivoEntregaF']['size'];
         
-        $pub->subirEntrega($_SESSION['idUsuario'], $_REQUEST['pub_id'], $data, $pdo);
+        $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $pdo);
         $_SESSION["success"] = 'documento subido correctamente!';
         header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
         return;

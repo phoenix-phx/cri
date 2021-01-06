@@ -405,7 +405,7 @@ class Publicacion{
 
 	public function actualizarDatos($user_id, $pub_id, $pdo){
 		$sql = 'UPDATE publicacion
-	            SET titulo = :no, resumen = :res, tipo = :ti
+	            SET titulo = :no, resumen = :res, tipo = :ti, unidad_investigacion = :ui
 	            WHERE idPub = :pub
 	            AND idUsuario = :us';
 	    $stmt = $pdo->prepare($sql);
@@ -413,6 +413,7 @@ class Publicacion{
 	        ':no' => $this->getTitulo(),
 	        ':res' => $this->getResumen(),
 	        ':ti' => $this->getTipo(),
+	        ':ui' => $this->getUnidadInvestigacion(),
 	        ':pub' => $pub_id,
 	        ':us' => $user_id
 	    ));
@@ -484,15 +485,14 @@ class Publicacion{
 	    return $numero;
 	}  
 
-	public function subirEntrega($user_id, $pub_id, $doc, $pdo){
-		$sql = "UPDATE publicacion
-                SET  documento_final = ?
-                WHERE idUsuario = ?
-                AND idPub = ?";
+	public function subirEntrega($pub_id, $name, $type, $data, $pdo){
+		$sql = "INSERT INTO documento (idPub, nombre, tipo, doc)
+                VALUES (?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(1, $doc);
-        $stmt->bindParam(2, $user_id);
-        $stmt->bindParam(3, $pub_id);
+        $stmt->bindParam(1, $pub_id);
+        $stmt->bindParam(2, $name);
+        $stmt->bindParam(3, $type);
+       	$stmt->bindParam(4, $data);
         $stmt->execute();
 	}  
 
@@ -511,6 +511,16 @@ class Publicacion{
         else{
         	return true;
         }
+	}  
+
+	public function loadDoc($pub_id, $pdo){
+		$sql = "SELECT * FROM documento 
+                WHERE idPub = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $pub_id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
 	}  
 }
 ?>

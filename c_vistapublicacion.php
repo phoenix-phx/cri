@@ -90,17 +90,15 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '</ul>';
     echo '</div>';
 
-    // archivo final
-    // TODO: arreglar la carga y visualizacion del BLOB
     echo "<p><b>ENTREGA FINAL</b></p>";
     echo '<div role="fila" id="archivo">';
     $estado = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
     if($estado === false){
-        //echo htmlentities($pub->getDocumento());
-        echo '<span>NO se ha registrado la entrega del documento final </span>';
+        echo '<span>No se ha registrado la entrega del documento final </span>';
     }
     else{
-        echo '<span>SI se ha registrado la entrega del documento final </span>';
+        $doc = $pub->loadDoc($_REQUEST['pub_id'], $pdo);
+        echo '<a target="_blank" href="view.php?pub_id='.$_REQUEST['pub_id'].'">'.$doc['nombre'].'</a>';
     }
     echo "</div>";
 }
@@ -177,11 +175,11 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo '<div role="fila" id="archivo" style="padding-left:10px;">';
     $estado = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
     if($estado === false){
-        //echo htmlentities($pub->getDocumento());
-        echo '<span>NO se ha registrado la entrega del documento final </span>';
+        echo '<span>No se ha registrado la entrega del documento final </span>';
     }
     else{
-        echo '<span>SI se ha registrado la entrega del documento final </span>';
+        $doc = $pub->loadDoc($_REQUEST['pub_id'], $pdo);
+        echo '<a target="_blank" href="view.php?pub_id='.$_REQUEST['pub_id'].'">'.$doc['nombre'].'</a>';
     }
 
     echo "</div>";
