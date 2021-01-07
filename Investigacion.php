@@ -466,7 +466,7 @@ class Investigacion{
 	}
 
 	public function fechas($user_id, $pdo){
-		$sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
+		$sql = 'SELECT codigo, nombre, nombre_corto, fecha_fin, idInv 
 		    	FROM investigacion
 				WHERE idUsuario = :id
 				ORDER BY fecha_fin ASC'; 
