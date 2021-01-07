@@ -49,7 +49,7 @@
             <ul>
                 <li><a href="listaInv_investigador.php">Investigaciones</a></li>
                 <li><a href="listaPub_investigador.php">Publicaciones</a></li>
-                <li><a href="c_cronograma.php">Cronograma</a></li>
+                <li><a href="cronograma.php">Cronograma</a></li>
                 <li><a href="">Notificaciones</a></li>
                 <li><a href="c_logout.php">Logout</a></li>
                 <!-- Agregar notificaiones -->

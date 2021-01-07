@@ -69,7 +69,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo "<br>";
     echo '<div role="fila" id="autores">';
     echo "<span><b>INVESTIGADORES:</b><span>";
-    echo '<span> <a href="autores.php?type=inv&inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="ver_autor_inv.php?type=inv&inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<ul>';
     if($principal !== false){
         echo '<li>' . htmlentities($principal['nombre']) . '</li>';
@@ -92,7 +92,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
-        echo '<span> <a href="detalles_financiador.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+        echo '<span> <a href="detalles_financiador_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     }
     else{
         echo '<span>No existe financiamiento</span>';   
@@ -172,7 +172,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     //autores
     echo "<br>";
     echo "<span><b>INVESTIGADORES</b></span>";
-    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="ver_autor_admin.php?type=inv&inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
@@ -195,7 +195,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo "<p><b>FINANCIAMIENTO</b></p>";
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
-        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="financiamiento.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
+        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="detalles_financiador_admin.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }
     else{
         echo '<span>No existe financiamiento</span>';   

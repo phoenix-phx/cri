@@ -1,5 +1,5 @@
 <?php 
-session_start();
+//session_start();
 require_once "c_pdo.php";
 require_once "Financiador.php";
 
@@ -20,11 +20,11 @@ if( !isset($_REQUEST['inv_id'])) {
     }
 }
 
-echo "<p><b>DETALLES DE FINANCIAMIENTO:</b><p>";
+echo "<div style='padding-left:5%;padding-left:5;'><h2><b>DETALLES DE FINANCIAMIENTO:</b></h2></div>";
 $test = new Financiador();
 $tipo = $test->loadDetalles($_REQUEST['inv_id'], $pdo, 'investigacion');
 
-echo '<div role="container">' . "\n";
+echo '<div style="padding-right:6%;padding-left:6%;">' . "\n";
 if($tipo !== false){
     $fin_id = htmlentities($test->getId());
     $tipo_financiador = htmlentities($test->getTipoFinanciador());
@@ -45,4 +45,12 @@ if($tipo !== false){
 }
 echo "<br> <br>";
 echo '</div>';
+echo '<div align="center">';
+    if($_SESSION['permisos'] === 'investigador'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_inv.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+    }
+    else if($_SESSION['permisos'] === 'administrativo'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_admin.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+    }
+    echo '</div>';
 ?>

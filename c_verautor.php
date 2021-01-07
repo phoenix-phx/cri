@@ -1,5 +1,5 @@
 <?php 
-session_start();
+//session_start();
 require_once "c_pdo.php";
 require_once "Autor.php";
 require_once "AutorInterno.php";
@@ -52,11 +52,11 @@ else if( isset($_REQUEST['type']) && $_REQUEST['type'] === 'pub') {
 }
 
 if($_REQUEST['type'] === 'inv'){
-    echo "<p><b>INVESTIGADORES:</b><p>";
+    echo "<div style='padding-left:5%;padding-right:5%;'><h2><b>INVESTIGADORES:</b><h2></div>";
     $test = new Autor();
     $tipo = $test->testAutorPrincipal($_REQUEST['inv_id'], $pdo, 'investigacion');
     
-    echo '<div role="container">' . "\n";
+    echo '<div style="padding-left:6%;padding-right:6%;"role="container">' . "\n";
     if($tipo !== false){
         if($tipo['universidad'] === null){
             $auth = new AutorInterno();
@@ -126,14 +126,23 @@ if($_REQUEST['type'] === 'inv'){
             echo "<br><br>";
         }
     }
+    
+    echo '</div>';
+    echo '<div align="center">';
+    if($_SESSION['permisos'] === 'investigador'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_inv.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+    }
+    else if($_SESSION['permisos'] === 'administrativo'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_admin.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+    }
     echo '</div>';
 }   
 else if($_REQUEST['type'] === 'pub'){
-    echo "<p><b>AUTORES:</b><p>";
+    echo '<div style="padding-left:5%;padding-right:5%;"><h2><b>AUTORES:</b></h2></div>';
     $test = new Autor();
     $tipo = $test->testAutorPrincipal($_REQUEST['pub_id'], $pdo, 'publicacion');
     
-    echo '<div role="container">' . "\n";
+    echo '<div style="padding-left:6%;padding-right:6%;" role="container">' . "\n";
     if($tipo !== false){
         if($tipo['universidad'] === null){
             $auth = new AutorInterno();
@@ -202,6 +211,14 @@ else if($_REQUEST['type'] === 'pub'){
             }
             echo "<br><br>";
         }
+    }
+    echo '</div>';
+    echo '<div align="center">';
+    if($_SESSION['permisos'] === 'investigador'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_inv.php?inv_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
+    }
+    else if($_SESSION['permisos'] === 'administrativo'){
+        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_admin.php?inv_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
     }
     echo '</div>';
 }
