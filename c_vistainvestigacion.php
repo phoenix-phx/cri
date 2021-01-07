@@ -172,7 +172,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     //autores
     echo "<br>";
     echo "<span><b>INVESTIGADORES</b></span>";
-    echo '<span> <a href="autores_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="autores.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){
