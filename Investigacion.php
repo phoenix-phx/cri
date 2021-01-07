@@ -464,5 +464,23 @@ class Investigacion{
 			return $row['codigo'];
 		}
 	}
+
+	public function fechas($user_id, $pdo){
+		$sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
+		    	FROM investigacion
+				WHERE idUsuario = :id
+				ORDER BY fecha_fin ASC'; 
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+		   ':id' => $user_id
+		));
+		$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		if(count($row) === 0){
+			return false;
+		}
+		else{
+			return $row;
+		}
+	}
 }
 ?>
