@@ -70,7 +70,7 @@ if($_SESSION['permisos'] === 'investigador'){
     //autores
     echo "<br>";
     echo "<span><b>AUTORES</b></span>";
-    echo '<span> <a href="autores.php?pub_id='. $_REQUEST['pub_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="autores.php?type=pub&pub_id='. $_REQUEST['pub_id'] . '">Ver detalles</a></span>';
     echo '<div role="fila" id="autores">';
     echo '<ul>';
     if($principal !== false){

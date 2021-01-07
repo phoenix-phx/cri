@@ -68,12 +68,8 @@ if($_SESSION['permisos'] === 'investigador'){
     //autores
     echo "<br>";
     echo '<div role="fila" id="autores">';
-    /*if($principal !== false){
-        echo '<span>INVESTIGADOR PRINCIPAL: ' . htmlentities($principal['nombre']) . '</span><br>';
-    }
-    echo 'INVESTIGADOR / ES DE COLABORACION';*/
     echo "<span><b>INVESTIGADORES:</b><span>";
-    echo '<span> <a href="autores_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+    echo '<span> <a href="autores.php?type=inv&inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
     echo '<ul>';
     if($principal !== false){
         echo '<li>' . htmlentities($principal['nombre']) . '</li>';
