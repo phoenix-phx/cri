@@ -185,5 +185,46 @@ class Usuario{
 	        ':id' => $this->getId()
 	    ));
 	}
+
+	public function loadDetalles($user_id, $pdo){
+		$stmt = $pdo->prepare('SELECT *
+							   FROM usuario
+							   WHERE idUsuario = :us');
+		$stmt->execute(array(
+			':us' => $user_id
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($row === false){
+			return false;
+		}
+		else{
+			$this->setNombre($row['nombre']);
+			$this->setCorreo($row['correo']);
+			$this->setCelular($row['celular']);
+			$this->setTelefono($row['telefono']);
+			$this->setFiliacion($row['filiacion']);
+			$this->setUnidadInvestigacion($row['unidad_investigacion']);
+			$this->setRol($row['rol']);
+			$this->setId($row['idUsuario']);
+
+			$this->setUser($row['user']);
+			$this->setPass($row['pass']);
+			return true;
+		}	
+	}
+
+	public function actualizarDatos($pdo){
+		$sql = "UPDATE usuario 
+				SET nombre = :na, filiacion = :fi, unidad_investigacion = :ui, correo = :em
+				WHERE idUsuario = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':na' => $this->getNombre(),
+            ':fi' => $this->getFiliacion(),
+            ':ui' => $this->getUnidadInvestigacion(),
+            ':em' => $this->getCorreo(),
+            ':id' => $this->getId()
+        ));
+	}
 }
 ?>

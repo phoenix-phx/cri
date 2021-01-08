@@ -51,11 +51,22 @@
                 <li><a href="listaPub_investigador.php">Publicaciones</a></li>
                 <li><a href="cronograma.php">Cronograma</a></li>
                 <li><a href="">Notificaciones</a></li>
+                <li><a href="editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">Editar Usuario</a></li>
                 <li><a href="c_logout.php">Logout</a></li>
                 <!-- Agregar notificaiones -->
             </ul>
         </nav>
     </div>
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+        unset($_SESSION['success']);
+    }
+    ?>  
     <?php include "c_homeinv.php";
     ?>  
     
