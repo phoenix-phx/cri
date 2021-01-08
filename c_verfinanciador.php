@@ -22,7 +22,7 @@ if( !isset($_REQUEST['inv_id'])) {
 
 echo "<div style='padding-left:5%;padding-left:5;'><h2><b>DETALLES DE FINANCIAMIENTO:</b></h2></div>";
 $test = new Financiador();
-$tipo = $test->loadDetalles($_REQUEST['inv_id'], $pdo, 'investigacion');
+$tipo = $test->loadDetalles($_REQUEST['fin_id'], $pdo, 'investigacion');
 
 echo '<div style="padding-right:6%;padding-left:6%;">' . "\n";
 if($tipo !== false){
@@ -47,10 +47,10 @@ echo "<br> <br>";
 echo '</div>';
 echo '<div align="center">';
     if($_SESSION['permisos'] === 'investigador'){
-        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_inv.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_inv.php?inv_id=" . $_REQUEST['inv_id'] . "'" .'">Volver</button>';
     }
     else if($_SESSION['permisos'] === 'administrativo'){
-        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_admin.php?inv_id=" . $_REQUEST['inv_id'] . "'" . '">Volver</button>';
+        echo '<button class="button" onclick="document.location=' . "'detalles_investigacion_admin.php?inv_id=" . $_REQUEST['inv_id'] . "'" .'">Volver</button>';
     }
     echo '</div>';
 ?>

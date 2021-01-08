@@ -92,7 +92,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
-        echo '<span> <a href="detalles_financiador_inv.php?inv_id='. $_REQUEST['inv_id'] . '">Ver detalles</a></span>';
+        echo '<span> <a href="detalles_financiador_inv.php?inv_id=' . $_REQUEST['inv_id'] . '&fin_id=' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }
     else{
         echo '<span>No existe financiamiento</span>';   
@@ -195,7 +195,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     echo "<p><b>FINANCIAMIENTO</b></p>";
     echo '<div role="fila" style="padding-left:10px;">';
     if($financiador !== false){
-        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="detalles_financiador_admin.php?fin_id="' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
+        echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> <span> <a href="detalles_financiador_admin.php?inv_id=' . $_REQUEST['inv_id'] . '&fin_id=' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }
     else{
         echo '<span>No existe financiamiento</span>';   

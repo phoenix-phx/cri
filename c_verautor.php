@@ -215,10 +215,10 @@ else if($_REQUEST['type'] === 'pub'){
     echo '</div>';
     echo '<div align="center">';
     if($_SESSION['permisos'] === 'investigador'){
-        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_inv.php?inv_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
+        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_inv.php?pub_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
     }
     else if($_SESSION['permisos'] === 'administrativo'){
-        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_admin.php?inv_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
+        echo '<button class="button" onclick="document.location=' . "'detalles_publicacion_admin.php?pub_id=" . $_REQUEST['pub_id'] . "'" . '">Volver</button>';
     }
     echo '</div>';
 }
