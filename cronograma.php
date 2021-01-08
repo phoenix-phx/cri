@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home Investigador</title>
+    <title>Cronograma</title>
     <link rel="stylesheet" href="style/styles.css">
     <?php session_start(); ?>
 </head>
@@ -13,7 +13,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 

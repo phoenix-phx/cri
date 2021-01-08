@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Buscar Investigacion</title>
+    <title>Buscar Investigaci&oacute;n</title>
     <link rel="stylesheet" href="style/styles.css">
     <?php 
     require_once "c_busquedainv.php";
@@ -16,7 +16,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -28,7 +28,7 @@
     </div>
     <div style="padding-right:10%;padding-left:10%;">
         <h1>Buscar Investigaciones</h1>
-        <h3><i>Elija el filtro e ingrese la busqueda</i></h3>
+        <h3><i>Elija el filtro e ingrese la b&uacute;squeda</i></h3>
         <?php
         if (isset($_SESSION['error'])) {
             echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -44,12 +44,12 @@
             Filtrar por: 
             <select name="filtroBI" id="filtroBI">
                 <option value="Ninguno">Ninguno</option>
-                <option value="Unidad de Investigacion">Unidad de Investigacion</option>
-                <option value="Nombre Investigacion">Nombre Investigacion</option>
-                <option value="Codigo Investigacion">Codigo Investigacion</option>
+                <option value="Unidad de Investigacion">Unidad de Investigaci&oacute;n</option>
+                <option value="Nombre Investigacion">Nombre Investigaci&oacute;n</option>
+                <option value="Codigo Investigacion">Codigo Investigaci&oacute;n</option>
                 <option value="Nombre Investigador">Nombre Investigador</option>
             </select>
-            <input class="stextInput" style="margin:20px;"name="txtFiltroBI" id="txtFiltroBI" type="text" placeholder="Ingrese la busqueda aqui" size="40">
+            <input class="stextInput" style="margin:20px;"name="txtFiltroBI" id="txtFiltroBI" type="text" placeholder="Ingrese la b&uacute;squeda aqui" size="40">
             </div>
             <br>
             <div align="center"><input class="button" type="submit" value="Buscar"></div>
@@ -65,9 +65,9 @@
     if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
         echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
         echo '<div role="cabecera" align="center"> 
-            <div class="aLeft" style="width:320px;">CODIGO</div> 
+            <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
             <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-            <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
+            <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACI&Oacute;N</div>
             </div><br><br>
         </div>';
         echo '<div style="padding-left:4%;padding-right:4%;">';

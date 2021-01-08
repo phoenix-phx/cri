@@ -120,7 +120,7 @@ class Publicacion{
 				echo '<a class="link" href="detalles_publicacion_inv.php?pub_id='.$this->getId().'">';
 		        echo '<div class="aLeft container" style="width:26%;height:200px; padding:10px;margin:18px;">' . "\n";
 		            echo 'TITULO: ' . htmlentities($row['titulo']) . '<br>' . "\n";
-		            echo 'CODIGO: ' . htmlentities($row['codigo']) . "<br><br>"."\n";
+		            echo 'C&Oacute;DIGO: ' . htmlentities($row['codigo']) . "<br><br>"."\n";
 		            echo htmlentities($row['resumen']) . "<br><br>"."\n";
 				echo '</div>' . "\n";
 				echo '</a>';
@@ -145,7 +145,7 @@ class Publicacion{
 		else{
 			echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
             echo '<div role="cabecera" align="center"> 
-                <div class="aLeft" style="width:320px;">CODIGO</div> 
+                <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
                 <div class="aLeft" style="width:500px;">TITULO</div> 
                 <div class="aLeft" style="width:250px;">TIPO</div>
                 </div><br><br>
@@ -184,7 +184,7 @@ class Publicacion{
 		else{
 			echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
 	            echo '<div role="cabecera" align="center"> 
-	                <div class="aLeft" style="width:320px;">CODIGO</div> 
+	                <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 	                <div class="aLeft" style="width:500px;">TITULO</div> 
 	                <div class="aLeft" style="width:250px;">TIPO</div>
 	                </div><br><br>
@@ -229,9 +229,9 @@ class Publicacion{
 			else{
 				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
 			        echo '<div role="cabecera" align="center"> 
-			            <div class="aLeft" style="width:320px;">CODIGO</div> 
+			            <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-			            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+			            <div class="aLeft" style="width:250px;">FECHA FINALIZACI&Oacute;N</div>
 			            </div><br><br>
 			        </div>';
 
@@ -270,9 +270,9 @@ class Publicacion{
 			else{
 				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
 			        echo '<div role="cabecera" align="center"> 
-			            <div class="aLeft" style="width:320px;">CODIGO</div> 
+			            <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-			            <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+			            <div class="aLeft" style="width:250px;">FECHA FINALIZACI&Oacute;N</div>
 			            </div><br><br>
 			        </div>';
 

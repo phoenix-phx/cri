@@ -12,7 +12,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -23,8 +23,8 @@
         </div>
     </div>
     <div style="padding-right:10%;padding-left:10%;" align="center">
-        <h1 class="title">Cerrar investigacion</h1>
-        <p style="font-size:18px;">Esta accion no puede deshacerse, Esta seguro que desea cerrar la investigacion?</p>
+        <h1 class="title">Cerrar investigaci&oacute;n</h1>
+        <p style="font-size:18px;">Esta acci&oacute;n no puede deshacerse, ¿Esta seguro que desea cerrar la investigaci&oacute;n?</p>
         <div style="height:30px;"></div>
         <div>
             <button class="button" onclick="document.location='c_confirmacion_cierre.php?inv_id=<?php echo $_REQUEST['inv_id'] ?>'">Confirmar</button>

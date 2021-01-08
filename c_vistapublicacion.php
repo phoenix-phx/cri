@@ -55,16 +55,16 @@ if($_SESSION['permisos'] === 'investigador'){
     //datos generales
     echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>C&Oacute;DIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
-    echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>TIPO PUBLICACI&Oacute;N: </span> <span>' . $tipo . ' </span></div>';
     if($flag === true){
-        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
+        echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
     }
     else{
-        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span><i>' . 'no existe investigacion asociada' . '</i></span></div>';
+        echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span><i>' . 'No existe investigaci&oacute;n asociada' . '</i></span></div>';
     }
 
     //autores
@@ -106,7 +106,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $pub = new Publicacion();
     $estado = $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], $_SESSION['permisos'], $pdo);
     if($estado === false){
-        $_SESSION['error'] = 'No se pudo cargar la publicacion';
+        $_SESSION['error'] = 'No se pudo cargar la publicaci&oacute;n';
         header('Location: listaPub_admin.php');
         return;
     }
@@ -137,16 +137,16 @@ else if($_SESSION['permisos'] === 'administrativo'){
     //datos generales
     echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>C&Oacute;DIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
-    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
-    echo '<div role="fila"> <span>TIPO PUBLICACION: </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>TIPO PUBLICACI&Oacute;N: </span> <span>' . $tipo . ' </span></div>';
     if($flag){
-        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
+        echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
     }
     else{
-        echo '<div role="fila"> <span>INVESTIGACION ASOCIADA: </span> <span><i>' . 'no existe investigacion asociada' . '</i></span></div>';
+        echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span><i>' . 'No existe investigaci&oacute;n asociada' . '</i></span></div>';
     }
     //autores
     echo "<br>";

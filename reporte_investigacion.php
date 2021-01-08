@@ -16,7 +16,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div style="padding-right:10%;padding-left:10%;">
-        <h1>Reportes de Investigacion</h1>
+        <h1>Reportes de Investigaci&oacute;n</h1>
         <h3><i>Ajuste los filtros y presione buscar para obtener resultados</i></h3>
         <?php
         if (isset($_SESSION['error'])) {
@@ -39,7 +39,7 @@
         }
         ?>
         <form action="c_reporteinv.php" method="post"> 
-            <label for="uniInvRI">Unidad de Investigacion:</label> 
+            <label for="uniInvRI">Unidad de Investigaci&oacute;n:</label> 
             <input class="xstextInput" style="margin:10px;" name="uniInvRI" id="uniInvRI" type="text" value="Todos">
             <label for="nomInvRI" style="padding-left:40px;">Investigador:</label> 
             <input class="xstextInput" style="margin-left:30px;"name="nomInvRI" id="nomInvRI" type="text" value="Todos"><br>
@@ -55,7 +55,7 @@
                 <option value="Interno">Interno</option>
                 <option value="Externo">Externo</option>           
             </select><br>
-            <label for="anioCreacionRI" style="margin-right:60px;">Año de creacion:</label>
+            <label for="anioCreacionRI" style="margin-right:60px;">Año de creaci&oacute;n:</label>
             <input class="xstextInput" name="anioCreacionRI" id="anioCreacionRI" type="text" value="Todos">
             <br><br><br>
             <div align="center"><input class="button" type="submit" value="Buscar"></div>
@@ -83,9 +83,9 @@
         if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
             echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
             echo '<div role="cabecera" align="center"> 
-                <div class="aLeft" style="width:310px;">CODIGO</div> 
+                <div class="aLeft" style="width:310px;">C&Oacute;DIGO</div> 
                 <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-                <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
+                <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACI&Oacute;N</div>
                 </div><br><br>
             </div>';
             echo '<div style="padding-left:4%;padding-right:4%;">';

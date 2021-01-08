@@ -47,6 +47,11 @@ img{
     text-decoration: none;
     color: black;
 }
+.link:hover{
+    text-decoration: underline;
+    color: blue;
+
+}
 
 .cLink{
     text-decoration: none;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Historial Investigacion</title>
+    <title>Historial Investigaci&oacute;n</title>
     <link rel="stylesheet" href="style/styles.css">
     <?php session_start(); ?>
 </head>
@@ -13,7 +13,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div align="center">
-        <h2>Historial de Investigacion</h2>
+        <h2>Historial de Investigaci&oacute;n</h2>
         <?php include "c_historialinv.php"; ?> 
         <button class="button" onclick="document.location='detalles_investigacion_admin.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>'">Volver</button>
     </div>

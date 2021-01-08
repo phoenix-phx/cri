@@ -112,7 +112,7 @@ class Investigacion{
 				echo '<a class="link" href="detalles_investigacion_inv.php?inv_id='.$this->getId().'">';
 	            echo '<div class="aLeft container" style="width:26%;height:200px; padding:10px;margin:18px;">' . "\n";
 	                echo 'TITULO: ' . htmlentities($this->getNombreCorto()) . "<br><br>"."\n";
-	                echo 'CODIGO: ' . htmlentities($this->getCodigo()) . "<br><br>"."\n";
+	                echo 'C&Oacute;DIGO: ' . htmlentities($this->getCodigo()) . "<br><br>"."\n";
 	                echo htmlentities($this->getResumen()) . "<br><br>"."\n";
 				echo '</div>' . "\n";
 				echo '</a>';
@@ -140,9 +140,9 @@ class Investigacion{
 		else{
 			echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
             echo '<div role="cabecera" align="center"> 
-                <div class="aLeft" style="width:320px;">CODIGO</div> 
+                <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
                 <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-                <div class="aLeft" style="width:250px;">FECHA FINALIZACION</div>
+                <div class="aLeft" style="width:250px;">FECHA FINALIZACI&Oacute;N</div>
                 </div><br><br>
             </div>';
     
@@ -179,9 +179,9 @@ class Investigacion{
 		else{
 			echo '<div style="padding-left:5%;padding-right:5%;">' . "\n";
 			echo '<div role="cabecera" align="center"> 
-			    <div class="aLeft" style="width:320px;">CODIGO</div> 
+			    <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 			    <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-			    <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACION</div>
+			    <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACI&Oacute;N</div>
 			    </div><br><br>
 			</div>';
 

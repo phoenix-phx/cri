@@ -34,7 +34,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -73,24 +73,24 @@
             <img src="imagenes/Administrativo/home/investigaciones_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaInv_admin.php">Investigaciones</a></h3>
-                <a class="link" href="buscar_investigacion.php">Buscar investigacion</a><br>
-                <a class="link" href="reporte_investigacion.php">Reporte investigacion</a>
+                <a class="link" href="buscar_investigacion.php">Buscar investigaci&oacute;n</a><br>
+                <a class="link" href="reporte_investigacion.php">Reporte investigaci&oacute;n</a>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
             <img src="imagenes/Administrativo/home/publicaciones_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaPub_admin.php">Publicaciones</a></h3>
-                <a class="link" href="buscar_publicacion.php">Buscar publicacion</a><br>
-                <a class="link" href="reporte_publicacion.php">Reporte publicacion</a>
+                <a class="link" href="buscar_publicacion.php">Buscar publicaci&oacute;n</a><br>
+                <a class="link" href="reporte_publicacion.php">Reporte publicaci&oacute;n</a>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
             <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Reportes</h3>
-                <a class="link" href="reporte_investigacion.php">Reporte investigacion</a><br>
-                <a class="link" href="reporte_publicacion.php">Reporte publicacion</a>
+                <a class="link" href="reporte_investigacion.php">Reporte investigaci&oacute;n</a><br>
+                <a class="link" href="reporte_publicacion.php">Reporte publicaci&oacute;n</a>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">

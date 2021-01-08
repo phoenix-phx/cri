@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Subir Entrega</title>
+	<title>Subir Documento Final</title>
 	<?php include "c_subirentrega.php" ?>
     <link rel="stylesheet" href="style/styles.css">
 </head>
@@ -13,7 +13,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -30,15 +30,15 @@
         unset($_SESSION['error']);
     }
     ?>
-    <h3><i>Selecciona el documento final de la publicacion para enviarla</i></h3>
+    <h3><i>Selecciona el documento final de la publicaci&oacute;n para enviarla</i></h3>
     <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post" enctype="multipart/form-data">
         Archivo:<br><br>
         <div>
             <input type="file" name="archivoEntregaF" />
             <!-- <span><img src="imagenes/icons/submit_file.png" style="height:40px;"></span> -->
         </div><br>
-        Descripcion del envio:<br><br>
-        <textarea class="textInput" name="descripcionEnvio" rows="5" cols="100" placeholder="Escribe una pequeña descripcion"></textarea><br>
+        Descripci&oacute;n del env&iacute;o:<br><br>
+        <textarea class="textInput" name="descripcionEnvio" rows="5" cols="100" placeholder="Escribe una pequeña descripci&oacute;n"></textarea><br>
         <div align="center">
             <input class="button" style="margin-right:20px;" type="submit" value="Enviar">
             <input class="button" type="submit" name="cancel" value="Cancelar" />

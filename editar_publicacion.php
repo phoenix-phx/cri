@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Editar Publicacion</title>
+    <title>Editar Publicaci&oacute;n</title>
     <?php require_once "c_editarpub.php"?>
     
     <script src="script/s_editar_publicacion.js"></script>
@@ -15,7 +15,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -26,7 +26,7 @@
     </div>
     <div style="padding-left:5%; padding-right:5%;">
     <form action="c_editarpub.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>" method="post">
-        <h1>Editar publicacion</h1>   
+        <h1>Editar publicaci&oacute;n</h1>   
         <?php
         if (isset($_SESSION['error'])) {
             echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -37,8 +37,8 @@
             unset($_SESSION['success']);
         }
         ?>
-        <h3><i>Llena todos los campos para registrar la publicacion</i></h3>
-        Codigo: <?php echo $codigo; ?> <br>
+        <h3><i>Llena todos los campos para registrar la publicaci&oacute;n</i></h3>
+        C&oacute;digo: <?php echo $codigo; ?> <br>
 
         <label for="tituloCP">Titulo:</label>
         <input class="textInput" name="tituloCP" id="tituloCP" type="text" value="<?php echo($titulo) ?>"><br>
@@ -46,14 +46,14 @@
         <label for="resumenCP">Resumen:</label><br>
         <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
 
-        <label for="uInvestigacion">Unidad de Investigacion:</label>
+        <label for="uInvestigacion">Unidad de Investigaci&oacute;n:</label>
         <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text" value="<?php echo($ui) ?>"><br>
 
-        <label for="invCP">Investigacion asociada:</label><br> 
+        <label for="invCP">Investigaci&oacute;n asociada:</label><br> 
         <input class="textInput" name="invCP" id="invCP" type="text" <?php if($investigacion !== null) {echo 'value="'.$nombreInv.'"';}?>><br>
         <?php // TODO: procesar select si existe ?>
 
-        <label for="tipoCP">Tipo publicacion:</label>
+        <label for="tipoCP">Tipo publicaci&oacute;n:</label>
         <select name="tipoCP" id="tipoCP">
             <option value="Ninguno">Ninguno</option>
             <option value="Articulo" <?php if($tipo === 'Articulo') echo 'selected="selected"'; ?>>Articulo</option>
@@ -63,7 +63,7 @@
             <option value="Patente" <?php if($tipo === 'Patente') echo 'selected="selected"'; ?>>Patente</option>
             <option value="Otro" <?php if($tipo === 'Otro') echo 'selected="selected"'; ?>>Otro</option>
         </select>
-        <h3><i>A continuacion, indica los detalles del autor principal</i></h3>
+        <h3><i>A continuaci&oacute;n, indica los detalles del autor principal</i></h3>
         <fieldset>
         <legend>AUTOR PRINCIPAL</legend>
         <div id="InvP">
@@ -73,7 +73,7 @@
             <input class="textInput" name="nomInvPCP" id="nomInvPCP" type="text" value="<?php echo($pnombre) ?>"><br>
 
             <input name="rPUniCP" id="rPUniCP" type="radio" onclick="perteneceInvP()" value="interno" <?php if($tipo_filiacion === 'interno') echo 'checked="checked"'; ?>> 
-            <label for="rPUniCP"> Pertenece a la Universidad</label><br>
+            <label for="rPUniCP"> Pertenece a la Universidad Cat&oacute;lica Boliviana</label><br>
             <input name="rPUniCP" id="rOUniCP" type="radio" onclick="noPerteneceInvP()" value="externo" <?php if($tipo_filiacion === 'externo') echo 'checked="checked"'; ?>>
             <label for="rOUniCP">Pertenece a otra Universidad</label><br>
             <?php 
@@ -86,11 +86,11 @@
             }
             else if($tipo_filiacion === 'interno'){
                 echo '<div id="divi">';
-                echo '<label for="uniInvPCP"> Unidad de Investigacion </label>';
+                echo '<label for="uniInvPCP"> Unidad de Investigaci&oacute;n </label>';
                 echo "<br>";
                 echo '<input class="stextInput" id="uniInvPCP" name="uniInvPCP" type="text" value="'. $unidad_investigacion . '">';
                 echo "<br>";
-                echo "Filiacion";
+                echo "Filiaci&oacute;n";
                 echo "<br>";
                 if($filiacion === 'docente'){
                     echo '<input id="rDocenteCP" name="rFiliacionIPCP" type="radio" value="docente" checked="checked">';
@@ -137,7 +137,7 @@
         </div>
         </fieldset>
 
-        <h3><i>Ahora, indica los detalles de los autores de colaboracion</i></h3>
+        <h3><i>Ahora, indica los detalles de los autores de colaboraci&oacute;n</i></h3>
 
         <fieldset>
         <h3>Autores secundarios <button class="button" onclick="addItemInv()"> +    </button></h3>
@@ -151,11 +151,11 @@
                                 <button class="button" id="bICP' .  ($i) . '" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCP' . ($i) . '" id="rPUniCP' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
-                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                    Pertenece a la Universidad Cat&oacute;lica Boliviana<br>
                                   <input name="rPUniCP' . ($i) . '" id="rOUniCP' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
                                   Pertenece a otra Universidad<br>
                                   <div id="divi' . ($i) . '">
-                                  Unidad de Investigacion<br>
+                                  Unidad de Investigaci&oacute;n<br>
                                   <input class="stextInput" name="uniInvSCP' . ($i) . '" id="uniInvSCP' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>';
                             if($investigadores[$i]['filiacion'] == 'docente'){   
                                 echo '<input name="rFiliacionISCP' . ($i) . '" id="rDocenteCP' . ($i) . '" type="radio" value="docente" checked>
@@ -187,7 +187,7 @@
                         }
                         else{
                             echo '<input name="rPUniCP' . ($i) . '" id="rPUniCP' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" >
-                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                    Pertenece a la Universidad Cat&oacute;lica Boliviana<br>
                                   <input name="rPUniCP' . ($i) . '" id="rOUniCP' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" checked>
                                   Pertenece a otra Universidad<br>
                                   <div id="divi' . ($i) . '">

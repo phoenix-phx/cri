@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Nueva Publicacion</title>
+    <title>Nueva Publicaci&oacute;n</title>
     <?php require_once "c_crearpub.php"?>
     <script src="script/s_nueva_publicacion.js"></script>
     <link rel="stylesheet" href="style/styles.css">
@@ -14,7 +14,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -25,7 +25,7 @@
     </div>
     <div style="padding-left:5%; padding-right:5%;">
         <form action="c_crearpub.php" method="post">
-            <h1>Crear Nueva publicacion</h1>   
+            <h1>Crear Nueva publicaci&oacute;n</h1>   
             <?php
             if (isset($_SESSION['error'])) {
                 echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -36,18 +36,18 @@
                 unset($_SESSION['success']);
             }
             ?>
-            <h3><i>Llena todos los campos para registrar la publicacion</i></h3>
+            <h3><i>Llena todos los campos para registrar la publicaci&oacute;n</i></h3>
             <label for="tituloCP"> Titulo: </label><br>
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
             <label for="resumenCP">Resumen:</label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
 
-            <label for="uInvestigacion">Unidad de Investigacion:</label>
+            <label for="uInvestigacion">Unidad de Investigaci&oacute;n:</label>
             <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text"><br>
             
-            <label for="invCP">Investigacion asociada (Codigo):</label>
+            <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label>
             <input class="textInput" name="invCP" id="invCP" type="text"><br>
-            <label for="tipoCP">Tipo publicacion:</label>
+            <label for="tipoCP">Tipo publicaci&oacute;n:</label>
             <select name="tipoCP" id="tipoCP">
                 <option value="Ninguno">Ninguno</option>
                 <option value="Articulo">Articulo</option>
@@ -57,20 +57,20 @@
                 <option value="Patente">Patente</option>
                 <option value="Otro">Otro</option>
             </select>
-            <h3><i>A continuacion, indica los detalles del autor principal</i></h3>
+            <h3><i>A continuaci&oacute;n, indica los detalles del autor principal</i></h3>
             <fieldset>
             <legend>AUTOR PRINCIPAL</legend>
                 <div id="InvP">
                     <label for="nomInvPCP">Nombre:</label> 
                     <input class="textInput" name="nomInvPCP" id="nomInvPCP" type="text"><br>
                     <input name="rPUniCP" id="rPUniCP" type="radio" onclick="perteneceInvP()" value="interno"> 
-                    <label for="rPUniCP">Pertenece a la Universidad</label><br>
+                    <label for="rPUniCP">Pertenece a la Universidad Cat&oacute;lica Boliviana</label><br>
                     <input name="rPUniCP" id="rOUniCP" type="radio" onclick="noPerteneceInvP()" value="externo">
                     <label for="rOUniCP"> Pertenece a otra Universidad</label><br>
                 </div>
             </fieldset>
 
-            <h3><i>Ahora, indica los detalles de los autores de colaboracion</i></h3>
+            <h3><i>Ahora, indica los detalles de los autores de colaboraci&oacute;n</i></h3>
 
             <fieldset>
             <h3>Autores secundarios <button class="button" onclick="addItemInv()"> + </button></h3>

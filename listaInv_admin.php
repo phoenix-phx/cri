@@ -22,7 +22,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -35,7 +35,7 @@
     <div style="padding-left:5%;padding-right:5%;">
         <h1 class="aLeft" style="font-size:40px;">Investigaciones</h1> 
         <div style="padding-top:35px;padding-bottom:25px">
-            <button class="button aRight" style="font-size:18px;" onclick="document.location='buscar_investigacion.php'">Buscar Investigacion</button>
+            <button class="button aRight" style="font-size:18px;" onclick="document.location='buscar_investigacion.php'">Buscar Investigaci&oacute;n</button>
         </div>
     </div>
     <br><br><br>

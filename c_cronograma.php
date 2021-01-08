@@ -17,15 +17,15 @@ echo '<div style="padding-left:5%;padding-right:5%;">';
 if($fechas_inv !== false){
     for ($i=0; $i < count($fechas_inv); $i++) { 
         echo '<div class="container" style="padding-left:3%;">';
-        echo '<p><b>INVESTIGACION</b></p>';
-        echo '<div class="aLeft" style="width:320px;">DESCRIPCION</div>';
+        echo '<p><b>INVESTIGACI&Oacute;N</b></p>';
+        echo '<div class="aLeft" style="width:320px;">DESCRIPCI&Oacute;N</div>';
         $idInv = htmlentities($fechas_inv[$i]['idInv']);
         $nombre = htmlentities($fechas_inv[$i]['nombre']);
         $codigo = htmlentities($fechas_inv[$i]['codigo']);
         $fecha_final = htmlentities($fechas_inv[$i]['fecha_fin']);
         
-        echo '<div role="fila"> <span>Entrega final de la investigacion: </span> <span><b><i>' . $nombre . '</i></b></span></div>';
-        echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACION</div>';
+        echo '<div role="fila"> <span>Entrega final de la investigaci&oacute;n: </span> <span><b><i>' . $nombre . '</i></b></span></div>';
+        echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACI&Oacute;N</div>';
         echo '<div role="fila"><span>' . $fecha_final . ' </span></div>';
 
         $act = new Actividad();
@@ -37,13 +37,13 @@ if($fechas_inv !== false){
             for ($j=0; $j < count($activities); $j++) {
                 echo '<div id="actividad' . ($j+1) .'">';
                 echo '<p> <span> Fecha limite de la actividad: </span><span><b><i>' . htmlentities($activities[$j]['nombre']) . '</i></b></span>';
-                echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACION</div>';
+                echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACI&Oacute;N</div>';
                 echo '<span>' . htmlentities($activities[$j]['fecha_final']) . '</span> <p>';
                 echo "</div>";
             }
         }
         else{
-            echo "<p><span>No se han registrado actividades asociadas a esta investigacion</span><p>";
+            echo "<p><span>No se han registrado actividades asociadas a esta investigaci&oacute;n</span><p>";
         }
         echo '</div>';
         echo "<br> <br>";

@@ -8,7 +8,7 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 }
 
 if( !isset($_REQUEST['inv_id']) ){
-    $_SESSION['error'] = 'No se encontro la investigacion';
+    $_SESSION['error'] = 'No se encontro la investigaci&oacute;n';
     header('Location: detalles_investigacion_admin.php?inv_id='.$_REQUEST['inv_id']);
     return;
 }

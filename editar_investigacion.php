@@ -14,7 +14,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div style="padding-left:5%; padding-right:5%;">
-        <h1>Editar investigacion</h1>
+        <h1>Editar investigaci&oacute;n</h1>
         <?php
         if (isset($_SESSION['error'])) {
             echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
@@ -35,10 +35,10 @@
             unset($_SESSION['success']);
         }
         ?>
-        <h3><i>Llena todos los campos para registrar la investigacion</i></h3>
+        <h3><i>Llena todos los campos para registrar la investigaci&oacute;n</i></h3>
         <form action="c_editarinv.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>" method="post">
             
-            <label>Codigo</label><span> <?php echo $codigo; ?></span> <br>
+            <label>C&oacute;digo</label><span> <?php echo $codigo; ?></span> <br>
 
             <label for="tituloCI">Titulo<span class="must">*</span>: </label>
             <input class="textInput" name="invTituloCI" id="tituloCI" type="text" value="<?php echo($titulo) ?>"><br>
@@ -51,15 +51,15 @@
             
             <label>Fecha de Inicio</label><span> <?php echo $fecha_inicio; ?></span> <br>
             
-            <label for="fechaFinCI">Fecha de finalizacion<span class="must">*</span>:</label>
+            <label for="fechaFinCI">Fecha de finalizaci&oacute;n<span class="must">*</span>:</label>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date" value="<?php echo($fecha_fin) ?>"><br>
             
-            <label for="uniInvCI">Unidad de Investigacion<span class="must">*</span>:</label>
+            <label for="uniInvCI">Unidad de Investigaci&oacute;n<span class="must">*</span>:</label>
             <input class="textInput" name="uniInvCI" id="uniInvCI" type="text" value="<?php echo($unidad) ?>"><br>
 
             <input type="hidden" name="inv_id" value="<?php echo $inv_id ?>">
             
-            <h3><i>A continuacion, indica los detalles del investigador principal:</i></h3>
+            <h3><i>A continuaci&oacute;n, indica los detalles del investigador principal:</i></h3>
             <fieldset>
                 <legend>INVESTIGADOR PRINCIPAL</legend>
                 <div id="InvP">
@@ -70,7 +70,7 @@
                     <input name="univIP" id="rPUniCI" type="radio" onclick="perteneceInvP()" value="interno" <?php if($tipo_filiacion === 'interno'){
                         echo 'checked="checked"';
                     } ?> > 
-                    <label for="rPUniCI">Pertenece a la Universidad Catolica Boliviana</label><br>
+                    <label for="rPUniCI">Pertenece a la Universidad Cat&oacute;lica Boliviana</label><br>
                     
                     <input name="univIP" id="rOUniCI" type="radio" onclick="noPerteneceInvP()" value="externo" <?php if($tipo_filiacion === 'externo'){
                         echo 'checked="checked"';
@@ -88,7 +88,7 @@
                     }
                     else if($tipo_filiacion === 'interno'){
                         echo '<div id="divi">';
-                        echo "Unidad de Investigacion";
+                        echo "Unidad de Investigaci&oacute;n";
                         echo "<br>";
                         echo '<input class="stextInput" id="uniInvPCI" name="uniInvPCI" type="text" value="'. $unidad_investigacion . '">';
                         echo "<br>";
@@ -140,13 +140,13 @@
                 </div>
             </fieldset>
 
-            <h3><i>Ahora, indica los detalles de los investigadores de colaboracion (si existen):</i></h3>
+            <h3><i>Ahora, indica los detalles de los investigadores de colaboraci&oacute;n (si existen):</i></h3>
             <?php
             
                 echo '<fieldset>
                         <script> var i = ' . count($investigadores) . ';</script>            
                         <h3>
-                        Investigadores de colaboracion 
+                        Investigadores de colaboraci&oacute;n 
                         <button class="button" onclick="addItemInv()"> + </button>
                         </h3>';
                 echo '<div id="InvS">';
@@ -157,12 +157,14 @@
                                 <button id="bICI' .  ($i) . '" class="button" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
-                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                    Pertenece a la Universidad Cat&oacute;lica Boliviana<br>
                                 <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
                                 Pertenece a otra Universidad<br>
                                 <div id="divi' . ($i) . '">
-                                Unidad de Investigacion<br>
-                                <input class="stextInput" name="uniInvSCI' . ($i) . '" id="uniInvSCI' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>';
+                                Unidad de Investigaci&oacute;n<br>
+                                <input class="stextInput" name="uniInvSCI' . ($i) . '" id="uniInvSCI' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>
+                                Filiaci&oacute;n<br>';
+
                             if($investigadores[$i]['filiacion'] == 'docente'){   
                                 echo '<input name="rFiliacionIS' . ($i) . '" id="rDocenteCI' . ($i) . '" type="radio" value="docente" checked>
                                 Docente<br>
@@ -193,7 +195,7 @@
                         }
                         else{
                             echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" >
-                                    Pertenece a la Universidad Catolica Boliviana<br>
+                                    Pertenece a la Universidad Cat&oacute;lica Boliviana<br>
                                 <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" checked>
                                 Pertenece a otra Universidad<br>
                                 <div id="divi' . ($i) . '">
@@ -201,14 +203,14 @@
                                 <input class="stextInput" name="uniISCI' . ($i) . '" id="uniISCI' . ($i) . '" value="' . ($investigadores[$i]['universidad']) . '" type="text" >';
                             echo '</div>';
                         }
-                        echo '</div> <br/>';                    
+                        echo '</div>';                    
                     }
                     
                 }
                 echo '</div>';
             echo '</fieldset>';
         ?>
-            <h3><i>A continuacion, ingresa los detalles del financiamiento:</i></h3>
+            <h3><i>A continuaci&oacute;n, ingresa los detalles del financiamiento:</i></h3>
             <fieldset id="financiamiento">
                 <h3>Financiamiento</h3>
                 <h4>Existe</h4>
@@ -297,7 +299,7 @@
             </fieldset>
             
             <!--Agregar actividades-->
-            <h3><i>Finalmente, indica las actividades planificadas para la investigacion:</i></h3>
+            <h3><i>Finalmente, indica las actividades planificadas para la investigaci&oacute;n:</i></h3>
             <?php
             echo '<fieldset>
             <script> var  actividad = ' . count($actividades) . ';</script>

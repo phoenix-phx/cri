@@ -8,13 +8,13 @@
             }
             divi = radio.appendChild(document.createElement("div"));
             divi.id = "divi";
-            divi.appendChild(document.createTextNode("Unidad de Investigacion"));
+            divi.appendChild(document.createTextNode("Unidad de Investigación"));
             divi.appendChild(document.createElement("br"));
             let txtInp = document.createElement("input");
             txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI"; txtInp.type = "text"; txtInp.className="stextInput";
             divi.appendChild(txtInp);
             divi.appendChild(document.createElement("br"));
-            divi.appendChild(document.createTextNode("Filiacion"));
+            divi.appendChild(document.createTextNode("Filiación"));
             divi.appendChild(document.createElement("br"));
             let rbutton = document.createElement("input");
             divi.appendChild(rbutton);
@@ -71,7 +71,7 @@
             inp = ndivi.appendChild(document.createElement("input"));
             inp.name = "rPUniCI" + i; inp.id = "rPUniCI" + i; inp.type = "radio"; inp.value = "interno";
             inp.onclick = function() {Select(lol)};
-            ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Catolica Boliviana"));
+            ndivi.appendChild(document.createTextNode("Pertenece a la Universidad Católica Boliviana"));
             ndivi.appendChild(document.createElement("br"));
             ///////////////////////
             //Radio button no pertenece
@@ -167,14 +167,14 @@
             }
             divi = radio.appendChild(document.createElement("div"));
             divi.id = "divi" + index;
-            divi.appendChild(document.createTextNode("Unidad de Investigacion"));
+            divi.appendChild(document.createTextNode("Unidad de Investigación"));
             divi.appendChild(document.createElement("br"));
             let txtInp = document.createElement("input");
             txtInp.id = "uniInvSCI" + index; txtInp.name = "uniInvSCI" + index; txtInp.type = "text" + index;
             txtInp.className = "stextInput";
             divi.appendChild(txtInp);
             divi.appendChild(document.createElement("br"));
-            divi.appendChild(document.createTextNode("Filiacion"));
+            divi.appendChild(document.createTextNode("Filiación"));
             divi.appendChild(document.createElement("br"));
             let rbutton = document.createElement("input");
             divi.appendChild(rbutton);

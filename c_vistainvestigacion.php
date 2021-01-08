@@ -26,7 +26,7 @@ if($_SESSION['permisos'] === 'investigador'){
     // cargar detalles generales
     $estado = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], $_SESSION['permisos'], $pdo);
     if($estado === false){
-        $_SESSION['error'] = 'No se pudo cargar la investigacion';
+        $_SESSION['error'] = 'No se pudo cargar la investigaci&oacute;n';
         header('Location: listaInv_investigador.php');
         return;
     }
@@ -57,10 +57,10 @@ if($_SESSION['permisos'] === 'investigador'){
     //datos generales
     echo "<p><b>DATOS GENERALES:</b><p>";
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>C&Oacute;DIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>NOMBRE CORTO: </span> <span>' . $nc . ' </span></div>';
-    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
     echo '<div role="fila"> <span>FECHA INICIO: </span> <span>' . $finicio . ' </span></div>';
     echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';
@@ -109,7 +109,7 @@ if($_SESSION['permisos'] === 'investigador'){
             echo "<br>";
             echo '<span> FECHA INICIO: </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
             echo "<br>";
-            echo '<span> FECHA FINALIZACION: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
+            echo '<span> FECHA FINALIZACI&Oacute;N: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
             echo "</div>";
         }
     }
@@ -130,7 +130,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $inv = new Investigacion();
     $estado = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], $_SESSION['permisos'], $pdo);
     if($estado === false){
-        $_SESSION['error'] = 'No se pudo cargar la investigacion';
+        $_SESSION['error'] = 'No se pudo cargar la investigaci&oacute;n';
         header('Location: listaInv_admin.php');
         return;
     }
@@ -161,10 +161,10 @@ else if($_SESSION['permisos'] === 'administrativo'){
     //datos generales
     echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
-    echo '<div role="fila"> <span>CODIGO: </span> <span>' . $codigo . ' </span></div>';
+    echo '<div role="fila"> <span>C&Oacute;DIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>NOMBRE CORTO: </span> <span>' . $nc . ' </span></div>';
-    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACION: </span> <span>' . $ui . ' </span></div>';
+    echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
     echo '<div role="fila"> <span>FECHA INICIO: </span> <span>' . $finicio . ' </span></div>';
     echo '<div role="fila"> <span>FECHA FINAL: </span> <span>' . $ffinal . ' </span></div>';    
@@ -212,7 +212,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
             echo "<br>";
             echo '<span>FECHA INICIO: </span> <span>' . htmlentities($actividades[$i]['fecha_inicio']) . '</span>';
             echo "<br>";
-            echo '<span>FECHA FINALIZACION: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
+            echo '<span>FECHA FINALIZACI&Oacute;N: </span> <span>' . htmlentities($actividades[$i]['fecha_final']) . '</span> <p>';
             echo "</div>";
         }
     }

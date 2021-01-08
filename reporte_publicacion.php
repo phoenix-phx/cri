@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reporte publicacion</title>
+    <title>Reporte Publicaci&oacute;n</title>
     <link rel="stylesheet" href="style/styles.css">
     <?php 
     require_once "c_reporteinv.php";
@@ -16,7 +16,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -27,7 +27,7 @@
     </div>
     <div style="padding-right:10%;padding-left:10%;">
     
-        <h1>Reportes de Publicacion</h1>
+        <h1>Reportes de Publicaci&oacute;n</h1>
         <h3><i>Ajuste los filtros para obtener resultados</i></h3>
         <?php
         if (isset($_SESSION['error'])) {
@@ -40,7 +40,7 @@
         }
         ?>
         <form action="c_reportepub.php" method="post">
-            <label for="uniInvRP">Unidad de Investigacion:</label> 
+            <label for="uniInvRP">Unidad de Investigaci&oacute;n:</label> 
             <input class="xstextInput" style="margin:10px;" name="uniInvRP" id="uniInvRP" type="text" value="Todos">
             <label for="nomInvRP" style="padding-left:40px;">Investigador:</label> 
             <input class="xstextInput" style="margin-left:30px;"name="nomInvRP" id="nomInvRP" type="text" value="Todos"><br>
@@ -50,7 +50,7 @@
                 <option value="En Curso">En Curso</option>
                 <option value="Cerrado">Terminado</option>           
             </select>
-            <label for="tipoCP" style="padding-right:2px;padding-left:235px;">Tipo publicacion:</label>
+            <label for="tipoCP" style="padding-right:2px;padding-left:258px;">Tipo publicaci&oacute;n:</label>
             <select name="tipoCP" id="tipoCP">
                 <option value="Todos">Todos</option>
                 <option value="Articulo">Articulo</option>
@@ -86,9 +86,9 @@
         if(isset($_SESSION['resultados']) && count($_SESSION['resultados']) !== 0){
             echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
             echo '<div role="cabecera" align="center"> 
-                <div class="aLeft" style="width:310px;">CODIGO</div> 
+                <div class="aLeft" style="width:310px;">C&Oacute;DIGO</div> 
                 <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-                <div class="aLeft" style="width:250px;">TIPO PUBLICACION</div>
+                <div class="aLeft" style="width:250px;">TIPO PUBLICACI&Oacute;N</div>
                 </div><br><br>
             </div>';
             echo '<div style="padding-left:4%;padding-right:4%;">';

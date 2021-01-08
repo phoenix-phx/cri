@@ -12,7 +12,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -26,7 +26,7 @@
     <div style="padding-left:5%;padding-right:5%;">
         <h1 class="aLeft title" >Mis Publicaciones</h1> 
         <div style="padding-top:35px;padding-bottom:25px">
-            <button class="button aRight" style="font-size:18px;" onclick="document.location='nueva_publicacion.php'">+ Publicacion nueva</button>
+            <button class="button aRight" style="font-size:18px;" onclick="document.location='nueva_publicacion.php'">+ Publicaci&oacute;n nueva</button>
         </div>
     </div>
     <br><br><br>

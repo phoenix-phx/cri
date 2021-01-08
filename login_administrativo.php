@@ -8,7 +8,7 @@
 <body> 
     <div style="height:50px;"></div>
     <div align="center"><img src="imagenes/LogoU_nombre.png" ></div>
-    <h1 align="center">Ingreso al sistema para administrativos</h1>
+    <h1 align="center">Ingreso al Sistema para Administrativos</h1>
     <?php
     if (isset($_SESSION['error'])) {
         echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");

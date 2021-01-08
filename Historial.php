@@ -91,7 +91,7 @@ class Historial{
 	        echo "</table>";
 	    }
 	    else{
-	        echo "Esta investigacion no tiene cambios registrados";
+	        echo "Esta publicaci&oacute;n no tiene cambios registrados";
 	    }
 	    echo "<br />";   
 	    echo "<br />";

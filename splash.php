@@ -8,8 +8,8 @@
     <div style="height:50px;"></div>
     <div align="center" class="center">
         <img src="imagenes/LogoU_nombre.png">    
-        <h1>Bienvenido al sistema academico para Investigaciones UCB</h1>
-        <h2>Selecciona una opcion para iniciar sesion</h2>
+        <h1>Bienvenido al Sistema Acad&eacute;mico para Investigaciones UCB</h1>
+        <h2>Selecciona una opci&oacute;n para iniciar sesi&oacute;n</h2>
     </div>
     <br><br>
     <div style="padding-left: 30%; padding-right: 30%;">

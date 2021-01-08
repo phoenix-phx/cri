@@ -13,7 +13,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -45,17 +45,17 @@
             <label for="celular">Celular:</label>
             <input class="textInput" name="celular" id="celular" type="text"><br>
 
-            <label for="telefono">Telefono:</label>
+            <label for="telefono">Tel&eacute;fono:</label>
             <input class="textInput" name="telefono" id="telefono" type="text"><br>
             
             <h3>Filiaci&oacute;n</h3>
-            <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante">
-            <label for="rbestudiante">Estudiante</label><br>
             <input type="radio" name="rbfiliacion" id="rbdocente" value="docente">
             <label for="rbdocente">Docente</label><br>
+            <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante">
+            <label for="rbestudiante">Estudiante</label><br>
             <input type="radio" name="rbfiliacion" id="rbadmin" value="administrativo">
             <label for="rbadmin">Administrativo</label><br>
-            <label for="tUnidadI">Unidad de Investigacion</label>
+            <label for="tUnidadI">Unidad de Investigaci&oacute;n</label>
             <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI"><br>
             <h4>Permisos</h4>
             <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador">

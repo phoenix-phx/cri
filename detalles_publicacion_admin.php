@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Detalles Publicacion</title>
+   <title>Detalles Publicaci&oacute;n</title>
    <link rel="stylesheet" href="style/styles.css">
    <style>
         body{
@@ -17,7 +17,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigacion UCB
+                Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -31,7 +31,7 @@
     <div style="padding-left:5%;padding-right:5%;" >
         <h1 class="aLeft" style="font-size:50px;">Detalles</h1>
         <div style="padding-top:40px;padding-bottom:30px">
-            <button class="button aRight" onclick="document.location='historial_publicacion.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>'">Ver Historial de Publicacion</button>
+            <button class="button aRight" onclick="document.location='historial_publicacion.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>'">Ver Historial de Publicaci&oacute;n</button>
         </div>    
     </div>
         <br><br><br><br>
