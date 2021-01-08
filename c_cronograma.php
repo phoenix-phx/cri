@@ -33,12 +33,12 @@ if($fechas_inv !== false){
         
         echo "<p><b>ACTIVIDADES ASOCIADAS</b></p>";
         if(count($activities) !== 0){
-            echo '<div class="aLeft" style="width:320px;">NOMBRE ACTIVIDAD</div>';
             for ($j=0; $j < count($activities); $j++) {
+                echo '<div class="aLeft" style="width:320px;">NOMBRE ACTIVIDAD</div>';
                 echo '<div id="actividad' . ($j+1) .'">';
                 echo '<p> <span> Fecha limite de la actividad: </span><span><b><i>' . htmlentities($activities[$j]['nombre']) . '</i></b></span>';
                 echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACI&Oacute;N</div>';
-                echo '<span>' . htmlentities($activities[$j]['fecha_final']) . '</span> <p>';
+                echo '<span>' . htmlentities($activities[$j]['fecha_final']) . '</span> </p>';
                 echo "</div>";
             }
         }
