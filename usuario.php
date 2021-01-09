@@ -215,16 +215,83 @@ class Usuario{
 
 	public function actualizarDatos($pdo){
 		$sql = "UPDATE usuario 
-				SET nombre = :na, filiacion = :fi, unidad_investigacion = :ui, correo = :em
+				SET nombre = :na, correo = :em
 				WHERE idUsuario = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':na' => $this->getNombre(),
-            ':fi' => $this->getFiliacion(),
-            ':ui' => $this->getUnidadInvestigacion(),
             ':em' => $this->getCorreo(),
             ':id' => $this->getId()
         ));
+	}
+
+	public function actualizarDatosAdmin($pdo){
+		$sql = "UPDATE usuario 
+				SET nombre = :na, correo = :em, filiacion = :fi, unidad_investigacion = :ui, rol = :ro
+				WHERE idUsuario = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':na' => $this->getNombre(),
+            ':em' => $this->getCorreo(),
+            ':fi' => $this->getFiliacion(),
+            ':ui' => $this->getUnidadInvestigacion(),
+            ':ro' => $this->getRol(),
+            ':id' => $this->getId()
+        ));
+	}
+
+	public function busqueda($type, $data, $pdo){
+		if($type === 'Ninguno'){
+	        $sql = 'SELECT nombre, user, unidad_investigacion, idUsuario 
+		            FROM usuario';    
+		    $stmt = $pdo->prepare($sql);
+		    $stmt->execute();
+	    }
+		else if ($type === 'Nombre') {
+            $sql = 'SELECT nombre, user, unidad_investigacion, idUsuario 
+                    FROM usuario
+                    WHERE nombre LIKE :no';    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
+	    }
+	    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    return $resultados;
+	}  
+
+	public function authenticatePass($user_id, $pass, $mode, $pdo){
+		$try = hash('sha256', $this->salt . $pass);
+		$stmt = $pdo->prepare('SELECT idUsuario
+							   FROM usuario
+							   WHERE idUsuario = :us
+							   AND pass = :pw
+							   AND rol = :perm');
+		$stmt->execute(array(
+			':us' => $user_id,
+			':pw' => $try,
+			':perm' => $mode
+		));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if($row === false){
+			return false;
+		}
+		else{
+			return $row['idUsuario'];
+		}	
+	}
+
+	public function changePass($user_id, $npass, $pdo){
+		$cs = hash('sha256', $this->salt.$npass);
+	    $this->setPass($cs);
+
+		$sql = "UPDATE usuario
+	            SET  pass = :pw
+	            WHERE idUsuario = :id";
+
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':pw' => $this->getPass(),
+	        ':id' => $user_id
+	    ));
 	}
 }
 ?>

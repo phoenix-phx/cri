@@ -8,11 +8,11 @@
 <body>
     <!-- header -->
     <div class="bar" style="height: 50px; background-color: #0b1f3f;">
-        <a href="home_investigador.php" class="aLeft textIblue">
+        <a href="home_administrativo.php" class="aLeft textIblue">
             <img src="imagenes/LogoU.png" style="height: 50px;">
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
-            <a href="home_investigador.php" class="aLeft textIblue">
+            <a href="home_administrativo.php" class="aLeft textIblue">
                 Unidad de Investigaci&oacute;n UCB
             </a>
             <a class="aRight textIblue">
@@ -59,18 +59,18 @@
             }
             ?>
             <h3>Filiaci&oacute;n</h3>
-            <input type="radio" name="rbfiliacion" id="rbdocente" disabled="disabled" value="docente" <?php if($filiacion === 'docente') echo 'checked="checked"'; ?>>
+            <input type="radio" name="rbfiliacion" id="rbdocente" value="docente" <?php if($filiacion === 'docente') echo 'checked="checked"'; ?>>
             <label for="rbdocente">Docente</label><br>
-            <input type="radio" name="rbfiliacion" id="rbestudiante" disabled="disabled" value="estudiante" <?php if($filiacion === 'estudiante') echo 'checked="checked"'; ?>>
+            <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante" <?php if($filiacion === 'estudiante') echo 'checked="checked"'; ?>>
             <label for="rbestudiante">Estudiante</label><br>
-            <input type="radio" name="rbfiliacion" id="rbadmin" disabled="disabled" value="administrativo" <?php if($filiacion === 'administrativo') echo 'checked="checked"'; ?>>
+            <input type="radio" name="rbfiliacion" id="rbadmin" value="administrativo" <?php if($filiacion === 'administrativo') echo 'checked="checked"'; ?>>
             <label for="rbadmin">Administrativo</label><br>
             <label for="tUnidadI">Unidad de Investigaci&oacute;n</label>
-            <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI" disabled="disabled" value="<?php echo($unidad_investigacion) ?>"><br>
+            <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI" value="<?php echo($unidad_investigacion) ?>"><br>
             <h3>Permisos</h3>
-            <input type="radio" name="rbpermisos" id="rbinvestigador" disabled="disabled" value="investigador" <?php if($rol === 'investigador') echo 'checked="checked"'; ?>>
+            <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador" <?php if($rol === 'investigador') echo 'checked="checked"'; ?>>
             <label for="rbinvestigador" >Investigador</label><br>
-            <input type="radio" name="rbpermisos" id="rbadminp" disabled="disabled" value="administrativo" <?php if($rol === 'administrativo') echo 'checked="checked"'; ?>>
+            <input type="radio" name="rbpermisos" id="rbadminp" value="administrativo" <?php if($rol === 'administrativo') echo 'checked="checked"'; ?>>
             <label for="rbadminp">Administrativo</label><br>
             <br><br>
             <div align="center">

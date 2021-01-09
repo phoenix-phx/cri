@@ -52,6 +52,7 @@
             <li><a href="listaPub_admin.php">Publicaciones</a></li>
             <li><a href="nuevo_usuario.php">Usuarios</a></li>
             <li><a href="">Notificaciones</a></li>
+            <li><a href="admin_editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">Editar Usuario</a></li>
             <li><a href="c_logout.php">Logout</a></li>
             <!-- Agregar notifiaciones -->
             </ul>
@@ -97,7 +98,8 @@
             <img src="imagenes/Administrativo/home/usuarios_home.jpg" class="aLeft" style="height:110px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Usuarios</h3>
-                <a class="link" href="nuevo_usuario.php">Crear usuario</a>
+                <a class="link" href="nuevo_usuario.php">Crear usuario</a> <br>
+                <a class="link" href="buscar_usuario.php">Buscar y editar usuario</a>
             </div>  
         </div>
     </div>
