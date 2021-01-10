@@ -23,21 +23,21 @@
         </div>
     </div>
     <div style="padding-left:5%; padding-right:5%;">
-    <h1>Entrega final</h1>
+    <h1>Documento final</h1>
     <?php
     if (isset($_SESSION['error'])) {
         echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
         unset($_SESSION['error']);
     }
     ?>
-    <h3><i>Selecciona el documento final de la publicaci&oacute;n para enviarla</i></h3>
+    <h3><i>Para registrar el documento final debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
     <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post" enctype="multipart/form-data">
-        Archivo:<br><br>
+        Archivo:<span class="must">*</span><br><br>
         <div>
             <input type="file" name="archivoEntregaF" />
             <!-- <span><img src="imagenes/icons/submit_file.png" style="height:40px;"></span> -->
         </div><br>
-        Descripci&oacute;n del env&iacute;o:<br><br>
+        Descripci&oacute;n del env&iacute;o:<span class="must">*</span><br><br>
         <textarea class="textInput" name="descripcionEnvio" rows="5" cols="100" placeholder="Escribe una pequeña descripci&oacute;n"></textarea><br>
         <div align="center">
             <input class="button" style="margin-right:20px;" type="submit" value="Enviar">

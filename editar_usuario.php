@@ -35,11 +35,12 @@
         }
         ?>
         <form action="c_editarusuario.php?user_id=<?php echo($_REQUEST['user_id']) ?>" method="post" >
+            <p class="inst"><i>Para una operacion correcta debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></p>
             <h3>Datos Generales</h3>
-            <label for="nombre">Nombre: </label>
+            <label for="nombre">Nombre:<span class="must">*</span> </label>
             <input class="textInput" name="nombre" id="nombre" type="text" value="<?php echo($nombre) ?>"><br>
 
-            <label for="correo">Correo:</label>
+            <label for="correo">Correo:<span class="must">*</span></label>
             <input class="textInput" name="correo" id="correo" type="text" value="<?php echo($correo) ?>"><br>
 
             <label for="celular">Celular:</label>

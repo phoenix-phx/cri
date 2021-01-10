@@ -35,27 +35,27 @@
             unset($_SESSION['success']);
         }
         ?>
-        <h3><i>Llena todos los campos para registrar la investigaci&oacute;n</i></h3>
+        <h3><i>Para registrar la investigaci&oacute;n debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
         <form action="c_crearinv.php" method="post">
-            <label for="tituloCI">Titulo <span class="must">*</span>: </label><br>
+            <label for="tituloCI">Titulo:<span class="must">*</span> </label><br>
             <input class="textInput" name="invTituloCI" id="tituloCI" type="text"><br>
             
-            <label for="nombreCortoCI">Nombre Corto <span class="must">*</span>:</label><br>
+            <label for="nombreCortoCI">Nombre Corto:<span class="must">*</span></label><br>
             <input class="textInput" name="invNomCortoCI" id="nombreCortoCI" type="text"><br>
             
-            <label for="resumenCI">Resumen <span class="must">*</span>:</label><br>
+            <label for="resumenCI">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"></textarea><br>
             
-            <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd)<span class="must">*</span>:</label><br>
+            <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):<span class="must">*</span></label><br>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date"><br>
             
-            <label for="uniInvCI">Unidad de Investigaci&oacute;n<span class="must">*</span>:</label><br>
+            <label for="uniInvCI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label><br>
             <input class="textInput" name="uniInvCI" id="uniInvCI" type="text"><br>
 
             <h3><i>A continuaci&oacute;n, indica los detalles del investigador principal:</i></h3>
             <!--Agregar div-->
             <fieldset>
-            <legend>INVESTIGADOR PRINCIPAL</legend>
+            <legend>INVESTIGADOR PRINCIPAL<span class="must">*</span></legend>
             <div id="InvP">
                 <label for="nomInvPCI">Nombre<span class="must">*</span>:</label>
                 <input class="textInput" name="nomInvPCI" id="nomInvPCI" type="text"><br>
@@ -78,8 +78,8 @@
         
             <h3><i>A continuaci&oacute;n, ingresa los detalles del financiamiento:</i></h3>
             <fieldset id="financiamiento">
-                <legend>FINANCIAMIENTO</legend>
-                <h3>Existe</h3>
+                <legend>FINANCIAMIENTO<span class="must">*</span></legend>
+                <h3>Existe:<span class="must">*</span></h3>
                 <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()">
                 <label for="rSiExisteFCI">Si</label><br>
                 

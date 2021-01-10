@@ -35,35 +35,37 @@
             unset($_SESSION['success']);
         }
         ?>
-        <h3><i>Llena todos los campos para registrar la investigaci&oacute;n</i></h3>
+        <h3><i>Para registrar los cambios debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
         <form action="c_editarinv.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>" method="post">
             
-            <label>C&oacute;digo</label><span> <?php echo $codigo; ?></span> <br>
-
-            <label for="tituloCI">Titulo<span class="must">*</span>: </label>
+            <label for="code">C&oacute;digo:<span class="must">*</span> </label> 
+            <input class="textInput" name="code" id="code" type="text" disabled="disabled" value="<?php echo($codigo) ?>"><br>
+            
+            <label for="tituloCI">Titulo:<span class="must">*</span> </label>
             <input class="textInput" name="invTituloCI" id="tituloCI" type="text" value="<?php echo($titulo) ?>"><br>
             
-            <label for="nombreCortoCI">Nombre corto<span class="must">*</span>:</label>
+            <label for="nombreCortoCI">Nombre corto:<span class="must">*</span></label>
             <input class="textInput" name="invNomCortoCI" id="nombreCortoCI" type="text" value="<?php echo($nombre_corto) ?>"><br>
             
-            <label for="resumenCI">Resumen<span class="must">*</span>:</label><br>
+            <label for="resumenCI">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"><?php echo($resumen) ?></textarea><br>
             
-            <label>Fecha de Inicio</label><span> <?php echo $fecha_inicio; ?></span> <br>
+            <label for="fi">Fecha de Inicio:<span class="must">*</span></label>
+            <input class="textInput" name="fi" id="fi" type="text" disabled="disabled" value="<?php echo($fecha_inicio) ?>"><br>
             
-            <label for="fechaFinCI">Fecha de finalizaci&oacute;n<span class="must">*</span>:</label>
+            <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):<span class="must">*</span></label>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date" value="<?php echo($fecha_fin) ?>"><br>
             
-            <label for="uniInvCI">Unidad de Investigaci&oacute;n<span class="must">*</span>:</label>
+            <label for="uniInvCI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <input class="textInput" name="uniInvCI" id="uniInvCI" type="text" value="<?php echo($unidad) ?>"><br>
 
             <input type="hidden" name="inv_id" value="<?php echo $inv_id ?>">
             
             <h3><i>A continuaci&oacute;n, indica los detalles del investigador principal:</i></h3>
             <fieldset>
-                <legend>INVESTIGADOR PRINCIPAL</legend>
+                <legend>INVESTIGADOR PRINCIPAL<span class="must">*</span></legend>
                 <div id="InvP">
-                    <label for="nomInvPCI">Nombre<span class="must">*</span>:</label>
+                    <label for="nomInvPCI">Nombre:<span class="must">*</span></label>
                     <input type="hidden" name="pautor_id" value="<?php echo($pautor_id) ?>">
                     <input class="textInput"name="nomInvPCI" id="nomInvPCI" type="text" value="<?php echo($pnombre) ?>"><br>
                     
@@ -212,8 +214,8 @@
         ?>
             <h3><i>A continuaci&oacute;n, ingresa los detalles del financiamiento:</i></h3>
             <fieldset id="financiamiento">
-                <h3>Financiamiento</h3>
-                <h4>Existe</h4>
+                <legend>FINANCIAMIENTO<span class="must">*</span></legend>
+                <h4>Existe:<span class="must">*</span></h4>
                 <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()" <?php if($nombre_financiador !== 'No Existe'){
                     echo 'checked="checked"';
                 } ?>>

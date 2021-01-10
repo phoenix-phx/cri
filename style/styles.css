@@ -1,7 +1,6 @@
 body{
     font-family: Helvetica, Arial, sans-serif;
-    margin: 0px;
-      
+    margin: 0px;      
 }
 
 form input{
@@ -125,11 +124,13 @@ img{
     font-size:40px;
 
 }
-  .clearfix::after {
+
+.clearfix::after {
     content: "";
     clear: both;
     display: table;
-  }
+}
+
 .must{
     color: red;
 }

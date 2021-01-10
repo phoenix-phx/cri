@@ -36,18 +36,18 @@
                 unset($_SESSION['success']);
             }
             ?>
-            <h3><i>Llena todos los campos para registrar la publicaci&oacute;n</i></h3>
-            <label for="tituloCP"> Titulo: </label><br>
+            <h3><i>Para registrar la publicaci&oacute;n debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
+            <label for="tituloCP"> Titulo:<span class="must">*</span> </label><br>
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
-            <label for="resumenCP">Resumen:</label><br>
+            <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
 
-            <label for="uInvestigacion">Unidad de Investigaci&oacute;n:</label>
+            <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text"><br>
             
             <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label>
             <input class="textInput" name="invCP" id="invCP" type="text"><br>
-            <label for="tipoCP">Tipo publicaci&oacute;n:</label>
+            <label for="tipoCP">Tipo publicaci&oacute;n:<span class="must">*</span></label>
             <select name="tipoCP" id="tipoCP">
                 <option value="Ninguno">Ninguno</option>
                 <option value="Articulo">Articulo</option>
@@ -59,9 +59,9 @@
             </select>
             <h3><i>A continuaci&oacute;n, indica los detalles del autor principal</i></h3>
             <fieldset>
-            <legend>AUTOR PRINCIPAL</legend>
+            <legend>AUTOR PRINCIPAL<span class="must">*</span></legend>
                 <div id="InvP">
-                    <label for="nomInvPCP">Nombre:</label> 
+                    <label for="nomInvPCP">Nombre:<span class="must">*</span></label> 
                     <input class="textInput" name="nomInvPCP" id="nomInvPCP" type="text"><br>
                     <input name="rPUniCP" id="rPUniCP" type="radio" onclick="perteneceInvP()" value="interno"> 
                     <label for="rPUniCP">Pertenece a la Universidad Cat&oacute;lica Boliviana</label><br>

@@ -53,14 +53,15 @@
             unset($_SESSION['success']);
         }
         ?>
+        <p class="inst"><i>Para una operacion correcta debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></p><br>
         <form action="c_password.php?user_id=<?php echo($_REQUEST['user_id']) ?>" method="post" >
-            <label for="pass">Ingrese su contraseña actual: </label>
+            <label for="pass">Ingrese su contraseña actual:<span class="must">*</span></label>
             <input class="textInput" name="pass" id="pass" type="password"><br>
 
-            <label for="npass">Ingrese la nueva contraseña:</label>
+            <label for="npass">Ingrese la nueva contraseña:<span class="must">*</span></label>
             <input class="textInput" name="npass" id="npass" type="password"><br>
 
-            <label for="confir">Repita la nueva contraseña:</label>
+            <label for="confir">Repita la nueva contraseña:<span class="must">*</span></label>
             <input class="textInput" name="confir" id="confir" type="password"><br>
 
             <br><br>

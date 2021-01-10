@@ -36,10 +36,12 @@
         }
         ?>
         <form action="c_crearusuario.php" method="post" >
-            <label for="nombre">Nombre: </label>
+            <p class="inst"><i>Para una operacion correcta debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></p><br>
+
+            <label for="nombre">Nombre:<span class="must">*</span> </label>
             <input class="textInput" name="nombre" id="nombre" type="text"><br>
 
-            <label for="correo">Correo:</label>
+            <label for="correo">Correo:<span class="must">*</span></label>
             <input class="textInput" name="correo" id="correo" type="text"><br>
 
             <label for="celular">Celular:</label>
@@ -48,16 +50,16 @@
             <label for="telefono">Tel&eacute;fono:</label>
             <input class="textInput" name="telefono" id="telefono" type="text"><br>
             
-            <h3>Filiaci&oacute;n</h3>
+            <h3>Filiaci&oacute;n<span class="must">*</span></h3>
             <input type="radio" name="rbfiliacion" id="rbdocente" value="docente">
             <label for="rbdocente">Docente</label><br>
             <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante">
             <label for="rbestudiante">Estudiante</label><br>
             <input type="radio" name="rbfiliacion" id="rbadmin" value="administrativo">
             <label for="rbadmin">Administrativo</label><br>
-            <label for="tUnidadI">Unidad de Investigaci&oacute;n</label>
+            <label for="tUnidadI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI"><br>
-            <h4>Permisos</h4>
+            <h4>Permisos<span class="must">*</span></h4>
             <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador">
             <label for="rbinvestigador">Investigador</label><br>
             <input type="radio" name="rbpermisos" id="rbadminp" value="administrativo">

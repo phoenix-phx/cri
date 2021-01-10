@@ -37,23 +37,26 @@
             unset($_SESSION['success']);
         }
         ?>
-        <h3><i>Llena todos los campos para registrar la publicaci&oacute;n</i></h3>
-        C&oacute;digo: <?php echo $codigo; ?> <br>
 
-        <label for="tituloCP">Titulo:</label>
+        <h3><i>Para registrar los cambios debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
+
+        <label for="code">C&oacute;digo:<span class="must">*</span></label>
+        <input class="textInput" name="code" id="code" type="text" disabled="disabled" value="<?php echo($codigo) ?>"><br>
+
+        <label for="tituloCP">Titulo:<span class="must">*</span></label>
         <input class="textInput" name="tituloCP" id="tituloCP" type="text" value="<?php echo($titulo) ?>"><br>
 
-        <label for="resumenCP">Resumen:</label><br>
+        <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
         <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
 
-        <label for="uInvestigacion">Unidad de Investigaci&oacute;n:</label>
+        <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
         <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text" value="<?php echo($ui) ?>"><br>
 
-        <label for="invCP">Investigaci&oacute;n asociada:</label><br> 
+        <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label><br> 
         <input class="textInput" name="invCP" id="invCP" type="text" <?php if($investigacion !== null) {echo 'value="'.$nombreInv.'"';}?>><br>
         <?php // TODO: procesar select si existe ?>
 
-        <label for="tipoCP">Tipo publicaci&oacute;n:</label>
+        <label for="tipoCP">Tipo publicaci&oacute;n:<span class="must">*</span></label>
         <select name="tipoCP" id="tipoCP">
             <option value="Ninguno">Ninguno</option>
             <option value="Articulo" <?php if($tipo === 'Articulo') echo 'selected="selected"'; ?>>Articulo</option>
@@ -65,7 +68,7 @@
         </select>
         <h3><i>A continuaci&oacute;n, indica los detalles del autor principal</i></h3>
         <fieldset>
-        <legend>AUTOR PRINCIPAL</legend>
+        <legend>AUTOR PRINCIPAL<span class="must">*</span></legend>
         <div id="InvP">
             <input type="hidden" name="pautor_id" value="<?php echo($pautor_id) ?>">
 

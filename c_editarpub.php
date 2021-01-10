@@ -219,6 +219,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     if(strlen($_POST['invCP']) > 1){
         $newPub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
     }
+    //else: set null 
 
     // autor principal
     if($_POST['rPUniCP'] === 'interno'){

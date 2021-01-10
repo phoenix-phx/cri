@@ -35,11 +35,12 @@
         }
         ?>
         <form action="c_editarusuario.php?user_id=<?php echo($_REQUEST['user_id']) ?>" method="post" >
+            <p class="inst"><i>Para una operacion correcta debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></p>
             <h3>Datos Generales</h3>
-            <label for="nombre">Nombre: </label>
+            <label for="nombre"> Nombre:<span class="must">*</span></label>
             <input class="textInput" name="nombre" id="nombre" type="text" value="<?php echo($nombre) ?>"><br>
 
-            <label for="correo">Correo:</label>
+            <label for="correo">Correo:<span class="must">*</span></label>
             <input class="textInput" name="correo" id="correo" type="text" value="<?php echo($correo) ?>"><br>
 
             <label for="celular">Celular:</label>
@@ -58,16 +59,16 @@
                 <br>';
             }
             ?>
-            <h3>Filiaci&oacute;n</h3>
+            <h3>Filiaci&oacute;n<span class="must">*</span></h3>
             <input type="radio" name="rbfiliacion" id="rbdocente" value="docente" <?php if($filiacion === 'docente') echo 'checked="checked"'; ?>>
             <label for="rbdocente">Docente</label><br>
             <input type="radio" name="rbfiliacion" id="rbestudiante" value="estudiante" <?php if($filiacion === 'estudiante') echo 'checked="checked"'; ?>>
             <label for="rbestudiante">Estudiante</label><br>
             <input type="radio" name="rbfiliacion" id="rbadmin" value="administrativo" <?php if($filiacion === 'administrativo') echo 'checked="checked"'; ?>>
             <label for="rbadmin">Administrativo</label><br>
-            <label for="tUnidadI">Unidad de Investigaci&oacute;n</label>
+            <label for="tUnidadI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI" value="<?php echo($unidad_investigacion) ?>"><br>
-            <h3>Permisos</h3>
+            <h3>Permisos<span class="must">*</span></h3>
             <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador" <?php if($rol === 'investigador') echo 'checked="checked"'; ?>>
             <label for="rbinvestigador" >Investigador</label><br>
             <input type="radio" name="rbpermisos" id="rbadminp" value="administrativo" <?php if($rol === 'administrativo') echo 'checked="checked"'; ?>>
