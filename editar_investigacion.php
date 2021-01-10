@@ -83,14 +83,14 @@
                     <?php 
                     if($tipo_filiacion === 'externo'){
                         echo '<div id="divi">';
-                        echo "Universidad";
+                        echo "Universidad:<span class='must'>*</span>";
                         echo "<br>";
                         echo '<input class="stextInput" id="uniIPCI" name="uniIPCI" type="text" value="'. $universidad . '">';
                         echo "</div>";
                     }
                     else if($tipo_filiacion === 'interno'){
                         echo '<div id="divi">';
-                        echo "Unidad de Investigaci&oacute;n";
+                        echo "Unidad de Investigaci&oacute;n:<span class='must'>*</span>";
                         echo "<br>";
                         echo '<input class="stextInput" id="uniInvPCI" name="uniInvPCI" type="text" value="'. $unidad_investigacion . '">';
                         echo "<br>";
@@ -155,7 +155,7 @@
                 if(count($investigadores) !== 0){
                     for ($i=0; $i < count($investigadores); $i++) {
                         echo '<div id="dICI' . ($i) . '">
-                                Nombre <input class="stextInput" name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
+                                Nombre:<span class="must">*</span> <input class="stextInput" name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
                                 <button id="bICI' .  ($i) . '" class="button" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
@@ -163,7 +163,7 @@
                                 <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
                                 Pertenece a otra Universidad<br>
                                 <div id="divi' . ($i) . '">
-                                Unidad de Investigaci&oacute;n<br>
+                                Unidad de Investigaci&oacute;n:<span class="must">*</span><br>
                                 <input class="stextInput" name="uniInvSCI' . ($i) . '" id="uniInvSCI' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>
                                 Filiaci&oacute;n<br>';
 
@@ -201,7 +201,7 @@
                                 <input name="rPUniCI' . ($i) . '" id="rOUniCI' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" checked>
                                 Pertenece a otra Universidad<br>
                                 <div id="divi' . ($i) . '">
-                                Universidad<br>
+                                Universidad:<span class="must">*</span><br>
                                 <input class="stextInput" name="uniISCI' . ($i) . '" id="uniISCI' . ($i) . '" value="' . ($investigadores[$i]['universidad']) . '" type="text" >';
                             echo '</div>';
                         }
@@ -252,7 +252,7 @@
                     echo "<br>";
                     if($tipo_financiador == 'externo'){
                         echo '<div id="nomFin">';
-                        echo 'Nombre Financiador';
+                        echo 'Nombre Financiador:<span class="must">*</span>';
                         echo '<input class="stextInput" id="nombreFinanciador" name="nombreFinanciador" type="text" value="' . $nombre_financiador . '">';
                         echo "</div>";
                         echo '<br>';
@@ -266,7 +266,7 @@
                         echo "Monetario";
                         echo "<br>";
                         echo '<div id="montFin">';
-                        echo 'Monto';
+                        echo 'Monto:<span class="must">*</span>';
                         echo '<input class="xstextInput" id="monto" name="monto" type="text" value="' . $monto . '">';
                         echo "</div>";
                     }

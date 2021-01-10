@@ -9,13 +9,14 @@
     <div style="height:50px;"></div>
     <div align="center"><img src="imagenes/LogoU_nombre.png" ></div>
     <h1 align="center">Ingreso al Sistema para Investigadores</h1>
+    
+    <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3><br>
     <?php
     if (isset($_SESSION['error'])) {
-        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+        echo ('<div align="center" style="color:red;">'.htmlentities($_SESSION['error'])."</div><br>\n");
         unset($_SESSION['error']);
     }
     ?>
-    <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3><br>
     <div align="center">
         <div align="center" class="container" style="width:380px;height:230px;" >
             <form action="c_acceso.php?modo=investigador" method="POST">

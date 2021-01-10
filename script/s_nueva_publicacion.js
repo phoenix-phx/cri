@@ -8,6 +8,10 @@ function perteneceInvP(){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi";
     divi.appendChild(document.createTextNode("Unidad de Investigación"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniInvPCP"; txtInp.name = "uniInvPCP"; txtInp.type = "text"; txtInp.className="stextInput";
@@ -42,6 +46,10 @@ function noPerteneceInvP(){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi";
     divi.appendChild(document.createTextNode("Universidad"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniIPCP"; txtInp.name = "uniIPCP"; txtInp.type = "text"; txtInp.className="stextInput";
@@ -56,6 +64,10 @@ function addItemInv(){
     ndivi.setAttribute('id',"dICP" + i);
     //Nombre
     ndivi.appendChild(document.createTextNode("Nombre"));
+    ndivi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    ndivi.appendChild(aux);
     inp = ndivi.appendChild(document.createElement("input"));
     inp.name = "nomInvSCP" + i; inp.id = "nomInvSCP" + i; inp.type = "text"; inp.className="stextInput";
     inp = ndivi.appendChild(document.createElement("button"));
@@ -166,6 +178,10 @@ function Select(index){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi" + index;
     divi.appendChild(document.createTextNode("Unidad de Investigación"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniInvSCP" + index; txtInp.name = "uniInvSCP" + index; txtInp.type = "text" + index; txtInp.className="stextInput";
@@ -199,6 +215,10 @@ function noSelect(index){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi" + index;
     divi.appendChild(document.createTextNode("Universidad"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniISCP" + index; txtInp.name = "uniISCP" + index; txtInp.type = "text"; txtInp.className="stextInput";

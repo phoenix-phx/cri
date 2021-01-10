@@ -32,9 +32,11 @@
         <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
         <div style="padding-top:30px;padding-bottom:30px">
             <button class="button aRight" onclick="document.location='historial_investigacion.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>'">Ver Historial de Investigaci&oacute;n</button>
+            <!-- <cambios -->
+            <button class="button aRight" style="margin-right:20px;">Reabrir Investigaci&oacute;n</button>
         </div>
     </div>
-    <br><br><br>
+    <br>
 
     <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
         <?php include "c_vistainvestigacion.php"?>

@@ -72,7 +72,7 @@
         <div id="InvP">
             <input type="hidden" name="pautor_id" value="<?php echo($pautor_id) ?>">
 
-            <label for="nomInvPCP">Nombre:</label><br>
+            <label for="nomInvPCP">Nombre:<span class="must">*</span></label><br>
             <input class="textInput" name="nomInvPCP" id="nomInvPCP" type="text" value="<?php echo($pnombre) ?>"><br>
 
             <input name="rPUniCP" id="rPUniCP" type="radio" onclick="perteneceInvP()" value="interno" <?php if($tipo_filiacion === 'interno') echo 'checked="checked"'; ?>> 
@@ -82,14 +82,14 @@
             <?php 
             if($tipo_filiacion === 'externo'){
                 echo '<div id="divi">';
-                echo '<label for="uniIPCP"> Universidad </label>';
+                echo '<label for="uniIPCP"> Universidad:<span class="must">*</span></label>';
                 echo "<br>";
                 echo '<input class="stextInput" id="uniIPCP" name="uniIPCP" type="text" value="'. $universidad . '">';
                 echo "</div>";
             }
             else if($tipo_filiacion === 'interno'){
                 echo '<div id="divi">';
-                echo '<label for="uniInvPCP"> Unidad de Investigaci&oacute;n </label>';
+                echo '<label for="uniInvPCP"> Unidad de Investigaci&oacute;n:<span class="must">*</span></label>';
                 echo "<br>";
                 echo '<input class="stextInput" id="uniInvPCP" name="uniInvPCP" type="text" value="'. $unidad_investigacion . '">';
                 echo "<br>";
@@ -150,7 +150,7 @@
                 if(count($investigadores) !== 0){
                     for ($i=0; $i < count($investigadores); $i++) {
                         echo '<div id="dICP' . ($i) . '">
-                                Nombre <input class="stextInput" name="nomInvSCP' . ($i) . '" id="nomInvSCP' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
+                                Nombre:<span class="must">*</span><input class="stextInput" name="nomInvSCP' . ($i) . '" id="nomInvSCP' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
                                 <button class="button" id="bICP' .  ($i) . '" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCP' . ($i) . '" id="rPUniCP' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
@@ -158,7 +158,7 @@
                                   <input name="rPUniCP' . ($i) . '" id="rOUniCP' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
                                   Pertenece a otra Universidad<br>
                                   <div id="divi' . ($i) . '">
-                                  Unidad de Investigaci&oacute;n<br>
+                                  Unidad de Investigaci&oacute;n:<span class="must">*</span><br>
                                   <input class="stextInput" name="uniInvSCP' . ($i) . '" id="uniInvSCP' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>';
                             if($investigadores[$i]['filiacion'] == 'docente'){   
                                 echo '<input name="rFiliacionISCP' . ($i) . '" id="rDocenteCP' . ($i) . '" type="radio" value="docente" checked>
@@ -194,7 +194,7 @@
                                   <input name="rPUniCP' . ($i) . '" id="rOUniCP' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" checked>
                                   Pertenece a otra Universidad<br>
                                   <div id="divi' . ($i) . '">
-                                  Universidad<br>
+                                  Universidad:<span class="must">*</span><br>
                                   <input class="stextInput" name="uniISCP' . ($i) . '" id="uniISCP' . ($i) . '" value="' . ($investigadores[$i]['universidad']) . '" type="text" >';
                             echo '</div>';
                         }

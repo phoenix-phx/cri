@@ -32,10 +32,12 @@
         <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
         <div style="padding-top:30px;padding-bottom:30px">
             <button class="button aRight" onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
-            <button class="button aRight" style="margin-right:20px;"  onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Documento Final</button>
+            <button class="button aRight" style="margin-right:20px;" onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Documento Final</button>
+            <!-- cambios -->
+            <button class="button aRight" style="margin-right:20px;"> Cerrar Publicaci&oacute;n</button>
         </div>
     </div>
-    <br><br><br>
+    <br>
     <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
     <?php
     if (isset($_SESSION['error'])) {

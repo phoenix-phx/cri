@@ -36,25 +36,21 @@
             <a href="home_administrativo.php" class="aLeft textIblue">
                 Unidad de Investigaci&oacute;n UCB
             </a>
-            <a class="aRight textIblue">
+            <a class="aRight textIblue" href="admin_editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">
                 <?php 
-                    //session_start();
                     echo $_SESSION['nombre'];
                 ?>
             </a>
         </div>
     </div>
     <!-- left nav bar -->
-    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:relative;height:650px;">
+    <div class="aLeft" style="background-color:#fff9e6;width:200px;position:relative;height:680px;">
         <nav class="fHeight">
             <ul>
             <li><a href="listaInv_admin.php">Investigaciones</a></li>
             <li><a href="listaPub_admin.php">Publicaciones</a></li>
-            <li><a href="nuevo_usuario.php">Usuarios</a></li>
-            <li><a href="">Notificaciones</a></li>
-            <li><a href="admin_editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">Editar Usuario</a></li>
+            <li><a href="buscar_usuario.php">Usuarios</a></li>
             <li><a href="c_logout.php">Logout</a></li>
-            <!-- Agregar notifiaciones -->
             </ul>
         </nav>
     </div>
@@ -62,11 +58,11 @@
     <div style="padding-left:300px;padding-right:200px;">
         <?php
         if (isset($_SESSION['error'])) {
-            echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
+            echo ('<br><div align="center" style="color:red;">'.htmlentities($_SESSION['error'])."</div>\n");
             unset($_SESSION['error']);
         }
         if (isset($_SESSION['success'])) {
-            echo ('<p style="color:green;">'.htmlentities($_SESSION['success'])."</p>\n");
+            echo ('<br><div align="center" style="color:green;">'.htmlentities($_SESSION['success'])."</div>\n");
             unset($_SESSION['success']);
         }
         ?>    

@@ -34,10 +34,10 @@
             <?php $cad = $_REQUEST['inv_id'] ?>
             <button class="button aRight" onclick="document.location='editar_investigacion.php?inv_id=<?php echo $cad ?>'">Editar</button>
             <?php  $cad = 'cerrar_confirmacion.php?inv_id='.$_REQUEST['inv_id']?>
-            <button class="button aRight" style="margin-right:20px;" onclick="document.location='<?php echo $cad; ?>'">Cerrar</button>
+            <button class="button aRight" style="margin-right:20px;" onclick="document.location='<?php echo $cad; ?>'">Cerrar Investigaci&oacute;n</button>
         </div>
     </div>
-    <br><br><br>
+    <br>
     <!-- Detalles -->
     <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
         <?php

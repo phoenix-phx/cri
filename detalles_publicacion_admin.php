@@ -29,13 +29,16 @@
     </div>
         
     <div style="padding-left:5%;padding-right:5%;" >
-        <h1 class="aLeft" style="font-size:50px;">Detalles</h1>
-        <div style="padding-top:40px;padding-bottom:30px">
+        <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
+        <div style="padding-top:30px;padding-bottom:30px">
             <button class="button aRight" onclick="document.location='historial_publicacion.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>'">Ver Historial de Publicaci&oacute;n</button>
+            <!-- cambios -->
+            <button class="button aRight" style="margin-right:20px;"> Reabrir Publicaci&oacute;n </button>
+            <button class="button aRight" style="margin-right:20px;"> Revisar Documento Final</button>
         </div>    
     </div>
-        <br><br><br><br>
-        <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
+    <br>
+    <div style="padding-left:5%;padding-right:5%;font-size:17px;" align="left">
     <?php include "c_vistapublicacion.php"?>
     </div>
 </body>

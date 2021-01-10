@@ -9,6 +9,10 @@ function perteneceInvP(){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi";
     divi.appendChild(document.createTextNode("Unidad de Investigación"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI"; txtInp.type = "text"; txtInp.className = "stextInput"; 
@@ -42,6 +46,10 @@ function noPerteneceInvP(){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi";
     divi.appendChild(document.createTextNode("Universidad"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniIPCI"; txtInp.name = "uniIPCI"; txtInp.type = "text";  txtInp.className="stextInput";
@@ -59,6 +67,11 @@ function addItemInv(){
     ndivi.setAttribute('id',"dICI" + i);
     //Nombre
     ndivi.appendChild(document.createTextNode("Nombre"));
+    ndivi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    ndivi.appendChild(aux);
+    ndivi.appendChild(document.createElement("br"));
     let inp = ndivi.appendChild(document.createElement("input"));
     inp.name = "nomInvSCI" + i; inp.id = "nomInvSCI" + i; inp.type = "text";  inp.className="stextInput"
     inp = ndivi.appendChild(document.createElement("button"));
@@ -169,6 +182,10 @@ function Select(index){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi" + index;
     divi.appendChild(document.createTextNode("Unidad de Investigación"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniInvSCI" + index; txtInp.name = "uniInvSCI" + index; txtInp.type = "text" + index; txtInp.className="stextInput";
@@ -202,6 +219,10 @@ function noSelect(index){
     divi = radio.appendChild(document.createElement("div"));
     divi.id = "divi" + index;
     divi.appendChild(document.createTextNode("Universidad"));
+    divi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("input");
     txtInp.id = "uniISCI" + index; txtInp.name = "uniISCI" + index; txtInp.type = "text"; txtInp.className="stextInput";
@@ -216,6 +237,10 @@ function addItemAct(){
     let ndivi = document.createElement("div");
     ndivi.setAttribute('id',"dA" + actividad);
     ndivi.appendChild(document.createTextNode("Nombre"));
+    ndivi.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    ndivi.appendChild(aux);
     let inp = ndivi.appendChild(document.createElement("input"));
     inp.name = "nomActCI" + actividad; inp.id = "nomActCI" + actividad; inp.type = "text"; inp.className="stextInput";
     inp = ndivi.appendChild(document.createElement("button"));
@@ -225,10 +250,18 @@ function addItemAct(){
     inp.onclick = function() {removeItemAct(lul)};
     ndivi.appendChild(document.createElement("br"));
     ndivi.appendChild(document.createTextNode("Fecha inicio"));
+    ndivi.appendChild(document.createTextNode(":"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    ndivi.appendChild(aux);
     inp = ndivi.appendChild(document.createElement("input"));
     inp.name = "FIActCI" + actividad; inp.id = "FIActCI" + actividad; inp.type = "date"; inp.className="xstextInput";
     ndivi.appendChild(document.createElement("br"));
     ndivi.appendChild(document.createTextNode("Fecha final"));
+    ndivi.appendChild(document.createTextNode(":"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    ndivi.appendChild(aux);
     inp = ndivi.appendChild(document.createElement("input"));
     inp.name = "FFActCI" + actividad; inp.id = "FFActCI" + actividad; inp.type = "date"; inp.className="xstextInput";
     dlist.appendChild(ndivi);
@@ -316,7 +349,10 @@ function tipoExtern(){
     d.id = "nomFin";
     fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling);
     d.appendChild(document.createElement("br"));
-    d.appendChild(document.createTextNode("Nombre Financiador"));
+    d.appendChild(document.createTextNode("Nombre Financiador:"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    d.appendChild(aux);
     let inp = document.createElement("input");
     inp.name = "nombreFinanciador"; inp.id = "nombreFinanciador"; inp.type = "text"; 
     inp.className="xstextInput";
@@ -335,7 +371,10 @@ function tipoMont(){
     d.id = "montFin";
     fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling);
     d.appendChild(document.createElement("br"));
-    d.appendChild(document.createTextNode("Monto"));
+    d.appendChild(document.createTextNode("Monto:"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    d.appendChild(aux);
     let inp = document.createElement("input");
     inp.name = "monto"; inp.id = "monto"; inp.type = "text"; inp.className="xstextInput";
     d.appendChild(inp);

@@ -9,13 +9,14 @@
     <div style="height:50px;"></div>
     <div align="center"><img src="imagenes/LogoU_nombre.png" ></div>
     <h1 align="center">Ingreso al Sistema para Administrativos</h1>
-    <?php
-    if (isset($_SESSION['error'])) {
-        echo ('<p style="color:red;">'.htmlentities($_SESSION['error'])."</p>\n");
-        unset($_SESSION['error']);
-    }
-    ?>
+    
     <h3 align="center">Coloca tu usuario y contrase&ntilde;a para poder ingresar</h3><br>
+    <?php
+        if (isset($_SESSION['error'])) {
+            echo ('<div align="center" style="color:red;">'.htmlentities($_SESSION['error'])."</div><br>\n");
+            unset($_SESSION['error']);
+        }
+        ?>
     <div align="center">
         <div align="center" class="container" style="width:380px;height:230px;" >
             <form action="c_acceso.php?modo=administrativo" method="POST">
@@ -29,6 +30,7 @@
         </div>
         <br>
         <a style="color:blue;" href="login_investigador.php?modo=investigador">Ingreso investigadores</a>
+        
     </div>
 </body>
 </html>
