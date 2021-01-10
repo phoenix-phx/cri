@@ -4,6 +4,11 @@
     <title>Cronograma</title>
     <link rel="stylesheet" href="style/styles.css">
     <?php session_start(); ?>
+    <style>
+        body{
+            line-height:150%; 
+        }
+    </style>
 </head>
 <body> 
     <!-- header -->

@@ -69,9 +69,6 @@
     ?>  
     <?php include "c_homeinv.php";
     ?>  
-    
-    <!-- hacer que los divs sean links -->
-    <!-- arreglar cuando no hay publicaciones pero si investigaciones -->
-         
+        
 </body>
 </html>
