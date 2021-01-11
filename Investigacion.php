@@ -139,7 +139,7 @@ class Investigacion{
 		$sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
 	            FROM investigacion
 	            WHERE idUsuario = :id
-	            AND estado = :st';  // que pasara con las investigaciones terminadas??
+	            AND estado = :st';
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	       ':id' => $user_id,
