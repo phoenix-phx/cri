@@ -68,6 +68,33 @@ class Notificacion{
 			// write code here...
 		}		
 	}
+
+	public function cierreInv($addresses, $nombre_investigacion, $investigador){
+		foreach ($addresses as $index => $destiny) {
+			// informar el cierre de una investigacion
+			// $index es el indice del array
+			// $destiny es el destinatario del correo
+			// write code here...
+		}		
+	}
+
+	public function documentoFinalPub($addresses, $nombre_publicacion, $investigador){
+		foreach ($addresses as $index => $destiny) {
+			// informar la entrega del doc final de una publicacion
+			// $index es el indice del array
+			// $destiny es el destinatario del correo
+			// write code here...
+		}		
+	}
+
+	public function cierrePub($addresses, $nombre_publicacion, $investigador){
+		foreach ($addresses as $index => $destiny) {
+			// informar el cierre de una publicacion
+			// $index es el indice del array
+			// $destiny es el destinatario del correo
+			// write code here...
+		}		
+	}
 }
 ?>
 
