@@ -16,6 +16,8 @@ class Publicacion{
 	protected $NombreInv;
 	protected $CodigoInv;
 
+	protected $idUsuario;
+
 	public function setId($id){
 		$this->id = $id;
 	}
@@ -30,6 +32,14 @@ class Publicacion{
 
 	public function getIdInv(){
 		return $this->idInv;
+	}
+
+	public function setIdUsuario($id){
+		$this->idUsuario = $id;
+	}
+
+	public function getIdUsuario(){
+		return $this->idUsuario;
 	}
 
 	public function setNombreInv($id){
@@ -331,6 +341,7 @@ class Publicacion{
 			$this->setUnidadInvestigacion($row['unidad_investigacion']);
 			$this->setEstado($row['estado']);
 			$this->setId($row['idInv']);
+			$this->setIdUsuario($row['idUsuario']);
 			$this->setIdInv($row['idInv']);
 			if($row['idInv'] !== null){
 				$inv = new Investigacion();
@@ -485,14 +496,15 @@ class Publicacion{
 	    return $numero;
 	}  
 
-	public function subirEntrega($pub_id, $name, $type, $data, $pdo){
-		$sql = "INSERT INTO documento (idPub, nombre, tipo, doc)
-                VALUES (?, ?, ?, ?)";
+	public function subirEntrega($pub_id, $name, $type, $data, $desc, $pdo){
+		$sql = "INSERT INTO documento (idPub, nombre, tipo, doc, descripcion)
+                VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(1, $pub_id);
         $stmt->bindParam(2, $name);
         $stmt->bindParam(3, $type);
        	$stmt->bindParam(4, $data);
+       	$stmt->bindParam(5, $desc);
         $stmt->execute();
 	}  
 
@@ -534,6 +546,16 @@ class Publicacion{
 		    ':id' => $user_id,
 		    ':pub' => $pub_id
 		));
+	}  
+
+	public function sendFeedback($pub_id, $feed, $pdo){
+		$sql = 'UPDATE documento 
+        		SET feedback = ?
+        		WHERE idPub = ?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $feed);
+        $stmt->bindParam(2, $pub_id);
+        $stmt->execute();
 	}  
 }
 ?>

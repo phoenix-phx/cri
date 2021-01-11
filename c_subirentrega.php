@@ -39,7 +39,7 @@ if(isset($_POST['descripcionEnvio'])){
         $data = file_get_contents($_FILES['archivoEntregaF']['tmp_name']);
         $size = $_FILES['archivoEntregaF']['size'];
         
-        $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $pdo);
+        $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $_POST['descripcionEnvio'] ,$pdo);
 
         $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
 

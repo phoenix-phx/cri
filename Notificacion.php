@@ -145,6 +145,10 @@ class Notificacion{
 			}	
 		}
 	}
+
+	public function revisionCompleta($address){
+		// address es la direccion del investigador cuya publicacion fue revisada
+	}
 }
 ?>
 

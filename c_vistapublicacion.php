@@ -99,7 +99,17 @@ if($_SESSION['permisos'] === 'investigador'){
     else{
         $doc = $pub->loadDoc($_REQUEST['pub_id'], $pdo);
         echo '<a target="_blank" href="view.php?pub_id='.$_REQUEST['pub_id'].'">'.$doc['nombre'].'</a>';
+
+        echo "<p><b>REVISIÓN</b></p>";
+        echo '<div role="fila" id="feedback">';
+        if(strlen($doc['feedback']) === 0){
+            echo '<span>No se ha registrado la retroalimentaci&oacute;n del documento </span>';
+        }
+        else{
+            echo '<span>'.$doc['feedback'].'</span>';
+        }
     }
+    
     echo "</div>";
 }
 else if($_SESSION['permisos'] === 'administrativo'){
@@ -134,6 +144,10 @@ else if($_SESSION['permisos'] === 'administrativo'){
     // cargar autores externos
     $externos = $pub->loadAutorExterno($pdo, $_REQUEST['pub_id']);
 
+    // documento
+    $estado = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
+    
+    /*
     //datos generales
     echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
@@ -183,5 +197,6 @@ else if($_SESSION['permisos'] === 'administrativo'){
     }
 
     echo "</div>";
+    */
 }
 ?>
