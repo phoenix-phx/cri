@@ -22,6 +22,7 @@ class Notificacion{
 
 	// methods go here
 	public function nuevoUsuario($addresses, $user){
+		// cambiar el correo y contraseña
 		$mail = new PHPMailer(true);
 		$mail->SMTPDebug = 1;
 		$mail->isSMTP();
@@ -40,7 +41,7 @@ class Notificacion{
 					$mail->Body    = '<div align="center"><h1>Se creo un nuevo Usuario</h1></div>
 									 <b>Usuario: </b> ' . $user . '<br>
 									 <b>Contrase&ntilde;a: </b> ' . $user . '<br> Se recomienda cambiar su contrase&ntilde;a
-									 lo mas antes posible';
+									 lo mas antes posible.';
 					$mail->send();
 					echo 'Message has been sent';
 				} catch (Exception $e) {
@@ -49,7 +50,7 @@ class Notificacion{
 			}
 			else{
 				try {
-					$mail->setFrom('gamma385438@gmail.com', 'Gamma Epsilon');
+					$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 					$mail->addAddress($destiny);
 					$mail->isHTML(true);
 					$mail->Subject = 'Se creo un nuevo Usuario';
@@ -57,43 +58,92 @@ class Notificacion{
 										'<b>Usuario: </b>' . $user . '<br>\n' .
 										'<b>Contrase&ntilde;a: </b>' . $user . '<br>\n';
 					$mail->send();
-					echo 'Message has been sent';
 				} catch (Exception $e) {
 					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 				}
 			}
-			// funcionamiento comprobado
-			// $index es el indice del array
-			// $destiny es el destinatario del correo
-			// write code here...
 		}		
 	}
 
 	public function cierreInv($addresses, $nombre_investigacion, $investigador){
-		foreach ($addresses as $index => $destiny) {
-			// informar el cierre de una investigacion
-			// $index es el indice del array
-			// $destiny es el destinatario del correo
-			// write code here...
-		}		
-	}
-
-	public function documentoFinalPub($addresses, $nombre_publicacion, $investigador){
-		foreach ($addresses as $index => $destiny) {
-			// informar la entrega del doc final de una publicacion
-			// $index es el indice del array
-			// $destiny es el destinatario del correo
-			// write code here...
-		}		
+		// cambiar el correo y contraseña
+		$mail = new PHPMailer(true);
+		$mail->SMTPDebug = 1;
+		$mail->isSMTP();
+		$mail->Host       = 'smtp.gmail.com';
+		$mail->SMTPAuth   = true;
+		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Password   = 'password123A';
+		$mail->SMTPSecure = 'tls';
+		foreach ($addresses as $index => $destiny) {			
+			try {
+				
+				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigación UCB');
+				$mail->addAddress($destiny);
+				$mail->isHTML(true);
+				$mail->Subject = 'Se cerro una Investigaci&oacute;n';
+				$mail->Body    = 'Se acaba de confirmar el cierre de la Investigaci&oacute;n:<b>' . $nombre_investigacion . 
+								 '</b> por el usuario <b>' . $investigador . 
+								 '</b><br>Si desea deshacer esta accion Dirigirse a los detalles de la Investigaci&oacute;n.';
+				$mail->send();
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}	
+		}
 	}
 
 	public function cierrePub($addresses, $nombre_publicacion, $investigador){
-		foreach ($addresses as $index => $destiny) {
-			// informar el cierre de una publicacion
-			// $index es el indice del array
-			// $destiny es el destinatario del correo
-			// write code here...
-		}		
+		// cambiar el correo y contraseña
+		$mail = new PHPMailer(true);
+		$mail->SMTPDebug = 1;
+		$mail->isSMTP();
+		$mail->Host       = 'smtp.gmail.com';
+		$mail->SMTPAuth   = true;
+		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Password   = 'password123A';
+		$mail->SMTPSecure = 'tls';
+		foreach ($addresses as $index => $destiny) {			
+			try {
+				
+				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigación UCB');
+				$mail->addAddress($destiny);
+				$mail->isHTML(true);
+				$mail->Subject = 'Se cerro una Publicaci&oacute;';
+				$mail->Body    = 'Se acaba de confirmar el cierre de la Publicaci&oacute;n:<b>:' . $nombre_investigacion . 
+								 '</b> por el usuario: <b>' . $investigador . 
+								 '</b><br>Si desea deshacer esta accion Dirigirse a los detalles de la Publicaci&oacute;n.';
+				$mail->send();
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}	
+		}
+	}
+
+	public function documentoFinalPub($addresses, $nombre_publicacion, $investigador){
+		// cambiar el correo y contraseña
+		$mail = new PHPMailer(true);
+		$mail->SMTPDebug = 1;
+		$mail->isSMTP();
+		$mail->Host       = 'smtp.gmail.com';
+		$mail->SMTPAuth   = true;
+		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Password   = 'password123A';
+		$mail->SMTPSecure = 'tls';
+		foreach ($addresses as $index => $destiny) {			
+			try {
+				
+				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigación UCB');
+				$mail->addAddress($destiny);
+				$mail->isHTML(true);
+				$mail->Subject = 'Se subio el documento final';
+				$mail->Body    = 'Se acaba de subir el documento final de la Publicaci&oacute;n:<b>' . $nombre_publicacion . 
+								 '</b> por el Usuario: <b>' . $investigador . 
+								 '</b><br>Si desea revisar el documento dirijase a los detalles de la Publicaci&oacute;n.';
+				$mail->send();
+			} catch (Exception $e) {
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			}	
+		}
 	}
 }
 ?>
