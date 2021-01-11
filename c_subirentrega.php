@@ -2,6 +2,8 @@
 session_start();
 require_once "c_pdo.php";
 require_once "Publicacion.php";
+require_once "Notificacion.php";
+require_once "Usuario.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     die('No ha iniciado sesion');
@@ -38,6 +40,21 @@ if(isset($_POST['descripcionEnvio'])){
         $size = $_FILES['archivoEntregaF']['size'];
         
         $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $pdo);
+
+        $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
+
+        $us = new Usuario();
+        $us->loadDetalles($_SESSION['idUsuario'], $pdo);
+        $admins = $us->searchAdminEmails($pdo);
+        if(count($admins) !== 0){
+            for ($i=0; $i < count($admins); $i++) { 
+                $mails[] = $admins[$i]['correo'];
+            }    
+        }
+
+        $notify = new Notificacion();
+        $notify->documentoFinalPub($mails, $pub->getTitulo(), $us->getNombre());
+
         $_SESSION["success"] = 'documento subido correctamente!';
         header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
         return;
