@@ -16,12 +16,22 @@ class Investigacion{
 	protected $estado;
 	protected $id;
 
+	protected $idUsuario;
+
 	public function setId($id){
 		$this->id = $id;
 	}
 
 	public function getId(){
 		return $this->id;
+	}
+
+	public function setIdUsuario($id){
+		$this->idUsuario = $id;
+	}
+
+	public function getIdUsuario(){
+		return $this->idUsuario;
 	}
 
 	public function setCodigo($codigo){
@@ -241,6 +251,7 @@ class Investigacion{
 			$this->setFechaFinal($row['fecha_fin']);
 			$this->setEstado($row['estado']);
 			$this->setId($row['idInv']);
+			$this->setIdUsuario($row['idUsuario']);
 			return true;
 		}
 	}

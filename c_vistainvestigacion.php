@@ -143,6 +143,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $finicio = htmlentities($inv->getFechaInicio());
     $ffinal = htmlentities($inv->getFechaFinal());
     $est = htmlentities($inv->getEstado());
+    $idI = htmlentities($inv->getIdUsuario());
 
     // cargar autor principal
     $principal = $inv->loadAutorPrincipal($pdo, $_REQUEST['inv_id']);

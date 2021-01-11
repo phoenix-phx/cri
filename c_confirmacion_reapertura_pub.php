@@ -18,7 +18,7 @@ if( !isset($_REQUEST['pub_id'])) {
 $pub = new Publicacion();
 $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'administrativo', $pdo);
 $pub->setEstado('en curso');
-$pub->cerrarPub($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
+$pub->cerrarPub($pub->getIdUsuario(), $_REQUEST['pub_id'], $pdo);
 
 $us = new Usuario();
 $us->loadDetalles($pub->getIdUsuario(), $pdo);

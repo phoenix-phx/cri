@@ -16,9 +16,9 @@ if( !isset($_REQUEST['inv_id'])) {
 }
 
 $inv = new Investigacion();
-$inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
+$inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'administrativo', $pdo);
 $inv->setEstado('en curso');
-$inv->cerrarInv($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
+$inv->cerrarInv($inv->getIdUsuario(), $_REQUEST['inv_id'], $pdo);
 
 $us = new Usuario();
 $us->loadDetalles($inv->getIdUsuario(), $pdo);
@@ -26,7 +26,7 @@ $us->loadDetalles($inv->getIdUsuario(), $pdo);
 $notify = new Notificacion();
 $notify->reaperturaInv($us->getCorreo(), $inv->getTitulo());
 
-$_SESSION['success'] = 'se hizo la reapertura de la investigaci&oacute;n correctamente';
+$_SESSION['success'] = 'se hizo la reapertura de la investigación correctamente';
 header('Location: detalles_investigacion_admin.php?inv_id='.$_REQUEST['inv_id']);
 return;
 ?>
