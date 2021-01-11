@@ -33,6 +33,6 @@ if(count($admins) !== 0){
 $notify = new Notificacion();
 $notify->cierrePub($mails, $pub->getTitulo(), $us->getNombre());
 
-header('Location: investigacion_cerrada.php');
+header('Location: publicacion_cerrada.php');
 return;
 ?>
