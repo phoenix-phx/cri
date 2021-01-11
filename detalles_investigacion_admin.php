@@ -34,10 +34,8 @@
         <h1 class="aLeft" style="font-size:40px;">Detalles</h1>
         <div style="padding-top:30px;padding-bottom:30px">
             <button class="button aRight" onclick="document.location='historial_investigacion.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>'">Ver Historial de Investigaci&oacute;n</button>
-
-            <!-- <cambios -->
             <?php if ($est !== 'en curso'): ?>
-            <button class="button aRight" style="margin-right:20px;"> Reabrir Investigaci&oacute;n </button>
+                <button class="button aRight" style="margin-right:20px;" onclick="document.location='confirmacion_reapertura_inv.php?inv_id=<?php echo($_REQUEST['inv_id'])?>'"> Reabrir Investigaci&oacute;n </button>
             <?php endif ?>
         </div>
     </div>

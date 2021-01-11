@@ -26,7 +26,7 @@ $us->loadDetalles($pub->getIdUsuario(), $pdo);
 $notify = new Notificacion();
 $notify->reaperturaPub($us->getCorreo(), $pub->getTitulo());
 
-$_SESSION['success'] = 'se hizo la reapertura de la publicaci&oacute;n correctamente';
+$_SESSION['success'] = 'se hizo la reapertura de la publicación correctamente';
 header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);
 return;
 ?>

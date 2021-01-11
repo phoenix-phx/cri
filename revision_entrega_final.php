@@ -44,7 +44,9 @@
         Observaciones:<span class="must">*</span><br><br>
         <div align="center">
         <textarea class="textInput" name="obsRevEF" rows="4" cols="100" placeholder="Escribe la retroalimentaci&oacute;n aqui"></textarea><br>
-        <input class="button" type="submit" value="Enviar Revisi&oacute;n"></div>
+        <input class="button" type="submit" value="Enviar Revisi&oacute;n">
+        <input class="button" type="submit" name="cancel" value="Cancelar" />
+        </div>
     </form>
     </div>
 </body>

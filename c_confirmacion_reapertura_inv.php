@@ -17,11 +17,11 @@ if( !isset($_REQUEST['inv_id'])) {
 
 $inv = new Investigacion();
 $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
-$inv->setEstado('cerrado');
+$inv->setEstado('en curso');
 $inv->cerrarInv($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
 
 $us = new Usuario();
-$us->loadDetalles($pub->getIdUsuario(), $pdo);
+$us->loadDetalles($inv->getIdUsuario(), $pdo);
 
 $notify = new Notificacion();
 $notify->reaperturaInv($us->getCorreo(), $inv->getTitulo());

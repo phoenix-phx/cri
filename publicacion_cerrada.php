@@ -24,8 +24,8 @@
     </div>
     <div align="center">
         <h1 class="title">Publicaci&oacute;n cerrada</h1>
-        <p style="font-size:25px;width:800px;text-align:left;">Se ha registrado la finalizaci&oacute;n de esta publica&oacute;n. Por favor comuniquese con la 
-        un administrador para <b>deshacer</b> esta acci&oacute;n.</p>
+        <p style="font-size:25px;width:570px;text-align:left;">Se ha registrado la finalizaci&oacute;n de esta publicaci&oacute;n.
+        </p>
         <button class="button" onclick="document.location='home_investigador.php'">Volver al inicio</button>
     </div>
 </body>
