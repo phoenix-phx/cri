@@ -2,6 +2,7 @@
 session_start();
 require_once "c_pdo.php";
 require_once "Usuario.php";
+require_once "Notificacion.php";
 
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] !== 'administrativo'){
     die('No ha iniciado sesion');
@@ -29,7 +30,16 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
         return;
     }
     else{
-    	$us = new Usuario();
+        $us = new Usuario();
+        
+        $mails[] = $_POST['correo'];
+        $admins = $us->searchAdminEmails($pdo);
+        if(count($admins) !== 0){
+            for ($i=0; $i < count($admins); $i++) { 
+                $mails[] = $admins[$i]['correo'];
+            }    
+        }
+
     	$us->setNombre($_POST['nombre']);
     	$us->setFiliacion($_POST['rbfiliacion']);
     	$us->setUnidadInvestigacion($_POST['tUnidadI']);
@@ -51,6 +61,10 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 	    // user y pass
 	    $us->asignarDatosLogin($pdo);
 	    
+        // notificar
+        $notify = new Notificacion();
+        $notify->nuevoUsuario($mails, $us->getUser());
+
 	    $_SESSION["success"] = 'usuario creado correctamente';
         header('Location: home_administrativo.php');
         return;

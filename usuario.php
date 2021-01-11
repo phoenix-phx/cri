@@ -293,5 +293,35 @@ class Usuario{
 	        ':id' => $user_id
 	    ));
 	}
+
+	public function searchEmail($user_id, $pdo){
+	    $sql = 'SELECT correo 
+	            FROM usuario
+	            WHERE idUsuario = :id';    
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	    	':id' => $user_id
+	    ));
+	    $mail = $stmt->fetch(PDO::FETCH_ASSOC);
+	    if($mail === false){
+	    	return false;
+	    }
+	    return $mail;
+	}
+
+	public function searchAdminEmails($pdo){
+	    $sql = 'SELECT correo 
+	            FROM usuario
+	            WHERE rol = :rol';    
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	    	':rol' => 'administrativo'
+	    ));
+	    $mails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    if($mails === false){
+	    	return false;
+	    }
+	    return $mails;
+	}
 }
 ?>
