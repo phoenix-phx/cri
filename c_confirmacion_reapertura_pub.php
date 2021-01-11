@@ -11,28 +11,22 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 
 if( !isset($_REQUEST['pub_id'])) {
     $_SESSION['error'] = "Codigo de publicacion faltante";
-    header('Location: listaPub_investigador.php');
+    header('Location: listaPub_admin.php');
     return;
 }
 
 $pub = new Publicacion();
-$pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
-$pub->setEstado('cerrado');
+$pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'administrativo', $pdo);
+$pub->setEstado('en curso');
 $pub->cerrarPub($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
 
 $us = new Usuario();
-$us->loadDetalles($_SESSION['idUsuario'], $pdo);
-
-$admins = $us->searchAdminEmails($pdo);
-if(count($admins) !== 0){
-    for ($i=0; $i < count($admins); $i++) { 
-        $mails[] = $admins[$i]['correo'];
-    }    
-}
+$us->loadDetalles($pub->getIdUsuario(), $pdo);
 
 $notify = new Notificacion();
-$notify->cierrePub($mails, $pub->getTitulo(), $us->getNombre());
+$notify->reaperturaPub($us->getCorreo(), $pub->getTitulo());
 
-header('Location: publicacion_cerrada.php');
+$_SESSION['success'] = 'se hizo la reapertura de la publicaci&oacute;n correctamente';
+header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);
 return;
 ?>

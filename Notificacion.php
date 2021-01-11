@@ -146,8 +146,16 @@ class Notificacion{
 		}
 	}
 
-	public function revisionCompleta($address){
+	public function revisionCompleta($address, $titulo_pub){
 		// address es la direccion del investigador cuya publicacion fue revisada
+	}
+
+	public function reaperturaPub($address, $titulo_pub){
+		// address es la direccion del investigador cuya publicacion fue reaperturada
+	}
+
+	public function reaperturaInv($address, $titulo_inv){
+		// address es la direccion del investigador cuya investigacion fue reaperturada
 	}
 }
 ?>

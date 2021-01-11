@@ -239,6 +239,7 @@ class Investigacion{
 			$this->setResumen($row['resumen']);
 			$this->setFechaInicio($row['fecha_inicio']);
 			$this->setFechaFinal($row['fecha_fin']);
+			$this->setEstado($row['estado']);
 			$this->setId($row['idInv']);
 			return true;
 		}
@@ -340,7 +341,7 @@ class Investigacion{
 		        AND idInv = :inv";
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
-		    ':st' => "cerrado",
+		    ':st' => $this->getEstado(),
 		    ':id' => $user_id,
 		    ':inv' => $inv_id
 		));

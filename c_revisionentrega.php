@@ -60,7 +60,7 @@ if(isset($_POST['obsRevEF'])){
         $us->loadDetalles($pub->getIdUsuario(), $pdo);
         
         $notify = new Notificacion();
-        $notify->revisionCompleta($us->getCorreo());
+        $notify->revisionCompleta($us->getCorreo(), $pub->getTitulo());
 
         $_SESSION["success"] = 'retroalimentacion enviada';
         header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);

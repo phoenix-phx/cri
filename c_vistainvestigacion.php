@@ -142,6 +142,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $resumen = htmlentities($inv->getResumen());
     $finicio = htmlentities($inv->getFechaInicio());
     $ffinal = htmlentities($inv->getFechaFinal());
+    $est = htmlentities($inv->getEstado());
 
     // cargar autor principal
     $principal = $inv->loadAutorPrincipal($pdo, $_REQUEST['inv_id']);
@@ -157,7 +158,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     // cargar actividades
     $actividades = $inv->loadActividad($pdo, $_REQUEST['inv_id']);
-
+    /*
     //datos generales
     echo "<p><b>DATOS GENERALES</b></p>";
     echo '<div role="container">' . "\n";
@@ -227,6 +228,6 @@ else if($_SESSION['permisos'] === 'administrativo'){
     if($estado === false){
         echo 'No existen publicaciones asociadas registradas ';
     }
-    echo '</div>';
+    echo '</div>';*/
 }
 ?>
