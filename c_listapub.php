@@ -8,8 +8,16 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
 }
 
 if($_SESSION['permisos'] === 'investigador'){
+    echo "<div style='padding-left:5%;'><h2> En Curso </h2></div>";
     $pub = new Publicacion();
-    $estado = $pub->listaInv($_SESSION['idUsuario'], $pdo);
+    $estado = $pub->listaInv($_SESSION['idUsuario'], 'en curso', $pdo);
+    if($estado === false){
+        echo "<div style='padding-left:5%;'>No existen publicaciones registradas </div>";
+    }
+    echo "<br />";
+
+    echo "<div style='padding-left:5%;'><h2> Cerrado </h2></div>";
+    $estado = $pub->listaInv($_SESSION['idUsuario'], 'cerrado',$pdo);
     if($estado === false){
         echo "<div style='padding-left:5%;'>No existen publicaciones registradas </div>";
     }

@@ -110,10 +110,12 @@ class Publicacion{
 		$sql = 'SELECT codigo, titulo, resumen, idPub 
 		        FROM publicacion
 		        WHERE idUsuario = :id
+		        AND estado = :es
 		        LIMIT 3'; 
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
-		':id' => $user_id
+		':id' => $user_id,
+		':es' => 'en curso'
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row === false){
@@ -140,13 +142,15 @@ class Publicacion{
 		}
 	}
 
-	public function listaInv($user_id, $pdo){
+	public function listaInv($user_id, $state, $pdo){
 		$sql = 'SELECT codigo, titulo, tipo, idPub 
 		    	FROM publicacion
-				WHERE idUsuario = :id'; 
+				WHERE idUsuario = :id
+				AND estado = :es'; 
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
-		   ':id' => $user_id
+		   ':id' => $user_id,
+		   ':es' => $state
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row === false){
@@ -181,7 +185,6 @@ class Publicacion{
 			return true;
 		}
 	}
-
 	public function listaAdmin($pdo){
 		$sql = 'SELECT codigo, titulo, tipo, idPub 
 	            FROM publicacion';
