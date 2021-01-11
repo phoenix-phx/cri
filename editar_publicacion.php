@@ -93,7 +93,7 @@
                 echo "<br>";
                 echo '<input class="stextInput" id="uniInvPCP" name="uniInvPCP" type="text" value="'. $unidad_investigacion . '">';
                 echo "<br>";
-                echo "Filiaci&oacute;n";
+                echo "Filiaci&oacute;n:<span class='must'>*</span>";
                 echo "<br>";
                 if($filiacion === 'docente'){
                     echo '<input id="rDocenteCP" name="rFiliacionIPCP" type="radio" value="docente" checked="checked">';

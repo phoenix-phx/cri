@@ -34,7 +34,7 @@
             <button class="button aRight" onclick="document.location='editar_publicacion.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Editar</button>
             <button class="button aRight" style="margin-right:20px;" onclick="document.location='subir_entrega_final.php?pub_id=<?php echo $_REQUEST['pub_id']?>'">Subir Documento Final</button>
             <!-- cambios -->
-            <button class="button aRight" style="margin-right:20px;"> Cerrar Publicaci&oacute;n</button>
+            <button class="button aRight" style="margin-right:20px;" onclick="document.location='confirmacion_cierre_pub.php?pub_id=<?php echo $_REQUEST['pub_id']?>'"> Cerrar Publicaci&oacute;n</button>
         </div>
     </div>
     <br>

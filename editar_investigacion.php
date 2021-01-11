@@ -155,7 +155,7 @@
                 if(count($investigadores) !== 0){
                     for ($i=0; $i < count($investigadores); $i++) {
                         echo '<div id="dICI' . ($i) . '">
-                                Nombre:<span class="must">*</span> <input class="stextInput" name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
+                                Nombre:<span class="must">*</span><input class="stextInput" name="nomInvSCI' . ($i) . '" id="nomInvSCI' . ($i) . '" value="' . $investigadores[$i]['nombre'] . '" type="text" />
                                 <button id="bICI' .  ($i) . '" class="button" onclick="removeItemInv(' . ($i) . ')"> - </button><br>';
                         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
                             echo '<input name="rPUniCI' . ($i) . '" id="rPUniCI' . ($i) . '" type="radio" value="interno" onclick="Select(' . ($i) . ')" checked>
@@ -165,7 +165,7 @@
                                 <div id="divi' . ($i) . '">
                                 Unidad de Investigaci&oacute;n:<span class="must">*</span><br>
                                 <input class="stextInput" name="uniInvSCI' . ($i) . '" id="uniInvSCI' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>
-                                Filiaci&oacute;n<br>';
+                                Filiaci&oacute;n:<span class="must">*</span><br>';
 
                             if($investigadores[$i]['filiacion'] == 'docente'){   
                                 echo '<input name="rFiliacionIS' . ($i) . '" id="rDocenteCI' . ($i) . '" type="radio" value="docente" checked>

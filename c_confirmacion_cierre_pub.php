@@ -18,7 +18,7 @@ if( !isset($_REQUEST['pub_id'])) {
 $pub = new Publicacion();
 $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
 $pub->setEstado('cerrado');
-$pub->cerrarInv($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
+$pub->cerrarPub($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
 
 $us = new Usuario();
 $us->loadDetalles($_SESSION['idUsuario'], $pdo);
