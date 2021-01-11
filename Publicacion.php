@@ -522,5 +522,18 @@ class Publicacion{
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row; 
 	}  
+
+	public function cerrarPub($user_id, $pub_id, $pdo){
+		$sql = "UPDATE publicacion
+		        SET  estado = :st
+		        WHERE idUsuario = :id
+		        AND idPub = :pub";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute(array(
+		    ':st' => $this->getEstado(),
+		    ':id' => $user_id,
+		    ':pub' => $pub_id
+		));
+	}  
 }
 ?>

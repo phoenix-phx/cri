@@ -42,5 +42,14 @@ class Notificacion{
 			// write code here...
 		}		
 	}
+
+	public function cierrePub($addresses, $nombre_publicacion, $investigador){
+		foreach ($addresses as $index => $destiny) {
+			// informar el cierre de una publicacion
+			// $index es el indice del array
+			// $destiny es el destinatario del correo
+			// write code here...
+		}		
+	}
 }
 ?>
