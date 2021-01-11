@@ -18,6 +18,9 @@ function perteneceInvP(){
     divi.appendChild(txtInp);
     divi.appendChild(document.createElement("br"));
     divi.appendChild(document.createTextNode("Filiación"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let rbutton = document.createElement("input");
     divi.appendChild(rbutton);
@@ -187,6 +190,9 @@ function Select(index){
     divi.appendChild(txtInp);
     divi.appendChild(document.createElement("br"));
     divi.appendChild(document.createTextNode("Filiación"));
+    aux = document.createElement("span");
+    aux.innerHTML = "*"; aux.className="must";
+    divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let rbutton = document.createElement("input");
     divi.appendChild(rbutton);
