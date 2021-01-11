@@ -23,7 +23,7 @@ $inv = new Investigacion();
 $state = $inv->initInv($_SESSION['idUsuario'], $pdo);
 if($state === false){
     echo '<br>';
-    echo '<div align="left">No tiene investigaciones registradas</div>';
+    echo '<div align="left">No tiene investigaciones en curso actualmente</div>';
 }
 
 // publicaciones
@@ -42,7 +42,7 @@ $pub = new Publicacion();
 $state = $pub->initPub($_SESSION['idUsuario'], $pdo);
 if($state === false){
     echo '<br>';
-    echo '<div align="left"> No tiene publicaciones registradas</div>';
+    echo '<div align="left"> No tiene publicaciones en curso actualmente</div>';
 }
 echo "<br />";
 echo "</div>";

@@ -102,10 +102,12 @@ class Investigacion{
 		$sql = 'SELECT codigo, nombre_corto, resumen, idInv 
 		    	FROM investigacion
 				WHERE idUsuario = :id
+				AND estado = :es
 		        LIMIT 3'; 
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
-		   ':id' => $user_id
+		   ':id' => $user_id,
+		   ':es' => 'en curso'
 		));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row === false){
