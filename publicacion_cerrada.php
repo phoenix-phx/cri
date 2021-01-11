@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Investigaci&oacute;n cerrada</title>
+    <title>Publicaci&oacute;n cerrada</title>
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
@@ -23,10 +23,9 @@
         </div>
     </div>
     <div align="center">
-        <h1 class="title">Investigaci&oacute;n cerrada</h1>
-        <p style="font-size:25px;width:800px;text-align:left;">Se ha registrado la finalizaci&oacute;n de esta investigaci&oacute;n. Por favor comuniquese con la 
-        Direcci&oacute;n Administrativa Financiera (DAF) o la Coordinaci&oacute;n Regional de Investigaci&oacute;n
-        (CRI) para mas informaci&oacute;n.</p>
+        <h1 class="title">Publicaci&oacute;n cerrada</h1>
+        <p style="font-size:25px;width:800px;text-align:left;">Se ha registrado la finalizaci&oacute;n de esta publica&oacute;n. Por favor comuniquese con la 
+        un administrador para <b>deshacer</b> esta acci&oacute;n.</p>
         <button class="button" onclick="document.location='home_investigador.php'">Volver al inicio</button>
     </div>
 </body>

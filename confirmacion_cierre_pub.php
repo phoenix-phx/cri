@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Investigaci&oacute;n cerrada</title>
+    <title>Confirmar Cierre</title>
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
@@ -22,12 +22,14 @@
             </a>
         </div>
     </div>
-    <div align="center">
-        <h1 class="title">Investigaci&oacute;n cerrada</h1>
-        <p style="font-size:25px;width:800px;text-align:left;">Se ha registrado la finalizaci&oacute;n de esta investigaci&oacute;n. Por favor comuniquese con la 
-        Direcci&oacute;n Administrativa Financiera (DAF) o la Coordinaci&oacute;n Regional de Investigaci&oacute;n
-        (CRI) para mas informaci&oacute;n.</p>
-        <button class="button" onclick="document.location='home_investigador.php'">Volver al inicio</button>
+    <div style="padding-right:10%;padding-left:10%;" align="center">
+        <h1 class="title">Cerrar publicaci&oacute;n</h1>
+        <p style="font-size:18px;">Esta acci&oacute;n no puede deshacerse, ¿Esta seguro que desea cerrar la publicaci&oacute;n?</p>
+        <div style="height:30px;"></div>
+        <div>
+            <button class="button" onclick="document.location='c_confirmacion_cierre_pub.php?pub_id=<?php echo $_REQUEST['pub_id'] ?>'">Confirmar</button>
+            <button class="button" onclick="document.location='detalles_publicacion_inv.php?pub_id=<?php echo $_REQUEST['pub_id'] ?>'">Cancelar</button>
+        </div>
     </div>
 </body>
 </html>
