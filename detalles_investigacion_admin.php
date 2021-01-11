@@ -99,7 +99,7 @@
 
     //actividades
     echo "<p><b>ACTIVIDADES</b></p>";
-    echo '<div role="fila" id="actividades" style="padding-left:10px;">';
+    echo '<div role="fila" id="actividades">';
     if(count($actividades) !== 0){
         for ($i=0; $i < count($actividades); $i++) {
             echo '<div id="actividad' . ($i+1) .'">';

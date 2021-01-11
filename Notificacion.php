@@ -32,7 +32,7 @@ class Notificacion{
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
 		foreach ($addresses as $index => $destiny) {			
-			if($index === 1){
+			if($index === 0){
 				try {
 					$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 					$mail->addAddress($destiny);
@@ -53,9 +53,9 @@ class Notificacion{
 					$mail->addAddress($destiny);
 					$mail->isHTML(true);
 					$mail->Subject = 'Se creo un nuevo Usuario';
-					$mail->Body    = '<div align="center"><h1>Se creo un nuevo Usuario</h1></div>' . '\n' .
-										'<b>Usuario: </b>' . $user . '<br>\n' .
-										'<b>Contrase&ntilde;a: </b>' . $user . '<br>\n';
+					$mail->Body    = '<div align="center"><h1>Se creo un nuevo Usuario</h1></div>
+										<b>Usuario: </b>' . $user . '<br> .
+										<b>Contrase&ntilde;a: </b>' . $user . '<br>';
 					$mail->send();
 				} catch (Exception $e) {
 					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -80,7 +80,7 @@ class Notificacion{
 				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 				$mail->addAddress($destiny);
 				$mail->isHTML(true);
-				$mail->Subject = 'Se cerro una Investigaci&oacute;n';
+				$mail->Subject = 'Se cerro una Investigacion';
 				$mail->Body    = 'Se acaba de confirmar el cierre de la Investigaci&oacute;n: <b>' . $nombre_investigacion . 
 								 '</b> por el usuario <b>' . $investigador . 
 								 '</b><br>Si desea deshacer esta accion Dirigirse a los detalles de la Investigaci&oacute;n.';
@@ -107,7 +107,7 @@ class Notificacion{
 				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 				$mail->addAddress($destiny);
 				$mail->isHTML(true);
-				$mail->Subject = 'Se cerro una Publicaci&oacute;n';
+				$mail->Subject = 'Se cerro una Publicacion';
 				$mail->Body    = 'Se acaba de confirmar el cierre de la Publicaci&oacute;n: <b>:' . $nombre_publicacion . 
 								 '</b> por el usuario: <b>' . $investigador . 
 								 '</b><br>Si desea deshacer esta accion Dirigirse a los detalles de la Publicaci&oacute;n.';
@@ -159,7 +159,7 @@ class Notificacion{
 			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
-			$mail->Subject = 'Se reviso el documento final';
+			$mail->Subject = 'Se reviso el Documento final';
 			$mail->Body    = 'Se acaba de revisar el documento final de la Publicaci&oacute;n: <b>' . $titulo_pub . '</b>
 							<br>Si desea ver la revision del documento dirijase a los detalles de la Publicaci&oacute;n.';
 			$mail->send();
@@ -182,7 +182,7 @@ class Notificacion{
 			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
-			$mail->Subject = 'Se reabrio su publicacion';
+			$mail->Subject = 'Se reabrio su Publicacion';
 			$mail->Body    = 'Se acaba de reabrir la Publicaci&oacute;n: <b>' . $titulo_pub . '</b>';
 			$mail->send();
 		} catch (Exception $e) {
@@ -204,7 +204,7 @@ class Notificacion{
 			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
-			$mail->Subject = 'Se reabrio su investigacion';
+			$mail->Subject = 'Se reabrio su Investigacion';
 			$mail->Body    = 'Se acaba de reabrir la Investigaci&oacute;n: <b>' . $titulo_inv . '</b>';
 			$mail->send();
 		} catch (Exception $e) {

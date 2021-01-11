@@ -237,15 +237,15 @@ class Publicacion{
 				return false;
 			}
 			else{
-				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
+				echo'<div>' . "\n";
 			        echo '<div role="cabecera" align="center"> 
-			            <div class="aLeft" style="width:310px;">C&Oacute;DIGO</div> 
-			            <div class="aLeft" style="width:450px;">NOMBRE CORTO</div> 
-			            <div class="aLeft" style="width:240px;">FECHA FINALIZACI&Oacute;N</div>
+			            <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
+			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
+			            <div class="aLeft" style="width:250px;">FECHA FINALIZACI&Oacute;N</div>
 			            </div><br><br>
 			        </div>';
 
-				echo '<div style="padding-left:4%;padding-right:4%;">';
+				echo '<div>';
 	        	do{
 		        	$this->setCodigo($row['codigo']);
 					$this->setTitulo($row['titulo']);
@@ -254,9 +254,9 @@ class Publicacion{
 
 		            echo '<div role="fila" class="container" 
 		            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
-		            <div class="aLeft" style="width:310px;">' . htmlentities($this->getCodigo()) . '</div> 
-		            <div class="aLeft" style="width:450px;">' . htmlentities($this->getTitulo()) . '</div> 
-		            <div class="aLeft" style="width:240px;">' . htmlentities($this->getTipo()) . '</div>
+		            <div class="aLeft" style="width:320px;">' . htmlentities($this->getCodigo()) . '</div> 
+		            <div class="aLeft" style="width:500px;">' . htmlentities($this->getTitulo()) . '</div> 
+		            <div class="aLeft" style="width:250px;">' . htmlentities($this->getTipo()) . '</div>
 		            <a class="link" href="detalles_publicacion_inv.php?pub_id='.$this->getId().'">&gt&gt</a>';
 		            echo "</div>";
 		            echo "<br /> <br />";
@@ -278,15 +278,15 @@ class Publicacion{
 				return false;
 			}
 			else{
-				echo'<div style="padding-left:5%;padding-right:5%;">' . "\n";
+				echo'<div>' . "\n";
 			        echo '<div role="cabecera" align="center"> 
 			            <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 			            <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-			            <div class="aLeft" style="width:250px;">FECHA FINALIZACI&Oacute;N</div>
+			            <div class="aLeft" style="width:250px;">TIPO</div>
 			            </div><br><br>
 			        </div>';
 
-				echo '<div style="padding-left:4%;padding-right:4%;">';
+				echo '<div>';
 	        	do{
 		        	$this->setCodigo($row['codigo']);
 					$this->setTitulo($row['titulo']);
