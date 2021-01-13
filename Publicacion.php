@@ -511,6 +511,19 @@ class Publicacion{
         $stmt->execute();
 	}  
 
+	public function updateEntrega($pub_id, $name, $type, $data, $desc, $pdo){
+		$sql = 'UPDATE documento 
+        		SET nombre = ?, tipo = ?, doc = ?, descripcion = ?
+        		WHERE idPub = ?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $name);
+        $stmt->bindParam(2, $type);
+       	$stmt->bindParam(3, $data);
+       	$stmt->bindParam(4, $desc);
+        $stmt->bindParam(5, $pub_id);
+        $stmt->execute();
+	}  
+
 	public function existsDoc($pub_id, $pdo){
 		$sql = "SELECT *
 				FROM documento JOIN publicacion
