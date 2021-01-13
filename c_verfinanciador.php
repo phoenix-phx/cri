@@ -37,7 +37,7 @@ if($tipo !== false){
     echo '<div role="fila"> <span>NOMBRE DE FINANCIADOR: </span> <span>' . $nombre_financiador . ' </span></div>';
     echo '<div role="fila"> <span>TIPO DE FINANCIAMIENTO: </span> <span>' . $tipo_financiamiento . ' </span></div>';
     if($tipo_financiamiento == 'monetario'){
-        echo '<div role="fila"> <span>MONTO: </span> <span>' . $monto . ' </span></div>';
+        echo '<div role="fila"> <span>MONTO: </span> <span>' . $monto . ' </span> Bs.</div>';
     }
     if(strlen($observaciones) !== 0 ){
         echo '<div role="fila"> <span>OBSERVACIONES: </span> <span>' . $observaciones . ' </span></div>';

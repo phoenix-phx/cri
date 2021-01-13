@@ -168,6 +168,11 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
                 return;
             }
+            if(!is_numeric($_POST['monto'])){
+                $_SESSION['error'] = 'El monto debe ser numérico';
+                header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
+                return;
+            }
         }
     }
     
@@ -198,6 +203,15 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         }
         return true;
     }
+    
+    function validar_fecha($fecha){
+        $valores = explode('-', $fecha);
+        if(count($valores) == 3 && checkdate($valores[1], $valores[2], $valores[0])){
+            return true;
+        }
+        return 'Las fechas deben estar acorde al formato requerido (aaaa-mm-dd) o deben ser validas';
+    }
+
     $failure = validateAutores();
     if ( is_string($failure)) {
         $_SESSION['error'] = $failure;
@@ -210,6 +224,18 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             if( !isset($_POST['nomActCI'.$i]) ) continue;
             if( !isset($_POST['FIActCI'.$i]) ) continue;
             if( !isset($_POST['FFActCI'.$i]) ) continue;
+            $falla = validar_fecha($_POST['FIActCI'.$i]);
+            if(is_string($falla)){
+                $_SESSION['error'] = $falla;
+                header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
+                return;
+            }
+            $falla = validar_fecha($_POST['FFActCI'.$i]);
+            if(is_string($falla)){
+                $_SESSION['error'] = $falla;
+                header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
+                return;
+            }
             $nombre = $_POST['nomActCI'.$i];
             $finicio = $_POST['FIActCI'.$i];
             $ffinal = $_POST['FFActCI'.$i];
@@ -276,6 +302,12 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $newInv->setTitulo($_POST['invTituloCI']);
     $newInv->setNombreCorto($_POST['invNomCortoCI']);
     $newInv->setResumen($_POST['resumenCI']);
+    $falla = validar_fecha($_POST['fechaFinCI']);
+    if(is_string($falla)){
+        $_SESSION['error'] = $falla;
+        header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
+        return;
+    }
     $newInv->setFechaFinal($_POST['fechaFinCI']);
     $newInv->setUnidadInvestigacion($_POST['uniInvCI']);
     

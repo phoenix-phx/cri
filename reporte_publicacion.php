@@ -74,8 +74,8 @@
                   FROM publicacion';
             $_SESSION['numeros'] = $pub->counting($c, '', 'Ninguno', $pdo);
 
-            $sql = 'SELECT codigo, titulo, tipo, idPub 
-                    FROM publicacion';    
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
+                FROM publicacion';
             $_SESSION['resultados'] = $pub->reporte($sql, '', 'Ninguno', $pdo);
         }
 

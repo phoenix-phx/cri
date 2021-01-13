@@ -99,11 +99,11 @@ class Investigacion{
 	}
 
 	public function initInv($user_id, $pdo){
-		$sql = 'SELECT codigo, nombre_corto, resumen, idInv 
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(resumen,1,100) as resumen, idInv 
 		    	FROM investigacion
 				WHERE idUsuario = :id
 				AND estado = :es
-		        LIMIT 3'; 
+		        LIMIT 3';
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
 		   ':id' => $user_id,
@@ -136,7 +136,7 @@ class Investigacion{
 	}
 
 	public function listaInv($user_id, $estado, $pdo){
-		$sql = 'SELECT codigo, nombre_corto, fecha_fin, idInv 
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, fecha_fin, idInv 
 	            FROM investigacion
 	            WHERE idUsuario = :id
 	            AND estado = :st';
@@ -180,8 +180,8 @@ class Investigacion{
 	}
 
 	public function listaAdmin($pdo){
-		$sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
-	            FROM investigacion';
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
+				FROM investigacion';
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute();
 	    $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -362,20 +362,20 @@ class Investigacion{
 
 	public function busqueda($type, $data, $pdo){
 		if($type === 'Ninguno'){
-	        $sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
+	        $sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
 	                FROM investigacion';    
 	        $stmt = $pdo->prepare($sql);
 	        $stmt->execute();
 	    }
 		else if ($type === 'Unidad de Investigacion') {
-            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+            $sql = 'SELECT substring(codigo,1,25) as codigo,substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
                     FROM investigacion
                     WHERE unidad_investigacion LIKE :ui';    
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
 	    }
 	    else if ($type === 'Nombre Investigacion') {
-            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
                     FROM investigacion
                     WHERE nombre LIKE :no
                     OR nombre_corto LIKE :nc';    
@@ -383,14 +383,14 @@ class Investigacion{
             $stmt->execute($data);
 	    }
 	    else if ($type === 'Codigo Investigacion') {
-            $sql = 'SELECT codigo, nombre_corto,    unidad_investigacion, idInv 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
                     FROM investigacion
                     WHERE codigo LIKE :cd';
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
         }
 	    else if ($type === 'Nombre Investigador') {
-            $sql = 'SELECT i.codigo, i.nombre_corto, i.unidad_investigacion, i.idInv
+            $sql = 'SELECT substring(i.codigo,1,25) as codigo, substring(i.nombre_corto,1,25) as nombre_corto, substring(i.unidad_investigacion,1,25) as unidad_investigacion, i.idInv
                     FROM investigacion i, colaborador_inv ci, autor a
                     WHERE a.idAutor = ci.idAutor
                     AND ci.idInv = i.idInv
