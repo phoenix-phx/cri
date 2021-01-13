@@ -37,7 +37,7 @@ if($fechas_inv !== false){
                 echo '<div class="aLeft" style="width:320px;">NOMBRE ACTIVIDAD</div>';
                 echo '<div id="actividad' . ($j+1) .'">';
                 echo '<span> Fecha limite de la actividad: </span><span><b><i>' . htmlentities($activities[$j]['nombre']) . '</i></b></span><br>';
-                echo '<div class="aLeft" style="width:320px;">FECHA DE FINALIZACI&Oacute;N</div>';
+                echo '<div class="aLeft" style="width:320px;">DESCRIPCI&Oacute;N</div>';
                 echo '<span>' . htmlentities($activities[$j]['fecha_final']) . '</span> ';
                 echo "</div><br>";
             }
