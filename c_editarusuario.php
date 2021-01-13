@@ -79,7 +79,8 @@ if($_SESSION['permisos'] === 'investigador'){
          		$us->agregarTelefono($pdo);
     	    }
     	    echo "estoy aqui we D:";
-    	    $_SESSION["success"] = 'cambios guardados correctamente';
+    	    
+            $_SESSION["success"] = 'Los cambios se han guardado correctamente y serán visibles desde la siguiente sesión';
             header('Location: home_investigador.php');
             return;
         }
