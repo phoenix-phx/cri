@@ -20,7 +20,7 @@ if(isset($_POST['uniInvRP']) && isset($_POST['nomInvRP']) ){
         $pub = new Publicacion();
 
         $kvp = array();
-        $select = 'SELECT i.codigo, i.titulo, i.tipo, i.idPub'."\n";
+        $select = 'SELECT substring(i.codigo,1,25) as codigo, substring(i.titulo,1,25) as titulo, i.tipo, i.idPub'."\n";
         $from = 'FROM publicacion i'."\n";
         $where = 'WHERE ';
         $isWhere = false;
@@ -76,8 +76,8 @@ if(isset($_POST['uniInvRP']) && isset($_POST['nomInvRP']) ){
               FROM publicacion';
         $n = $pub->counting($c, '', 'Ninguno', $pdo);
 
-        $sql = 'SELECT codigo, titulo, tipo, idPub 
-                FROM publicacion';    
+        $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
+                FROM publicacion';
         $row = $pub->reporte($sql, '', 'Ninguno', $pdo);
     }
 

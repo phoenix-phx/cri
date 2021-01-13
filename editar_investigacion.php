@@ -265,18 +265,12 @@
                         echo 'checked="checked">';
                         echo "Monetario";
                         echo "<br>";
-                        echo '<div id="montFin">';
-                        echo 'Monto:<span class="must">*</span>';
-                        echo '<input class="xstextInput" id="monto" name="monto" type="text" value="' . $monto . '">';
-                        echo "</div>";
                     }
                     else{
                         echo ">";
                         echo "Monetario";
                         echo "<br>";
                     }
-                    
-
                     echo '<input id="rTipoOCI" name="rTipoFI" type="radio" value="otro" onclick="tipoOtro()" ';
                     if($tipo_financiamiento !== 'monetario'){
                         echo 'checked="checked">';
@@ -286,6 +280,12 @@
                     }
                     echo "Otro";
                     echo "<br>";
+                    if($tipo_financiamiento === 'monetario'){
+                        echo '<div id="montFin">';
+                        echo 'Monto:<span class="must">*</span>';
+                        echo '<input class="xstextInput" id="monto" name="monto" type="text" value="' . $monto . '"> Bs.';
+                        echo "</div>";
+                    }
 
                     echo 'Observaciones';
                     echo '<br>';

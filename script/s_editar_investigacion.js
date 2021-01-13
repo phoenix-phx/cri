@@ -375,15 +375,18 @@ function tipoMont(){
     let fin = document.getElementById("rTipoMCI");
     let d = document.createElement("div");
     d.id = "montFin";
-    fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling);
-    d.appendChild(document.createElement("br"));
-    d.appendChild(document.createTextNode("Monto:"));
-    aux = document.createElement("span");
+    fin.parentNode.insertBefore(d, fin.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling);
+    
+    d.appendChild(document.createTextNode("Monto"));
+    d.appendChild(document.createTextNode(":"));
+    let aux = document.createElement("span");
     aux.innerHTML = "*"; aux.className="must";
     d.appendChild(aux);
     let inp = document.createElement("input");
-    inp.name = "monto"; inp.id = "monto"; inp.type = "text"; inp.className="xstextInput";
+    inp.name = "monto"; inp.id = "monto"; inp.type = "text"; inp.className = "xstextInput";
     d.appendChild(inp);
+    d.appendChild(document.createTextNode("Bs."));
+    d.appendChild(document.createElement("br"));
 }
 function tipoOtro(){
     let fin = document.getElementById("financiamiento");

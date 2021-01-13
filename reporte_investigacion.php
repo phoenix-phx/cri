@@ -71,8 +71,8 @@
                   FROM investigacion';
             $_SESSION['numeros'] = $inv->counting($c, '', 'Ninguno', $pdo);
 
-            $sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
-                    FROM investigacion';    
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
+                FROM investigacion';    
             $_SESSION['resultados'] = $inv->reporte($sql, '', 'Ninguno', $pdo); 
         }
 

@@ -107,11 +107,11 @@ class Publicacion{
 	}
 
 	public function initPub($user_id, $pdo){
-		$sql = 'SELECT codigo, titulo, resumen, idPub 
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, substring(resumen,1,100) as resumen, idPub 
 		        FROM publicacion
 		        WHERE idUsuario = :id
 		        AND estado = :es
-		        LIMIT 3'; 
+		        LIMIT 3';
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
 		':id' => $user_id,
@@ -143,10 +143,10 @@ class Publicacion{
 	}
 
 	public function listaInv($user_id, $state, $pdo){
-		$sql = 'SELECT codigo, titulo, tipo, idPub 
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
 		    	FROM publicacion
 				WHERE idUsuario = :id
-				AND estado = :es'; 
+				AND estado = :es';
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute(array(
 		   ':id' => $user_id,
@@ -186,7 +186,7 @@ class Publicacion{
 		}
 	}
 	public function listaAdmin($pdo){
-		$sql = 'SELECT codigo, titulo, tipo, idPub 
+		$sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
 	            FROM publicacion';
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute();
@@ -226,10 +226,10 @@ class Publicacion{
 
 	public function listaPubAsociadas($user_id, $inv_id, $role, $pdo){
 		if($role === 'investigador'){
-			$sql = 'SELECT codigo, titulo, tipo, idPub 
+			$sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
 		            FROM publicacion
 		            WHERE idUsuario = :id
-		            AND idInv = :inv'; 
+		            AND idInv = :inv';
 		    $stmt = $pdo->prepare($sql);
 		    $stmt->execute(array(
 		       ':id' => $user_id,
@@ -269,9 +269,9 @@ class Publicacion{
 			}
 		}
 		else if($role === 'administrativo'){
-			$sql = 'SELECT codigo, titulo, tipo, idPub 
+			$sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
 		            FROM publicacion
-		            WHERE idInv = :inv'; 
+		            WHERE idInv = :inv';
 		    $stmt = $pdo->prepare($sql);
 		    $stmt->execute(array(
 		       ':inv' => $inv_id
@@ -436,34 +436,34 @@ class Publicacion{
 
 	public function busqueda($type, $data, $pdo){
 		if($type === 'Ninguno'){
-	        $sql = 'SELECT codigo, titulo, tipo, idPub 
+	        $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
 		            FROM publicacion';    
 		    $stmt = $pdo->prepare($sql);
 		    $stmt->execute();
 	    }
 		else if ($type === 'Unidad de Investigacion') {
-            $sql = 'SELECT codigo, titulo, tipo, idPub 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
                     FROM publicacion
                     WHERE unidad_investigacion LIKE :ui';    
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
 	    }
 	    else if ($type === 'Nombre') {
-            $sql = 'SELECT codigo, titulo, tipo, idPub 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
                     FROM publicacion
                     WHERE titulo LIKE :no';
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
 	    }
 	    else if ($type === 'Codigo') {
-            $sql = 'SELECT codigo, titulo, tipo, idPub 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
                     FROM publicacion
                     WHERE codigo LIKE :cd';
             $stmt = $pdo->prepare($sql);
             $stmt->execute($data);
         }
 	    else if ($type === 'Tipo') {
-            $sql = 'SELECT codigo, titulo, tipo, idPub 
+            $sql = 'SELECT substring(codigo,1,25) as codigo, substring(titulo,1,25) as titulo, tipo, idPub 
                     FROM publicacion
                     WHERE tipo LIKE :ti';
             $stmt = $pdo->prepare($sql);

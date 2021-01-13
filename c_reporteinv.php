@@ -18,7 +18,7 @@ if(isset($_POST['uniInvRI']) && isset($_POST['nomInvRI']) && isset($_POST['anioC
         $inv = new Investigacion();
 
         $kvp = array();
-        $select = 'SELECT i.codigo, i.nombre_corto, i.unidad_investigacion, i.idInv'."\n";
+        $select = 'SELECT substring(i.codigo,1,25) as codigo, substring(i.nombre_corto,1,25) as nombre_corto, substring(i.unidad_investigacion,1,25) as unidad_investigacion, i.idInv'."\n";
         $from = 'FROM investigacion i'."\n";
         $where = 'WHERE ';
         $isWhere = false;
@@ -85,8 +85,8 @@ if(isset($_POST['uniInvRI']) && isset($_POST['nomInvRI']) && isset($_POST['anioC
               FROM investigacion';
         $n = $inv->counting($c, '', 'Ninguno', $pdo);
 
-        $sql = 'SELECT codigo, nombre_corto, unidad_investigacion, idInv 
-                FROM investigacion';    
+        $sql = 'SELECT substring(codigo,1,25) as codigo, substring(nombre_corto,1,25) as nombre_corto, substring(unidad_investigacion,1,25) as unidad_investigacion, idInv 
+                FROM investigacion';
         $row = $inv->reporte($sql, '', 'Ninguno', $pdo);
     }
 
