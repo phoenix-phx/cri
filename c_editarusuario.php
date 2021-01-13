@@ -57,7 +57,14 @@ if($_SESSION['permisos'] === 'investigador'){
     		header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
     		return;
     	}
-    	else if(strlen($_POST['correo']) > 0 && ! filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)){
+        if(strlen($_POST['celular']) > 0 || strlen($_POST['telefono']) > 0){   
+            if (!is_numeric($_POST['celular']) || !is_numeric($_POST['telefono'])) {
+                $_SESSION['error'] = 'El celular o telefono deben ser datos numericos';
+                header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
+            }
+        }
+    	if(strlen($_POST['correo']) > 0 && ! filter_var($_POST['correo'], FILTER_VALIDATE_EMAIL)){
     		$_SESSION["error"] = "El correo electronico debe contener @";
             header('Location: editar_usuario.php');
             return;

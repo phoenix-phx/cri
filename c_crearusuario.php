@@ -19,6 +19,13 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
 		header("Location: nuevo_usuario.php");
 		return;
 	}
+    if(strlen($_POST['celular']) > 0 || strlen($_POST['telefono']) > 0){   
+        if (!is_numeric($_POST['celular']) || !is_numeric($_POST['telefono'])) {
+            $_SESSION['error'] = 'El celular o telefono deben ser datos numericos';
+            header("Location: nuevo_usuario.php");
+            return;
+        }
+    }
 	else if( !isset($_POST['rbfiliacion']) || !isset($_POST['rbpermisos'])){
 		$_SESSION['error'] = 'La filiacion y los permisos deben ser registrados';
 		header("Location: nuevo_usuario.php");
