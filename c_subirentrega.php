@@ -22,12 +22,12 @@ if ( isset($_POST['cancel'] ) ) {
 
 if(isset($_POST['descripcionEnvio'])){
     if(strlen($_POST['descripcionEnvio']) < 1 ){
-        $_SESSION['error'] = 'Debe llenar los campos obligatorios';
+        $_SESSION['error'] = 'Debe llenar los campos obligatorios 1';
         header("Location: subir_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
         return;
     }
     if(isset($_FILES['archivoEntregaF']) && $_FILES['archivoEntregaF']['error'] !== 0){
-        $_SESSION['error'] = 'Debe llenar los campos obligatorios';
+        $_SESSION['error'] = 'Debe llenar los campos obligatorios 2';
         header("Location: subir_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
         return;        
     }

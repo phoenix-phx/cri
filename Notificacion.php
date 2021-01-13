@@ -28,7 +28,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
 		foreach ($addresses as $index => $destiny) {			
@@ -71,7 +71,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
 		foreach ($addresses as $index => $destiny) {			
@@ -98,7 +98,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
 		foreach ($addresses as $index => $destiny) {			
@@ -125,7 +125,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
 		foreach ($addresses as $index => $destiny) {			
@@ -151,7 +151,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';	
 		try {
@@ -174,7 +174,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';	
 		try {
@@ -196,7 +196,7 @@ class Notificacion{
 		$mail->isSMTP();
 		$mail->Host       = 'smtp.gmail.com';
 		$mail->SMTPAuth   = true;
-		$mail->Username   = 'gamma385438@gmail.com';
+		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';	
 		try {
