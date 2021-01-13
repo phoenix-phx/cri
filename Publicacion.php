@@ -417,6 +417,19 @@ class Publicacion{
 	    ));
 	}
 
+	public function desasociarInvestigacion($user_id, $pdo){
+		$sql = "UPDATE publicacion
+	            SET  idInv = :inv
+	            WHERE idUsuario = :id
+	            AND idPub = :pub";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':inv' => null,
+	        ':id' => $user_id,
+	        ':pub' => $this->getId() 
+	    ));
+	}
+
 	public function actualizarDatos($user_id, $pub_id, $pdo){
 		$sql = 'UPDATE publicacion
 	            SET titulo = :no, resumen = :res, tipo = :ti, unidad_investigacion = :ui

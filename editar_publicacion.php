@@ -53,7 +53,7 @@
         <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text" value="<?php echo($ui) ?>"><br>
 
         <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label><br> 
-        <input class="textInput" name="invCP" id="invCP" type="text" <?php if($investigacion !== null) {echo 'value="'.$nombreInv.'"';}?>><br>
+        <input class="textInput" name="invCP" id="invCP" type="text" <?php if(strlen($investigacion) !== 0) {echo 'value="'.$nombreInv.'"';}?>><br>
         <?php // TODO: procesar select si existe ?>
 
         <label for="tipoCP">Tipo publicaci&oacute;n:<span class="must">*</span></label>

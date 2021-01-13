@@ -52,7 +52,7 @@ $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
 $ui = htmlentities($pub->getUnidadInvestigacion());
 $est = htmlentities($pub->getEstado());
-if($investigacion !== null){
+if(strlen($investigacion) !== 0){
     $nombreInv = $pub->getCodigoInv();
 }
 $tipo = htmlentities($pub->getTipo());
@@ -219,7 +219,9 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     if(strlen($_POST['invCP']) > 1){
         $newPub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
     }
-    //else: set null 
+    else if(strlen($_POST['invCP']) < 1 && strlen($investigacion) !== 0){
+        $newPub->desasociarInvestigacion($_SESSION['idUsuario'], $pdo);
+    }
 
     // autor principal
     if($_POST['rPUniCP'] === 'interno'){
