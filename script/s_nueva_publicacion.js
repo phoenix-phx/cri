@@ -14,7 +14,7 @@ function perteneceInvP(){
     divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
     let txtInp = document.createElement("select");
-    txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI";
+    txtInp.id = "uniInvPCP"; txtInp.name = "uniInvPCP";
     txtInp.innerHTML = '<option value="Ninguno">Ninguno</option>' + 
     '<option value="Familia y Comunidad">Familia y Comunidad</option>' + 
     '<option value="Etica y moral">&Eacute;tica y moral</option>' +
