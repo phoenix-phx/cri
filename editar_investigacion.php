@@ -53,7 +53,7 @@
             <label for="fi">Fecha de Inicio:<span class="must">*</span></label>
             <input class="textInput" name="fi" id="fi" type="text" disabled="disabled" value="<?php echo($fecha_inicio) ?>"><br>
             
-            <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):<span class="must">*</span></label>
+            <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):</label>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date" value="<?php echo($fecha_fin) ?>"><br>
             
             <label for="uniInvCI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>

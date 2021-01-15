@@ -169,7 +169,16 @@ class Investigacion{
 	            style="height:60px;padding:10px;padding-top:35px;font-size:18px;" align="center"> 
 	                <div class="aLeft" style="width:320px;">' . htmlentities($this->getCodigo()) . '</div> 
 	                <div class="aLeft" style="width:500px;">' . htmlentities($this->getNombreCorto()) . '</div> 
-	                <div class="aLeft" style="width:250px;">' . htmlentities($this->getFechaFinal()) . '</div>
+	                <div class="aLeft" style="width:250px;">';
+
+	                if(strlen($this->getFechaFinal()) === 0){
+		                echo 'sin registro' . '</div>';
+		                	
+	                }
+	                else{
+	                	echo htmlentities($this->getFechaFinal()) . '</div>';
+	            }
+	                echo '
 	                <a class="link" href="detalles_investigacion_inv.php?inv_id='.$this->getId().'">&gt&gt</a>
 	                </div>';
 	            echo "<br> <br>";
@@ -300,21 +309,33 @@ class Investigacion{
     }    
 
   	public function crear($user_id, $pdo){
-		$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, fecha_fin, unidad_investigacion, estado)
-            	VALUES (:us, :no, :nc, :res, :ff, :ui, :st)";
+		$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, unidad_investigacion, estado)
+            	VALUES (:us, :no, :nc, :res, :ui, :st)";
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':us' => $user_id,
 	        ':no' => $this->getTitulo(),
 	        ':nc' => $this->getNombreCorto(),
 	        ':res' => $this->getResumen(),
-	        ':ff' => $this->getFechaFinal(),
 	        ':ui' => $this->getUnidadInvestigacion(),
 	        ':st' => $this->getEstado()
 	    ));
 	    $inv_id = $pdo->lastInsertId();
 	    $this->setId($inv_id);
 	}  
+
+	public function agregarFechaFinal($user_id, $inv_id, $pdo){
+		$sql = "UPDATE investigacion
+	            SET  fecha_fin = :ff
+	            WHERE idUsuario = :id
+	            AND idInv = :inv";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':ff' => $this->getFechaFinal(),
+	        ':id' => $user_id,
+	        ':inv' => $inv_id 
+	    ));	    
+	}
 
 	public function completarDetalles($user_id, $pdo){
 		$sql = "UPDATE investigacion

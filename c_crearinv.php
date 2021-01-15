@@ -18,7 +18,7 @@ if ( isset($_POST['cancel'] ) ) {
 
 if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) ){
 
-    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['fechaFinCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
+    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
 
         $_SESSION['error'] = 'Debe llenar todos los campos obligatorios de la investigacion';
         header("Location: nueva_investigacion.php");
@@ -162,14 +162,15 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $inv->setTitulo($_POST['invTituloCI']);
     $inv->setNombreCorto($_POST['invNomCortoCI']);
     $inv->setResumen($_POST['resumenCI']);
-    $falla = validar_fecha($_POST['fechaFinCI']);
-    if(is_string($falla)){
-        $_SESSION['error'] = $falla;
-        header("Location: nueva_investigacion.php");
-        return;
+    if(strlen($_POST['fechaFinCI']) > 1){
+        $falla = validar_fecha($_POST['fechaFinCI']);
+        if(is_string($falla)){
+            $_SESSION['error'] = $falla;
+            header("Location: nueva_investigacion.php");
+            return;
+        }
     }
-
-    $inv->setFechaFinal($_POST['fechaFinCI']);
+    
     $inv->setUnidadInvestigacion($_POST['uniInvCI']);
     $inv->setEstado("en curso");
 
@@ -189,6 +190,12 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 
     $inv->completarDetalles($_SESSION['idUsuario'], $pdo);
     
+    // fecha final
+    if(strlen($_POST['fechaFinCI']) > 1){
+        $inv->setFechaFinal($_POST['fechaFinCI']);
+        $inv->agregarFechaFinal($_SESSION['idUsuario'], $inv_id, $pdo);
+    }
+
     // autor principal
     if($_POST['univIP'] === 'interno'){
         $auth = new AutorInterno();
