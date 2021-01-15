@@ -67,7 +67,34 @@
             <input type="radio" name="rbfiliacion" id="rbadmin" disabled="disabled" value="administrativo" <?php if($filiacion === 'administrativo') echo 'checked="checked"'; ?>>
             <label for="rbadmin">Administrativo</label><br>
             <label for="tUnidadI">Unidad de Investigaci&oacute;n</label>
-            <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI" disabled="disabled" value="<?php echo($unidad_investigacion) ?>"><br>
+            <select name="tUnidadI" id="tUnidadI" disabled="disabled">
+                <option value="">Ninguno</option>
+                <option value="Familia y Comunidad" 
+                    <?php if($unidad_investigacion === 'Familia y Comunidad') echo 'selected="selected"'; ?>>
+                    Familia y Comunidad</option>
+                <option value="Etica y moral" 
+                    <?php if($unidad_investigacion === 'Etica y moral') echo 'selected="selected"'; ?>>
+                    &Eacute;tica y moral</option>
+                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion" 
+                    <?php if($unidad_investigacion === 'Desarrollo humano integral: Derechos humanos, salud y educacion') echo 'selected="selected"'; ?>>
+                    Desarrollo humano integral: Derechos humanos, salud y educación</option>
+                <option value="Ciencia, tecnologia e innovacion" 
+                    <?php if($unidad_investigacion === 'Ciencia, tecnología e innovacion') echo 'selected="selected"'; ?>>
+                    Ciencia, tecnología e innovación</option>
+                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad" 
+                    <?php if($unidad_investigacion === 'Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad') echo 'selected="selected"'; ?>>
+                    Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+                <option value="Medio ambiente, recursos naturales y energias" 
+                    <?php if($unidad_investigacion === 'Medio ambiente, recursos naturales y energias') echo 'selected="selected"'; ?>>
+                    Medio ambiente, recursos naturales y energías</option>
+                <option value="Culturas y patrimonio" 
+                    <?php if($unidad_investigacion === 'Culturas y patrimonio') echo 'selected="selected"'; ?>>
+                    Culturas y patrimonio</option>
+                <option value="Institucionalidad, relaciones internacionales y soberania"
+                    <?php if($unidad_investigacion === 'Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"'; ?>>
+                    Institucionalidad, relaciones internacionales y soberanía<option>
+            </select>
+            <br>
             <h3>Permisos</h3>
             <input type="radio" name="rbpermisos" id="rbinvestigador" disabled="disabled" value="investigador" <?php if($rol === 'investigador') echo 'checked="checked"'; ?>>
             <label for="rbinvestigador" >Investigador</label><br>

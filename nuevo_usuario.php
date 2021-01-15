@@ -58,7 +58,18 @@
             <input type="radio" name="rbfiliacion" id="rbadmin" value="administrativo">
             <label for="rbadmin">Administrativo</label><br>
             <label for="tUnidadI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
-            <input class="stextInput" type="text" name="tUnidadI" id="tUnidadI"><br>
+            <select name="tUnidadI" id="tUnidadI">
+                <option value="">Ninguno</option>
+                <option value="Familia y Comunidad">Familia y Comunidad</option>
+                <option value="Ética y moral">&Eacute;tica y moral</option>
+                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion">Desarrollo humano integral: Derechos humanos, salud y educación</option>
+                <option value="Ciencia, tecnologia e innovacion">Ciencia, tecnología e innovación</option>
+                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+                <option value="Medio ambiente, recursos naturales y energias">Medio ambiente, recursos naturales y energías</option>
+                <option value="Culturas y patrimonio">Culturas y patrimonio</option>
+                <option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>
+            </select>
+            <br>
             <h4>Permisos<span class="must">*</span></h4>
             <input type="radio" name="rbpermisos" id="rbinvestigador" value="investigador">
             <label for="rbinvestigador">Investigador</label><br>

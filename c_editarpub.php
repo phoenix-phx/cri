@@ -51,6 +51,7 @@ $titulo = htmlentities($pub->getTitulo());
 $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
 $ui = htmlentities($pub->getUnidadInvestigacion());
+
 $est = htmlentities($pub->getEstado());
 if(strlen($investigacion) !== 0){
     $nombreInv = $pub->getCodigoInv();

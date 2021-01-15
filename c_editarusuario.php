@@ -57,9 +57,16 @@ if($_SESSION['permisos'] === 'investigador'){
     		header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
     		return;
     	}
-        if(strlen($_POST['celular']) > 0 || strlen($_POST['telefono']) > 0){   
-            if (!is_numeric($_POST['celular']) || !is_numeric($_POST['telefono'])) {
-                $_SESSION['error'] = 'El celular o telefono deben ser datos numericos';
+        if(strlen($_POST['celular']) > 0){   
+            if (!is_numeric($_POST['celular'])) {
+                $_SESSION['error'] = 'El celular debe ser numerico';
+                header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
+            }
+        }
+        if(strlen($_POST['telefono']) > 0){
+            if(!is_numeric($_POST['telefono'])){
+                $_SESSION['error'] = 'El telefono deben ser numerico';
                 header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
                 return;
             }

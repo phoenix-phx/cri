@@ -13,9 +13,17 @@ function perteneceInvP(){
     let aux = document.createElement("span");
     aux.innerHTML = "*"; aux.className="must";
     divi.appendChild(aux);
-    divi.appendChild(document.createElement("br"));
-    let txtInp = document.createElement("input");
-    txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI"; txtInp.type = "text"; txtInp.className="stextInput";
+    let txtInp = document.createElement("select");
+    txtInp.id = "uniInvPCI"; txtInp.name = "uniInvPCI";
+    txtInp.innerHTML = '<option value="Ninguno">Ninguno</option>' + 
+    '<option value="Familia y Comunidad">Familia y Comunidad</option>' + 
+    '<option value="Etica y moral">Ética y moral</option>' +
+    '<option value="Desarrollo humano integral: Derechos humanos, salud y educacion">Desarrollo humano integral: Derechos humanos, salud y educación</option>' +
+    '<option value="Ciencia, tecnologia e innovacion">Ciencia, tecnología e innovación</option>' +
+    '<option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>' +
+    '<option value="Medio ambiente, recursos naturales y energias">Medio ambiente, recursos naturales y energías</option>' +
+    '<option value="Culturas y patrimonio">Culturas y patrimonio</option>' +
+    '<option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>';
     divi.appendChild(txtInp);
     divi.appendChild(document.createElement("br"));
     divi.appendChild(document.createTextNode("Filiación"));
@@ -188,9 +196,17 @@ function Select(index){
     aux.innerHTML = "*"; aux.className="must";
     divi.appendChild(aux);
     divi.appendChild(document.createElement("br"));
-    let txtInp = document.createElement("input");
-    txtInp.id = "uniInvSCI" + index; txtInp.name = "uniInvSCI" + index; txtInp.type = "text" + index;
-    txtInp.className = "stextInput";
+    let txtInp = document.createElement("select");
+    txtInp.id = "uniInvSCI" + index; txtInp.name = "uniInvSCI" + index;
+    txtInp.innerHTML = '<option value="Ninguno">Ninguno</option>' + 
+    '<option value="Familia y Comunidad">Familia y Comunidad</option>' + 
+    '<option value="Etica y moral">&Eacute;tica y moral</option>' +
+    '<option value="Desarrollo humano integral: Derechos humanos, salud y educacion">Desarrollo humano integral: Derechos humanos, salud y educación</option>' +
+    '<option value="Ciencia, tecnologia e innovacion">Ciencia, tecnología e innovación</option>' +
+    '<option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>' +
+    '<option value="Medio ambiente, recursos naturales y energias">Medio ambiente, recursos naturales y energías</option>' +
+    '<option value="Culturas y patrimonio">Culturas y patrimonio</option>' +
+    '<option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>';
     divi.appendChild(txtInp);
     divi.appendChild(document.createElement("br"));
     divi.appendChild(document.createTextNode("Filiación"));

@@ -50,7 +50,34 @@
         <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
 
         <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
-        <input class="textInput" name="uInvestigacion" id="uInvestigacion" type="text" value="<?php echo($ui) ?>"><br>
+        <select name="uInvestigacion" id="uInvestigacion">
+                <option value="">Ninguno</option>
+                <option value="Familia y Comunidad" 
+                    <?php if($ui === 'Familia y Comunidad') echo 'selected="selected"'; ?>>
+                    Familia y Comunidad</option>
+                <option value="Etica y moral" 
+                    <?php if($ui ==='Etica y moral') echo 'selected="selected"'; ?>>
+                    &Eacute;tica y moral</option>
+                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion" 
+                    <?php if($ui ==='Desarrollo humano integral: Derechos humanos, salud y educacion') echo 'selected="selected"'; ?>>
+                    Desarrollo humano integral: Derechos humanos, salud y educación</option>
+                <option value="Ciencia, tecnologia e innovacion" 
+                    <?php if($ui === 'Ciencia, tecnologia e innovacion') echo 'selected="selected"'; ?>>
+                    Ciencia, tecnología e innovación</option>
+                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad" 
+                    <?php if($ui == 'Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad') echo 'selected="selected"'; ?>>
+                    Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+                <option value="Medio ambiente, recursos naturales y energias" 
+                    <?php if($ui ==='Medio ambiente, recursos naturales y energias') echo 'selected="selected"'; ?>>
+                    Medio ambiente, recursos naturales y energías</option>
+                <option value="Culturas y patrimonio" 
+                    <?php if($ui == 'Culturas y patrimonio') echo 'selected="selected"'; ?>>
+                    Culturas y patrimonio</option>
+                <option value="Institucionalidad, relaciones internacionales y soberania"
+                    <?php if($ui ==='Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"'; ?>>
+                    Institucionalidad, relaciones internacionales y soberanía<option>
+            </select>
+        <br>
 
         <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label><br> 
         <input class="textInput" name="invCP" id="invCP" type="text" <?php if(strlen($investigacion) !== 0) {echo 'value="'.$nombreInv.'"';}?>><br>
@@ -91,7 +118,34 @@
                 echo '<div id="divi">';
                 echo '<label for="uniInvPCP"> Unidad de Investigaci&oacute;n:<span class="must">*</span></label>';
                 echo "<br>";
-                echo '<input class="stextInput" id="uniInvPCP" name="uniInvPCP" type="text" value="'. $unidad_investigacion . '">';
+                echo '<select name="uniInvPCP" id="uniInvPCP">';
+                        echo '<option value="">Ninguno</option>';
+                        echo '<option value="Familia y Comunidad" ';
+                        if($unidad_investigacion == 'Familia y Comunidad') echo 'selected="selected"';
+                        echo '>Familia y Comunidad</option>';
+                        echo '<option value="Etica y moral" ';
+                        if($unidad_investigacion == 'Etica y moral') echo 'selected="selected"';
+                        echo '>&Eacute;tica y moral</option>';
+                        echo '<option value="Desarrollo humano integral: Derechos humanos, salud y educacion" ';
+                        if($unidad_investigacion == 'Desarrollo humano integral: Derechos humanos, salud y educacion') echo 'selected="selected"';
+                        echo '>Desarrollo humano integral: Derechos humanos, salud y educación</option>';
+                        echo '<option value="Ciencia, tecnologia e innovacion" ';
+                        if($unidad_investigacion == 'Ciencia, tecnologia e innovacion') echo 'selected="selected"';
+                        echo '>Ciencia, tecnología e innovación</option>';
+                        echo '<option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad" ';
+                        if($unidad_investigacion == 'Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad') echo 'selected="selected"';
+                        echo '>Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>';   
+                        echo '<option value="Medio ambiente, recursos naturales y energías" ';
+                        if($unidad_investigacion == 'Medio ambiente, recursos naturales y energias') echo 'selected="selected"';
+                        echo '>Medio ambiente, recursos naturales y energias</option>';
+                        echo '<option value="Culturas y patrimonio" ';
+                        if($unidad_investigacion == 'Culturas y patrimonio') echo 'selected="selected"';
+                        echo '>Culturas y patrimonio</option>';
+                        echo '<option value="Institucionalidad, relaciones internacionales y soberania" ';
+                        if($unidad_investigacion == 'Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"';
+                        echo '>Institucionalidad, relaciones internacionales y soberanía</option>';
+                        echo '</select>';
+                        echo "<br>";
                 echo "<br>";
                 echo "Filiaci&oacute;n:<span class='must'>*</span>";
                 echo "<br>";
@@ -158,8 +212,35 @@
                                   <input name="rPUniCP' . ($i) . '" id="rOUniCP' . ($i) . '" type="radio" value="externo" onclick="noSelect(' . ($i) . ')" >
                                   Pertenece a otra Universidad<br>
                                   <div id="divi' . ($i) . '">
-                                  Unidad de Investigaci&oacute;n:<span class="must">*</span><br>
-                                  <input class="stextInput" name="uniInvSCP' . ($i) . '" id="uniInvSCP' . ($i) . '" value="' . $investigadores[$i]['unidad_investigacion'] . '" type="text" /> <br>';
+                                  Unidad de Investigaci&oacute;n:<span class="must">*</span><br>';
+
+                                  echo '<select name="uniInvSCP' . ($i) .'" id="uniInvSCP' . ($i) .'">';
+                                    echo '<option value="">Ninguno</option>';
+                                    echo '<option value="Familia y Comunidad" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Familia y Comunidad') echo 'selected="selected"';
+                                    echo '>Familia y Comunidad</option>';
+                                    echo '<option value="Etica y moral" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Etica y moral') echo 'selected="selected"';
+                                    echo '>&Eacute;tica y moral</option>';
+                                    echo '<option value="Desarrollo humano integral: Derechos humanos, salud y educacion" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Desarrollo humano integral: Derechos humanos, salud y educacion') echo 'selected="selected"';
+                                    echo '>Desarrollo humano integral: Derechos humanos, salud y educación</option>';
+                                    echo '<option value="Ciencia, tecnologia e innovacion" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Ciencia, tecnologia e innovacion') echo 'selected="selected"';
+                                    echo '>Ciencia, tecnología e innovación</option>';
+                                    echo '<option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad') echo 'selected="selected"';
+                                    echo '>Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>';   
+                                    echo '<option value="Medio ambiente, recursos naturales y energias" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Medio ambiente, recursos naturales y energias') echo 'selected="selected"';
+                                    echo '>Medio ambiente, recursos naturales y energías</option>';
+                                    echo '<option value="Culturas y patrimonio" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Culturas y patrimonio') echo 'selected="selected"';
+                                    echo '>Culturas y patrimonio</option>';
+                                    echo '<option value="Institucionalidad, relaciones internacionales y soberania" ';
+                                    if($investigadores[$i]['unidad_investigacion'] == 'Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"';
+                                    echo '>Institucionalidad, relaciones internacionales y soberanía</option>';
+                                    echo '</select><br>';
                             if($investigadores[$i]['filiacion'] == 'docente'){   
                                 echo '<input name="rFiliacionISCP' . ($i) . '" id="rDocenteCP' . ($i) . '" type="radio" value="docente" checked>
                                 Docente<br>

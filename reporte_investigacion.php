@@ -40,8 +40,19 @@
         ?>
         <form action="c_reporteinv.php" method="post"> 
             <label for="uniInvRI">Unidad de Investigaci&oacute;n:</label> 
-            <input class="xstextInput" style="margin:10px;" name="uniInvRI" id="uniInvRI" type="text" value="Todos">
-            <label for="nomInvRI" style="padding-left:40px;">Investigador:</label> 
+            <select name="uniInvRI" id="uniInvRI">
+                <option value="">Ninguno</option>
+                <option value="Familia y Comunidad">Familia y Comunidad</option>
+                <option value="&Eacute;tica y moral">&Eacute;tica y moral</option>
+                <option value="Desarrollo humano integral: Derechos humanos, salud y educación">Desarrollo humano integral: Derechos humanos, salud y educación</option>
+                <option value="Ciencia, tecnología e innovación">Ciencia, tecnología e innovación</option>
+                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+                <option value="Medio ambiente, recursos naturales y energías">Medio ambiente, recursos naturales y energías</option>
+                <option value="Culturas y patrimonio">Culturas y patrimonio</option>
+                <option value="Institucionalidad, relaciones internacionales y soberanía">Institucionalidad, relaciones internacionales y soberanía<option>
+            </select>
+            <br>
+            <label for="nomInvRI">Investigador:</label> 
             <input class="xstextInput" style="margin-left:30px;"name="nomInvRI" id="nomInvRI" type="text" value="Todos"><br>
             <label for="estadoRI" style="padding-right:130px;">Estado:</label>    
             <select name="estadoRI" id="estadoRI">
