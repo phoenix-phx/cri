@@ -202,7 +202,7 @@ class Investigacion{
 			echo '<div role="cabecera" align="center"> 
 			    <div class="aLeft" style="width:320px;">C&Oacute;DIGO</div> 
 			    <div class="aLeft" style="width:500px;">NOMBRE CORTO</div> 
-			    <div class="aLeft" style="width:250px;">UNIDAD DE INVESTIGACI&Oacute;N</div>
+			    <div class="aLeft" style="width:250px;">L&Iacute;NEA DE INVESTIGACI&Oacute;N</div>
 			    </div><br><br>
 			</div>';
 
