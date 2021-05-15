@@ -48,6 +48,18 @@
 
             <label for="telefono">Tel&eacute;fono:</label>
             <input class="textInput" name="telefono" id="telefono" type="text" value="<?php if(strlen($telefono) !== 0) echo($telefono)?>"><br>
+
+            <h3>Curriculum</h3>
+            <?php 
+            if($state){
+                $doc = $us->loadCV($_REQUEST['user_id'], $pdo);
+                echo '<span> Curriculum Actual: </span><br>';
+            echo '<a target="_blank" href="view_CV.php?user_id='.$_REQUEST['user_id'].'">'.$doc['nombre'].'</a><br><br>';
+                echo '<span> Actualizar Curriculum: </span><br>';
+            }
+            echo '<a href="subir_CV.php?user_id='.$_REQUEST['user_id'].'">Subir CV...</a>
+                <br>';
+            ?>
             
             <h3>Datos de Sesi&oacute;n</h3>
             <label for="nombre">Nombre de Usuario: </label>
@@ -59,6 +71,8 @@
                 <br>';
             }
             ?>
+            
+
             <h3>Filiaci&oacute;n</h3>
             <input type="radio" name="rbfiliacion" id="rbdocente" disabled="disabled" value="docente" <?php if($filiacion === 'docente') echo 'checked="checked"'; ?>>
             <label for="rbdocente">Docente</label><br>

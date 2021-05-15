@@ -50,6 +50,9 @@ if($_SESSION['permisos'] === 'investigador'){
     $user = htmlentities($us->getUser());
     $pass = htmlentities($us->getPass());
 
+    // existencia de CV
+    $state = $us->existsCV($_REQUEST['user_id'], $pdo);
+
     // validacion de edicion
     if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono'])){
     	if (strlen($_POST['nombre']) < 1 || strlen($_POST['correo']) < 1) {
@@ -120,6 +123,16 @@ else if($_SESSION['permisos'] === 'administrativo'){
 
     $user = htmlentities($us->getUser());
     $pass = htmlentities($us->getPass());
+
+    // existencia de CV
+    $state = $us->existsCV($_REQUEST['user_id'], $pdo);
+    /*
+    if($state === false){
+        $user->uploadCV($_REQUEST['user_id'], $name, $type, $data, $pdo);
+    }
+    else if($state === true){
+        $user->updateCV($_REQUEST['user_id'], $name, $type, $data, $pdo);
+    }*/
 
     // validacion de edicion
     if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono'])){

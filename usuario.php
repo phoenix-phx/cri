@@ -323,5 +323,56 @@ class Usuario{
 	    }
 	    return $mails;
 	}
+
+	public function uploadCV($user_id, $name, $type, $data, $pdo){
+		$sql = "INSERT INTO curriculum (idUsuario, nombre, tipo, doc)
+                VALUES (?, ?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $user_id);
+        $stmt->bindParam(2, $name);
+        $stmt->bindParam(3, $type);
+       	$stmt->bindParam(4, $data);
+        $stmt->execute();
+	}
+
+	public function updateCV($user_id, $name, $type, $data, $pdo){
+		$sql = 'UPDATE curriculum 
+        		SET nombre = ?, tipo = ?, doc = ?
+        		WHERE idUsuario = ?';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $name);
+        $stmt->bindParam(2, $type);
+       	$stmt->bindParam(3, $data);
+        $stmt->bindParam(4, $user_id);
+        $stmt->execute();
+	}  
+
+	public function existsCV($user_id, $pdo){
+		$sql = "SELECT *
+				FROM curriculum JOIN usuario
+                ON curriculum.idUsuario = usuario.idUsuario
+                AND usuario.idUsuario = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $user_id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($row === false){
+        	return false;
+        }
+        else{
+        	return true;
+        }
+	}
+
+	public function loadCV($user_id, $pdo){
+		$sql = "SELECT * FROM curriculum 
+                WHERE idUsuario = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(1, $user_id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row; 
+	}  
+
 }
 ?>
