@@ -13,6 +13,7 @@ if ( isset($_POST['cancel'] ) ) {
     return;
 }
 
+
 if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']) && isset($_POST['telefono']) && isset($_POST['tUnidadI'])){
 	if (strlen($_POST['nombre']) < 1 || strlen($_POST['tUnidadI']) < 1 || strlen($_POST['correo']) < 1) {
 		$_SESSION['error'] = 'Debe llenar los campos obligatorios';
