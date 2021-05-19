@@ -59,15 +59,47 @@
             <label for="rbadmin">Administrativo</label><br>
             <label for="tUnidadI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <select name="tUnidadI" id="tUnidadI">
-                <option value="">Ninguno</option>
-                <option value="Familia y Comunidad">Familia y Comunidad</option>
-                <option value="Ética y moral">&Eacute;tica y moral</option>
-                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion">Desarrollo humano integral: Derechos humanos, salud y educación</option>
-                <option value="Ciencia, tecnologia e innovacion">Ciencia, tecnología e innovación</option>
-                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
-                <option value="Medio ambiente, recursos naturales y energias">Medio ambiente, recursos naturales y energías</option>
-                <option value="Culturas y patrimonio">Culturas y patrimonio</option>
-                <option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>
+            <option value="">Ninguno</option>
+                <option value="Instituto de Investigaciones Socio Economicas">Instituto de Investigaciones Socio Economicas</option>
+                <option value="Instituto de Investigaciones en Ciencias del Comportamiento">Instituto de Investigaciones en Ciencias del Comportamiento</option>
+                <option value="Instituto de Estudios en Etica Profesional">Instituto de Estudios en Etica Profesional</option>
+                <option value="Instituto para la Democracia">Instituto para la Democracia</option>
+                <option value="Servicio en Capacitacion en Raio y Television">Servicio en Capacitacion en Raio y Television</option>
+                <option value="Intituto de Investigaciones Aplicadas">Intituto de Investigaciones Aplicadas</option>
+                <option value="Instituto de Investigaciones sobre Asentamientos Humanos">Instituto de Investigaciones sobre Asentamientos Humanos</option>
+                <option value="Centro de Investigacion en Agua, Energia y Sotenibilidad">Centro de Investigacion en Agua, Energia y Sotenibilidad</option>
+                <option value="Centro de Investigacion en Turismo">Centro de Investigacion en Turismo</option>
+                <option value="Centro de Investigacion en Diseno">Centro de Investigacion en Diseno</option>
+                <option value="Centro de Investigacion en Cadena de Suministros">Centro de Investigacion en Cadena de Suministros</option>
+                <option value="Centro de Investigacion Desarrollo e Innovacion en Mecatronica">Centro de Investigacion Desarrollo e Innovacion en Mecatronica</option>
+                <option value="Centro de Investigacion Boliviano de Estudios Sociales">Centro de Investigacion Boliviano de Estudios Sociales</option>
+                <option value="Unidades de Investigacion Experimental">Unidades de Investigacion Experimental</option>
+                <option value="Centro de Investigacion en Ingenieria Comercial">Centro de Investigacion en Ingenieria Comercial</option>
+                <option value="Centro de investigacion e Innovacion del Departamento de Administracion de Empresas">Centro de investigacion e Innovacion del Departamento de Administracion de Empresas</option>
+                <option value="Grupo de Investigacion BIOMA">Grupo de Investigacion BIOMA</option>
+                <option value="Grupo de Investigacion Base/Aplicada Ingenieria Civil">Grupo de Investigacion Base/Aplicada Ingenieria Civil</option>
+                <option value="Grupo de Investigacion Telecomunicaciones">Grupo de Investigacion Telecomunicaciones</option>
+                <option value="Sociedad Cientifica Estudiantil de Administracion de Empresas">Sociedad Cientifica Estudiantil de Administracion de Empresas</option>
+                <option value="Sociedad Cientifica Estudiantil de Derecho">Sociedad Cientifica Estudiantil de Derecho</option>
+                <option value="Sociedad Cientifica Estudiantil de Ing. Ambiental">Sociendad Cientifica Esutdiantil de Ing. Ambiental</option>
+                <option value="Sociedad Cientifica Estudiantil de Ingenieria Comercial">Sociedad Cientifica Estudiantil de Ingenieria Comercial</option>
+                <option value="Sociedad Cientifica Estudiantil NOrbert Wiener de Ingenieria de Sistemas">Sociedad Cientifica Estudiantil NOrbert Wiener de Ingenieria de Sistemas</option>
+                <option value="Sociedad Cientifica de Comunicacion Social">Sociedad Cientifica de Comunicacion Social</option>
+                <option value="Sociedad Cientifica de Psicologia">Sociedad Cientifica de Psicologia</option>
+                <option value="Sociedad Cientifica Estudiantil de Economia">Sociedad Cientifica Estudiantil de Economia</option>
+                <option value="Sociedad Cientifica de la Carrera de Arquitectura">Sociedad Cientifica de la Carrera de Arquitectura</option>
+                <option value="Sociedad Cientifica Estudiantil de investigacion INPSICOPEDIA">Sociedad Cientifica Estudiantil de investigacion INPSICOPEDIA</option>
+                <option value="Sociedad Cientifica Estudiantil de Diseño Grafico DESIGNO">Sociedad Cientifica Estudiantil de Diseño Grafico DESIGNO</option>
+                <option value="Sociedad Cientifica Estudiantil de Administracion Turistica">Sociedad Cientifica Estudiantil de Administracion Turistica</option>
+                <option value="Sociedad Cientifica de Investigacion de Ingenieria Civil">Sociedad Cientifica de Investigacion de Ingenieria Civil</option>
+                <option value="Sociedad Cientifica Estudinatil de Ingenieria Industrial">Sociedad Cientifica Estudinatil de Ingenieria Industrial</option>
+                <option value="Sociedad Cientifica de ingenieria Quimica 'Jovenes para la Ciencia'">Sociedad Cientifica de ingenieria Quimica 'Jovenes para la Ciencia'</option>
+                <option value="Sociedad Cientifica de Ingenieria Mecatronica">Sociedad Cientifica de Ingenieria Mecatronica</option>
+                <option value="Sociedad Cientifica de Ingenieria Mecatronica">Sociedad Cientifica de Ingenieria Mecatronica</option>
+                <option value="Sociedad Cientifica de Contaduria Publica">Sociedad Cientifica de Contaduria Publica</option>
+                <option value="Sociedad Cientifica de Ingenieria de Telecomunicaciones">Sociedad Cientifica de Ingenieria de Telecomunicaciones</option>
+                <option value="Sociedad Cientifica de Ciencias Politicas">Sociedad Cientifica de Ciencias Politicas</option>
+                <option value="Sociedad Cientifica de Ingenieria Biomedica">Sociedad Cientifica de Ingenieria Biomedica</option>                
             </select>
             <br>
             <h4>Permisos<span class="must">*</span></h4>

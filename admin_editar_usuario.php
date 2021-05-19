@@ -90,27 +90,126 @@
                 <option value="Familia y Comunidad" 
                     <?php if($unidad_investigacion === 'Familia y Comunidad') echo 'selected="selected"'; ?>>
                     Familia y Comunidad</option>
-                <option value="Etica y moral" 
-                    <?php if($unidad_investigacion === 'Etica y moral') echo 'selected="selected"'; ?>>
-                    &Eacute;tica y moral</option>
-                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion" 
-                    <?php if($unidad_investigacion === 'Desarrollo humano integral: Derechos humanos, salud y educacion') echo 'selected="selected"'; ?>>
-                    Desarrollo humano integral: Derechos humanos, salud y educación</option>
-                <option value="Ciencia, tecnologia e innovacion" 
-                    <?php if($unidad_investigacion === 'Ciencia, tecnologia e innovacion') echo 'selected="selected"'; ?>>
-                    Ciencia, tecnología e innovación</option>
-                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad" 
-                    <?php if($unidad_investigacion === 'Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad') echo 'selected="selected"'; ?>>
-                    Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
-                <option value="Medio ambiente, recursos naturales y energias" 
-                    <?php if($unidad_investigacion === 'Medio ambiente, recursos naturales y energias') echo 'selected="selected"'; ?>>
-                    Medio ambiente, recursos naturales y energías</option>
-                <option value="Culturas y patrimonio" 
-                    <?php if($unidad_investigacion === 'Culturas y patrimonio') echo 'selected="selected"'; ?>>
-                    Culturas y patrimonio</option>
-                <option value="Institucionalidad, relaciones internacionales y soberania"
-                    <?php if($unidad_investigacion === 'Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"'; ?>>
-                    Institucionalidad, relaciones internacionales y soberanía<option>
+                <option value="Instituto de Investigaciones Socio Economicas"
+                    <?php if($unidad_investigacion === 'Instituto de Investigaciones Socio Economicas') echo 'selected="selected"'; ?>>
+                    Instituto de Investigaciones Socio Economicas</option>
+                <option value="Instituto de Investigaciones en Ciencias del Comportamiento"
+                    <?php if($unidad_investigacion === 'Instituto de Investigaciones en Ciencias del Comportamiento') echo 'selected="selected"';?> >
+                    Instituto de Investigaciones en Ciencias del Comportamiento</option>
+                <option value="Instituto de Estudios en Etica Profesional"
+                    <?php if($unidad_investigacion === 'Instituto de Estudios en Etica Profesional') echo 'selected="selected"';?> >
+                    Instituto de Estudios en Etica Profesional</option>
+                <option value="Instituto para la Democracia"
+                    <?php if($unidad_investigacion === 'Instituto para la Democracia') echo 'selected="selected"';?> >
+                    Instituto para la Democracia</option>
+                <option value="Servicio en Capacitacion en Raio y Television"
+                    <?php if($unidad_investigacion === 'Servicio en Capacitacion en Raio y Television') echo 'selected="selected"';?> >
+                    Servicio en Capacitacion en Raio y Television</option>
+                <option value="Intituto de Investigaciones Aplicadas"
+                    <?php if($unidad_investigacion === 'Intituto de Investigaciones Aplicadas') echo 'selected="selected"';?> >
+                    Intituto de Investigaciones Aplicadas</option>
+                <option value="Instituto de Investigaciones sobre Asentamientos Humanos"
+                    <?php if($unidad_investigacion === 'Instituto de Investigaciones sobre Asentamientos Humanos') echo 'selected="selected"';?> >
+                    Instituto de Investigaciones sobre Asentamientos Humanos</option>
+                <option value="Centro de Investigacion en Agua, Energia y Sotenibilidad"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion en Agua, Energia y Sotenibilidad') echo 'selected="selected"';?> >
+                    Centro de Investigacion en Agua, Energia y Sotenibilidad</option>
+                <option value="Centro de Investigacion en Turismo"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion en Turismo') echo 'selected="selected"';?> >
+                    Centro de Investigacion en Turismo</option>
+                <option value="Centro de Investigacion en Diseno"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion en Diseno') echo 'selected="selected"';?> >
+                    Centro de Investigacion en Diseno</option>
+                <option value="Centro de Investigacion en Cadena de Suministros"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion en Cadena de Suministros') echo 'selected="selected"';?> >
+                    Centro de Investigacion en Cadena de Suministros</option>
+                <option value="Centro de Investigacion Desarrollo e Innovacion en Mecatronica"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion Desarrollo e Innovacion en Mecatronica') echo 'selected="selected"';?> >
+                    Centro de Investigacion Desarrollo e Innovacion en Mecatronica</option>
+                <option value="Centro de Investigacion Boliviano de Estudios Sociales"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion Boliviano de Estudios Sociales') echo 'selected="selected"';?> >
+                    Centro de Investigacion Boliviano de Estudios Sociales</option>
+                <option value="Unidades de Investigacion Experimental"
+                    <?php if($unidad_investigacion === 'Unidades de Investigacion Experimental') echo 'selected="selected"';?> >
+                    Unidades de Investigacion Experimental</option>
+                <option value="Centro de Investigacion en Ingenieria Comercial"
+                    <?php if($unidad_investigacion === 'Centro de Investigacion en Ingenieria Comercial') echo 'selected="selected"';?> >
+                    Centro de Investigacion en Ingenieria Comercial</option>
+                <option value="Centro de investigacion e Innovacion del Departamento de Administracion de Empresas"
+                    <?php if($unidad_investigacion === 'Centro de investigacion e Innovacion del Departamento de Administracion de Empresas') echo 'selected="selected"';?> >
+                    Centro de investigacion e Innovacion del Departamento de Administracion de Empresas</option>
+                <option value="Grupo de Investigacion BIOMA"
+                    <?php if($unidad_investigacion === 'Grupo de Investigacion BIOMA') echo 'selected="selected"';?> >
+                    Grupo de Investigacion BIOMA</option>
+                <option value="Grupo de Investigacion Base/Aplicada Ingenieria Civil"
+                    <?php if($unidad_investigacion === 'Grupo de Investigacion Base/Aplicada Ingenieria Civil') echo 'selected="selected"';?> >
+                    Grupo de Investigacion Base/Aplicada Ingenieria Civil</option>
+                <option value="Grupo de Investigacion Telecomunicaciones"
+                    <?php if($unidad_investigacion === 'Grupo de Investigacion Telecomunicaciones') echo 'selected="selected"';?> >
+                    Grupo de Investigacion Telecomunicaciones</option>
+                <option value="Sociedad Cientifica Estudiantil de Administracion de Empresas"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Administracion de Empresas') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Administracion de Empresas</option>
+                <option value="Sociedad Cientifica Estudiantil de Derecho"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Derecho') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Derecho</option>
+                <option value="Sociedad Cientifica Estudiantil de Ing. Ambiental"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Ing. Ambiental') echo 'selected="selected"';?> >
+                    Sociendad Cientifica Esutdiantil de Ing. Ambiental</option>
+                <option value="Sociedad Cientifica Estudiantil de Ingenieria Comercial"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Ingenieria Comercial') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Ingenieria Comercial</option>
+                <option value="Sociedad Cientifica Estudiantil NOrbert Wiener de Ingenieria de Sistemas"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil NOrbert Wiener de Ingenieria de Sistemas') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil NOrbert Wiener de Ingenieria de Sistemas</option>
+                <option value="Sociedad Cientifica de Comunicacion Social"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Comunicacion Social') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Comunicacion Social</option>
+                <option value="Sociedad Cientifica de Psicologia"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Psicologia') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Psicologia</option>
+                <option value="Sociedad Cientifica Estudiantil de Economia"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Economia') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Economia</option>
+                <option value="Sociedad Cientifica de la Carrera de Arquitectura"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de la Carrera de Arquitectura') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de la Carrera de Arquitectura</option>
+                <option value="Sociedad Cientifica Estudiantil de investigacion INPSICOPEDIA"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de investigacion INPSICOPEDIA') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de investigacion INPSICOPEDIA</option>
+                <option value="Sociedad Cientifica Estudiantil de Diseño Grafico DESIGNO"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Diseño Grafico DESIGNO') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Diseño Grafico DESIGNO</option>
+                <option value="Sociedad Cientifica Estudiantil de Administracion Turistica"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudiantil de Administracion Turistica') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudiantil de Administracion Turistica</option>
+                <option value="Sociedad Cientifica de Investigacion de Ingenieria Civil"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Investigacion de Ingenieria Civil') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Investigacion de Ingenieria Civil</option>
+                <option value="Sociedad Cientifica Estudinatil de Ingenieria Industrial"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica Estudinatil de Ingenieria Industrial') echo 'selected="selected"';?> >
+                    Sociedad Cientifica Estudinatil de Ingenieria Industrial</option>
+                <option value="Sociedad Cientifica de ingenieria Quimica 'Jovenes para la Ciencia'"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de ingenieria Quimica \'Jovenes para la Ciencia\'') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de ingenieria Quimica 'Jovenes para la Ciencia'</option>
+                <option value="Sociedad Cientifica de Ingenieria Mecatronica"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Ingenieria Mecatronica') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Ingenieria Mecatronica</option>
+                <option value="Sociedad Cientifica de Ingenieria Mecatronica"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Ingenieria Mecatronica') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Ingenieria Mecatronica</option>
+                <option value="Sociedad Cientifica de Contaduria Publica"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Contaduria Publica') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Contaduria Publica</option>
+                <option value="Sociedad Cientifica de Ingenieria de Telecomunicaciones"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Ingenieria de Telecomunicaciones') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Ingenieria de Telecomunicaciones</option>
+                <option value="Sociedad Cientifica de Ciencias Politicas"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Ciencias Politicas') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Ciencias Politicas</option>
+                <option value="Sociedad Cientifica de Ingenieria Biomedica"
+                    <?php if($unidad_investigacion === 'Sociedad Cientifica de Ingenieria Biomedica') echo 'selected="selected"';?> >
+                    Sociedad Cientifica de Ingenieria Biomedica</option>            
             </select>
         <br>
             <h3>Permisos<span class="must">*</span></h3>

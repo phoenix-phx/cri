@@ -4,11 +4,11 @@ require_once "c_pdo.php";
 require_once "Usuario.php";
 require_once "Notificacion.php";
 
-/*
+
 if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] !== 'administrativo'){
     die('No ha iniciado sesion');
 }
-*/
+
 if ( isset($_POST['cancel'] ) ) {
     header("Location: home_administrativo.php");
     return;
