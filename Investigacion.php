@@ -13,6 +13,7 @@ class Investigacion{
 	protected $fecha_inicio;
 	protected $fecha_fin;
 	protected $unidad_investigacion;
+	protected $linea_investigacion;
 	protected $estado;
 	protected $id;
 
@@ -88,6 +89,14 @@ class Investigacion{
 
 	public function getUnidadInvestigacion(){
 		return $this->unidad_investigacion;
+	}
+
+	public function setLineaInvestigacion($li){
+		$this->linea_investigacion = $li;
+	}
+
+	public function getLineaInvestigacion(){
+		return $this->linea_investigacion;
 	}
 
 	public function setEstado($estado){
@@ -257,6 +266,7 @@ class Investigacion{
 			$this->setTitulo($row['nombre']);
 			$this->setNombreCorto($row['nombre_corto']);
 			$this->setUnidadInvestigacion($row['unidad_investigacion']);
+			$this->setLineaInvestigacion($row['linea_investigacion']);
 			$this->setResumen($row['resumen']);
 			$this->setFechaInicio($row['fecha_inicio']);
 			$this->setFechaFinal($row['fecha_fin']);
@@ -309,8 +319,8 @@ class Investigacion{
     }    
 
   	public function crear($user_id, $pdo){
-		$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, unidad_investigacion, estado)
-            	VALUES (:us, :no, :nc, :res, :ui, :st)";
+		$sql = "INSERT INTO investigacion (idUsuario, nombre, nombre_corto, resumen, unidad_investigacion, linea_investigacion, estado)
+            	VALUES (:us, :no, :nc, :res, :ui, :li, :st)";
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':us' => $user_id,
@@ -318,6 +328,7 @@ class Investigacion{
 	        ':nc' => $this->getNombreCorto(),
 	        ':res' => $this->getResumen(),
 	        ':ui' => $this->getUnidadInvestigacion(),
+			':li' => $this->getLineaInvestigacion(),
 	        ':st' => $this->getEstado()
 	    ));
 	    $inv_id = $pdo->lastInsertId();
@@ -353,7 +364,7 @@ class Investigacion{
 
 	public function actualizarDatos($user_id, $inv_id, $pdo){
 		$sql = 'UPDATE investigacion
-	            SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_fin = :ff, unidad_investigacion = :ui
+	            SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_fin = :ff, unidad_investigacion = :ui, linea_investigacion = :li
 	            WHERE idInv = :inv
 	            AND idUsuario = :us';                
 	    $stmt = $pdo->prepare($sql);
@@ -363,6 +374,7 @@ class Investigacion{
 	        ':res' => $this->getResumen(),
 	        ':ff' => $this->getFechaFinal(),
 	        ':ui' => $this->getUnidadInvestigacion(),
+			':li' => $this->getLineaInvestigacion(),
 	        ':inv' => $inv_id,
 	        ':us' => $user_id
 	    ));

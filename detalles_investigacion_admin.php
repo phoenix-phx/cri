@@ -59,6 +59,7 @@
     echo '<div role="fila"> <span>C&Oacute;DIGO: </span> <span>' . $codigo . ' </span></div>';
     echo '<div role="fila"> <span>TITULO: </span> <span>' . $titulo . ' </span></div>';
     echo '<div role="fila"> <span>NOMBRE CORTO: </span> <span>' . $nc . ' </span></div>';
+    echo '<div role="fila"> <span>LINEA DE INVESTIGACI&Oacute;N: </span> <span>' . $li . ' </span> <div>';
     echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>RESUMEN: </span> <span>' . $resumen . ' </span></div>';
     echo '<div role="fila"> <span>FECHA INICIO: </span> <span>' . $finicio . ' </span></div>';

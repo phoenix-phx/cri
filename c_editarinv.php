@@ -54,6 +54,7 @@ $resumen = htmlentities($inv->getResumen());
 $fecha_inicio = htmlentities($inv->getFechaInicio());
 $fecha_fin = htmlentities($inv->getFechaFinal());
 $unidad = htmlentities($inv->getUnidadInvestigacion());
+$linea = htmlentities($inv->getLineaInvestigacion());
 $inv_id = htmlentities($inv->getId());
 
 // autor principal
@@ -111,9 +112,9 @@ $act = new Actividad();
 $actividades = $act->loadActividad($pdo, $_REQUEST['inv_id']);
 
 // validacion de edicion
-if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) ){
+if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['linInvCI']) && isset($_POST['nomInvPCI']) ){
 
-    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
+    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['uniInvCI']) < 1 || strlen($_POST['linInvCI']) < 1) {
 
         $_SESSION['error'] = 'Debe llenar todos los campos obligatorios de la investigacion';
         header("Location: editar_investigacion.php?inv_id=".$_REQUEST['inv_id']);
@@ -295,6 +296,14 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $hist->setDetalle($det);
         $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
     }
+    
+    if($inv->getLineaInvestigacion() !== $_POST['linInvCI']){
+        $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $inv->getLineaInvestigacion() . "\n\nAhora:\n" . $_POST['linInvCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
 
     // investigacion 
     $newInv = new Investigacion();
@@ -312,6 +321,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     }
 
     $newInv->setUnidadInvestigacion($_POST['uniInvCI']);
+    $newInv->setLineaInvestigacion($_POST['linInvCI']);
     $newInv->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
 
     // fecha final

@@ -16,9 +16,9 @@ if ( isset($_POST['cancel'] ) ) {
     return;
 }
 
-if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['nomInvPCI']) ){
+if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POST['resumenCI']) && isset($_POST['fechaFinCI']) && isset($_POST['uniInvCI']) && isset($_POST['linInvCI']) && isset($_POST['nomInvPCI']) ){
 
-    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['uniInvCI']) < 1 ) {
+    if (strlen($_POST['invTituloCI']) < 1 || strlen($_POST['invNomCortoCI']) < 1  || strlen($_POST['resumenCI']) < 1 || strlen($_POST['uniInvCI']) < 1 || strlen($_POST['linInvCI']) < 1) {
 
         $_SESSION['error'] = 'Debe llenar todos los campos obligatorios de la investigacion';
         header("Location: nueva_investigacion.php");
@@ -172,6 +172,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     }
     
     $inv->setUnidadInvestigacion($_POST['uniInvCI']);
+    $inv->setLineaInvestigacion($_POST['linInvCI']);
     $inv->setEstado("en curso");
 
     $inv->crear($_SESSION['idUsuario'], $pdo);
