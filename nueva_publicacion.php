@@ -42,6 +42,23 @@
             <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
 
+            <!-- Linea de Inv -->
+
+            <label for="linInvCP">Linea de Investigaci&oacute;n:<span class="must">*</span></label>
+            <select name="linInvCP" id="tLineaI">
+                <option value="">Ninguno</option>
+                <option value="Familia y Comunidad">Familia y Comunidad</option>
+                <option value="Etica y moral">&Eacute;tica y moral</option>
+                <option value="Desarrollo humano integral: Derechos humanos, salud y educacion">Desarrollo humano integral: Derechos humanos, salud y educación</option>
+                <option value="Ciencia, tecnologia e innovacion">Ciencia, tecnología e innovación</option>
+                <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad">Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+                <option value="Medio ambiente, recursos naturales y energias">Medio ambiente, recursos naturales y energías</option>
+                <option value="Culturas y patrimonio">Culturas y patrimonio</option>
+                <option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>
+            </select>
+            <br>
+        
+            
             <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <select name="uInvestigacion" id="uInvestigacion">
                 <option value="">Ninguno</option>

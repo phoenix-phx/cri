@@ -51,6 +51,7 @@ $titulo = htmlentities($pub->getTitulo());
 $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
 $ui = htmlentities($pub->getUnidadInvestigacion());
+$li = htmlentities($pub->getLineaInvestigacion());
 
 $est = htmlentities($pub->getEstado());
 if(strlen($investigacion) !== 0){
@@ -89,9 +90,9 @@ $auths = new Autor();
 $investigadores = $auths->loadAutores($pdo, $_REQUEST['pub_id'], 'publicacion');
 
 // validacion de edicion
-if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP']) && isset($_POST['uInvestigacion'])){
+if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP']) && isset($_POST['uInvestigacion']) && isset($_POST['linInv'])){
 
-    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 || strlen($_POST['uInvestigacion']) < 1) {
+    if (strlen($_POST['tituloCP']) < 1 || strlen($_POST['resumenCP']) < 1  || strlen($_POST['tipoCP']) < 1 || strlen($_POST['uInvestigacion']) < 1 || strlen($_POST['linInv']) < 1) {
         $_SESSION['error'] = 'Debe llenar los campos obligatorios';
         header("Location: editar_publicacion.php?pub_id=".$_REQUEST['pub_id']);
         return;
@@ -206,6 +207,14 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         $hist->setDetalle($det);
         $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
     }
+    
+    if($pub->getLineaInvestigacion() !== $_POST['linInv']){
+        $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getLineaInvestigacion() . "\n\nAhora:\n" . $_POST['linInv'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+    }
 
     // publicacion
     $newPub = new Publicacion();
@@ -214,7 +223,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $newPub->setResumen($_POST['resumenCP']); 
     $newPub->setTipo($_POST['tipoCP']); 
     $newPub->setUnidadInvestigacion($_POST['uInvestigacion']); 
-    
+    $newPub->setLineaInvestigacion($_POST['linInv']);
     $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
 
     if(strlen($_POST['invCP']) > 1){

@@ -49,6 +49,36 @@
         <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
         <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
 
+        <label for="linInv">Linea de Investigaci&oacute;n:<span class="must">*</span></label>
+        <select name="linInv" id="lInv">
+        <option value="">Ninguno</option>
+            <option value="Familia y Comunidad"
+                <?php if($li === "Familia y Comunidad") echo 'selected="selected"'?>>
+                Familia y Comunidad</option>
+            <option value="Etica y moral"
+                <?php if($li === "Etica y moral") echo 'selected="selected"'?>>
+                &Eacute;tica y moral</option>
+            <option value="Desarrollo humano integral: Derechos humanos, salud y educacion"
+                <?php if($li === "Desarrollo humano integral: Derechos humanos, salud y educacion") echo 'selected="selected"'?>>
+                Desarrollo humano integral: Derechos humanos, salud y educación</option>
+            <option value="Ciencia, tecnologia e innovacion"
+                <?php if($li === "Ciencia, tecnologia e innovacion") echo 'selected="selected"'?>>
+                Ciencia, tecnología e innovación</option>
+            <option value="Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad"
+                <?php if($li === "Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad") echo 'selected="selected"'?>>
+                Crecimiento equitativo, desarrollo inclusivo, emprendimiento y productividad</option>
+            <option value="Medio ambiente, recursos naturales y energias"
+                <?php if($li === "Medio ambiente, recursos naturales y energias") echo 'selected="selected"'?>>
+                Medio ambiente, recursos naturales y energías</option>
+            <option value="Culturas y patrimonio"
+                <?php if($li === "Culturas y patrimonio") echo 'selected="selected"'?>>
+                Culturas y patrimonio</option>
+            <option value="Institucionalidad, relaciones internacionales y soberania"
+                <?php if($li === "Institucionalidad, relaciones internacionales y soberania") echo 'selected="selected"'?>>
+                Institucionalidad, relaciones internacionales y soberanía<option>
+        </select>
+        <br>
+
         <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
         <select name="uInvestigacion" id="uInvestigacion">
                 <option value="">Ninguno</option>

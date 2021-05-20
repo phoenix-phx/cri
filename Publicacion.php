@@ -9,6 +9,7 @@ class Publicacion{
 	protected $resumen;
 	protected $tipo;
 	protected $unidad_investigacion;
+	protected $linea_investigacion;
 	protected $estado;
 	protected $id;
 
@@ -98,6 +99,14 @@ class Publicacion{
 		return $this->unidad_investigacion;
 	}
 
+	public function setLineaInvestigacion($li){
+		$this->linea_investigacion = $li;
+	}
+
+	public function getLineaInvestigacion(){
+		return $this->linea_investigacion;
+	}
+	
 	public function setEstado($estado){
 		$this->estado = $estado;
 	}
@@ -342,6 +351,7 @@ class Publicacion{
 			$this->setResumen($row['resumen']);
 			$this->setTipo($row['tipo']);
 			$this->setUnidadInvestigacion($row['unidad_investigacion']);
+			$this->setLineaInvestigacion($row['linea_investigacion']);
 			$this->setEstado($row['estado']);
 			$this->setId($row['idInv']);
 			$this->setIdUsuario($row['idUsuario']);
@@ -376,8 +386,8 @@ class Publicacion{
     }
 
     public function crear($user_id, $pdo){
-		$sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo, unidad_investigacion, estado)
-	            VALUES (:us, :no, :res, :ti, :ui, :st)";
+		$sql = "INSERT INTO publicacion (idUsuario, titulo, resumen, tipo, unidad_investigacion, linea_investigacion, estado)
+	            VALUES (:us, :no, :res, :ti, :ui, :li, :st)";
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':us' => $user_id,
@@ -385,6 +395,7 @@ class Publicacion{
 	        ':res' => $this->getResumen(),
 	        ':ti' => $this->getTipo(),
 	        ':ui' => $this->getUnidadInvestigacion(),
+			':li' => $this->getLineaInvestigacion(),
 	        ':st' => $this->getEstado()
 	    ));
 	    $pub_id = $pdo->lastInsertId();
@@ -432,7 +443,7 @@ class Publicacion{
 
 	public function actualizarDatos($user_id, $pub_id, $pdo){
 		$sql = 'UPDATE publicacion
-	            SET titulo = :no, resumen = :res, tipo = :ti, unidad_investigacion = :ui
+	            SET titulo = :no, resumen = :res, tipo = :ti, unidad_investigacion = :ui, linea_investigacion = :li
 	            WHERE idPub = :pub
 	            AND idUsuario = :us';
 	    $stmt = $pdo->prepare($sql);
@@ -441,6 +452,7 @@ class Publicacion{
 	        ':res' => $this->getResumen(),
 	        ':ti' => $this->getTipo(),
 	        ':ui' => $this->getUnidadInvestigacion(),
+			':li' => $this->getLineaInvestigacion(),
 	        ':pub' => $pub_id,
 	        ':us' => $user_id
 	    ));
