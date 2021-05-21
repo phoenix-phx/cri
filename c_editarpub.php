@@ -52,6 +52,7 @@ $resumen = htmlentities($pub->getResumen());
 $investigacion = htmlentities($pub->getIdInv());
 $ui = htmlentities($pub->getUnidadInvestigacion());
 $li = htmlentities($pub->getLineaInvestigacion());
+$apa = htmlentities($pub->getApa());
 
 $est = htmlentities($pub->getEstado());
 if(strlen($investigacion) !== 0){
@@ -200,6 +201,14 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
     }
 
+    if($pub->getApa() !== $_POST['apaCP']){
+        $det = 'Se registró el cambio de la CITACION APA' . "\n\nAntes:\n" . $pub->getApa() . "\n\nAhora:\n" . $_POST['apaCP'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+    }
+
     if($pub->getUnidadInvestigacion() !== $_POST['uInvestigacion']){
         $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getUnidadInvestigacion() . "\n\nAhora:\n" . $_POST['uInvestigacion'] . "\n";
         $hist = new Historial();
@@ -222,6 +231,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $newPub->setTitulo($_POST['tituloCP']); 
     $newPub->setResumen($_POST['resumenCP']); 
     $newPub->setTipo($_POST['tipoCP']); 
+    $newPub->setApa($_POST['apaCP']);
     $newPub->setUnidadInvestigacion($_POST['uInvestigacion']); 
     $newPub->setLineaInvestigacion($_POST['linInv']);
     $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);

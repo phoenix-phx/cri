@@ -36,6 +36,7 @@ if($_SESSION['permisos'] === 'investigador'){
     $tipo = htmlentities($pub->getTipo());
     $ui = htmlentities($pub->getUnidadInvestigacion());
     $li = htmlentities($pub->getLineaInvestigacion());
+    $apa = htmlentities($pub->getApa());
     $est = htmlentities($pub->getEstado());
     $investigacion = htmlentities($pub->getIdInv());
     $flag = false;
@@ -62,6 +63,7 @@ if($_SESSION['permisos'] === 'investigador'){
     echo '<div role="fila"> <span>LINEA DE INVESTIGACI&Oacute;N: </span> <span>' . $li . '</span></div>';
     echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';    
     echo '<div role="fila"> <span>TIPO PUBLICACI&Oacute;N: </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>CITATI&Oacute;N: </span> <span>' . $apa . ' </span></div>';
     if($flag === true){
         echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
     }
@@ -129,6 +131,7 @@ else if($_SESSION['permisos'] === 'administrativo'){
     $resumen = htmlentities($pub->getResumen());
     $ui = htmlentities($pub->getUnidadInvestigacion());
     $li = htmlentities($pub->getLineaInvestigacion());
+    $apa = htmlentities($pub->getApa());
     $est = htmlentities($pub->getEstado());
     $tipo = htmlentities($pub->getTipo());
     $investigacion = htmlentities($pub->getIdInv());

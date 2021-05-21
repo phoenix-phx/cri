@@ -41,7 +41,7 @@
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
             <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
-
+            
             <!-- Linea de Inv -->
 
             <label for="linInvCP">Linea de Investigaci&oacute;n:<span class="must">*</span></label>
@@ -105,6 +105,10 @@
             </select>
             <br>
             
+            <label for="apaCP">Citacion APA:<!--<span class="must">*</span>--></label><br>
+            <textarea class="textInput" name="apaCP" id="apaCP" rows="4" cols="100"></textarea><br>
+            
+
             <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label>
             <input class="textInput" name="invCP" id="invCP" type="text"><br>
             <label for="tipoCP">Tipo publicaci&oacute;n:<span class="must">*</span></label>

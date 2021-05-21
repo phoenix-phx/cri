@@ -208,6 +208,9 @@
             </select>
         <br>
 
+        <label for="apaCP">Resumen:<!--<span class="must">*</span>--></label><br>
+        <textarea class="textInput" name="apaCP" id="apa" rows="4" cols="100"><?php echo $apa ?></textarea><br>        
+
         <label for="invCP">Investigaci&oacute;n asociada (C&oacute;digo):</label><br> 
         <input class="textInput" name="invCP" id="invCP" type="text" <?php if(strlen($investigacion) !== 0) {echo 'value="'.$nombreInv.'"';}?>><br>
         <?php // TODO: procesar select si existe ?>

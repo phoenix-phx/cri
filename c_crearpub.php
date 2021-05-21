@@ -104,6 +104,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $pub->setTitulo($_POST['tituloCP']);
     $pub->setResumen($_POST['resumenCP']);
     $pub->setTipo($_POST['tipoCP']);
+    $pub->setApa($_POST['apaCP']);
     $pub->setUnidadInvestigacion($_POST['uInvestigacion']);
     $pub->setLineaInvestigacion($_POST['linInvCP']);
     $pub->setEstado('en curso');

@@ -64,6 +64,7 @@
     echo '<div role="fila"> <span>LINEA DE INVESTIGACI&Oacute;N: </span> <span>' . $li . '</span></div>';
     echo '<div role="fila"> <span>UNIDAD DE INVESTIGACI&Oacute;N: </span> <span>' . $ui . ' </span></div>';
     echo '<div role="fila"> <span>TIPO PUBLICACI&Oacute;N: </span> <span>' . $tipo . ' </span></div>';
+    echo '<div role="fila"> <span>CITATI&Oacute;N: </span> <span>' . $apa . ' </span></div>';
     if($flag){
         echo '<div role="fila"> <span>INVESTIGACI&Oacute;N ASOCIADA: </span> <span>' . $nombreInv . ' </span></div>';
     }
