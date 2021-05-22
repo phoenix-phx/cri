@@ -46,6 +46,9 @@
             <label for="resumenCI">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"></textarea><br>
             
+            <label for="fechaIniCI">Fecha de inicio (aaaa-mm-dd):</label><br>
+            <input class="xstextInput" name="fechaIniCI" id="fechaIniCI" type="date"><br>
+            
             <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):</label><br>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date"><br>
             
@@ -113,6 +116,14 @@
                 <option value="Sociedad Cientifica de Ingenieria Biomedica">Sociedad Cientifica de Ingenieria Biomedica</option>                
             </select>
             <br>
+            
+            <!--Estado-->
+            
+            <label>Estado:<span class="must">*</span></label><br>
+            <input name="estInv" id="cursoInv" type="radio" value="curso">
+            <label for="cursoInv">En Curso</label><br>
+            <input name="estInv" id="termInv" type="radio" value="terminado">
+            <label for="termInv">Terminada</label><br>
 
             <h3><i>A continuaci&oacute;n, indica los detalles del investigador principal:</i></h3>
             <!--Agregar div-->
