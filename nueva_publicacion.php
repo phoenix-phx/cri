@@ -42,6 +42,14 @@
             <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
             <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
             
+            <!-- Estado -->
+            
+            <label>Estado:<span class="must">*</span></label><br>
+            <input name="estPub" id="cursoPub" type="radio" value="curso">
+            <label for="cursoPub">En Curso</label><br>
+            <input name="estPub" id="termPub" type="radio" value="terminado">
+            <label for="termPub">Terminada</label><br>
+            
             <!-- Linea de Inv -->
 
             <label for="linInvCP">Linea de Investigaci&oacute;n:<span class="must">*</span></label>
