@@ -107,8 +107,17 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $pub->setApa($_POST['apaCP']);
     $pub->setUnidadInvestigacion($_POST['uInvestigacion']);
     $pub->setLineaInvestigacion($_POST['linInvCP']);
-    $pub->setEstado('en curso');
+    //$pub->setEstado('en curso');
 
+    //estado
+    if($_POST['estPub'] === 'curso'){
+        $pub->setEstado("en curso");
+        $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
+    }else if($_POST['estPub'] === 'terminado'){
+        $pub->setEstado("cerrado");
+        $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
+    }
+    
     $pub->crear($_SESSION['idUsuario'], $pdo);
     $pub_id = $pub->getId();
 
