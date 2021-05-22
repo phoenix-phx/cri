@@ -335,6 +335,19 @@ class Investigacion{
 	    $this->setId($inv_id);
 	}  
 
+	public function agregarFechaInicio($user_id, $inv_id, $pdo){
+		$sql = "UPDATE investigacion
+	            SET  fecha_inicio = :ff
+	            WHERE idUsuario = :id
+	            AND idInv = :inv";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':ff' => $this->getFechaInicio(),
+	        ':id' => $user_id,
+	        ':inv' => $inv_id 
+	    ));	    
+	}
+	
 	public function agregarFechaFinal($user_id, $inv_id, $pdo){
 		$sql = "UPDATE investigacion
 	            SET  fecha_fin = :ff
@@ -343,6 +356,19 @@ class Investigacion{
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':ff' => $this->getFechaFinal(),
+	        ':id' => $user_id,
+	        ':inv' => $inv_id 
+	    ));	    
+	}
+	
+	public function agregarEstado($user_id, $inv_id, $pdo){
+		$sql = "UPDATE investigacion
+	            SET  estado = :est
+	            WHERE idUsuario = :id
+	            AND idInv = :inv";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute(array(
+	        ':est' => $this->getEstado(),
 	        ':id' => $user_id,
 	        ':inv' => $inv_id 
 	    ));	    
