@@ -173,7 +173,16 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     
     $inv->setUnidadInvestigacion($_POST['uniInvCI']);
     $inv->setLineaInvestigacion($_POST['linInvCI']);
-    $inv->setEstado("en curso");
+    //$inv->setEstado("en curso");
+    
+    //estado
+    if($_POST['estInv'] === 'curso'){
+        $inv->setEstado("en curso");
+        $inv->agregarEstado($_SESSION['idUsuario'], $inv_id, $pdo);
+    }else if($_POST['estInv'] === 'terminado'){
+        $inv->setEstado("cerrado");
+        $inv->agregarEstado($_SESSION['idUsuario'], $inv_id, $pdo);
+    }
 
     $inv->crear($_SESSION['idUsuario'], $pdo);
     $inv_id = $inv->getId();
@@ -186,10 +195,16 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $codigo = $codigo . strtolower($nombre[$i]);
     }
     
-    $inv->setFechaInicio($finicio);
+    //$inv->setFechaInicio($finicio);
     $inv->setCodigo($codigo);
 
     $inv->completarDetalles($_SESSION['idUsuario'], $pdo);
+    
+    // fecha inicio
+    if(strlen($_POST['fechaIniCI']) > 1){
+        $inv->setFechaInicio($_POST['fechaIniCI']);
+        $inv->agregarFechaInicio($_SESSION['idUsuario'], $inv_id, $pdo);
+    }
     
     // fecha final
     if(strlen($_POST['fechaFinCI']) > 1){
