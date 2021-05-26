@@ -1,3 +1,15 @@
+<?php 
+session_start();
+// security control
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
+    die('No ha iniciado sesion');
+}
+
+if( $_SESSION['permisos'] !== "administrativo"){
+    die('Acceso denegado');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +35,6 @@
             line-height:150%; 
         }
     </style>
-    <?php session_start(); ?>
 
 </head>
 <body>
@@ -82,12 +93,13 @@
                 <a class="link" href="reporte_publicacion.php">Reporte publicaci&oacute;n</a>
             </div>
         </div>
-        <div class="container" style="margin:30px;padding:5px;height:110px;">
-            <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:110px;width:185px;">
+        <div class="container" style="margin:30px;padding:5px;height:140px;">
+            <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:140px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Reportes</h3>
-                <a class="link" href="reporte_investigacion.php">Reporte investigaci&oacute;n</a><br>
-                <a class="link" href="reporte_publicacion.php">Reporte publicaci&oacute;n</a>
+                <a class="link" href="investigation_report.php">Generar archivo de investigaciones</a><br>
+                <a class="link" href="publication_report.php">Generar archivo de publicaciones</a><br>
+                <a class="link" href="users_report.php">Generar archivo de usuarios</a><br>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
