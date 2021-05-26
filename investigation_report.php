@@ -13,7 +13,7 @@ if( $_SESSION['permisos'] !== "administrativo"){
 
 // display headers
 header("Content-Type: application/xls");
-header("Content-Disposition: attachment; filename=reporte.xls");
+header("Content-Disposition: attachment; filename=ReporteInvestigaciones.xls");
 header("Pragma: no-cache");
 ?>
 
