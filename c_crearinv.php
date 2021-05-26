@@ -291,6 +291,13 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $fin->registrarObservaciones($pdo, $inv_id);
         }            
     }
+    else{
+        $fin = new Financiador();
+        $fin->setTipoFinanciamiento("");
+        $fin->setTipoFinanciador("");
+        $fin->setNombreFinanciador("");
+        $fin->registrar($pdo, $inv_id);
+    }
 
     // actividades
     for ($i=0; $i <= 100 ; $i++) {
