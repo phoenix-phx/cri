@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +23,10 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
-                    session_start();
                     echo $_SESSION['nombre'];
                 ?>
             </a>
@@ -35,6 +40,7 @@
             <button class="button aRight" onclick="document.location='editar_investigacion.php?inv_id=<?php echo $cad ?>'">Editar</button>
             <?php  $cad = 'cerrar_confirmacion.php?inv_id='.$_REQUEST['inv_id']?>
             <button class="button aRight" style="margin-right:20px;" onclick="document.location='<?php echo $cad; ?>'">Cerrar Investigaci&oacute;n</button>
+            <?php //TODO: no mostrar opcion CERRAR INVESTIGACION si ya esta cerrada ?>
         </div>
     </div>
     <br>

@@ -92,7 +92,7 @@ if($_SESSION['permisos'] === 'investigador'){
     //financiamiento
     echo "<p><b>FINANCIAMIENTO</b></p>";
     echo '<div role="fila" style="padding-left:10px;">';
-    if($financiador !== false){
+    if($financiador !== false && $financiador["nombre_financiador"] !== ""){
         echo '<span>' . htmlentities($financiador['nombre_financiador']) . ' </span> ';
         echo '<span> <a href="detalles_financiador_inv.php?inv_id=' . $_REQUEST['inv_id'] . '&fin_id=' . $financiador['idFinanciador'] . '">Ver detalles</a></span>';
     }

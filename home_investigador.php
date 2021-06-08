@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +24,8 @@
             color: black;
             text-decoration: none;
             font-size: 20px;
-        }
-        
-        
+        }        
     </style>
-    <?php session_start();?>
 </head>
 <body> 
     <!-- header -->
@@ -32,7 +35,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue" href="editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">
                 <?php echo $_SESSION['nombre'];?>
@@ -55,7 +58,6 @@
     </div>
     <?php
     if (isset($_SESSION['error'])) {
-    
         echo ('<br><div align="center" style="color:red;">'.htmlentities($_SESSION['error'])."</div>\n");
         unset($_SESSION['error']);
     }

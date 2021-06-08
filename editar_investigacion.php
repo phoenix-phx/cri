@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +20,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -36,7 +42,7 @@
         }
         ?>
         <h3><i>Para registrar los cambios debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
-        <form action="c_editarinv.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>" method="post">
+        <form action="c_editarinvPost.php?inv_id=<?php echo($_REQUEST['inv_id']) ?>" method="post">
             
             <label for="code">C&oacute;digo:<span class="must">*</span> </label> 
             <input class="textInput" name="code" id="code" type="text" disabled="disabled" value="<?php echo($codigo) ?>"><br>
@@ -48,10 +54,10 @@
             <input class="textInput" name="invNomCortoCI" id="nombreCortoCI" type="text" value="<?php echo($nombre_corto) ?>"><br>
             
             <label for="resumenCI">Resumen:<span class="must">*</span></label><br>
-            <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"><?php echo($resumen) ?></textarea><br>
+            <textarea class="textInput" name="resumenCI" id="resumenCI" rows="4" cols="100"><?php echo($resumen) ?></textarea><br><br>
             
-            <label for="fi">Fecha de Inicio:<span class="must">*</span></label>
-            <input class="textInput" name="fi" id="fi" type="text" disabled="disabled" value="<?php echo($fecha_inicio) ?>"><br>
+            <label for="fi">Fecha de Inicio (aaaa-mm-dd):</label>
+            <input class="xstextInput" name="fechaInicioCI" id="fi" type="date" value="<?php echo($fecha_inicio) ?>"><br>
             
             <label for="fechaFinCI">Fecha de finalizaci&oacute;n (aaaa-mm-dd):</label>
             <input class="xstextInput" name="fechaFinCI" id="fechaFinCI" type="date" value="<?php echo($fecha_fin) ?>"><br>
@@ -84,7 +90,7 @@
                     <?php if($linea === 'Institucionalidad, relaciones internacionales y soberania') echo 'selected="selected"';?> >
                     Institucionalidad, relaciones internacionales y soberanía<option>
             </select>
-            <br>
+            <br><br>
 
             <label for="uniInvCI">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
             <select name="uniInvCI" id="uniInvCI">

@@ -2,13 +2,13 @@
 <html>
 <head>
     <link rel="stylesheet" href="style/styles.css">
-
+    <title>UCB - SCI</title>
 </head>
 <body>
     <div style="height:50px;"></div>
     <div align="center" class="center">
         <img src="imagenes/LogoU_nombre.png">    
-        <h1>Bienvenido al Sistema Acad&eacute;mico para Investigaciones UCB</h1>
+        <h1>Bienvenido a UCB - SCI: El sistema de soporte a la investigaci&oacute;n cient&iacute;fica</h1>
         <h2>Selecciona una opci&oacute;n para iniciar sesi&oacute;n</h2>
     </div>
     <br><br>

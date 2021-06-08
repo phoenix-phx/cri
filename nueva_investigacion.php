@@ -1,8 +1,14 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Nueva Investigaci&oacute;n</title>
-    <?php require_once "c_crearinv.php"?>
+    <?php //require_once "c_crearinv.php"?>
     <script src="script/s_nueva_investigacion.js"></script>
     <link rel="stylesheet" href="style/styles.css">
 </head>
@@ -14,7 +20,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -115,7 +121,7 @@
                 <option value="Sociedad Cientifica de Ciencias Politicas">Sociedad Cientifica de Ciencias Politicas</option>
                 <option value="Sociedad Cientifica de Ingenieria Biomedica">Sociedad Cientifica de Ingenieria Biomedica</option>                
             </select>
-            <br>
+            <br><br>
             
             <!--Estado-->
             
