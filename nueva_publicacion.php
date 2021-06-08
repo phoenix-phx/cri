@@ -1,8 +1,14 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Nueva Publicaci&oacute;n</title>
-    <?php require_once "c_crearpub.php"?>
+    <?php //require_once "c_crearpub.php"?>
     <script src="script/s_nueva_publicacion.js"></script>
     <link rel="stylesheet" href="style/styles.css">
 </head>
@@ -14,7 +20,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -40,7 +46,7 @@
             <label for="tituloCP"> Titulo:<span class="must">*</span> </label><br>
             <input class="textInput" name="tituloCP" id="tituloCP" type="text"><br>
             <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
-            <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br>
+            <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"></textarea><br><br>
             
             <!-- Estado -->
             
@@ -64,7 +70,7 @@
                 <option value="Culturas y patrimonio">Culturas y patrimonio</option>
                 <option value="Institucionalidad, relaciones internacionales y soberania">Institucionalidad, relaciones internacionales y soberanía<option>
             </select>
-            <br>
+            <br><br>
         
             
             <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>

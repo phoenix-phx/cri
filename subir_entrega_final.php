@@ -1,8 +1,14 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Subir Documento Final</title>
-	<?php include "c_subirentrega.php" ?>
+	<title>Subir Documento</title>
+	<?php //include "c_subirentrega.php" ?>
     <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
@@ -13,7 +19,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -30,7 +36,7 @@
         unset($_SESSION['error']);
     }
     ?>
-    <h3><i>Para registrar el documento final debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
+    <h3><i>Para registrar el documento debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></h3>
     <form action="c_subirentrega.php?pub_id=<?php echo $_REQUEST['pub_id']?>" method="post" enctype="multipart/form-data">
         Archivo:<span class="must">*</span><br><br>
         <div>

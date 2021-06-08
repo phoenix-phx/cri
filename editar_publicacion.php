@@ -1,3 +1,9 @@
+<?php 
+session_start();
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] != 'investigador'){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +21,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -25,7 +31,7 @@
         </div>
     </div>
     <div style="padding-left:5%; padding-right:5%;">
-    <form action="c_editarpub.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>" method="post">
+    <form action="c_editarpubPost.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>" method="post">
         <h1>Editar publicaci&oacute;n</h1>   
         <?php
         if (isset($_SESSION['error'])) {
@@ -47,7 +53,7 @@
         <input class="textInput" name="tituloCP" id="tituloCP" type="text" value="<?php echo($titulo) ?>"><br>
 
         <label for="resumenCP">Resumen:<span class="must">*</span></label><br>
-        <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br>
+        <textarea class="textInput" name="resumenCP" id="resumenCP" rows="4" cols="100"><?php echo $resumen ?></textarea><br><br>
 
         <label for="linInv">Linea de Investigaci&oacute;n:<span class="must">*</span></label>
         <select name="linInv" id="lInv">
@@ -77,7 +83,7 @@
                 <?php if($li === "Institucionalidad, relaciones internacionales y soberania") echo 'selected="selected"'?>>
                 Institucionalidad, relaciones internacionales y soberanía<option>
         </select>
-        <br>
+        <br><br>
 
         <label for="uInvestigacion">Unidad de Investigaci&oacute;n:<span class="must">*</span></label>
         <select name="uInvestigacion" id="uInvestigacion">

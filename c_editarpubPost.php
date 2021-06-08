@@ -1,4 +1,5 @@
-<?php
+<?php 
+session_start();
 require_once "c_pdo.php";
 require_once "Publicacion.php";
 require_once "Investigacion.php";
@@ -21,73 +22,6 @@ if ( isset($_POST['cancel'] ) ) {
     header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
     return;
 }
-
-$stmt = $pdo->prepare('SELECT * FROM publicacion
-                       WHERE idPub = :pub
-                       AND idUsuario = :id');
-$stmt->execute(array(
-    ':pub' => $_REQUEST['pub_id'],
-    ':id' => $_SESSION['idUsuario']
-));
-$inv = $stmt->fetch(PDO::FETCH_ASSOC);
-if($inv === false){
-    $_SESSION['error'] = 'No se pudo cargar la publicacion';
-    header('Location: listaPub_investigador.php');
-    return;    
-}
-
-// cargar datos
-$pub = new Publicacion();
-$state = $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
-if($state === false){
-    $_SESSION['error'] = 'Valores erroneos para pub_id';
-    header('Location: listaPub_investigador.php');
-    return;
-}
-
-$codigo = htmlentities($pub->getCodigo());
-$titulo = htmlentities($pub->getTitulo());
-$resumen = htmlentities($pub->getResumen());
-$investigacion = htmlentities($pub->getIdInv());
-$ui = htmlentities($pub->getUnidadInvestigacion());
-$li = htmlentities($pub->getLineaInvestigacion());
-$apa = htmlentities($pub->getApa());
-
-$est = htmlentities($pub->getEstado());
-if(strlen($investigacion) !== 0){
-    $nombreInv = $pub->getCodigoInv();
-}
-$tipo = htmlentities($pub->getTipo());
-$pub_id = htmlentities($pub->getId());
-
-// autor principal
-$test = new Autor();
-$autory = $test->testAutorPrincipal($_REQUEST['pub_id'], $pdo, 'publicacion');
-if($autory['universidad'] === null){
-    $auth = new AutorInterno();
-    $auth->loadData($_REQUEST['pub_id'], $pdo, 'publicacion');
-
-    $pautor_id = htmlentities($auth->getId());
-    $pnombre = htmlentities($auth->getNombre());
-    $tipo_filiacion = htmlentities($auth->getTipoFiliacion());
-    $rol = htmlentities($auth->getRol());
-    $unidad_investigacion = htmlentities($auth->getUnidadInvestigacion());
-    $filiacion = htmlentities($auth->getFiliacion());
-}
-else if($autory['universidad'] !== null){
-    $auth = new AutorExterno();
-    $auth->loadData($_REQUEST['pub_id'], $pdo, 'publicacion');
-    
-    $pautor_id = htmlentities($auth->getId());
-    $pnombre = htmlentities($auth->getNombre());
-    $tipo_filiacion = htmlentities($auth->getTipoFiliacion());
-    $rol = htmlentities($auth->getRol());
-    $universidad = htmlentities($auth->getUniversidad());
-}
-
-// autores de colaboracion
-$auths = new Autor();
-$investigadores = $auths->loadAutores($pdo, $_REQUEST['pub_id'], 'publicacion');
 
 // validacion de edicion
 if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipoCP']) && isset($_POST['nomInvPCP']) && isset($_POST['uInvestigacion']) && isset($_POST['linInv'])){
@@ -176,6 +110,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $dia = getdate();
     $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
     
+    $pub = new Publicacion(); 
     if($pub->getTitulo() !== $_POST['tituloCP']){
         $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $pub->getTitulo() . "\n\nAhora:\n" . $_POST['tituloCP'] . "\n";
         $hist = new Historial();
