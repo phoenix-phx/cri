@@ -1,3 +1,10 @@
+<?php 
+session_start();
+// security control
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +20,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -34,7 +41,7 @@
             unset($_SESSION['success']);
         }
         ?>
-        <form action="c_editarusuario.php?user_id=<?php echo($_REQUEST['user_id']) ?>" method="post" >
+        <form action="c_editarusuarioPost.php?user_id=<?php echo($_REQUEST['user_id']) ?>" method="post" >
             <p class="inst"><i>Para una operacion correcta debe ingresar todos los datos obligatorios (<span class="must">*</span>)</i></p>
             <h3>Datos Generales</h3>
             <label for="nombre"> Nombre:<span class="must">*</span></label>

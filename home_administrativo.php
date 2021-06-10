@@ -45,7 +45,7 @@ if( $_SESSION['permisos'] !== "administrativo"){
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue" href="admin_editar_usuario.php?user_id=<?php echo($_SESSION['idUsuario']) ?>">
                 <?php 
@@ -82,7 +82,7 @@ if( $_SESSION['permisos'] !== "administrativo"){
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaInv_admin.php">Investigaciones</a></h3>
                 <a class="link" href="buscar_investigacion.php">Buscar investigaci&oacute;n</a><br>
-                <a class="link" href="reporte_investigacion.php">Reporte investigaci&oacute;n</a>
+                <a class="link" href="reporte_investigacion.php">B&uacute;squeda avanzada de investigaci&oacute;n</a>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
@@ -90,16 +90,17 @@ if( $_SESSION['permisos'] !== "administrativo"){
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;"><a class="link" href="listaPub_admin.php">Publicaciones</a></h3>
                 <a class="link" href="buscar_publicacion.php">Buscar publicaci&oacute;n</a><br>
-                <a class="link" href="reporte_publicacion.php">Reporte publicaci&oacute;n</a>
+                <a class="link" href="reporte_publicacion.php">B&uacute;squeda avanzada de publicaci&oacute;n</a>
             </div>
         </div>
-        <div class="container" style="margin:30px;padding:5px;height:140px;">
-            <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:140px;width:185px;">
+        <div class="container" style="margin:30px;padding:5px;height:160px;">
+            <img src="imagenes/Administrativo/home/reportes_home.jpg" class="aLeft" style="height:160px;width:185px;">
             <div class="aLeft" style="padding:15px;">
                 <h3 style="margin:5px;font-size:20px;">Reportes</h3>
                 <a class="link" href="investigation_report.php">Generar archivo de investigaciones</a><br>
                 <a class="link" href="publication_report.php">Generar archivo de publicaciones</a><br>
                 <a class="link" href="users_report.php">Generar archivo de usuarios</a><br>
+                <a href="https://public.tableau.com/es-es/s/download" target="_blank">Descargar Tableau</a>
             </div>
         </div>
         <div class="container" style="margin:30px;padding:5px;height:110px;">
