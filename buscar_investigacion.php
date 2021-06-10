@@ -103,10 +103,10 @@ if( $_SESSION['permisos'] !== "administrativo"){
         }
     }
     else if (isset($_SESSION['resultados']) && count($_SESSION['resultados']) === 0) {
-        echo "No se encontraron resultados a su busqueda";
+        echo "<div align='center'> No se encontraron resultados a su busqueda</div>";
         if(isset($_SESSION['resultados'])){
-                unset($_SESSION['resultados']);
-            }
+            unset($_SESSION['resultados']);
+        }
 
         if(isset($_SESSION['numeros'])){
             unset($_SESSION['numeros']);

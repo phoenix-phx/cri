@@ -1,5 +1,5 @@
 <?php 
-session_start();
+//session_start();
 require_once "c_pdo.php";
 require_once "Publicacion.php";
 require_once "Notificacion.php";
@@ -40,31 +40,5 @@ else{
     
     $descripcion = $doc['descripcion'];
     $linky = '<a target="_blank" href="view.php?pub_id='.$_REQUEST['pub_id'].'">'.$doc['nombre'].'</a>';
-}
-
-// manejar respuesta
-if(isset($_POST['obsRevEF'])){
-    if(strlen($_POST['obsRevEF']) < 1 ){
-        $_SESSION['error'] = 'Debe llenar los campos obligatorios';
-        header("Location: revision_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
-        return;
-    }
-    else {
-        $pub = new Publicacion();
-
-        $pub->sendFeedback($_REQUEST['pub_id'], $_POST['obsRevEF'], $pdo);
-
-        $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'administrativo', $pdo);
-
-        $us = new Usuario();
-        $us->loadDetalles($pub->getIdUsuario(), $pdo);
-        
-        $notify = new Notificacion();
-        $notify->revisionCompleta($us->getCorreo(), $pub->getTitulo());
-
-        $_SESSION["success"] = 'retroalimentacion enviada';
-        header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);
-        return;
-    }
 }
 ?>

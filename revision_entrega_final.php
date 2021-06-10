@@ -1,3 +1,14 @@
+<?php 
+session_start();
+// security control
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
+    die('No ha iniciado sesion');
+}
+
+if( $_SESSION['permisos'] !== "administrativo"){
+    die('Acceso denegado');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +24,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_administrativo.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
@@ -23,10 +34,20 @@
         </div>
     </div>
     <div style="padding-left:5%;padding-right:5%;"> 
-    <h1>Revisi&oacute;n de Entrega Final</h1>
+    <h1>Revisi&oacute;n de Documento</h1>
     </div>
     <div style="padding-left:7%;padding-right:5%">
-    <form method="post" action="c_revisionentrega.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>">
+    <?php
+    if (isset($_SESSION['error'])) {
+        echo ('<br><div style="color:red;">'.htmlentities($_SESSION['error'])."</div>\n");
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        echo ('<br><div style="color:green;">'.htmlentities($_SESSION['success'])."</div>\n");
+        unset($_SESSION['success']);
+    }
+    ?>    
+    <form method="post" action="c_revisionentregaPost.php?pub_id=<?php echo($_REQUEST['pub_id']) ?>">
         <h3 class="inst"><i>Datos del env&iacute;o</i></h3>
         C&oacute;digo Publicaci&oacute;n:
         <input class="textInput" name="nombre" id="nombre" disabled="disabled" type="text" value="<?php echo($codigo) ?>"><br><br>
