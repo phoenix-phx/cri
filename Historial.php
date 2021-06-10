@@ -81,7 +81,7 @@ class Historial{
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if($row !== false){
 	        echo '<table class="container" border="3" style="border-radius:0px;border-collapse:collapse;" >' . "\n";
-	        echo "<tr> <th> Fecha de Suceso </th> <th>Suceso </th>";
+	        echo "<tr> <th> Fecha de Suceso (aaaa-mm-dd) </th> <th>Suceso </th>";
 	        do{
 	            echo "<tr>";
 	            echo "<td align='center'>";  echo (htmlentities($row['fecha_cambio'])); echo "</td>";
