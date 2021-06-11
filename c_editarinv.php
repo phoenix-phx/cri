@@ -90,8 +90,12 @@ $investigadores = $auths->loadAutores($pdo, $_REQUEST['inv_id'], 'investigacion'
 $fin = new Financiador();
 $estado = $fin->loadData($pdo, $_REQUEST['inv_id']);
 
-if($estado === false || $fin->getNombreFinanciador() === ""){
+if($estado === false){
     $nombre_financiador = 'No Existe';
+}
+else if($fin->getNombreFinanciador() === ""){
+    $nombre_financiador = 'alv';
+    $financiador_id = htmlentities($fin->getId());
 }
 else{
     $financiador_id = htmlentities($fin->getId());

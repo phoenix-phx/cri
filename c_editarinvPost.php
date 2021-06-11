@@ -329,6 +329,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $flag = $finn->exists($pdo, $_REQUEST['inv_id']); 
 
     if($_POST['rExisteFI'] === 'si'){
+        /*
         if($flag === false){
             $fin = new Financiador();
             $fin->setTipoFinanciamiento($_POST['rTipoFI']);
@@ -339,7 +340,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             else if($_POST['rTipoFr'] === 'externo'){
                 $fin->setNombreFinanciador($_POST['nombreFinanciador']);
             }
-            $fin->registrar($pdo, $inv_id);
+            $fin->registrar($pdo, $_REQUEST['inv_id']);
 
             if($_POST['rTipoFI'] === 'monetario'){
                 $fin->setMonto($_POST['monto']);
@@ -351,7 +352,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 $fin->registrarObservaciones($pdo, $inv_id);
             }
         }
-        else if($flag !== false){
+        */
             $fin = new Financiador();
             $fin->setTipoFinanciamiento($_POST['rTipoFI']);
             $fin->setTipoFinanciador($_POST['rTipoFr']);
@@ -372,12 +373,22 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 $fin->setObservaciones($_POST['obsTipoFOCI']);
                 $fin->registrarObservaciones($pdo, $_REQUEST['inv_id']);
             }
-        }
     }
     else if($_POST['rExisteFI'] === 'no'){
         if($flag !== false){
             $fin = new Financiador();
-            $fin->eliminar($pdo, $financiador_id, $_REQUEST['inv_id']);
+            $fin->setTipoFinanciamiento("");
+            $fin->setTipoFinanciador("");
+            $fin->setNombreFinanciador("");
+            $fin->setNombreFinanciador("");
+            $fin->actualizar($pdo, $_POST['financiador_id']);
+
+            $fin->setMonto("");
+            $fin->registrarMonto($pdo, $_REQUEST['inv_id']);
+            $fin->setObservaciones("");
+            $fin->registrarObservaciones($pdo, $_REQUEST['inv_id']);
+            
+            //$fin->eliminar($pdo, $financiador_id, $_REQUEST['inv_id']);
         }
     }
     
@@ -396,7 +407,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $act->setNombre($nombre);
         $act->setFechaInicio($finicio);
         $act->setFechaFinal($ffinal);
-        $act->registrar($pdo, $inv_id);
+        $act->registrar($pdo, $_REQUEST['inv_id']);
     }
     
     $_SESSION["success"] = 'cambios guardados correctamente';

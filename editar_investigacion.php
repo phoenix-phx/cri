@@ -626,19 +626,30 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION
         ?>
             <h3><i>A continuaci&oacute;n, ingresa los detalles del financiamiento:</i></h3>
             <fieldset id="financiamiento">
+                <?php 
+                if($nombre_financiador === 'alv'){
+                    echo '<input type="hidden" name="financiador_id" value="' . $financiador_id . '">';
+                }
+                if($nombre_financiador !== 'No Existe' && $nombre_financiador !== 'alv'){
+                    echo '<input type="hidden" name="financiador_id" value="' . $financiador_id . '">';
+                }
+                ?>
                 <legend>FINANCIAMIENTO<span class="must">*</span></legend>
                 <h4>Existe:<span class="must">*</span></h4>
-                <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()" <?php if($nombre_financiador !== 'No Existe'){
+                <input name="rExisteFI" id="rSiExisteFCI" type="radio" value="si" onclick="existFinan()" <?php if($nombre_financiador !== 'No Existe' && $nombre_financiador !== 'alv'){
                     echo 'checked="checked"';
                 } ?>>
                 <label for="rSiExisteFCI">Si</label><br>
                 
-                <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no" onclick="noexistFinan()" <?php if($nombre_financiador === 'No Existe'){
+                <input name="rExisteFI" id="rNoExisteFCI" type="radio" value="no" onclick="noexistFinan()" <?php if($nombre_financiador === 'No Existe' || $nombre_financiador === 'alv'){
                     echo 'checked="checked"';
                 } ?>>
                 <label for="rNoExisteFCI">No</label><br>
                 <?php 
-                if($nombre_financiador !== 'No Existe'){
+                if($nombre_financiador === 'alv'){
+                    echo '<input type="hidden" name="financiador_id" value="' . $financiador_id . '">';
+                }
+                if($nombre_financiador !== 'No Existe' && $nombre_financiador !== 'alv'){
                     echo '<div id="existe">';
                     echo '<input type="hidden" name="financiador_id" value="' . $financiador_id . '">';
                     echo "Tipo Financiador";

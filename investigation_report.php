@@ -44,11 +44,14 @@ header("Pragma: no-cache");
 	</tr>
 
 	<?php
-	$sql = 'SELECT i.codigo, i.nombre, i.nombre_corto, i.resumen, i.fecha_inicio, i.fecha_fin, i.unidad_investigacion, i.linea_investigacion, i.estado, f.nombre_financiador, f.tipo_financiador, f.tipo_financiamiento, f.monto, f.observaciones, a.nombre as autor
-			FROM investigacion i, financiador f, colaborador_inv ci, autor a
-			WHERE i.idInv = f.idInv
-			AND i.idInv = ci.idInv
-			AND ci.idAutor = a.idAutor';
+	$sql = "SELECT i.codigo, i.nombre, i.nombre_corto, i.resumen, i.fecha_inicio, i.fecha_fin, i.unidad_investigacion, i.linea_investigacion, i.estado, 
+		f.nombre_financiador, f.tipo_financiador, f.tipo_financiamiento, f.monto, f.observaciones, 
+		a.nombre as autor
+		FROM investigacion i, financiador f, colaborador_inv ci, autor a
+		WHERE i.idInv = f.idInv
+		AND i.idInv = ci.idInv
+		AND ci.idAutor = a.idAutor
+		AND a.rol = 'principal'";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){

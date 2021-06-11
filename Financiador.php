@@ -142,7 +142,7 @@ class Financiador{
             ':inv' => $inv_id
         ));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($row === false){
+        if($row === false || $row['nombre_financiador'] == ""){
             return false;
         }
         else {

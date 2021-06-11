@@ -1,9 +1,15 @@
+<?php 
+session_start();
+// security control
+if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION['permisos'] !== "investigador"){
+    die('No ha iniciado sesion');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Detalles financiamiento</title>
     <link rel="stylesheet" href="style/styles.css">
-    <?php session_start(); ?>
     <style>
         body{
             line-height:150%; 
@@ -18,7 +24,7 @@
         </a>
         <div style="padding-top: 15px; padding-bottom: 15px;padding-right:50px;">
             <a href="home_investigador.php" class="aLeft textIblue">
-                Unidad de Investigaci&oacute;n UCB
+                UCB - SCI
             </a>
             <a class="aRight textIblue">
                 <?php 
