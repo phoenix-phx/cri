@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
+// require_once "c_editarinv.php";
 require_once "Investigacion.php";
 require_once "Autor.php";
 require_once "AutorInterno.php";
@@ -88,7 +89,8 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 return;
             }
         }
-    }
+    }    
+
     
     function validateAutores(){
         for ($i=0; $i <= 100 ; $i++) {
@@ -170,50 +172,73 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $dia = getdate();
     $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
 
+    //$inv = new Investigacion(); pero que troll
     $inv = new Investigacion();
-    
-    if($inv->getTitulo() !== $_POST['invTituloCI']){
-        $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $inv->getTitulo() . "\n\nAhora:\n" . $_POST['invTituloCI'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
-    }
-
-    if($inv->getNombreCorto() !== $_POST['invNomCortoCI']){
-        $det = 'Se registró el cambio del NOMBRE CORTO' . "\n\nAntes:\n" . $inv->getNombreCorto() . "\n\nAhora:\n" . $_POST['invNomCortoCI'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
-    }
-
-    if($inv->getResumen() !== $_POST['resumenCI']){
-        $det = 'Se registró el cambio del RESUMEN' . "\n\nAntes:\n" . $inv->getResumen() . "\n\nAhora:\n" . $_POST['resumenCI'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
-    }
-
-    if($inv->getFechaFinal() !== $_POST['fechaFinCI']){
-        $det = 'Se registró el cambio de la FECHA FINAL' . "\n\nAntes:\n" . $inv->getFechaFinal() . "\n\nAhora:\n" . $_POST['fechaFinCI'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
-    }
-
-    if($inv->getUnidadInvestigacion() !== $_POST['uniInvCI']){
-        $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $inv->getUnidadInvestigacion() . "\n\nAhora:\n" . $_POST['uniInvCI'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    $state = $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
+    if($state === false){
+        $_SESSION['error'] = 'Valores erroneos para inv_id';
+        header('Location: listaInv_investigador.php');
+        return;
     }
     
-    if($inv->getLineaInvestigacion() !== $_POST['linInvCI']){
-        $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $inv->getLineaInvestigacion() . "\n\nAhora:\n" . $_POST['linInvCI'] . "\n";
+    $codigo = htmlentities($inv->getCodigo());
+    $titulo = htmlentities($inv->getTitulo());
+    $nombre_corto = htmlentities($inv->getNombreCorto());
+    $resumen = htmlentities($inv->getResumen());
+    $fecha_inicio = htmlentities($inv->getFechaInicio());
+    $fecha_fin = htmlentities($inv->getFechaFinal());
+    $unidad = htmlentities($inv->getUnidadInvestigacion());
+    $linea = htmlentities($inv->getLineaInvestigacion());
+    $inv_id = htmlentities($inv->getId());
+    
+    if($titulo !== $_POST['invTituloCI']){ 
+        // exec('echo "Titulo: ' . $titulo .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $titulo . "\n\nAhora:\n" . $_POST['invTituloCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+
+    if($nombre_corto !== $_POST['invNomCortoCI']){
+        // exec('echo "Nombre corto: ' . $nombre_corto .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio del NOMBRE CORTO' . "\n\nAntes:\n" . $nombre_corto . "\n\nAhora:\n" . $_POST['invNomCortoCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+
+    if($resumen !== $_POST['resumenCI']){
+        // exec('echo "Resumen: ' . $resumen .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio del RESUMEN' . "\n\nAntes:\n" . $resumen . "\n\nAhora:\n" . $_POST['resumenCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+
+    if($fecha_fin !== $_POST['fechaFinCI']){
+        // exec('echo "Fecha fin: ' . $fecha_fin .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio de la FECHA FINAL' . "\n\nAntes:\n" . $fecha_fin . "\n\nAhora:\n" . $_POST['fechaFinCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+
+    if($unidad !== $_POST['uniInvCI']){
+        // exec('echo "Unidad: ' . $unidad .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $unidad . "\n\nAhora:\n" . $_POST['uniInvCI'] . "\n";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+    
+    if($linea !== $_POST['linInvCI']){
+        // exec('echo "Linea: ' . $linea .'" >> lol.txt', $output, $retval);        
+        $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $linea . "\n\nAhora:\n" . $_POST['linInvCI'] . "\n";
         $hist = new Historial();
         $hist->setFechaCambio($fecha);
         $hist->setDetalle($det);
@@ -290,8 +315,10 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 
     // autores de colaboracion
     $auths = new Autor();
+    $investigadores = $auths->loadAutores($pdo, $_REQUEST['inv_id'], 'investigacion');
     $auths->eliminarAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
-    
+    $inv_nuevos = array();
+
     for ($i=0; $i <= 100 ; $i++) {
         if( !isset($_POST['nomInvSCI'.$i]) ) continue;
         $nombre = $_POST['nomInvSCI'.$i];
@@ -307,8 +334,8 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setRol('colaboracion');
             $auth->setUnidadInvestigacion($unidad);
             $auth->setFiliacion($filiacion);
-            
-            $auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
+            array_push($inv_nuevos, $auth);
+            //$auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
         }
         else if($pertenencia === 'externo'){
             $univ =  $_POST['uniISCI'.$i]; 
@@ -319,11 +346,55 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $auth->setTipoFiliacion($pertenencia);
             $auth->setRol('colaboracion');
             $auth->setUniversidad($univ);
-            
-            $auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
+            array_push($inv_nuevos, $auth);
+            // $auth->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
         }
     }
     
+    if(count($investigadores) !== count($inv_nuevos)){
+        // exec('echo "Fecha fin: ' . $fecha_fin .'" >> lol.txt', $output, $retval);        
+        $det = "Se registró el cambio de la Autores Secundarios";
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
+    else{
+        for ($i=0; $i < count($investigadores); $i++) {
+            if($investigadores[i] instanceof AutorInterno && $inv_nuevos[i] instanceof AutorInterno){
+                if(!$investigadores[i].compare($inv_nuevos[i])){
+                    $det = 'Se registró el cambio de la Autores Secundarios';
+                    $hist = new Historial();
+                    $hist->setFechaCambio($fecha);
+                    $hist->setDetalle($det);
+                    $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+                    break;
+                }
+            }
+            else if($investigadores[i] instanceof AutorExterno && $inv_nuevos[i] instanceof AutorExterno){
+                if(!$investigadores[i].compare($inv_nuevos[i])){
+                    $det = 'Se registró el cambio de la Autores Secundarios';
+                    $hist = new Historial();
+                    $hist->setFechaCambio($fecha);
+                    $hist->setDetalle($det);
+                    $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+                    break;
+                }
+            }
+            else{
+                $det = 'Se registró el cambio de la Autores Secundarios';
+                $hist = new Historial();
+                $hist->setFechaCambio($fecha);
+                $hist->setDetalle($det);
+                $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+                break;
+            }
+            $inv_nuevos[i]->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
+        }
+        
+    }
+
+
     // financiamiento
     $finn = new Financiador();
     $flag = $finn->exists($pdo, $_REQUEST['inv_id']); 

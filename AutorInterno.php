@@ -99,5 +99,15 @@ class AutorInterno extends Autor{
             ':id' => $autor_id
         ));
     }
+
+    public function compare($autor){
+        if($this->getNombre() === $autor->getNombre() &&
+           $this->getTipoFiliacion() === $autor->getTipoFiliacion() &&
+           $this->getRol() === $autor->getRol() &&
+           $this->getUnidadInvestigacion() === $autor->getUnidadInvestigacion() &&
+           $this->getFiliacion() === $autor->getFiliacion()) 
+           return true;
+        else return false;
+    }
 }
 ?>

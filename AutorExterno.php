@@ -86,5 +86,13 @@ class AutorExterno extends Autor{
             ':id' => $autor_id
         ));
     }
+    public function compare($autor){
+        if($this->getNombre() === $autor->getNombre() &&
+           $this->getTipoFiliacion() === $autor->getTipoFiliacion() &&
+           $this->getRol() === $autor->getRol() &&
+           $this->getUniversidad() === $autor->getUniversidad())
+           return true;
+        else return false;
+    }
 }
 ?>
