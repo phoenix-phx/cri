@@ -216,5 +216,14 @@ class Financiador{
             return true;
         }
     }    
+
+    public function compare($nfin){
+        if($this->getTipoFinanciador() === $nfin->getTipoFinanciador() &&
+           $this->getNombreFinanciador() === $nfin->getNombreFinanciador() &&
+           $this->getMonto() === $nfin->getMonto() &&
+           $this->getObservaciones() === $nfin->getObservaciones())
+           return true;
+        else return false;
+    }
 }
 ?>

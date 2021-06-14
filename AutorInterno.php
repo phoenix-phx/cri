@@ -101,13 +101,21 @@ class AutorInterno extends Autor{
     }
 
     public function compare($autor){
-        if($this->getNombre() === $autor->getNombre() &&
-           $this->getTipoFiliacion() === $autor->getTipoFiliacion() &&
-           $this->getRol() === $autor->getRol() &&
-           $this->getUnidadInvestigacion() === $autor->getUnidadInvestigacion() &&
-           $this->getFiliacion() === $autor->getFiliacion()) 
-           return true;
-        else return false;
+        if($this->getNombre() !== $autor->getNombre() ||
+           $this->getTipoFiliacion() !== $autor->getTipoFiliacion() ||
+           $this->getRol() !== $autor->getRol() ||
+           $this->getUnidadInvestigacion() !== $autor->getUnidadInvestigacion() ||
+           $this->getFiliacion() !== $autor->getFiliacion()) 
+           return false;
+        else return true;
+    }
+
+    public function to_string(){
+        return $this->getNombre() . " \n" .
+           $this->getTipoFiliacion(). " \n" .
+           $this->getRol() . " \n" .
+           $this->getUnidadInvestigacion(). " \n" .
+           $this->getFiliacion() . " \n" ;
     }
 }
 ?>

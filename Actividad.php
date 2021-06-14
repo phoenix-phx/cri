@@ -72,5 +72,12 @@ class Actividad{
 		    ':inv' => $inv_id 
 		));
     }  
+	public function compare($actividad){
+		if($this->getNombre() === $actividad->getNombre() &&
+		   $this->getFechaFinal() === $actividad->getFechaFinal() &&
+		   $this->getFechaInicio() === $actividad->getFechaInicio())
+		   return true;
+		else return false;
+	}
 }
 ?>

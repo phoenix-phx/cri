@@ -87,12 +87,18 @@ class AutorExterno extends Autor{
         ));
     }
     public function compare($autor){
-        if($this->getNombre() === $autor->getNombre() &&
-           $this->getTipoFiliacion() === $autor->getTipoFiliacion() &&
-           $this->getRol() === $autor->getRol() &&
-           $this->getUniversidad() === $autor->getUniversidad())
-           return true;
-        else return false;
+        if($this->getNombre() !== $autor->getNombre() ||
+           $this->getTipoFiliacion() !== $autor->getTipoFiliacion() ||
+           $this->getRol() !== $autor->getRol() ||
+           $this->getUniversidad() !== $autor->getUniversidad())
+           return false;
+        else return true;
+    }
+    public function to_string(){
+        return $this->getNombre() . "\n" . 
+        $this->getTipoFiliacion(). " \n" . 
+        $this->getRol() . " \n" . 
+        $this->getUniversidad() . "\n " ;
     }
 }
 ?>

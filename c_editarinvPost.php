@@ -1,7 +1,6 @@
 <?php 
 session_start();
 require_once "c_pdo.php";
-// require_once "c_editarinv.php";
 require_once "Investigacion.php";
 require_once "Autor.php";
 require_once "AutorInterno.php";
@@ -293,6 +292,17 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     }
 
     // autor principal
+    $test = new Autor();
+    $autory = $test->testAutorPrincipal($_REQUEST['inv_id'], $pdo, 'investigacion');
+
+    if($autory['universidad'] === null){
+        $auth = new AutorInterno();
+        $auth->loadData($_REQUEST['inv_id'], $pdo, 'investigacion');
+    }
+    else if($autory['universidad'] !== null){
+        $auth = new AutorExterno();
+        $auth->loadData($_REQUEST['inv_id'], $pdo, 'investigacion');
+    }
     if($_POST['univIP'] === 'interno'){
         $newAuth = new AutorInterno();
 
@@ -300,7 +310,14 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $newAuth->setTipoFiliacion($_POST['univIP']);
         $newAuth->setUnidadInvestigacion($_POST['uniInvPCI']);
         $newAuth->setFiliacion($_POST['rFiliacionIP']);
-
+        $newAuth->setRol("principal");
+        if(!($auth->compare($newAuth))){
+            $det = 'Se registró el cambio del Autor Principal';
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+        }
         $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
     }
     else if($_POST['univIP'] === 'externo'){
@@ -309,6 +326,14 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $newAuth->setNombre($_POST['nomInvPCI']);
         $newAuth->setTipoFiliacion($_POST['univIP']);
         $newAuth->setUniversidad($_POST['uniIPCI']);
+        $newAuth->setRol("principal");
+        if(!($auth->compare($newAuth))){
+            $det = 'Se registró el cambio del Autor Principal';
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
+        }
 
         $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
     }       
@@ -316,6 +341,26 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     // autores de colaboracion
     $auths = new Autor();
     $investigadores = $auths->loadAutores($pdo, $_REQUEST['inv_id'], 'investigacion');
+    for($i = 0; $i < count($investigadores); $i++){
+        if($investigadores[$i]['tipo_filiacion'] == 'interno'){
+            $aux = new AutorInterno();
+            $newAuth->setNombre($investigadores[$i]['nombre']);
+            $newAuth->setTipoFiliacion($investigadores[$i]['tipo_filiacion']);
+            $newAuth->setUnidadInvestigacion($investigadores[$i]['unidad_investigacion']);
+            $newAuth->setFiliacion($investigadores[$i]['filiacion']);
+            $newAuth->setRol("colaboracion");
+            $investigadores[$i] = $aux;
+        }
+        else {
+            $aux = new AutorExterno();
+            $newAuth->setNombre($investigadores[$i]['nombre']);
+            $newAuth->setTipoFiliacion($investigadores[$i]['tipo_filiacion']);
+            $newAuth->setUniversidad($investigadores[$i]['unidad_investigacion']);
+            $newAuth->setRol("colaboracion");
+            $investigadores[$i] = $aux;
+        }
+        
+    }
     $auths->eliminarAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
     $inv_nuevos = array();
 
@@ -351,9 +396,11 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         }
     }
     
+
+    //ver si hay cambios en autores secundarios
     if(count($investigadores) !== count($inv_nuevos)){
         // exec('echo "Fecha fin: ' . $fecha_fin .'" >> lol.txt', $output, $retval);        
-        $det = "Se registró el cambio de la Autores Secundarios";
+        $det = "Se registró el cambio de los Autores Secundarios";
         $hist = new Historial();
         $hist->setFechaCambio($fecha);
         $hist->setDetalle($det);
@@ -361,9 +408,13 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     }
     else{
         for ($i=0; $i < count($investigadores); $i++) {
-            if($investigadores[i] instanceof AutorInterno && $inv_nuevos[i] instanceof AutorInterno){
-                if(!$investigadores[i].compare($inv_nuevos[i])){
-                    $det = 'Se registró el cambio de la Autores Secundarios';
+            // exec('echo "'.$i.'" >> lol.txt',$output,$retval);
+            // exec('echo "'.$inv_nuevos[$i]->to_string().'" >> lol.txt',$output,$retval);
+            // exec('echo "'. $investigadores[$i]->to_string().'" >> lol.txt',$output,$retval);
+            
+            if( $investigadores[$i] instanceof AutorInterno && $inv_nuevos[$i] instanceof AutorInterno){
+                if($investigadores[$i]->compare($inv_nuevos[$i]) === false){
+                    $det = 'Se registró el cambio de los Autores Secundarios';
                     $hist = new Historial();
                     $hist->setFechaCambio($fecha);
                     $hist->setDetalle($det);
@@ -371,9 +422,9 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                     break;
                 }
             }
-            else if($investigadores[i] instanceof AutorExterno && $inv_nuevos[i] instanceof AutorExterno){
-                if(!$investigadores[i].compare($inv_nuevos[i])){
-                    $det = 'Se registró el cambio de la Autores Secundarios';
+            else if($investigadores[$i] instanceof AutorExterno && $inv_nuevos[$i] instanceof AutorExterno){
+                if(!$investigadores[$i]->compare($inv_nuevos[$i]) === false){
+                    $det = 'Se registró el cambio de los Autores Secundarios';
                     $hist = new Historial();
                     $hist->setFechaCambio($fecha);
                     $hist->setDetalle($det);
@@ -382,72 +433,61 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
                 }
             }
             else{
-                $det = 'Se registró el cambio de la Autores Secundarios';
+                $det = 'Se registró el cambio de los Autores Secundarios';
                 $hist = new Historial();
                 $hist->setFechaCambio($fecha);
                 $hist->setDetalle($det);
                 $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);
                 break;
             }
-            $inv_nuevos[i]->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
+            
         }
         
     }
-
+    for($i = 0; $i < count($inv_nuevos); $i++){
+        $inv_nuevos[$i]->crearAutor($_REQUEST['inv_id'], 'investigacion', $pdo);
+    }
 
     // financiamiento
+    $finA = new Financiador();
+    $estado = $finA->loadData($pdo, $_REQUEST['inv_id']);
+    if($estado === false){
+        $finA->setTipoFinanciamiento("");
+        $finA->setTipoFinanciador("");
+        $finA->setNombreFinanciador("");
+        $finA->setNombreFinanciador("");
+        $finA->setMonto("");
+        $finA->setObservaciones("");
+    }
+
     $finn = new Financiador();
     $flag = $finn->exists($pdo, $_REQUEST['inv_id']); 
-
+    $fin = new Financiador();
     if($_POST['rExisteFI'] === 'si'){
-        /*
-        if($flag === false){
-            $fin = new Financiador();
-            $fin->setTipoFinanciamiento($_POST['rTipoFI']);
-            $fin->setTipoFinanciador($_POST['rTipoFr']);
-            if($_POST['rTipoFr'] === 'interno'){
-                $fin->setNombreFinanciador('Universidad Catolica Boliviana');           
-            }
-            else if($_POST['rTipoFr'] === 'externo'){
-                $fin->setNombreFinanciador($_POST['nombreFinanciador']);
-            }
-            $fin->registrar($pdo, $_REQUEST['inv_id']);
-
-            if($_POST['rTipoFI'] === 'monetario'){
-                $fin->setMonto($_POST['monto']);
-                $fin->registrarMonto($pdo, $inv_id);            
-            }
-
-            if(strlen($_POST['obsTipoFOCI']) > 1){
-                $fin->setObservaciones($_POST['obsTipoFOCI']);
-                $fin->registrarObservaciones($pdo, $inv_id);
-            }
+        
+        $fin->setTipoFinanciamiento($_POST['rTipoFI']);
+        $fin->setTipoFinanciador($_POST['rTipoFr']);
+        if($_POST['rTipoFr'] === 'interno'){
+            $fin->setNombreFinanciador('Universidad Catolica Boliviana');           
         }
-        */
-            $fin = new Financiador();
-            $fin->setTipoFinanciamiento($_POST['rTipoFI']);
-            $fin->setTipoFinanciador($_POST['rTipoFr']);
-            if($_POST['rTipoFr'] === 'interno'){
-                $fin->setNombreFinanciador('Universidad Catolica Boliviana');           
-            }
-            else if($_POST['rTipoFr'] === 'externo'){
-                $fin->setNombreFinanciador($_POST['nombreFinanciador']);
-            }
-            $fin->actualizar($pdo, $_POST['financiador_id']);
+        else if($_POST['rTipoFr'] === 'externo'){
+            $fin->setNombreFinanciador($_POST['nombreFinanciador']);
+        }
+        if($flag === true) $fin->actualizar($pdo, $_POST['financiador_id']);
+        else $fin->registrar($pdo, $inv_id);
 
-            if($_POST['rTipoFI'] === 'monetario'){
-                $fin->setMonto($_POST['monto']);
-                $fin->registrarMonto($pdo, $_REQUEST['inv_id']);      
-            }
+        if($_POST['rTipoFI'] === 'monetario'){
+            $fin->setMonto($_POST['monto']);
+            $fin->registrarMonto($pdo, $_REQUEST['inv_id']);      
+        }
 
-            if(strlen($_POST['obsTipoFOCI']) > 1){
-                $fin->setObservaciones($_POST['obsTipoFOCI']);
-                $fin->registrarObservaciones($pdo, $_REQUEST['inv_id']);
-            }
+        if(strlen($_POST['obsTipoFOCI']) > 1){
+            $fin->setObservaciones($_POST['obsTipoFOCI']);
+            $fin->registrarObservaciones($pdo, $_REQUEST['inv_id']);
+        }
     }
     else if($_POST['rExisteFI'] === 'no'){
         if($flag !== false){
-            $fin = new Financiador();
             $fin->setTipoFinanciamiento("");
             $fin->setTipoFinanciador("");
             $fin->setNombreFinanciador("");
@@ -459,14 +499,39 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $fin->setObservaciones("");
             $fin->registrarObservaciones($pdo, $_REQUEST['inv_id']);
             
-            //$fin->eliminar($pdo, $financiador_id, $_REQUEST['inv_id']);
+            $fin->eliminar($pdo, $financiador_id, $_REQUEST['inv_id']);
         }
+        else{
+            $fin->setTipoFinanciamiento("");
+            $fin->setTipoFinanciador("");
+            $fin->setNombreFinanciador("");
+            $fin->setNombreFinanciador("");
+            $fin->setMonto("");
+            $fin->setObservaciones("");
+            $fin->eliminar($pdo, $financiador_id, $_REQUEST['inv_id']);
+        }
+    }
+    if($fin->compare($finA) === false){
+        $det = 'Se registró el cambio del Financiamiento';
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);    
     }
     
     // actividades
+    $act = new Actividad();
+    $actividadesA = $act->loadActividad($pdo, $_REQUEST['inv_id']);
+    for($i = 0; $i < count($actividadesA); $i++){
+        $aux = new Actividad();
+        $aux->setNombre($actividadesA[$i]['nombre']);
+        $aux->setFechaInicio($actividadesA[$i]['fecha_inicio']);
+        $aux->setFechaFinal($actividadesA[$i]['fecha_final']);
+        $actividadesA[$i] = $aux;
+    }
     $acty = new Actividad();
     $acty->eliminar($pdo, $_REQUEST['inv_id']);
-
+    $act_nuevos = array();
     for ($i=0; $i <= 100 ; $i++) {
         if( !isset($_POST['nomActCI'.$i]) ) continue;
         if( !isset($_POST['FIActCI'.$i]) ) continue;
@@ -478,9 +543,34 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $act->setNombre($nombre);
         $act->setFechaInicio($finicio);
         $act->setFechaFinal($ffinal);
-        $act->registrar($pdo, $_REQUEST['inv_id']);
+        //$act->registrar($pdo, $_REQUEST['inv_id']);
+        array_push($act_nuevos,$act);
     }
     
+    if(count($actividadesA) !== count($act_nuevos)){
+        $det = 'Se registró el cambio de las Actividades';
+        $hist = new Historial();
+        $hist->setFechaCambio($fecha);
+        $hist->setDetalle($det);
+        $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);    
+    }
+    else{
+        for($i = 0; $i < count($actividadesA); $i++){
+            if(($actividadesA[$i])->compare($act_nuevos[$i]) === false){
+                $det = 'Se registró el cambio de las Actividades';
+                $hist = new Historial();
+                $hist->setFechaCambio($fecha);
+                $hist->setDetalle($det);
+                $hist->registrarCambio($_REQUEST['inv_id'], 'investigacion', $pdo);    
+                break;
+            }
+        }
+    }
+    for($i = 0; $i < count($act_nuevos); $i++){
+        $act_nuevos[$i]->registrar($pdo, $_REQUEST['inv_id']);
+    }
+
+
     $_SESSION["success"] = 'cambios guardados correctamente';
     header('Location: detalles_investigacion_inv.php?inv_id='.$_REQUEST['inv_id']);
     return;
