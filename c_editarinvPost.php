@@ -343,7 +343,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $investigadores = $auths->loadAutores($pdo, $_REQUEST['inv_id'], 'investigacion');
     for($i = 0; $i < count($investigadores); $i++){
         if($investigadores[$i]['tipo_filiacion'] == 'interno'){
-            $aux = new AutorInterno();
+            $newAuth = new AutorInterno();
             $newAuth->setNombre($investigadores[$i]['nombre']);
             $newAuth->setTipoFiliacion($investigadores[$i]['tipo_filiacion']);
             $newAuth->setUnidadInvestigacion($investigadores[$i]['unidad_investigacion']);
@@ -352,7 +352,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $investigadores[$i] = $aux;
         }
         else {
-            $aux = new AutorExterno();
+            $newAuth = new AutorExterno();
             $newAuth->setNombre($investigadores[$i]['nombre']);
             $newAuth->setTipoFiliacion($investigadores[$i]['tipo_filiacion']);
             $newAuth->setUniversidad($investigadores[$i]['unidad_investigacion']);
