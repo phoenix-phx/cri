@@ -163,7 +163,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
     $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
     
     //$pub = new Publicacion(); 
-    if($pub->getTitulo() !== $_POST['tituloCP']){
+    /*if($pub->getTitulo() !== $_POST['tituloCP']){
         $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $pub->getTitulo() . "\n\nAhora:\n" . $_POST['tituloCP'] . "\n";
         $hist = new Historial();
         $hist->setFechaCambio($fecha);
@@ -209,7 +209,7 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         $hist->setFechaCambio($fecha);
         $hist->setDetalle($det);
         $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
+    }*/
 
     // publicacion
     $newPub = new Publicacion();
