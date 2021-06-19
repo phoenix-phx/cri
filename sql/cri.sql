@@ -159,6 +159,76 @@ create table historial_pub(
 
 delimiter |
 
+create trigger crearHistorialPub
+before update on publicacion
+for each row
+begin
+
+	if(old.titulo != new.titulo) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio del TITULO", char(13), char(13), 
+			"Antes:", char(13), old.titulo, char(13), char(13), 
+			"Ahora:", char(13), new.titulo, char(13) ) );
+	end if;
+
+	if(old.resumen != new.resumen) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio del RESUMEN", char(13), char(13), 
+			"Antes:", char(13), old.resumen, char(13), char(13), 
+			"Ahora:", char(13), new.resumen, char(13) ) );
+	end if;
+
+	if(old.tipo != new.tipo) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio del TIPO DE PUBLICACIÓN", char(13), char(13), 
+			"Antes:", char(13), old.tipo, char(13), char(13), 
+			"Ahora:", char(13), new.tipo, char(13) ) );
+	end if;
+
+	if(old.APA != new.APA) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio de la CITACIÓN APA", char(13), char(13), 
+			"Antes:", char(13), old.APA, char(13), char(13), 
+			"Ahora:", char(13), new.APA, char(13) ) );
+	end if;
+
+	if(old.unidad_investigacion != new.unidad_investigacion) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio de la UNIDAD DE INVESTIGACIÓN", char(13), char(13), 
+			"Antes:", char(13), old.unidad_investigacion, char(13), char(13), 
+			"Ahora:", char(13), new.unidad_investigacion, char(13) ) );
+	end if;
+
+	if(old.linea_investigacion != new.linea_investigacion) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, 
+		current_date(), 
+		concat("Se registró el cambio de la LÍNEA DE INVESTIGACIÓN", char(13), char(13), 
+			"Antes:", char(13), old.linea_investigacion, char(13), char(13), 
+			"Ahora:", char(13), new.linea_investigacion, char(13) ) );
+	end if;
+
+	if(old.estado != new.estado) then
+		insert into historial_pub(idPub, fecha_cambio, detalle) values
+		(new.idPub, current_date(), "Se registró el cambio de la UNIDAD DE INVESTIGACIÓN");
+	end if;
+
+end |
+
+delimiter ;
+
+delimiter |
+
 create trigger crearHistorialInv
 before update on investigacion
 for each row begin
