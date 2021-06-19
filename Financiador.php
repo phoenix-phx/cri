@@ -84,29 +84,25 @@ class Financiador{
         $this->setId($financiador);
     }
 
-    public function registrarMonto($pdo, $inv_id){
+    public function registrarMonto($pdo, $fin_id){
         $sql = "UPDATE financiador
                 SET  monto = :mn
-                WHERE idFinanciador = :id
-                AND idInv = :inv";
+                WHERE idFinanciador = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':mn' => $this->getMonto(),
-            ':id' => $this->getId(),
-            ':inv' => $inv_id 
+            ':id' => $fin_id
         ));     
     }
 
-    public function registrarObservaciones($pdo, $inv_id){
+    public function registrarObservaciones($pdo, $fin_id){
         $sql = 'UPDATE financiador
                 SET  observaciones = :obs
-                WHERE idFinanciador = :id
-                AND idInv = :inv';
+                WHERE idFinanciador = :id';
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':obs' => $this->getObservaciones(),
-            ':id' => $this->getId(),
-            ':inv' => $inv_id 
+            ':id' => $fin_id
         ));
     }
 
@@ -142,10 +138,11 @@ class Financiador{
             ':inv' => $inv_id
         ));
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($row === false || $row['nombre_financiador'] == ""){
+        if($row === false){
             return false;
         }
         else {
+            $this->setId($row['idFinanciador']);
             return true;
         }
     }

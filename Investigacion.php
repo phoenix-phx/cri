@@ -390,14 +390,15 @@ class Investigacion{
 
 	public function actualizarDatos($user_id, $inv_id, $pdo){
 		$sql = 'UPDATE investigacion
-	            SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_fin = :ff, unidad_investigacion = :ui, linea_investigacion = :li
+	            SET nombre = :no, nombre_corto = :nc, resumen = :res, fecha_inicio = :fi, fecha_fin = :ff, unidad_investigacion = :ui, linea_investigacion = :li
 	            WHERE idInv = :inv
-	            AND idUsuario = :us';                
+	            AND idUsuario = :us';        				        
 	    $stmt = $pdo->prepare($sql);
 	    $stmt->execute(array(
 	        ':no' => $this->getTitulo(),
 	        ':nc' => $this->getNombreCorto(),
 	        ':res' => $this->getResumen(),
+			':fi' => $this->getFechaInicio(),
 	        ':ff' => $this->getFechaFinal(),
 	        ':ui' => $this->getUnidadInvestigacion(),
 			':li' => $this->getLineaInvestigacion(),

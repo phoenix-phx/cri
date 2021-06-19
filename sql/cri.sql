@@ -156,3 +156,68 @@ create table historial_pub(
     on delete cascade
     on update cascade
 );
+
+delimiter |
+
+create trigger crearHistorialInv
+before update on investigacion
+for each row begin
+
+	if(new.nombre <> old.nombre) then
+		insert into historial_inv(idInv, fecha_cambio, detalle) values 
+        (new.idInv, cast(now() as date),concat("Se registró el cambio del TITULO", char(13), char(13), "Antes:", char(13), old.nombre, char(13), char(13), "Ahora:", char(13), new.nombre, char(13)));
+	end if;
+	if(new.nombre_corto <> old.nombre_corto) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del NOMBRE CORTO", char(13), char(13) , "Antes:" , char(13) , old.nombre_corto ,char(13), char(13), "Ahora:", char(13), new.nombre_corto, char(13)));
+	end if;
+	if(new.resumen <> old.resumen) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del RESUMEN", char(13), char(13), "Antes:", char(13), old.resumen, char(13), char(13), "Ahora:", char(13), new.resumen, char(13)));
+	end if;
+	if(new.fecha_inicio <> old.fecha_inicio) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio de la FECHA DE INICIO" , char(13) , char(13) , "Antes:" , char(13) , old.fecha_inicio , char(13) , char(13) , "Ahora:" , char(13) , new.fecha_inicio , char(13)));
+	end if;
+	if(new.fecha_fin <> old.fecha_fin) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio de la FECHA DE FINALIZACION " , char(13) , char(13) , "Antes:" , char(13) , old.fecha_fin , char(13) , char(13) , "Ahora:" , char(13) , new.fecha_fin , char(13)));
+	end if;
+	if(new.unidad_investigacion <> old.unidad_investigacion) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio de la UNIDAD DE INVESTIGACION " , char(13) , char(13) , "Antes:" , char(13) , old.unidad_investigacion , char(13) , char(13) , "Ahora:" , char(13) , new.unidad_investigacion , char(13)));
+	end if;
+	if(new.linea_investigacion <> old.linea_investigacion) then
+		insert into historial_inv(idInv, fecha_cambio,detalle) values
+        (new.idInv,cast(now() as date),concat("Se registró el cambio de la LINEA DE INVESTIGACION" , char(13) , char(13) , "Antes:" , char(13) , old.linea_investigacion , char(13) , char(13) , "Ahora:" , char(13) , new.linea_investigacion , char(13)));
+	end if;
+end;
+|
+
+create trigger crearHistorialFin
+before update on financiador
+for each row begin
+    if(new.tipo_financiador <> old.tipo_financiador) then
+        insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del TIPO FINANCIADOR" , char(13) , char(13) , "Antes:" , char(13) , old.tipo_financiador , char(13) , char(13) , "Ahora:" , char(13) , new.tipo_financiador , char(13)));
+    end if;
+    if(new.nombre_financiador <> old.nombre_financiador) then
+        insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del NOMBRE DE FINANCIADOR" , char(13) , char(13) , "Antes:" , char(13) , old.nombre_financiador , char(13) , char(13) , "Ahora:" , char(13) , new.nombre_financiador , char(13)));
+    end if;
+    if(new.tipo_financiamiento <> old.tipo_financiamiento) then
+        insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del TIPO FINANCIAMIENTO" , char(13) , char(13) , "Antes:" , char(13) , old.tipo_financiamiento , char(13) , char(13) , "Ahora:" , char(13) , new.tipo_financiamiento , char(13)));
+    end if;
+    if(new.monto <> old.monto) then
+        insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio del MONTO" , char(13) , char(13) , "Antes:" , char(13) , old.monto , char(13) , char(13) , "Ahora:" , char(13) , new.monto , char(13)));
+    end if;
+    if(new.observaciones <> old.observaciones) then
+        insert into historial_inv(idInv, fecha_cambio,detalle) values 
+        (new.idInv,cast(now() as date),concat("Se registró el cambio de las OBSERVACIONES" , char(13) , char(13) , "Antes:" , char(13) , old.observaciones , char(13) , char(13) , "Ahora:" , char(13) , new.observaciones , char(13)));
+    end if;
+end;
+|
+delimiter ;
+
