@@ -18,10 +18,12 @@ class Notificacion{
 		$mail->Username   = 'unidad.investigacion.ucb@gmail.com';
 		$mail->Password   = 'password123A';
 		$mail->SMTPSecure = 'tls';
+		$cont = 0;
 		foreach ($addresses as $index => $destiny) {			
-			if($index === 0){
+			if($cont === 0){
+				$cont = 1;
 				try {
-					$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+					$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 					$mail->addAddress($destiny);
 					$mail->isHTML(true);
 					$mail->Subject = 'Se creo un nuevo Usuario';
@@ -33,10 +35,11 @@ class Notificacion{
 				} catch (Exception $e) {
 					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 				}	
+				
 			}
 			else{
 				try {
-					$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+					$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 					$mail->addAddress($destiny);
 					$mail->isHTML(true);
 					$mail->Subject = 'Se creo un nuevo Usuario';
@@ -64,7 +67,7 @@ class Notificacion{
 		foreach ($addresses as $index => $destiny) {			
 			try {
 				
-				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+				$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 				$mail->addAddress($destiny);
 				$mail->isHTML(true);
 				$mail->Subject = 'Se cerro una Investigacion';
@@ -91,7 +94,7 @@ class Notificacion{
 		foreach ($addresses as $index => $destiny) {			
 			try {
 				
-				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+				$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 				$mail->addAddress($destiny);
 				$mail->isHTML(true);
 				$mail->Subject = 'Se cerro una Publicacion';
@@ -118,7 +121,7 @@ class Notificacion{
 		foreach ($addresses as $index => $destiny) {			
 			try {
 				
-				$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+				$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 				$mail->addAddress($destiny);
 				$mail->isHTML(true);
 				$mail->Subject = 'Se subio el documento final';
@@ -143,7 +146,7 @@ class Notificacion{
 		$mail->SMTPSecure = 'tls';	
 		try {
 			
-			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+			$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
 			$mail->Subject = 'Se reviso el Documento final';
@@ -166,7 +169,7 @@ class Notificacion{
 		$mail->SMTPSecure = 'tls';	
 		try {
 			
-			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+			$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
 			$mail->Subject = 'Se reabrio su Publicacion';
@@ -188,7 +191,7 @@ class Notificacion{
 		$mail->SMTPSecure = 'tls';	
 		try {
 			
-			$mail->setFrom('gamma385438@gmail.com', 'Unidad de Investigacion UCB');
+			$mail->setFrom('unidad.investigacion.ucb@gmail.com', 'Unidad de Investigacion UCB');
 			$mail->addAddress($address);
 			$mail->isHTML(true);
 			$mail->Subject = 'Se reabrio su Investigacion';

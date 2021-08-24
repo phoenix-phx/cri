@@ -217,20 +217,20 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
         $newInv->setFechaInicio($_POST['fechaInicioCI']);
     }
     else if(strlen($fecha_inicio) !== 0){
-        $newInv->setFechaInicio(null);
+        $newInv->setFechaInicio($fecha_inicio);
     }
     else{
-        $newInv->setFechaInicio($fecha_inicio);
+        $newInv->setFechaInicio(null);
     }
     // fecha final
     if(strlen($_POST['fechaFinCI']) > 1){
         $newInv->setFechaFinal($_POST['fechaFinCI']);
     }
     else if(strlen($fecha_fin) !== 0){
-        $newInv->setFechaFinal(null);
+        $newInv->setFechaFinal($fecha_fin);
     }
     else{
-        $newInv->setFechaFin($fecha_fin);
+        $newInv->setFechaFinal(null);
     }
     $newInv->setUnidadInvestigacion($_POST['uniInvCI']);
     $newInv->setLineaInvestigacion($_POST['linInvCI']);
@@ -306,7 +306,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $newAuth->setTipoFiliacion($investigadores[$i]['tipo_filiacion']);
             $newAuth->setUniversidad($investigadores[$i]['unidad_investigacion']);
             $newAuth->setRol("colaboracion");
-            $investigadores[$i] = $newAuth;
+            $investigadores[$i] = $newAuthIn;
         }
         
     }
@@ -348,7 +348,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
 
     //ver si hay cambios en autores secundarios
     if(count($investigadores) !== count($inv_nuevos)){
-        // exec('echo "Fecha fin: ' . $fecha_fin .'" >> lol.txt', $output, $retval);        
+        
         $det = "Se registró el cambio de los Autores Secundarios";
         $hist = new Historial();
         $hist->setFechaCambio($fecha);
@@ -402,8 +402,8 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
     $flag = $finn->exists($pdo, $_REQUEST['inv_id']);
     $fin = new Financiador();
     $fin->setId($finn->getId());
+    // exec('echo "Financiador: ' . $_POST['rExisteFI'] .'" >> lol.txt', $output, $retval);        
     if($_POST['rExisteFI'] === 'si'){
-        
         $fin->setTipoFinanciamiento($_POST['rTipoFI']);
         $fin->setTipoFinanciador($_POST['rTipoFr']);
         if($_POST['rTipoFr'] === 'interno'){
@@ -418,6 +418,7 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $fin->registrarMonto($pdo, $finn->getId());
         }
 
+
         if(strlen($_POST['obsTipoFOCI']) > 1){
             $fin->setObservaciones($_POST['obsTipoFOCI']);
             $fin->registrarObservaciones($pdo, $finn->getId());
@@ -430,9 +431,9 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $fin->setNombreFinanciador("");
             $fin->actualizar($pdo, $finn->getId());
 
-            $fin->setMonto("");
+            $fin->setMonto(null);
             $fin->registrarMonto($pdo, $finn->getId());
-            $fin->setObservaciones("");
+            $fin->setObservaciones(null);
             $fin->registrarObservaciones($pdo, $finn->getId());
         }
         else{

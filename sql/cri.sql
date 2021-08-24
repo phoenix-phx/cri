@@ -164,7 +164,7 @@ before update on publicacion
 for each row
 begin
 
-	if(old.titulo != new.titulo) then
+	if(old.titulo <> new.titulo) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -173,7 +173,7 @@ begin
 			"Ahora:", char(13), new.titulo, char(13) ) );
 	end if;
 
-	if(old.resumen != new.resumen) then
+	if(old.resumen <> new.resumen) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -182,7 +182,7 @@ begin
 			"Ahora:", char(13), new.resumen, char(13) ) );
 	end if;
 
-	if(old.tipo != new.tipo) then
+	if(old.tipo <> new.tipo) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -191,7 +191,7 @@ begin
 			"Ahora:", char(13), new.tipo, char(13) ) );
 	end if;
 
-	if(old.APA != new.APA) then
+	if(old.APA <> new.APA) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -200,7 +200,7 @@ begin
 			"Ahora:", char(13), new.APA, char(13) ) );
 	end if;
 
-	if(old.unidad_investigacion != new.unidad_investigacion) then
+	if(old.unidad_investigacion <> new.unidad_investigacion) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -209,7 +209,7 @@ begin
 			"Ahora:", char(13), new.unidad_investigacion, char(13) ) );
 	end if;
 
-	if(old.linea_investigacion != new.linea_investigacion) then
+	if(old.linea_investigacion <> new.linea_investigacion) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, 
 		current_date(), 
@@ -218,7 +218,7 @@ begin
 			"Ahora:", char(13), new.linea_investigacion, char(13) ) );
 	end if;
 
-	if(old.estado != new.estado) then
+	if(old.estado <> new.estado) then
 		insert into historial_pub(idPub, fecha_cambio, detalle) values
 		(new.idPub, current_date(), "Se registró el cambio de la UNIDAD DE INVESTIGACIÓN");
 	end if;
