@@ -32,7 +32,8 @@ header("Pragma: no-cache");
 
 	<?php
 	$sql = 'SELECT *
-			FROM usuario';
+			FROM usuario
+			WHERE usuario.rol = "investigador"';
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute();
 	while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
