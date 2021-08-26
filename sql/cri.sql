@@ -1,4 +1,4 @@
-create database cri;
+create database cri CHARACTER SET utf8 COLLATE utf8_general_ci;
 use cri;
 
 create table usuario(
