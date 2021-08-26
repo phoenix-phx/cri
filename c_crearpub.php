@@ -98,103 +98,113 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         }
     }
 
-    // publicacion
-    $pub = new Publicacion();
+    try{
+        // publicacion
+        $pdo->beginTransaction();
+        $pub = new Publicacion();
 
-    $pub->setTitulo($_POST['tituloCP']);
-    $pub->setResumen($_POST['resumenCP']);
-    $pub->setTipo($_POST['tipoCP']);
-    $pub->setApa($_POST['apaCP']);
-    $pub->setUnidadInvestigacion($_POST['uInvestigacion']);
-    $pub->setLineaInvestigacion($_POST['linInvCP']);
-    //$pub->setEstado('en curso');
+        $pub->setTitulo($_POST['tituloCP']);
+        $pub->setResumen($_POST['resumenCP']);
+        $pub->setTipo($_POST['tipoCP']);
+        $pub->setApa($_POST['apaCP']);
+        $pub->setUnidadInvestigacion($_POST['uInvestigacion']);
+        $pub->setLineaInvestigacion($_POST['linInvCP']);
+        //$pub->setEstado('en curso');
 
-    //estado
-    if($_POST['estPub'] === 'curso'){
-        $pub->setEstado("en curso");
-        $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
-    }else if($_POST['estPub'] === 'terminado'){
-        $pub->setEstado("cerrado");
-        $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
-    }
-    
-    $pub->crear($_SESSION['idUsuario'], $pdo);
-    $pub_id = $pub->getId();
-
-    $dia = getdate();
-    $finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
-    $nombre = explode(' ', $_POST['tituloCP']);
-    $codigo = $finicio . '_';
-    for ($i=0; $i < count($nombre); $i++) { 
-        $codigo = $codigo . strtolower($nombre[$i]);
-    }
-    
-    $pub->setCodigo($codigo);
-    
-    $pub->completarDetalles($_SESSION['idUsuario'], $pdo);
-
-    if(strlen($_POST['invCP']) > 1){
-        $pub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
-    }
-
-    // autor principal
-    if($_POST['rPUniCP'] === 'interno'){
-        $auth = new AutorInterno();
-
-        $auth->setNombre($_POST['nomInvPCP']);
-        $auth->setTipoFiliacion($_POST['rPUniCP']);
-        $auth->setRol('principal');
-        $auth->setUnidadInvestigacion($_POST['uniInvPCP']);
-        $auth->setFiliacion($_POST['rFiliacionIPCP']);
+        //estado
+        if($_POST['estPub'] === 'curso'){
+            $pub->setEstado("en curso");
+            $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
+        }else if($_POST['estPub'] === 'terminado'){
+            $pub->setEstado("cerrado");
+            $pub->cerrarPub($_SESSION['idUsuario'], $inv_id, $pdo);
+        }
         
-        $auth->crearAutor($pub_id, 'publicacion', $pdo);
-    }
-    else if($_POST['rPUniCP'] === 'externo'){
-        $auth = new AutorExterno();
+        $pub->crear($_SESSION['idUsuario'], $pdo);
+        $pub_id = $pub->getId();
 
-        $auth->setNombre($_POST['nomInvPCP']);
-        $auth->setTipoFiliacion($_POST['rPUniCP']);
-        $auth->setRol('principal');
-        $auth->setUniversidad($_POST['uniIPCP']);
+        $dia = getdate();
+        $finicio = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
+        $nombre = explode(' ', $_POST['tituloCP']);
+        $codigo = $finicio . '_';
+        for ($i=0; $i < count($nombre); $i++) { 
+            $codigo = $codigo . strtolower($nombre[$i]);
+        }
+        
+        $pub->setCodigo($codigo);
+        
+        $pub->completarDetalles($_SESSION['idUsuario'], $pdo);
 
-        $auth->crearAutor($pub_id, 'publicacion', $pdo);
-    }
+        if(strlen($_POST['invCP']) > 1){
+            $pub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
+        }
 
-    // autores de colaboracion
-    for ($i=0; $i <= 100 ; $i++) {
-        if( !isset($_POST['nomInvSCP'.$i]) ) continue;
-        $nombre = $_POST['nomInvSCP'.$i];
-        $pertenencia = $_POST['rPUniCP'.$i];
-        if($pertenencia === 'interno'){
-            $unidad = $_POST['uniInvSCP'.$i];
-            $filiacion = $_POST['rFiliacionISCP'.$i];
-
+        // autor principal
+        if($_POST['rPUniCP'] === 'interno'){
             $auth = new AutorInterno();
 
-            $auth->setNombre($nombre);
-            $auth->setTipoFiliacion($pertenencia);
-            $auth->setRol('colaboracion');
-            $auth->setUnidadInvestigacion($unidad);
-            $auth->setFiliacion($filiacion);
+            $auth->setNombre($_POST['nomInvPCP']);
+            $auth->setTipoFiliacion($_POST['rPUniCP']);
+            $auth->setRol('principal');
+            $auth->setUnidadInvestigacion($_POST['uniInvPCP']);
+            $auth->setFiliacion($_POST['rFiliacionIPCP']);
             
             $auth->crearAutor($pub_id, 'publicacion', $pdo);
         }
-        else if($pertenencia === 'externo'){
-            $univ = $_POST['uniISCP'.$i];
-            
+        else if($_POST['rPUniCP'] === 'externo'){
             $auth = new AutorExterno();
 
-            $auth->setNombre($nombre);
-            $auth->setTipoFiliacion($pertenencia);
-            $auth->setRol('colaboracion');
-            $auth->setUniversidad($univ);
-            
+            $auth->setNombre($_POST['nomInvPCP']);
+            $auth->setTipoFiliacion($_POST['rPUniCP']);
+            $auth->setRol('principal');
+            $auth->setUniversidad($_POST['uniIPCP']);
+
             $auth->crearAutor($pub_id, 'publicacion', $pdo);
         }
+
+        // autores de colaboracion
+        for ($i=0; $i <= 100 ; $i++) {
+            if( !isset($_POST['nomInvSCP'.$i]) ) continue;
+            $nombre = $_POST['nomInvSCP'.$i];
+            $pertenencia = $_POST['rPUniCP'.$i];
+            if($pertenencia === 'interno'){
+                $unidad = $_POST['uniInvSCP'.$i];
+                $filiacion = $_POST['rFiliacionISCP'.$i];
+
+                $auth = new AutorInterno();
+
+                $auth->setNombre($nombre);
+                $auth->setTipoFiliacion($pertenencia);
+                $auth->setRol('colaboracion');
+                $auth->setUnidadInvestigacion($unidad);
+                $auth->setFiliacion($filiacion);
+                
+                $auth->crearAutor($pub_id, 'publicacion', $pdo);
+            }
+            else if($pertenencia === 'externo'){
+                $univ = $_POST['uniISCP'.$i];
+                
+                $auth = new AutorExterno();
+
+                $auth->setNombre($nombre);
+                $auth->setTipoFiliacion($pertenencia);
+                $auth->setRol('colaboracion');
+                $auth->setUniversidad($univ);
+                
+                $auth->crearAutor($pub_id, 'publicacion', $pdo);
+            }
+        }
+        
+        $pdo->commit();
+        $_SESSION["success"] = 'publicacion creada exitosamente';
+        header('Location: detalles_publicacion_inv.php?pub_id='.$pub_id);
+        return;
+    }catch(Exception $e){
+        $pdo->rollback();
+        $error = "Ocurrio un error inesperado, intentalo nuevamente";
+        $_SESSION['error'] = $error;
+        header('Location: nueva_publicacion.php');
+        return;
     }
-    
-    $_SESSION["success"] = 'publicacion creada exitosamente';
-    header('Location: detalles_publicacion_inv.php?pub_id='.$pub_id);
-    return;
 }
 ?>

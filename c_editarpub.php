@@ -172,135 +172,145 @@ if(isset($_POST['tituloCP']) && isset($_POST['resumenCP']) && isset($_POST['tipo
         }
     }
 
-    // registrar cambios
-    $dia = getdate();
-    $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
-    
-    if($pub->getTitulo() !== $_POST['tituloCP']){
-        $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $pub->getTitulo() . "\n\nAhora:\n" . $_POST['tituloCP'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-
-    if($pub->getResumen() !== $_POST['resumenCP']){
-        $det = 'Se registró el cambio del RESUMEN' . "\n\nAntes:\n" . $pub->getResumen() . "\n\nAhora:\n" . $_POST['resumenCP'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-
-    if($pub->getTipo() !== $_POST['tipoCP']){
-        $det = 'Se registró el cambio del TIPO' . "\n\nAntes:\n" . $pub->getTipo() . "\n\nAhora:\n" . $_POST['tipoCP'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-
-    if($pub->getApa() !== $_POST['apaCP']){
-        $det = 'Se registró el cambio de la CITACION APA' . "\n\nAntes:\n" . $pub->getApa() . "\n\nAhora:\n" . $_POST['apaCP'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-
-    if($pub->getUnidadInvestigacion() !== $_POST['uInvestigacion']){
-        $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getUnidadInvestigacion() . "\n\nAhora:\n" . $_POST['uInvestigacion'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-    
-    if($pub->getLineaInvestigacion() !== $_POST['linInv']){
-        $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getLineaInvestigacion() . "\n\nAhora:\n" . $_POST['linInv'] . "\n";
-        $hist = new Historial();
-        $hist->setFechaCambio($fecha);
-        $hist->setDetalle($det);
-        $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
-    }
-
-    // publicacion
-    $newPub = new Publicacion();
-
-    $newPub->setTitulo($_POST['tituloCP']); 
-    $newPub->setResumen($_POST['resumenCP']); 
-    $newPub->setTipo($_POST['tipoCP']); 
-    $newPub->setApa($_POST['apaCP']);
-    $newPub->setUnidadInvestigacion($_POST['uInvestigacion']); 
-    $newPub->setLineaInvestigacion($_POST['linInv']);
-    $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
-
-    if(strlen($_POST['invCP']) > 1){
-        $newPub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
-    }
-    else if(strlen($_POST['invCP']) < 1 && strlen($investigacion) !== 0){
-        $newPub->desasociarInvestigacion($_SESSION['idUsuario'], $pdo);
-    }
-
-    // autor principal
-    if($_POST['rPUniCP'] === 'interno'){
-        $newAuth = new AutorInterno();
-
-        $newAuth->setNombre($_POST['nomInvPCP']);
-        $newAuth->setTipoFiliacion($_POST['rPUniCP']);
-        $newAuth->setUnidadInvestigacion($_POST['uniInvPCP']);
-        $newAuth->setFiliacion($_POST['rFiliacionIPCP']);
-
-        $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
-    }
-    else if($_POST['rPUniCP'] === 'externo'){
-        $newAuth = new AutorExterno();
-
-        $newAuth->setNombre($_POST['nomInvPCP']);
-        $newAuth->setTipoFiliacion($_POST['rPUniCP']);
-        $newAuth->setUniversidad($_POST['uniIPCP']);
-
-        $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
-    }
- 
-    // autores de colaboracion
-    $auths = new Autor();
-    $auths->eliminarAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
-
-    for ($i=0; $i <= 100 ; $i++) {
-        if( !isset($_POST['nomInvSCP'.$i]) ) continue;
-        $nombre = $_POST['nomInvSCP'.$i];
-        $pertenencia = $_POST['rPUniCP'.$i];
-        if($pertenencia === 'interno'){
-            $unidad = $_POST['uniInvSCP'.$i];
-            $filiacion = $_POST['rFiliacionISCP'.$i];
-
-            $auth = new AutorInterno();
-
-            $auth->setNombre($nombre);
-            $auth->setTipoFiliacion($pertenencia);
-            $auth->setRol('colaboracion');
-            $auth->setUnidadInvestigacion($unidad);
-            $auth->setFiliacion($filiacion);
-            
-            $auth->crearAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
+    try{
+        $pdo->beginTransaction();
+        // registrar cambios
+        $dia = getdate();
+        $fecha = $dia['year'] . '-' . $dia['mon'] . '-' . $dia['mday'];
+        
+        if($pub->getTitulo() !== $_POST['tituloCP']){
+            $det = 'Se registró el cambio del TITULO' . "\n\nAntes:\n" . $pub->getTitulo() . "\n\nAhora:\n" . $_POST['tituloCP'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
         }
-        else if($pertenencia === 'externo'){
-            $univ = $_POST['uniISCP'.$i];
-            
-            $auth = new AutorExterno();
 
-            $auth->setNombre($nombre);
-            $auth->setTipoFiliacion($pertenencia);
-            $auth->setRol('colaboracion');
-            $auth->setUniversidad($univ);
-            
-            $auth->crearAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
+        if($pub->getResumen() !== $_POST['resumenCP']){
+            $det = 'Se registró el cambio del RESUMEN' . "\n\nAntes:\n" . $pub->getResumen() . "\n\nAhora:\n" . $_POST['resumenCP'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
         }
+
+        if($pub->getTipo() !== $_POST['tipoCP']){
+            $det = 'Se registró el cambio del TIPO' . "\n\nAntes:\n" . $pub->getTipo() . "\n\nAhora:\n" . $_POST['tipoCP'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+        }
+
+        if($pub->getApa() !== $_POST['apaCP']){
+            $det = 'Se registró el cambio de la CITACION APA' . "\n\nAntes:\n" . $pub->getApa() . "\n\nAhora:\n" . $_POST['apaCP'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+        }
+
+        if($pub->getUnidadInvestigacion() !== $_POST['uInvestigacion']){
+            $det = 'Se registró el cambio de la UNIDAD DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getUnidadInvestigacion() . "\n\nAhora:\n" . $_POST['uInvestigacion'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+        }
+        
+        if($pub->getLineaInvestigacion() !== $_POST['linInv']){
+            $det = 'Se registró el cambio de la LINEA DE INVESTIGACION' . "\n\nAntes:\n" . $pub->getLineaInvestigacion() . "\n\nAhora:\n" . $_POST['linInv'] . "\n";
+            $hist = new Historial();
+            $hist->setFechaCambio($fecha);
+            $hist->setDetalle($det);
+            $hist->registrarCambio($_REQUEST['pub_id'], 'publicacion', $pdo);
+        }
+
+        // publicacion
+        $newPub = new Publicacion();
+
+        $newPub->setTitulo($_POST['tituloCP']); 
+        $newPub->setResumen($_POST['resumenCP']); 
+        $newPub->setTipo($_POST['tipoCP']); 
+        $newPub->setApa($_POST['apaCP']);
+        $newPub->setUnidadInvestigacion($_POST['uInvestigacion']); 
+        $newPub->setLineaInvestigacion($_POST['linInv']);
+        $newPub->actualizarDatos($_SESSION['idUsuario'], $_REQUEST['pub_id'], $pdo);
+
+        if(strlen($_POST['invCP']) > 1){
+            $newPub->asociarInvestigacion($_SESSION['idUsuario'], $idInv, $pdo);
+        }
+        else if(strlen($_POST['invCP']) < 1 && strlen($investigacion) !== 0){
+            $newPub->desasociarInvestigacion($_SESSION['idUsuario'], $pdo);
+        }
+
+        // autor principal
+        if($_POST['rPUniCP'] === 'interno'){
+            $newAuth = new AutorInterno();
+
+            $newAuth->setNombre($_POST['nomInvPCP']);
+            $newAuth->setTipoFiliacion($_POST['rPUniCP']);
+            $newAuth->setUnidadInvestigacion($_POST['uniInvPCP']);
+            $newAuth->setFiliacion($_POST['rFiliacionIPCP']);
+
+            $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
+        }
+        else if($_POST['rPUniCP'] === 'externo'){
+            $newAuth = new AutorExterno();
+
+            $newAuth->setNombre($_POST['nomInvPCP']);
+            $newAuth->setTipoFiliacion($_POST['rPUniCP']);
+            $newAuth->setUniversidad($_POST['uniIPCP']);
+
+            $newAuth->actualizarAutor($_POST['pautor_id'], $pdo);
+        }
+     
+        // autores de colaboracion
+        $auths = new Autor();
+        $auths->eliminarAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
+
+        for ($i=0; $i <= 100 ; $i++) {
+            if( !isset($_POST['nomInvSCP'.$i]) ) continue;
+            $nombre = $_POST['nomInvSCP'.$i];
+            $pertenencia = $_POST['rPUniCP'.$i];
+            if($pertenencia === 'interno'){
+                $unidad = $_POST['uniInvSCP'.$i];
+                $filiacion = $_POST['rFiliacionISCP'.$i];
+
+                $auth = new AutorInterno();
+
+                $auth->setNombre($nombre);
+                $auth->setTipoFiliacion($pertenencia);
+                $auth->setRol('colaboracion');
+                $auth->setUnidadInvestigacion($unidad);
+                $auth->setFiliacion($filiacion);
+                
+                $auth->crearAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
+            }
+            else if($pertenencia === 'externo'){
+                $univ = $_POST['uniISCP'.$i];
+                
+                $auth = new AutorExterno();
+
+                $auth->setNombre($nombre);
+                $auth->setTipoFiliacion($pertenencia);
+                $auth->setRol('colaboracion');
+                $auth->setUniversidad($univ);
+                
+                $auth->crearAutor($_REQUEST['pub_id'], 'publicacion', $pdo);
+            }
+        }
+
+        $pdo->commit();
+        $_SESSION["success"] = 'cambios guardados correctamente';
+        header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
+        return;   
+    }catch(Exception $e){
+        $pdo->rollback();
+        $error = "Ocurrio un error inesperado, intentalo nuevamente";
+        $_SESSION['error'] = $error;
+        header("Location: editar_publicacion.php?pub_id=".$_REQUEST['pub_id']);
+        return;
     }
-    
-    $_SESSION["success"] = 'cambios guardados correctamente';
-    header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
-    return;   
 }
 ?>

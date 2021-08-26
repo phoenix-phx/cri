@@ -41,29 +41,37 @@ if(isset($_POST['pass']) && isset($_POST['npass'])){
         return;
     }
 	else{
-    	$us = new Usuario();
-    	$res = $us->authenticatePass($_SESSION['idUsuario'], $_POST['pass'], $_SESSION['permisos'], $pdo);
-        if($res === false){
-            $_SESSION['error'] = 'La contraseña actual es incorrecta';
-            header("Location: change_pass.php?user_id=".$_REQUEST['user_id']);
-            return;                
-        }
-        else{
-            if($res !== $_REQUEST['user_id']){
-                $_SESSION['error'] = 'Ha ocurrido un error, contactese con soporte';
+        try{
+        	$us = new Usuario();
+        	$res = $us->authenticatePass($_SESSION['idUsuario'], $_POST['pass'], $_SESSION['permisos'], $pdo);
+            if($res === false){
+                $_SESSION['error'] = 'La contraseña actual es incorrecta';
                 header("Location: change_pass.php?user_id=".$_REQUEST['user_id']);
-                return;                                    
+                return;                
             }
-        }
-        $us->changePass($_SESSION['idUsuario'], $_POST['npass'], $pdo);
-        if($_SESSION['permisos'] === 'investigador'){
-            $_SESSION['success'] = 'Contraseña actualizada correctamente';
-            header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
-            return;
-        }
-        else if($_SESSION['permisos'] === 'administrativo'){
-            $_SESSION['success'] = 'Contraseña actualizada correctamente';
-            header("Location: admin_editar_usuario.php?user_id=".$_REQUEST['user_id']);
+            else{
+                if($res !== $_REQUEST['user_id']){
+                    $_SESSION['error'] = 'Ha ocurrido un error, contactese con soporte';
+                    header("Location: change_pass.php?user_id=".$_REQUEST['user_id']);
+                    return;                                    
+                }
+            }
+            $us->changePass($_SESSION['idUsuario'], $_POST['npass'], $pdo);
+            if($_SESSION['permisos'] === 'investigador'){
+                $_SESSION['success'] = 'Contraseña actualizada correctamente';
+                header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
+            }
+            else if($_SESSION['permisos'] === 'administrativo'){
+                $_SESSION['success'] = 'Contraseña actualizada correctamente';
+                header("Location: admin_editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
+            }
+        }catch(Exception $e){
+            $pdo->rollback();
+            $error = "Ocurrio un error inesperado, intentalo nuevamente";
+            $_SESSION['error'] = $error;
+            header("Location: change_pass.php?user_id=".$_REQUEST['user_id']);
             return;
         }
     }

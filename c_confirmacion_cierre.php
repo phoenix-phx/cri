@@ -15,24 +15,34 @@ if( !isset($_REQUEST['inv_id'])) {
     return;
 }
 
-$inv = new Investigacion();
-$inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
-$inv->setEstado('cerrado');
-$inv->cerrarInv($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
+try{
+    $inv = new Investigacion();
+    $inv->loadDetalles($_SESSION['idUsuario'], $_REQUEST['inv_id'], 'investigador', $pdo);
+    $inv->setEstado('cerrado');
+    $inv->cerrarInv($_SESSION['idUsuario'], $_REQUEST['inv_id'], $pdo);
 
-$us = new Usuario();
-$us->loadDetalles($_SESSION['idUsuario'], $pdo);
+    $us = new Usuario();
+    $us->loadDetalles($_SESSION['idUsuario'], $pdo);
 
-$admins = $us->searchAdminEmails($pdo);
-if(count($admins) !== 0){
-    for ($i=0; $i < count($admins); $i++) { 
-        $mails[] = $admins[$i]['correo'];
-    }    
+    $admins = $us->searchAdminEmails($pdo);
+    if(count($admins) !== 0){
+        for ($i=0; $i < count($admins); $i++) { 
+            $mails[] = $admins[$i]['correo'];
+        }    
+    }
+
+    $pdo->beginTransaction();
+    $notify = new Notificacion();
+    $notify->cierreInv($mails, $inv->getTitulo(), $us->getNombre());
+    $pdo->commit();
+    header('Location: investigacion_cerrada.php');
+    return;
 }
-
-$notify = new Notificacion();
-$notify->cierreInv($mails, $inv->getTitulo(), $us->getNombre());
-
-header('Location: investigacion_cerrada.php');
-return;
+catch(Exception $e){
+    $pdo->rollback();
+    $error = "Ocurrio un error inesperado, intentalo nuevamente";
+    $_SESSION['error'] = $error;
+    header('Location: listaInv_investigador.php');
+    return;
+}
 ?>

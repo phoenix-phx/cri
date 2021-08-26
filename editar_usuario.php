@@ -10,6 +10,7 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos'])){
     <title>Editar Usuario</title>
     <?php require_once "c_editarusuario.php"?>
     <link rel="stylesheet" href="style/styles.css">
+    <meta charset="utf-8">
 </head>
 <body>
     <!-- header -->

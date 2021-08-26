@@ -15,6 +15,7 @@ if( $_SESSION['permisos'] !== "administrativo"){
     <title>Crear Usuario</title>
     <?php //require_once "c_crearusuario.php"?>
     <link rel="stylesheet" href="style/styles.css">
+    <meta charset="utf-8">
 </head>
 <body>
     <!-- header -->

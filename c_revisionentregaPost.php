@@ -28,21 +28,31 @@ if(isset($_POST['obsRevEF'])){
         return;
     }
     else {
-        $pub = new Publicacion();
+        try{
+            $pdo->beginTransaction();
+            $pub = new Publicacion();
 
-        $pub->sendFeedback($_REQUEST['pub_id'], $_POST['obsRevEF'], $pdo);
+            $pub->sendFeedback($_REQUEST['pub_id'], $_POST['obsRevEF'], $pdo);
 
-        $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'administrativo', $pdo);
+            $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'administrativo', $pdo);
 
-        $us = new Usuario();
-        $us->loadDetalles($pub->getIdUsuario(), $pdo);
-        
-        $notify = new Notificacion();
-        $notify->revisionCompleta($us->getCorreo(), $pub->getTitulo());
+            $us = new Usuario();
+            $us->loadDetalles($pub->getIdUsuario(), $pdo);
+            
+            $notify = new Notificacion();
+            $notify->revisionCompleta($us->getCorreo(), $pub->getTitulo());
 
-        $_SESSION["success"] = 'retroalimentacion enviada';
-        header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);
-        return;
+            $pdo->commit();
+            $_SESSION["success"] = 'retroalimentacion enviada';
+            header('Location: detalles_publicacion_admin.php?pub_id='.$_REQUEST['pub_id']);
+            return;
+        }catch(Exception $e){
+            $pdo->rollback();
+            $error = "Ocurrio un error inesperado, intentalo nuevamente";
+            $_SESSION['error'] = $error;
+            header("Location: revision_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
+            return;
+        }
     }
 }
 ?>

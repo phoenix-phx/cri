@@ -11,6 +11,7 @@ if( !isset($_SESSION['idUsuario']) || !isset($_SESSION['permisos']) || $_SESSION
     <?php //require_once "c_crearinv.php"?>
     <script src="script/s_nueva_investigacion.js"></script>
     <link rel="stylesheet" href="style/styles.css">
+    <meta charset="utf-8">
 </head>
 <body>
     <!-- header -->

@@ -63,26 +63,35 @@ if($_SESSION['permisos'] === 'investigador'){
             return;
         }
         else{
-        	$us = new Usuario();
-            $us->setId($_REQUEST['user_id']);
-        	$us->setNombre($_POST['nombre']);
-        	$us->setCorreo($_POST['correo']);
+            try{
+                $pdo->beginTransaction();
+                $us = new Usuario();
+                $us->setId($_REQUEST['user_id']);
+            	$us->setNombre($_POST['nombre']);
+            	$us->setCorreo($_POST['correo']);
 
-        	$us->actualizarDatos($pdo);
+            	$us->actualizarDatos($pdo);
 
-         	if(strlen($_POST['celular']) > 0){
-         		$us->setCelular($_POST['celular']);
-         		$us->agregarCelular($pdo);
-    	    }
-    	    if(strlen($_POST['telefono']) > 0){
-    	    	$us->setTelefono($_POST['telefono']);
-         		$us->agregarTelefono($pdo);
-    	    }
-    	    echo "estoy aqui we D:";
-    	    
-            $_SESSION["success"] = 'Los cambios se han guardado correctamente y serán visibles desde la siguiente sesión';
-            header('Location: home_investigador.php');
-            return;
+             	if(strlen($_POST['celular']) > 0){
+             		$us->setCelular($_POST['celular']);
+             		$us->agregarCelular($pdo);
+        	    }
+        	    if(strlen($_POST['telefono']) > 0){
+        	    	$us->setTelefono($_POST['telefono']);
+             		$us->agregarTelefono($pdo);
+        	    }
+        	    
+                $pdo->commit();
+                $_SESSION["success"] = 'Los cambios se han guardado correctamente y serán visibles desde la siguiente sesión';
+                header('Location: home_investigador.php');
+                return;
+            }catch(Exception $e){
+                $pdo->rollback();
+                $error = "Ocurrio un error inesperado, intentalo nuevamente";
+                $_SESSION['error'] = $error;
+                header("Location: editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
+            }
         }
     }
 }
@@ -119,29 +128,38 @@ else if($_SESSION['permisos'] === 'administrativo'){
             return;
         }
         else{
-            echo("Estoy aqui");
-            $us = new Usuario();
-            $us->setId($_REQUEST['user_id']);
-            $us->setNombre($_POST['nombre']);
-            $us->setCorreo($_POST['correo']);
-            $us->setFiliacion($_POST['rbfiliacion']);
-            $us->setUnidadInvestigacion($_POST['tUnidadI']);
-            $us->setRol($_POST['rbpermisos']);
+            try{
+                $pdo->beginTransaction();
+                $us = new Usuario();
+                $us->setId($_REQUEST['user_id']);
+                $us->setNombre($_POST['nombre']);
+                $us->setCorreo($_POST['correo']);
+                $us->setFiliacion($_POST['rbfiliacion']);
+                $us->setUnidadInvestigacion($_POST['tUnidadI']);
+                $us->setRol($_POST['rbpermisos']);
 
-            $us->actualizarDatosAdmin($pdo);
+                $us->actualizarDatosAdmin($pdo);
 
-            if(strlen($_POST['celular']) > 0){
-                $us->setCelular($_POST['celular']);
-                $us->agregarCelular($pdo);
+                if(strlen($_POST['celular']) > 0){
+                    $us->setCelular($_POST['celular']);
+                    $us->agregarCelular($pdo);
+                }
+                if(strlen($_POST['telefono']) > 0){
+                    $us->setTelefono($_POST['telefono']);
+                    $us->agregarTelefono($pdo);
+                }
+                
+                $pdo->commit();
+                $_SESSION["success"] = 'cambios guardados correctamente';
+                header('Location: home_administrativo.php');
+                return;            
+            }catch(Exception $e){
+                $pdo->rollback();
+                $error = "Ocurrio un error inesperado, intentalo nuevamente";
+                $_SESSION['error'] = $error;
+                header("Location: admin_editar_usuario.php?user_id=".$_REQUEST['user_id']);
+                return;
             }
-            if(strlen($_POST['telefono']) > 0){
-                $us->setTelefono($_POST['telefono']);
-                $us->agregarTelefono($pdo);
-            }
-            
-            $_SESSION["success"] = 'cambios guardados correctamente';
-            header('Location: home_administrativo.php');
-            return;            
         }
     }
 }

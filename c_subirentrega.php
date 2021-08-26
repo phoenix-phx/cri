@@ -32,37 +32,47 @@ if(isset($_POST['descripcionEnvio'])){
         return;        
     }
     else {
-        $pub = new Publicacion();
+        try{
+            $pdo->beginTransaction();
+            $pub = new Publicacion();
 
-        $name = $_FILES['archivoEntregaF']['name'];
-        $type = $_FILES['archivoEntregaF']['type'];
-        $data = file_get_contents($_FILES['archivoEntregaF']['tmp_name']);
-        $size = $_FILES['archivoEntregaF']['size'];
-        
-        $state = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
-        if($state === false){
-            $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $_POST['descripcionEnvio'] ,$pdo);
+            $name = $_FILES['archivoEntregaF']['name'];
+            $type = $_FILES['archivoEntregaF']['type'];
+            $data = file_get_contents($_FILES['archivoEntregaF']['tmp_name']);
+            $size = $_FILES['archivoEntregaF']['size'];
+            
+            $state = $pub->existsDoc($_REQUEST['pub_id'], $pdo);
+            if($state === false){
+                $pub->subirEntrega($_REQUEST['pub_id'], $name, $type, $data, $_POST['descripcionEnvio'] ,$pdo);
+            }
+            else if($state === true){
+                $pub->updateEntrega($_REQUEST['pub_id'], $name, $type, $data, $_POST['descripcionEnvio'] ,$pdo);
+            }
+            $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
+
+            $us = new Usuario();
+            $us->loadDetalles($_SESSION['idUsuario'], $pdo);
+            $admins = $us->searchAdminEmails($pdo);
+            if(count($admins) !== 0){
+                for ($i=0; $i < count($admins); $i++) { 
+                    $mails[] = $admins[$i]['correo'];
+                }    
+            }
+
+            $notify = new Notificacion();
+            $notify->documentoFinalPub($mails, $pub->getTitulo(), $us->getNombre());
+
+            $pdo->commit();
+            $_SESSION["success"] = 'documento subido correctamente!';
+            header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
+            return;
+        }catch(Exception $e){
+            $pdo->rollback();
+            $error = "Ocurrio un error inesperado, intentalo nuevamente";
+            $_SESSION['error'] = $error;
+            header("Location: subir_entrega_final.php?pub_id=".$_REQUEST['pub_id']);
+            return;
         }
-        else if($state === true){
-            $pub->updateEntrega($_REQUEST['pub_id'], $name, $type, $data, $_POST['descripcionEnvio'] ,$pdo);
-        }
-        $pub->loadDetalles($_SESSION['idUsuario'], $_REQUEST['pub_id'], 'investigador', $pdo);
-
-        $us = new Usuario();
-        $us->loadDetalles($_SESSION['idUsuario'], $pdo);
-        $admins = $us->searchAdminEmails($pdo);
-        if(count($admins) !== 0){
-            for ($i=0; $i < count($admins); $i++) { 
-                $mails[] = $admins[$i]['correo'];
-            }    
-        }
-
-        $notify = new Notificacion();
-        $notify->documentoFinalPub($mails, $pub->getTitulo(), $us->getNombre());
-
-        $_SESSION["success"] = 'documento subido correctamente!';
-        header('Location: detalles_publicacion_inv.php?pub_id='.$_REQUEST['pub_id']);
-        return;
     }
 }
 ?>

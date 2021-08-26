@@ -39,44 +39,54 @@ if(isset($_POST['nombre']) && isset($_POST['correo']) && isset($_POST['celular']
         return;
     }
     else{
-        $us = new Usuario();
-        
-        $mails[] = $_POST['correo'];
-        $admins = $us->searchAdminEmails($pdo);
-        if(count($admins) !== 0){
-            for ($i=0; $i < count($admins); $i++) { 
-                $mails[] = $admins[$i]['correo'];
-            }    
+        try{
+            $pdo->beginTransaction();
+            $us = new Usuario();
+            
+            $mails[] = $_POST['correo'];
+            $admins = $us->searchAdminEmails($pdo);
+            if(count($admins) !== 0){
+                for ($i=0; $i < count($admins); $i++) { 
+                    $mails[] = $admins[$i]['correo'];
+                }    
+            }
+
+        	$us->setNombre($_POST['nombre']);
+        	$us->setFiliacion($_POST['rbfiliacion']);
+        	$us->setUnidadInvestigacion($_POST['tUnidadI']);
+        	$us->setRol($_POST['rbpermisos']);
+        	$us->setCorreo($_POST['correo']);
+
+        	$us->crear($pdo);
+            $profile_id = $pdo->lastInsertId();
+
+         	if(strlen($_POST['celular']) > 0){
+         		$us->setCelular($_POST['celular']);
+         		$us->agregarCelular($pdo);
+    	    }
+    	    if(strlen($_POST['telefono']) > 0){
+    	    	$us->setTelefono($_POST['telefono']);
+         		$us->agregarTelefono($pdo);
+    	    }
+
+    	    // user y pass
+    	    $us->asignarDatosLogin($pdo);
+    	    
+            // notificar
+            $notify = new Notificacion();
+            $notify->nuevoUsuario($mails, $us->getUser());
+
+            $pdo->commit();
+    	    $_SESSION["success"] = 'usuario creado correctamente';
+            header('Location: home_administrativo.php');
+            return;
+        }catch(Exception $e){
+            $pdo->rollback();
+            $error = "Ocurrio un error inesperado, intentalo nuevamente";
+            $_SESSION['error'] = $error;
+            header('Location: nuevo_usuario.php');
+            return;
         }
-
-    	$us->setNombre($_POST['nombre']);
-    	$us->setFiliacion($_POST['rbfiliacion']);
-    	$us->setUnidadInvestigacion($_POST['tUnidadI']);
-    	$us->setRol($_POST['rbpermisos']);
-    	$us->setCorreo($_POST['correo']);
-
-    	$us->crear($pdo);
-        $profile_id = $pdo->lastInsertId();
-
-     	if(strlen($_POST['celular']) > 0){
-     		$us->setCelular($_POST['celular']);
-     		$us->agregarCelular($pdo);
-	    }
-	    if(strlen($_POST['telefono']) > 0){
-	    	$us->setTelefono($_POST['telefono']);
-     		$us->agregarTelefono($pdo);
-	    }
-
-	    // user y pass
-	    $us->asignarDatosLogin($pdo);
-	    
-        // notificar
-        $notify = new Notificacion();
-        $notify->nuevoUsuario($mails, $us->getUser());
-
-	    $_SESSION["success"] = 'usuario creado correctamente';
-        header('Location: home_administrativo.php');
-        return;
     }
 }
 ?>
