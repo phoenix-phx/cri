@@ -78,10 +78,29 @@ class Financiador{
             ':inv' => $inv_id,
             ':tfm' => $this->getTipoFinanciamiento(),
            	':tfr' => $this->getTipoFinanciador(),
-            ':nfr' => $this->getNombreFinanciador()
+            ':nfr' => $this->getNombreFinanciador(),
         ));
         $financiador = $pdo->lastInsertId();
         $this->setId($financiador);
+
+
+        $sql = "UPDATE financiador
+                SET  monto = :mn
+                WHERE idFinanciador = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':mn' => null,
+            ':id' => $this->getId()
+        ));     
+
+        $sql = 'UPDATE financiador
+                SET  observaciones = :obs
+                WHERE idFinanciador = :id';
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':obs' => null,
+            ':id' => $this->getId()
+        ));
     }
 
     public function registrarMonto($pdo, $fin_id){

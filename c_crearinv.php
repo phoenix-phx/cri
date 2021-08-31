@@ -284,13 +284,14 @@ if(isset($_POST['invTituloCI']) && isset($_POST['invNomCortoCI']) && isset($_POS
             $fin->registrar($pdo, $inv_id);
 
             if($_POST['rTipoFI'] === 'monetario'){
+                //exec('echo "Monto: ' . $_POST['monto'] .'" >> lol.txt', $output, $retval);   
                 $fin->setMonto($_POST['monto']);
-                $fin->registrarMonto($pdo, $inv_id);            
+                $fin->registrarMonto($pdo, $fin->getId());            
             }
 
             if(strlen($_POST['obsTipoFOCI']) > 1){
                 $fin->setObservaciones($_POST['obsTipoFOCI']);
-                $fin->registrarObservaciones($pdo, $inv_id);
+                $fin->registrarObservaciones($pdo, $fin->getId());
             }            
         }
         else{
