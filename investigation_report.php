@@ -16,7 +16,6 @@ header("Content-Type: application/xls");
 header("Content-Disposition: attachment; filename=ReporteInvestigaciones.xls");
 header("Pragma: no-cache");
 ?>
-
 <table>
 	<tr>
 		<!-- general data -->
@@ -44,6 +43,14 @@ header("Pragma: no-cache");
 	</tr>
 
 	<?php
+	function parse_string($target){
+		$response = str_replace(
+			array('Á', 'É', 'Í', 'Ó', 'Ú', 'Ñ', 'á', 'é', 'í', 'ó', 'ú', 'ñ'), 
+			array('A', 'E', 'I', 'O', 'U', 'N', 'a', 'e', 'i', 'o', 'u', 'n'), 
+			$target);
+		return $response;
+	}
+
 	$sql = "SELECT i.codigo, i.nombre, i.nombre_corto, i.resumen, i.fecha_inicio, i.fecha_fin, i.unidad_investigacion, i.linea_investigacion, i.estado, 
 		f.nombre_financiador, f.tipo_financiador, f.tipo_financiamiento, f.monto, f.observaciones, 
 		a.nombre as autor
@@ -59,15 +66,15 @@ header("Pragma: no-cache");
 
 	<tr>
 		<!-- general data -->
-		<td> <?php echo $row['codigo']?> </td>
-		<td> <?php echo $row['nombre']?> </td>
-		<td> <?php echo $row['nombre_corto']?> </td>
-		<td> <?php echo $row['resumen']?> </td>
-		<td> <?php echo $row['fecha_inicio']?> </td>
-		<td> <?php echo $row['fecha_fin']?> </td>
-		<td> <?php echo $row['unidad_investigacion']?> </td>
-		<td> <?php echo $row['linea_investigacion']?> </td>
-		<td> <?php echo $row['estado']?> </td>
+		<td> <?php echo parse_string($row['codigo'])?> </td>
+		<td> <?php echo parse_string($row['nombre'])?> </td>
+		<td> <?php echo parse_string($row['nombre_corto'])?> </td>
+		<td> <?php echo parse_string($row['resumen'])?> </td>
+		<td> <?php echo parse_string($row['fecha_inicio'])?> </td>
+		<td> <?php echo parse_string($row['fecha_fin'])?> </td>
+		<td> <?php echo parse_string($row['unidad_investigacion'])?> </td>
+		<td> <?php echo parse_string($row['linea_investigacion'])?> </td>
+		<td> <?php echo parse_string($row['estado'])?> </td>
 
 		<!-- finance data -->
 		<td> 

@@ -31,6 +31,14 @@ header("Pragma: no-cache");
 	</tr>
 
 	<?php
+	function parse_string($target){
+		$response = str_replace(
+			array('Á', 'É', 'Í', 'Ó', 'Ú', 'Ñ', 'á', 'é', 'í', 'ó', 'ú', 'ñ'), 
+			array('A', 'E', 'I', 'O', 'U', 'N', 'a', 'e', 'i', 'o', 'u', 'n'), 
+			$target);
+		return $response;
+	}
+
 	$sql = 'SELECT *
 			FROM usuario
 			WHERE usuario.rol = "investigador"';
@@ -41,12 +49,12 @@ header("Pragma: no-cache");
 
 	<tr>
 		<!-- general data -->
-		<td> <?php echo $row['nombre']?> </td>
-		<td> <?php echo $row['correo']?> </td>
-		<td> <?php echo $row['celular']?> </td>
-		<td> <?php echo $row['telefono']?> </td>
-		<td> <?php echo $row['filiacion']?> </td>
-		<td> <?php echo $row['unidad_investigacion']?> </td>
+		<td> <?php echo parse_string($row['nombre'])?> </td>
+		<td> <?php echo parse_string($row['correo'])?> </td>
+		<td> <?php echo parse_string($row['celular'])?> </td>
+		<td> <?php echo parse_string($row['telefono'])?> </td>
+		<td> <?php echo parse_string($row['filiacion'])?> </td>
+		<td> <?php echo parse_string($row['unidad_investigacion'])?> </td>
 		<td>
 			<?php 
 			$subCounter1 = 'SELECT count(*) as invs

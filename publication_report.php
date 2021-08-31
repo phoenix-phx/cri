@@ -36,6 +36,14 @@ header("Pragma: no-cache");
 	</tr>
 
 	<?php
+	function parse_string($target){
+		$response = str_replace(
+			array('Á', 'É', 'Í', 'Ó', 'Ú', 'Ñ', 'á', 'é', 'í', 'ó', 'ú', 'ñ'), 
+			array('A', 'E', 'I', 'O', 'U', 'N', 'a', 'e', 'i', 'o', 'u', 'n'), 
+			$target);
+		return $response;
+	}
+
 	$sql = "SELECT i.codigo, i.titulo, i.resumen, i.idInv, i.tipo, i.APA, i.unidad_investigacion, i.linea_investigacion, i.estado, a.nombre as autor
 			FROM publicacion i, colaborador_pub ci, autor a
 			WHERE i.idPub = ci.idPub
@@ -48,9 +56,9 @@ header("Pragma: no-cache");
 
 	<tr>
 		<!-- general data -->
-		<td> <?php echo $row['codigo']?> </td>
-		<td> <?php echo $row['titulo']?> </td>
-		<td> <?php echo $row['resumen']?> </td>
+		<td> <?php echo parse_string($row['codigo'])?> </td>
+		<td> <?php echo parse_string($row['titulo'])?> </td>
+		<td> <?php echo parse_string($row['resumen'])?> </td>
 		<td> 
 			<?php 
 			if($row['idInv'] !== null){
@@ -60,21 +68,21 @@ header("Pragma: no-cache");
 				$subStmt = $pdo->prepare($subQuery);
 				$subStmt->execute();
 				$subRow = $subStmt->fetch(PDO::FETCH_ASSOC);
-				echo $subRow['inv'];
+				echo parse_string($subRow['inv']);
 			}
 			else{
-				echo $row['idInv'];
+				echo parse_string($row['idInv']);
 			}
 			?> 
 		</td>
-		<td> <?php echo $row['tipo']?> </td>
-		<td> <?php echo $row['APA']?> </td>
-		<td> <?php echo $row['unidad_investigacion']?> </td>
-		<td> <?php echo $row['linea_investigacion']?> </td>
-		<td> <?php echo $row['estado']?> </td>
+		<td> <?php echo parse_string($row['tipo'])?> </td>
+		<td> <?php echo parse_string($row['APA'])?> </td>
+		<td> <?php echo parse_string($row['unidad_investigacion'])?> </td>
+		<td> <?php echo parse_string($row['linea_investigacion'])?> </td>
+		<td> <?php echo parse_string($row['estado'])?> </td>
 
 		<!-- principal author -->
-		<td> <?php echo $row['autor']?> </td>
+		<td> <?php echo parse_string($row['autor'])?> </td>
 	</tr>
 
 	<?php
